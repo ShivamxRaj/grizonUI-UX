@@ -1427,11 +1427,22 @@ img, svg { display: block; max-width: 100%; }
   transform: translateY(-2px);
 }
 
-/* Responsive Breakpoints */
+/* ================================================================
+   RESPONSIVE BREAKPOINTS — FULL MOBILE/TABLET/DESKTOP COVERAGE
+   ================================================================ */
+
+/* ── TABLET & BELOW (≤ 1024px) ───────────────────────────────── */
 @media (max-width: 1024px) {
+  /* Navbar */
+  .nav-pill-container { display: none; }
+  .navbar-hamburger { display: flex; }
+  .navbar-actions .navbar-login-link { display: none; }
+
+  /* Hero */
   .hero-two-col {
     grid-template-columns: 1fr;
-    gap: 50px;
+    gap: 40px;
+    text-align: center;
   }
   .hero-left-content {
     align-items: center;
@@ -1439,38 +1450,179 @@ img, svg { display: block; max-width: 100%; }
   }
   .hero-title-left, .hero-sub-left {
     text-align: center;
+    max-width: 100%;
   }
   .hero-actions-left {
     justify-content: center;
+    flex-wrap: wrap;
   }
-  .mobile-device-frame {
-    position: relative;
-    left: 0; bottom: 0;
-    margin: -30px auto 0;
+  .hero-rating-badge { margin: 24px auto 0; }
+  .hero-eyebrow-tag { margin: 0 auto 24px; }
+  .hero-right-devices {
+    min-height: 300px;
+    max-width: 540px;
+    margin: 0 auto;
   }
-  .nav-pill-container { display: none; }
-  .navbar-hamburger { display: flex; }
-  .sr-grid-4 { grid-template-columns: repeat(2, 1fr); }
-  .sr-grid-3, .sr-grid-2 { grid-template-columns: 1fr; }
+  .bevel-float-card { display: none; }
+  .float-tl, .float-bl, .float-tr, .float-br { display: none; }
+
+  /* Stats */
   .sr-stats-container { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Grids */
+  .sr-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .sr-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .sr-grid-2 { grid-template-columns: 1fr; }
+
+  /* Why Grizon */
   .why-grizon-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  /* Pricing – sr-grid-4 on pricing section → 2 cols on tablet */
+  .sr-grid-4 { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  /* Section padding */
+  .section { padding: 70px 0; }
 }
 
+/* ── MOBILE LANDSCAPE / SMALL TABLET (≤ 768px) ───────────────── */
 @media (max-width: 768px) {
+  /* Navbar */
+  .navbar-row { padding: 14px 20px; }
+
+  /* Hero */
+  .sr-hero { padding-top: 90px; padding-bottom: 50px; }
+  .hero-title-left {
+    font-size: clamp(30px, 8vw, 46px);
+  }
+  .hero-sub-left { font-size: 15px; }
+  .hero-cta-btn {
+    height: 46px;
+    padding: 0 24px;
+    font-size: 14.5px;
+  }
+  .hero-actions-left { gap: 12px; }
+  .hero-perspective-grid { display: none; }
+
+  /* Why Grizon */
   .why-grizon-section { padding: 80px 0 90px; }
-  .why-grizon-grid { grid-template-columns: 1fr; }
+  .why-grizon-grid { grid-template-columns: 1fr; max-width: 520px; }
   .why-card { padding: 26px 24px 28px; }
   .why-paperclip-wrap { right: 20px; }
+  .why-grizon-title { font-size: clamp(32px, 7vw, 44px); }
+
+  /* Stats */
+  .sr-stats-container { grid-template-columns: repeat(2, 1fr); }
+
+  /* Pricing → 1 col stacked on mobile */
+  .sr-grid-4 { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .sr-grid-3 { grid-template-columns: 1fr; }
+
+  /* CTA */
   .sr-cta-card { padding: 48px 24px; border-radius: 24px; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-brand-col { grid-column: 1 / -1; }
+
+  /* Section */
+  .section { padding: 60px 0; }
+  .container { width: 92%; }
 }
 
+/* ── MOBILE PORTRAIT (≤ 640px) ────────────────────────────────── */
 @media (max-width: 640px) {
+  /* Navbar */
+  .navbar-row { padding: 12px 16px; }
+  .navbar-logo-text { font-size: 17px; }
+  .btn-start { padding: 8px 16px; font-size: 13px; }
+
+  /* Hero */
+  .sr-hero { padding-top: 80px; }
+  .hero-title-left { font-size: clamp(26px, 9vw, 38px); }
+  .hero-sub-left { font-size: 14.5px; }
+  .hero-cta-btn { height: 44px; padding: 0 20px; font-size: 14px; }
+  .hero-actions-left { flex-direction: column; align-items: center; width: 100%; }
+  .hero-actions-left .btn-start,
+  .hero-actions-left .btn-outline { width: 100%; max-width: 280px; justify-content: center; }
+  .hero-right-devices { min-height: 240px; }
+  .laptop-device-frame { width: 95%; }
+  .real-phone-wrapper { width: 160px; left: -10px; bottom: 8px; }
+
+  /* Stats */
+  .sr-stats-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .sr-stat-item { padding: 18px 14px; }
+  .sr-stat-val { font-size: clamp(26px, 7vw, 36px); }
+
+  /* Ticker */
+  .ticker-item { font-size: 13px; }
+
+  /* Grids */
   .sr-grid-4 { grid-template-columns: 1fr; }
-  .sr-stats-container { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
+  .sr-grid-3 { grid-template-columns: 1fr; }
+  .sr-grid-2 { grid-template-columns: 1fr; }
+
+  /* Why Grizon */
+  .why-grizon-section { padding: 60px 0 70px; }
+  .why-grizon-grid { grid-template-columns: 1fr; }
+  .why-grizon-title { font-size: clamp(28px, 8vw, 38px); }
+  .why-grizon-sub { font-size: 14px; }
+  .why-card { padding: 22px 18px 24px; }
+
+  /* Pricing */
+  .pricing-grid { grid-template-columns: 1fr !important; max-width: 100%; }
+  .pricing-card { padding: 28px 20px; }
+
+  /* CTA Section */
+  .sr-cta-card { padding: 36px 20px; border-radius: 20px; }
+  .sr-cta-card .t-section { font-size: clamp(22px, 6vw, 32px); }
+  .sr-cta-card .hero-actions-left { flex-direction: row; flex-wrap: wrap; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-brand-col { grid-column: unset; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  .footer-bottom-right { flex-direction: column; gap: 12px; }
+  .footer-bottom-right { flex-direction: column; gap: 12px; align-items: center; }
+  .footer-social-links { justify-content: center; }
+
+  /* Section */
+  .section { padding: 50px 0; }
+  .container { width: 94%; }
+
+  /* FAQ */
+  .faq-question { font-size: 15px; padding: 16px 18px; }
+  .faq-answer { padding: 0 18px 16px; font-size: 14px; }
+
+  /* Beside Showcase */
+  .beside-tabs-pill {
+    width: 100%;
+    flex-direction: column;
+    border-radius: 18px;
+  }
+  .beside-tab-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .beside-showcase-card { padding: 28px 16px; }
+  .beside-showcase-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ── SMALL MOBILE (≤ 480px) ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-title-left { font-size: clamp(24px, 9vw, 32px); letter-spacing: -0.02em; }
+  .sr-stat-val { font-size: 28px; }
+  .sr-stats-container { grid-template-columns: repeat(2, 1fr); }
+  .navbar-logo-img { width: 28px; height: 28px; }
+  .navbar-logo-text { font-size: 16px; }
+  .hero-eyebrow-tag { font-size: 11px; padding: 5px 12px; }
+  .t-section { font-size: clamp(22px, 7vw, 32px); }
+  .real-phone-wrapper { width: 130px; }
+  .why-grizon-title { font-size: 26px; }
+  .pricing-card { padding: 24px 16px; }
+  .popular-ticket-badge { top: -12px; left: -12px; }
+  .popular-ticket-badge svg { width: 90px; height: 90px; }
 }
 
 /* ── ZENWOOD TICKET 'POPULAR' BADGE ─────────────────────────── */
