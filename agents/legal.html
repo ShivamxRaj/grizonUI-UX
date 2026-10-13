@@ -1,0 +1,378 @@
+n<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Agent — Grizon AI | AI-Powered Legal Research & Analysis</title>
+  <meta name="description" content="Grizon AI's Legal Agent handles contract review, case law research, regulatory compliance, and legal document summarization — at the speed of AI." />
+  <link rel="icon" type="image/svg+xml" href="https://app.grizonai.com/logo.svg" />
+  <link rel="canonical" href="https://grizonai.com/agents/legal" />
+  <link rel="stylesheet" href="../styles/main.css" />
+  <style>
+    /* ── LEGAL HERO ── */
+    .agent-hero {
+      position: relative; padding: 140px 0 100px; overflow: hidden;
+      background: linear-gradient(165deg, #fffbeb 0%, #fef3c7 20%, #fff 55%, #f6f5ff 100%);
+    }
+    .agent-hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: var(--r-pill); font-size: 13px; font-weight: 600; margin-bottom: 28px; background: #fef3c7; color: #92400e; border: 1px solid rgba(146,64,14,0.2); }
+    .agent-hero-icon { font-size: 56px; margin-bottom: 24px; display: block; }
+    .agent-hero h1 { font-size: clamp(40px, 7vw, 72px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; max-width: 800px; }
+    .agent-hero p { font-size: clamp(17px, 1.5vw, 20px); color: var(--tx-secondary); line-height: 1.7; max-width: 580px; margin-bottom: 40px; }
+    .agent-hero-orb-1 { width: 500px; height: 500px; top: -100px; right: -100px; background: radial-gradient(ellipse, rgba(251,191,36,0.2) 0%, transparent 70%); }
+    .agent-hero-orb-2 { width: 300px; height: 300px; bottom: 0; left: 5%; background: radial-gradient(ellipse, rgba(102,48,228,0.12) 0%, transparent 70%); }
+
+    /* ── USE CASES ── */
+    .use-cases-section { padding: 100px 0; }
+    .use-cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+    .use-case-card { padding: 36px; border-radius: var(--r-lg); border: 1px solid var(--border); background: white; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; position: relative; overflow: hidden; }
+    .use-case-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(251,191,36,0.3); }
+    .use-case-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+    .use-case-emoji { font-size: 32px; margin-bottom: 16px; display: block; }
+    .use-case-card h3 { font-family: var(--font-sans); font-size: 19px; font-weight: 700; color: var(--tx); margin-bottom: 10px; }
+    .use-case-card p { font-size: 15px; color: var(--tx-secondary); line-height: 1.65; margin-bottom: 20px; }
+    .use-case-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .use-case-card li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--tx-secondary); }
+    .use-case-card li::before { content: '→'; color: #f59e0b; font-weight: 700; font-size: 12px; }
+
+    /* ── HOW IT WORKS LEGAL ── */
+    .legal-process { background: var(--bg-soft); padding: 100px 0; }
+    .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
+    .process-step { text-align: center; padding: 40px 28px; background: white; border-radius: var(--r-lg); border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; }
+    .process-step:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .process-step-num { width: 48px; height: 48px; border-radius: 50%; background: #fef3c7; color: #92400e; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 1px solid rgba(146,64,14,0.15); }
+    .process-step h4 { font-family: var(--font-sans); font-size: 17px; font-weight: 700; color: var(--tx); margin-bottom: 10px; }
+    .process-step p { font-size: 14px; color: var(--tx-secondary); line-height: 1.6; }
+
+    /* ── DEMO OUTPUT BLOCK ── */
+    .demo-section { padding: 100px 0; }
+    .demo-container { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .demo-text h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .demo-text p { font-size: 16px; color: var(--tx-secondary); line-height: 1.7; margin-bottom: 32px; }
+    .demo-window {
+      border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg); background: white;
+    }
+    .demo-window-header { background: var(--bg-muted); padding: 14px 20px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+    .demo-window-dots { display: flex; gap: 6px; }
+    .demo-window-dots span { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #fc685d; } .dot-yellow { background: #fdbc40; } .dot-green { background: #33c748; }
+    .demo-window-title { font-size: 12px; color: var(--tx-tertiary); flex: 1; text-align: center; }
+    .demo-window-body { padding: 24px; }
+    .demo-query { background: var(--bg-soft); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--tx-secondary); margin-bottom: 20px; border: 1px solid var(--border); }
+    .demo-query label { display: block; font-size: 11px; font-weight: 600; color: var(--tx-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .demo-output { background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .demo-output-header { background: #fef3c7; padding: 10px 16px; font-size: 12px; font-weight: 600; color: #92400e; display: flex; align-items: center; gap: 8px; }
+    .demo-output-body { padding: 16px; }
+    .demo-output-body p { font-size: 13px; color: var(--tx-secondary); line-height: 1.6; margin-bottom: 12px; }
+    .demo-output-body p:last-child { margin-bottom: 0; }
+    .demo-source { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--brand); font-weight: 500; padding: 2px 8px; border-radius: 4px; background: var(--brand-soft); }
+
+    /* ── STATS ── */
+    .legal-stats { background: linear-gradient(135deg, #1c0a3e 0%, var(--navy) 100%); padding: 80px 0; }
+    .legal-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: center; }
+    .legal-stat-num { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 5vw, 52px); color: #fbbf24; letter-spacing: -0.02em; display: block; margin-bottom: 8px; }
+    .legal-stat-label { font-size: 14px; color: rgba(255,255,255,0.5); }
+
+    /* ── CTA ── */
+    .agent-cta { background: linear-gradient(135deg, #1c0a3e 0%, var(--navy) 50%, #2d1b69 100%); padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+    .agent-cta h2 { font-family: 'Instrument Serif', serif; font-size: clamp(32px, 5vw, 52px); color: white; margin-bottom: 20px; letter-spacing: -0.02em; }
+    .agent-cta p { font-size: 18px; color: rgba(255,255,255,0.6); margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) { .legal-stats-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 768px) {
+      .use-cases-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .demo-container { grid-template-columns: 1fr; }
+      .legal-stats-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo" aria-label="Grizon AI Home">
+        <div class="nav-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <span>Grizon AI</span>
+      </a>
+      <div class="nav-links" role="list">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../index.html#agents" class="nav-link active">Agents</a>
+        <a href="../about.html" class="nav-link">About</a>
+      </div>
+      <div class="nav-actions">
+        <a href="https://app.grizonai.com/login" class="btn btn-outline btn-sm">Log In</a>
+        <a href="https://app.grizonai.com/signup" class="btn btn-primary btn-sm">Try Free</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#agents">Agents</a>
+    <a href="../about.html">About</a>
+    <div class="mobile-menu-actions">
+      <a href="https://app.grizonai.com/login" class="btn btn-outline">Log In</a>
+      <a href="https://app.grizonai.com/signup" class="btn btn-primary">Try Free</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="agent-hero" aria-labelledby="legal-heading">
+      <div class="orb agent-hero-orb-1" aria-hidden="true"></div>
+      <div class="orb agent-hero-orb-2" aria-hidden="true"></div>
+      <div class="container" style="position: relative; z-index: 2;">
+        <div data-reveal>
+          <span class="agent-hero-badge">⚖️ Legal Agent</span>
+        </div>
+        <h1 id="legal-heading" data-reveal data-delay="1">
+          Your AI legal analyst.<br />
+          <em class="gradient-text">Available 24/7.</em>
+        </h1>
+        <p data-reveal data-delay="2">Contract review, case law research, regulatory compliance, and legal drafting — at the speed of AI. No waiting, no billing hours, no delays.</p>
+        <div data-reveal data-delay="3" style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="https://app.grizonai.com/signup" class="btn btn-primary btn-lg" id="legal-hero-cta" style="background: linear-gradient(160deg, #92400e 0%, #78350f 100%); box-shadow: 0 8px 32px rgba(146,64,14,0.3);">
+            Try Legal Agent Free
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#how-it-works" class="btn btn-outline btn-lg">See How It Works</a>
+        </div>
+        <!-- Quick stats row -->
+        <div style="display: flex; gap: 40px; margin-top: 60px; flex-wrap: wrap;" data-reveal data-delay="4">
+          <div><div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--tx);letter-spacing:-0.02em;">90%</div><div style="font-size:13px;color:var(--tx-tertiary);">Time saved on contract review</div></div>
+          <div><div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--tx);letter-spacing:-0.02em;">&lt;2 min</div><div style="font-size:13px;color:var(--tx-tertiary);">Average response time</div></div>
+          <div><div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--tx);letter-spacing:-0.02em;">100+</div><div style="font-size:13px;color:var(--tx-tertiary);">Legal databases accessed</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ USE CASES ══════════ -->
+    <section class="use-cases-section" aria-labelledby="usecases-heading">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">What It Does</span>
+          <h2 id="usecases-heading" class="heading-1" data-reveal>Everything your legal<br />team needs — automated</h2>
+        </div>
+        <div class="use-cases-grid">
+          <div class="use-case-card" data-reveal>
+            <div class="use-case-card-accent"></div>
+            <span class="use-case-emoji">📄</span>
+            <h3>Contract Review & Redlining</h3>
+            <p>Upload any contract. The Legal Agent identifies risks, flags unusual clauses, suggests redlines, and summarizes key terms in plain English.</p>
+            <ul>
+              <li>Risk clause detection</li>
+              <li>Side-by-side redline suggestions</li>
+              <li>Plain-English summaries</li>
+              <li>Jurisdiction-aware analysis</li>
+            </ul>
+          </div>
+          <div class="use-case-card" data-reveal data-delay="1">
+            <div class="use-case-card-accent"></div>
+            <span class="use-case-emoji">⚖️</span>
+            <h3>Case Law Research</h3>
+            <p>Find relevant precedents across jurisdictions. The agent searches, ranks, and synthesizes case law so you focus on strategy, not searching.</p>
+            <ul>
+              <li>Multi-jurisdiction search</li>
+              <li>Precedent ranking by relevance</li>
+              <li>Synthesis with your legal question</li>
+              <li>Full citations included</li>
+            </ul>
+          </div>
+          <div class="use-case-card" data-reveal data-delay="2">
+            <div class="use-case-card-accent"></div>
+            <span class="use-case-emoji">📋</span>
+            <h3>Regulatory Compliance</h3>
+            <p>Stay on top of changing regulations. Get instant analysis of how new rules apply to your business, with actionable compliance checklists.</p>
+            <ul>
+              <li>Real-time regulation tracking</li>
+              <li>Business impact analysis</li>
+              <li>Compliance gap identification</li>
+              <li>Step-by-step remediation plans</li>
+            </ul>
+          </div>
+          <div class="use-case-card" data-reveal data-delay="3">
+            <div class="use-case-card-accent"></div>
+            <span class="use-case-emoji">✍️</span>
+            <h3>Legal Document Drafting</h3>
+            <p>Generate first drafts of NDAs, MOUs, employment agreements, and more — tailored to your jurisdiction, industry, and specific requirements.</p>
+            <ul>
+              <li>Template-based drafting</li>
+              <li>Custom clause generation</li>
+              <li>Multi-party agreement support</li>
+              <li>Export to Word or PDF</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ PROCESS ══════════ -->
+    <section class="legal-process" id="how-it-works" aria-labelledby="process-heading">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">How It Works</span>
+          <h2 id="process-heading" class="heading-1" data-reveal>Legal research in<br />3 simple steps</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step" data-reveal>
+            <div class="process-step-num">1</div>
+            <h4>Upload or Describe</h4>
+            <p>Drop in a contract, paste a legal question, or describe what you need in plain English. No legal training required.</p>
+          </div>
+          <div class="process-step" data-reveal data-delay="1">
+            <div class="process-step-num">2</div>
+            <h4>Agent Analyses & Researches</h4>
+            <p>The Legal Agent searches 100+ legal databases, cross-references jurisdictions, and applies domain-specific reasoning to your query.</p>
+          </div>
+          <div class="process-step" data-reveal data-delay="2">
+            <div class="process-step-num">3</div>
+            <h4>Get Cited, Structured Output</h4>
+            <p>Receive a clear, structured report with full citations. Export, share with counsel, or continue iterating with follow-up questions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ DEMO OUTPUT ══════════ -->
+    <section class="demo-section" aria-labelledby="demo-heading">
+      <div class="container">
+        <div class="demo-container">
+          <div class="demo-text" data-reveal-left>
+            <span class="label" style="display: block; margin-bottom: 16px;">Sample Output</span>
+            <h2 id="demo-heading">See what the Legal Agent actually produces</h2>
+            <p>Not generic summaries. Real structured analysis with cited sources, risk flags, and plain-English explanations — exactly what your team needs to act.</p>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--tx-secondary);">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+                Full citation with source document references
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--tx-secondary);">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+                Risk-level tags on each identified clause
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--tx-secondary);">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+                Plain-English explanation for every finding
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--tx-secondary);">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;">✓</span>
+                Follow-up questions to dig deeper
+              </div>
+            </div>
+          </div>
+          <div class="demo-window" data-reveal-right>
+            <div class="demo-window-header">
+              <div class="demo-window-dots">
+                <span class="dot-red"></span>
+                <span class="dot-yellow"></span>
+                <span class="dot-green"></span>
+              </div>
+              <span class="demo-window-title">Legal Agent — Contract Analysis</span>
+            </div>
+            <div class="demo-window-body">
+              <div class="demo-query">
+                <label>Your Query</label>
+                Review this SaaS agreement for unfavorable IP ownership clauses and unlimited liability exposure.
+              </div>
+              <div class="demo-output">
+                <div class="demo-output-header">
+                  ⚖️ Analysis Complete · 3 risks found
+                </div>
+                <div class="demo-output-body">
+                  <p><strong style="color: #dc2626;">🔴 HIGH RISK — Clause 8.2 (IP Assignment)</strong><br/>This clause assigns all work-product IP to the vendor, including pre-existing IP of the customer. This is unusually broad and should be redlined to limit scope to deliverables only.</p>
+                  <p><strong style="color: #d97706;">🟡 MEDIUM RISK — Clause 12.1 (Liability Cap)</strong><br/>The liability cap is set at 1 month of fees. Industry standard is 12 months. Recommend negotiating to minimum of 6 months of aggregate fees paid.</p>
+                  <p><strong style="color: #16a34a;">🟢 STANDARD — Clause 15 (Governing Law)</strong><br/>Delhi jurisdiction is standard for Indian SaaS contracts. No action required.</p>
+                  <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; gap: 6px; flex-wrap: wrap;">
+                    <span class="demo-source">📚 Contract Act 1872</span>
+                    <span class="demo-source">📚 IT Act 2000</span>
+                    <span class="demo-source">📚 3 precedents found</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ LEGAL STATS ══════════ -->
+    <section class="legal-stats" aria-label="Legal Agent statistics">
+      <div class="container">
+        <div class="legal-stats-grid">
+          <div data-reveal><span class="legal-stat-num" data-count="90" data-suffix="%">90%</span><span class="legal-stat-label">Reduction in contract review time</span></div>
+          <div data-reveal data-delay="1"><span class="legal-stat-num" data-count="100" data-suffix="+">100+</span><span class="legal-stat-label">Legal databases accessed</span></div>
+          <div data-reveal data-delay="2"><span class="legal-stat-num" data-count="50" data-suffix="k+">50k+</span><span class="legal-stat-label">Documents analyzed to date</span></div>
+          <div data-reveal data-delay="3"><span class="legal-stat-num" data-count="99.1" data-suffix="%">99.1%</span><span class="legal-stat-label">Citation accuracy rate</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CTA ══════════ -->
+    <section class="agent-cta" aria-labelledby="legal-cta-heading">
+      <div class="orb orb-brand" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.2;position:absolute;" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:2;">
+        <div data-reveal>
+          <span class="pill-tag" style="margin-bottom:28px;display:inline-flex;border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);">Start Free · No Credit Card</span>
+        </div>
+        <h2 id="legal-cta-heading" data-reveal data-delay="1">Start saving 90% of your<br />legal research time today</h2>
+        <p data-reveal data-delay="2">Join legal teams using Grizon AI to move faster, reduce risk, and deliver better outcomes for their clients.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;" data-reveal data-delay="3">
+          <a href="https://app.grizonai.com/signup" class="btn btn-lg" id="legal-cta-btn" style="background:linear-gradient(160deg,#d97706,#92400e);color:white;box-shadow:0 8px 32px rgba(146,64,14,0.4);">
+            Try Legal Agent Free
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="../index.html#agents" class="btn btn-outline btn-lg" style="color:white;border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.08);">See All Agents</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="nav-logo-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            Grizon AI
+          </div>
+          <p class="footer-desc">AI agents built for serious business decisions.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Agents</div>
+          <a href="legal.html">Legal Agent</a>
+          <a href="market-intelligence.html">Market Intelligence</a>
+          <a href="research.html">Fast Research</a>
+          <a href="research.html">Deep Research</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <a href="../about.html">About</a>
+          <a href="#">Blog</a><a href="#">Careers</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Grizon AI. All rights reserved.</p>
+        <p>Built with ❤️ for teams that move fast.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
