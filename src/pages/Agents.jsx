@@ -1,324 +1,401 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useReveal } from '../hooks/useSarvam';
+import '../styles/sovereign.css';
 
 export default function Agents() {
-  const containerRef = useReveal();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState(0);
 
-  const categories = ['All', 'Legal & Risk', 'Intelligence & Data', 'Engineering & Dev', 'Finance & Audit', 'Ops & HR'];
+  const categories = ['All', 'Research & Synthesis', 'Financial & Market', 'Engineering & Code', 'Perception & Vision', 'Legal & Risk'];
 
   const agentsList = [
     {
-      id: 'legal',
-      title: 'Legal AI Agent',
-      category: 'Legal & Risk',
-      badge: 'HIGH PRECISION',
-      tagline: 'Autonomous Contract Analysis & Compliance Auditing',
-      description: 'Parses complex legal contracts, flags non-compliant clauses against custom playbooks, identifies liabilities, and generates audit-ready legal summaries in seconds.',
-      features: ['NDA & Contract Review', 'Regulatory Audit (GDPR, SEC)', 'Risk Matrix Scoring', 'Redlining & Clause Suggestion'],
-      stats: '85% time reduction on M&A due diligence',
-      link: '/agents/legal'
+      id: 'fast-research',
+      title: 'Fast Research Engine',
+      category: 'Research & Synthesis',
+      badge: 'SUB-SECOND',
+      badgeBg: 'rgba(60,75,155,0.1)',
+      badgeColor: 'var(--agent-deep-research)',
+      icon: 'bolt',
+      tagline: 'Sub-400ms Web Indexing & Live Grounding',
+      description: 'Instant web-scale queries across 4.2B+ pages with live citations, semantic deduplication, and zero hallucination risk.',
+      features: ['Sub-380ms Retrieval Latency', 'Live Search Grounding', 'Automatic Source Extraction', 'Markdown Summary Export'],
+      latency: '382ms',
+      cost: '1 Credit',
+      status: 'ONLINE',
+      link: '/agents/research'
+    },
+    {
+      id: 'deep-research',
+      title: 'Deep Research Engine',
+      category: 'Research & Synthesis',
+      badge: 'RECURSIVE TREE',
+      badgeBg: 'rgba(60,75,155,0.12)',
+      badgeColor: 'var(--agent-deep-research)',
+      icon: 'psychology',
+      tagline: '48-Node Recursive Hypothesis Synthesis',
+      description: 'Autonomous epistemic exploration that cross-examines peer-reviewed journals, regulatory filings, and primary sources into 18-page dossiers.',
+      features: ['Multi-Step Branching Decomposition', 'Cryptographic SHA-256 Citations', 'Conflict Analysis & Counter-Evidence', 'PDF & LaTeX Dossier Generation'],
+      latency: '1.8s',
+      cost: '5-12 Credits',
+      status: 'ONLINE',
+      link: '/agents/research'
     },
     {
       id: 'market-intelligence',
-      title: 'Market Intelligence Agent',
-      category: 'Intelligence & Data',
-      badge: 'REAL-TIME DATA',
-      tagline: 'Deep Competitive Radar & Trend Synthesizer',
-      description: 'Continuously monitors competitor press releases, regulatory filings, financial updates, and social signals to produce strategic executive briefing decks.',
-      features: ['Competitor Feature Tracking', 'Earnings Call Analysis', 'Industry Sentiment Pulse', 'Predictive Market Shifts'],
-      stats: 'Monitors 10,000+ sources 24/7',
+      title: 'Data & Market Analyst',
+      category: 'Financial & Market',
+      badge: 'ADVERSARIAL ORACLE',
+      badgeBg: 'rgba(255,219,199,0.5)',
+      badgeColor: 'var(--secondary)',
+      icon: 'query_stats',
+      tagline: 'Algorithmic Bull vs Bear Consensus Debates',
+      description: 'Two autonomous sovereign agents (Taurus vs Ursa) debate 10-K balance sheets, earnings calls, and macroeconomic signals to produce audited alpha models.',
+      features: ['Taurus vs Ursa Adversarial Forum', 'NSE/BSE 14ms Live Feeds', 'XBRL & 10-K Table Extraction', 'DCF & Relative Valuation Models'],
+      latency: '14ms',
+      cost: '2-5 Credits',
+      status: 'ONLINE',
       link: '/agents/market-intelligence'
     },
     {
-      id: 'code-architect',
-      title: 'Code Architect Agent',
-      category: 'Engineering & Dev',
-      badge: 'ENTERPRISE DEVPULSE',
-      tagline: 'Autonomous Refactoring & Security Vulnerability Audit',
-      description: 'Scans massive enterprise repositories to detect architectural anti-patterns, security exploits (OWASP Top 10), and automatically generates refactored PRs with unit tests.',
-      features: ['Automated PR Reviews', 'AST Security Analysis', 'Legacy Code Migration', 'Docstring & API Specs'],
-      stats: '100% test coverage auto-generation',
-      link: '/agents'
+      id: 'dev-studio',
+      title: 'Dev Studio',
+      category: 'Engineering & Code',
+      badge: 'PRO+ SANDBOX',
+      badgeBg: 'rgba(16,126,125,0.12)',
+      badgeColor: 'var(--agent-dev-studio)',
+      icon: 'terminal',
+      tagline: 'Full-Stack Ephemeral Micro-VMs & Live UI Canvas',
+      description: 'Write, debug, and preview full-stack applications with instant side-by-side HTML/Tailwind hot reloading and zero host leakage.',
+      features: ['60 FPS Live UI Sandbox', 'Micro-VM Ephemeral Runtimes', 'Multi-file Dependency Tree', 'Automated AST Test Generation'],
+      latency: '18ms',
+      cost: '2-5 Credits',
+      status: 'ONLINE',
+      link: '/agents/dev-studio'
     },
     {
-      id: 'finance-tax',
-      title: 'Finance & Tax Agent',
-      category: 'Finance & Audit',
-      badge: 'AUDIT READY',
-      tagline: 'Automated Tax Compliance & Multi-Entity Ledger Audit',
-      description: 'Reconciles cross-border transactions, audits expense compliance against tax laws, predicts cash flow anomalies, and formats quarterly SEC/tax filings.',
-      features: ['Multi-currency Reconciliation', 'Tax Playbook Verification', 'Anomaly Detection', 'ERP System Integration'],
-      stats: '$2.4M saved in undetected audit errors',
-      link: '/agents'
+      id: 'system-architect',
+      title: 'System Architect',
+      category: 'Engineering & Code',
+      badge: 'CLOUD TOPOLOGY',
+      badgeBg: 'rgba(16,126,125,0.1)',
+      badgeColor: 'var(--agent-dev-studio)',
+      icon: 'account_tree',
+      tagline: 'Distributed Architecture & Mermaid Topology Compiler',
+      description: 'Translates high-level enterprise system requirements into fault-tolerant distributed infrastructure topologies, partition schemas, and Terraform scripts.',
+      features: ['Interactive Mermaid Diagram Generation', 'CAP Theorem Tradeoff Analysis', 'Database Sharding Blueprints', 'Terraform & Pulumi Stacks'],
+      latency: '620ms',
+      cost: '3 Credits',
+      status: 'ONLINE',
+      link: '/agents/dev-studio'
     },
     {
-      id: 'customer-success',
-      title: 'Customer Success Agent',
-      category: 'Ops & HR',
-      badge: '24/7 AUTONOMOUS',
-      tagline: 'Proactive Churn Prediction & Enterprise Resolution',
-      description: 'Analyzes user product telemetry, support ticket sentiment, and renewal dates to trigger proactive retention workflows and resolve complex technical queries.',
-      features: ['Telemetry Churn Scoring', 'Automated Ticket Escalation', 'Personalized Renewal Decks', 'Multi-channel Support'],
-      stats: '34% reduction in Enterprise Churn',
-      link: '/agents'
+      id: 'doc-intelligence',
+      title: 'Doc Intelligence',
+      category: 'Perception & Vision',
+      badge: 'ZERO-LOSS OCR',
+      badgeBg: 'rgba(247,168,89,0.2)',
+      badgeColor: 'var(--secondary)',
+      icon: 'description',
+      tagline: 'Zero-Loss OCR & Tabular Financial Parsing',
+      description: 'Ingest 400-page complex PDFs, quarterly reports, and scanned legal filings into clean, machine-queryable JSON tables in under 2 seconds.',
+      features: ['48-Page Ingestion in 1.8s', 'Zero-Loss Complex Table OCR', 'Cross-Page Entity Resolution', 'Vector Embedding Indexing'],
+      latency: '284ms',
+      cost: '1 Credit / Doc',
+      status: 'ONLINE',
+      link: '/agents/doc-intelligence'
     },
     {
-      id: 'hr-talent',
-      title: 'HR & Talent Agent',
-      category: 'Ops & HR',
-      badge: 'BIAS-FREE HR',
-      tagline: 'Automated Technical Screening & Onboarding Workflow',
-      description: 'Evaluates engineering candidates objectively, runs structured technical assessments, schedules multi-stage interviews, and automates employee onboarding.',
-      features: ['Bias-free Resume Screening', 'Code Assessment Evaluator', 'Policy Q&A Assistant', 'Automated Onboarding'],
-      stats: '3x faster time-to-hire for engineers',
-      link: '/agents'
+      id: 'video-analyser',
+      title: 'Video Analyser',
+      category: 'Perception & Vision',
+      badge: 'MULTIMODAL VISION',
+      badgeBg: 'rgba(247,168,89,0.25)',
+      badgeColor: 'var(--secondary)',
+      icon: 'video_library',
+      tagline: 'Frame-by-Frame Deconstruction & Timestamp Citations',
+      description: 'Process hour-long recorded investor presentations, product demos, or security footage with scene transitions and speaker transcripts.',
+      features: ['Frame-by-Frame Keyframe Index', 'Timestamp Jump & OCR Copy', 'Audio Diarization & Sync', 'Visual Artifact Detection'],
+      latency: '450ms',
+      cost: '2 Credits / Min',
+      status: 'ONLINE',
+      link: '/agents/doc-intelligence'
+    },
+    {
+      id: 'legal',
+      title: 'Legal & Compliance Agent',
+      category: 'Legal & Risk',
+      badge: 'HIGH ASSURANCE',
+      badgeBg: 'rgba(132,59,98,0.12)',
+      badgeColor: 'var(--agent-legal)',
+      icon: 'gavel',
+      tagline: 'Autonomous Contract Redlining & DPDP Compliance',
+      description: 'Audit vendor agreements, identify non-conforming clauses, calculate exposure scores, and insert pre-approved sovereign substitutions.',
+      features: ['Master Services Agreement Audit', 'Clause Deviation Scoring', 'DPDP 2023 Statutory Check', 'Automated DOCX Redline Export'],
+      latency: '512ms',
+      cost: '2 Credits',
+      status: 'ONLINE',
+      link: '/agents/legal'
     }
   ];
 
   const filteredAgents = agentsList.filter(agent => {
     const matchesCategory = selectedCategory === 'All' || agent.category === selectedCategory;
     const matchesSearch = agent.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          agent.description.toLowerCase().includes(searchQuery.toLowerCase());
+                          agent.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          agent.tagline.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   return (
-    <div className="sr-page-wrapper" ref={containerRef}>
-      {/* ── HERO ────────────────────────────────────────────── */}
-      <section className="sr-hero">
-        <div className="sr-hero-orb" />
-        <div className="sr-hero-container">
-          <div className="sr-hero-eyebrow">
-            <span className="sr-eyebrow-line" />
-            <span className="sr-eyebrow-pill">AUTONOMOUS WORKFORCE MATRIX</span>
-            <span className="sr-eyebrow-line" />
+    <div className="sv-page" style={{ background: 'var(--parchment)', minHeight: '100vh', paddingTop: '5.5rem' }}>
+      {/* Ambient background glows */}
+      <div style={{ position: 'relative', width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '0 1.5rem 5rem', overflow: 'hidden' }}>
+        <div style={{
+          pointerEvents: 'none',
+          position: 'absolute',
+          top: '-10rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '800px',
+          height: '400px',
+          background: 'radial-gradient(circle, rgba(247,168,89,0.12) 0%, rgba(165,187,252,0.14) 50%, transparent 80%)',
+          filter: 'blur(90px)'
+        }} />
+
+        {/* Header Section */}
+        <section style={{ paddingTop: '2rem', paddingBottom: '2.5rem', textAlign: 'center', maxWidth: '780px', margin: '0 auto' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.25rem 0.75rem', borderRadius: '9999px', background: 'var(--surface-container)', color: 'var(--primary)', fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '1rem' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '9999px', background: 'var(--secondary)' }} />
+            Sovereign Multi-Agent Fleet
           </div>
 
-          <h1 className="sr-hero-title">
-            Domain-Specialized AI Agents <br />
-            <span className="sr-title-serif">Built for Enterprise Autonomy</span>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)', color: 'var(--primary)', lineHeight: 1.15, letterSpacing: '-0.02em', margin: '0 0 1rem' }}>
+            Autonomous Sovereign Agents.<br />
+            <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--secondary)' }}>Engineered for absolute trust.</span>
           </h1>
 
-          <p className="sr-hero-sub">
-            Deploy pre-trained, enterprise-grade AI agents tailored specifically for legal, financial, engineering, and market operations. Fully secure, audit-ready, and on-premise capable.
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', lineHeight: '1.65', color: 'var(--on-surface-variant)', margin: 0 }}>
+            Deploy specialized autonomous reasoning agents across your enterprise workflows. Each agent executes within hardware-isolated micro-VMs with zero telemetry leakage and verifiable mathematical provenance.
           </p>
+        </section>
 
-          <div style={{ marginTop: '24px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <input
-              type="text"
-              placeholder="Search agent capabilities, e.g. 'contract review', 'security'..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                maxWidth: '460px',
-                padding: '14px 20px',
-                borderRadius: 'var(--r-pill)',
-                border: '1px solid rgba(0,0,0,0.12)',
-                background: '#ffffff',
-                fontSize: '15px',
-                outline: 'none',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
-              }}
-            />
+        {/* Filter & Search Bar */}
+        <section style={{ marginBottom: '2.5rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '0.75rem 1rem', borderRadius: '16px', background: '#fff', border: '1px solid var(--border-hairline)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+            {/* Category Pills */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  style={{
+                    padding: '0.4rem 0.85rem',
+                    borderRadius: '9999px',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    border: 'none',
+                    cursor: 'pointer',
+                    background: selectedCategory === cat ? 'var(--primary)' : 'var(--surface-container)',
+                    color: selectedCategory === cat ? '#fff' : 'var(--on-surface-variant)',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Search Input */}
+            <div style={{ position: 'relative', width: '100%', maxWidth: '280px' }}>
+              <span className="material-symbols-outlined" style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--outline)', fontSize: '18px' }}>search</span>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search capabilities or agents..."
+                style={{ width: '100%', padding: '0.5rem 0.75rem 0.5rem 2.25rem', borderRadius: '8px', background: 'var(--surface-low)', border: '1px solid var(--border-hairline)', fontSize: '12px', color: 'var(--primary)', outline: 'none' }}
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── CATEGORY FILTER TABS ───────────────────────────── */}
-      <section className="sr-section" style={{ paddingTop: '0' }}>
-        <div className="sr-container">
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '40px' }}>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
+        {/* Agent Cards Grid */}
+        <section style={{ marginBottom: '4.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.75rem' }}>
+            {filteredAgents.map((agent) => (
+              <div
+                key={agent.id}
                 style={{
-                  padding: '10px 20px',
-                  borderRadius: 'var(--r-pill)',
-                  fontSize: '14px',
-                  fontWeight: selectedCategory === cat ? '600' : '400',
-                  background: selectedCategory === cat ? 'var(--sr-slate-dark)' : '#ffffff',
-                  color: selectedCategory === cat ? '#ffffff' : 'var(--tx-secondary)',
-                  border: selectedCategory === cat ? '1px solid var(--sr-slate-dark)' : '1px solid rgba(0,0,0,0.08)',
-                  transition: 'all 0.2s ease',
-                  cursor: 'pointer'
+                  padding: '2rem',
+                  borderRadius: '16px',
+                  background: '#fff',
+                  border: '1px solid var(--border-hairline)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  transition: 'all 0.25s ease'
                 }}
               >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* ── AGENTS GRID ──────────────────────────────────── */}
-          <div className="sr-grid sr-grid-3">
-            {filteredAgents.map((agent) => (
-              <div key={agent.id} className="sr-card" data-scale-reveal style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <span style={{
-                      fontSize: '11px',
-                      fontWeight: '700',
-                      letterSpacing: '0.8px',
-                      padding: '4px 10px',
-                      borderRadius: 'var(--r-pill)',
-                      background: 'rgba(30, 32, 64, 0.08)',
-                      color: 'var(--sr-indigo-900)'
-                    }}>
+                  {/* Card Header */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                      <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: agent.badgeBg, color: agent.badgeColor, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: '26px' }}>{agent.icon}</span>
+                      </div>
+                      <div>
+                        <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '1.25rem', color: 'var(--primary)', margin: 0 }}>
+                          {agent.title}
+                        </h3>
+                        <p style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--on-surface-variant)', margin: '0.15rem 0 0' }}>
+                          {agent.category}
+                        </p>
+                      </div>
+                    </div>
+                    <span style={{ fontFamily: 'var(--font-code)', fontSize: '10px', fontWeight: 700, padding: '0.2rem 0.55rem', borderRadius: '9999px', background: agent.badgeBg, color: agent.badgeColor }}>
                       {agent.badge}
                     </span>
-                    <span style={{ fontSize: '13px', color: 'var(--tx-tertiary)' }}>
-                      {agent.category}
-                    </span>
                   </div>
 
-                  <h3 className="sr-card-title" style={{ fontSize: '24px', marginBottom: '6px' }}>
-                    {agent.title}
-                  </h3>
-
-                  <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--hero-accent-line)', marginBottom: '12px' }}>
+                  <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--primary)', marginBottom: '0.4rem' }}>
                     {agent.tagline}
-                  </div>
-
-                  <p className="sr-card-desc" style={{ marginBottom: '20px', fontSize: '14px' }}>
+                  </p>
+                  <p style={{ fontSize: '12px', lineHeight: 1.6, color: 'var(--on-surface-variant)', marginBottom: '1.25rem' }}>
                     {agent.description}
                   </p>
 
-                  <div style={{ marginBottom: '20px' }}>
-                    <div style={{ fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--tx-tertiary)', marginBottom: '8px' }}>
-                      Key Capabilities
-                    </div>
-                    <ul style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                      {agent.features.map((feat, idx) => (
-                        <li key={idx} style={{ fontSize: '13px', color: 'var(--tx-secondary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--hero-accent-line)' }} />
-                          {feat}
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Features list */}
+                  <div style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: 'var(--surface-low)', display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '1.25rem' }}>
+                    {agent.features.map((feat, idx) => (
+                      <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '12px', color: 'var(--on-surface)' }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: '15px', color: agent.badgeColor }}>check_circle</span>
+                        <span>{feat}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
+                {/* Card Footer */}
                 <div>
-                  <div style={{
-                    padding: '10px 14px',
-                    borderRadius: '8px',
-                    background: 'var(--bg-sf-secondary)',
-                    fontSize: '13px',
-                    fontWeight: '500',
-                    color: 'var(--sr-indigo-900)',
-                    marginBottom: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}>
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                      <path d="M8 1V15M1 8H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                    <span>{agent.stats}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.85rem', marginBottom: '0.85rem', borderBottom: '1px solid var(--border-hairline)', fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--on-surface-variant)' }}>
+                    <span>LATENCY: <strong style={{ color: 'var(--primary)' }}>{agent.latency}</strong></span>
+                    <span>COST: <strong style={{ color: 'var(--primary)' }}>{agent.cost}</strong></span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--agent-dev-studio)', fontWeight: 600 }}>
+                      <span style={{ width: '6px', height: '6px', borderRadius: '9999px', background: 'var(--agent-dev-studio)' }} />
+                      {agent.status}
+                    </span>
                   </div>
 
                   <Link
                     to={agent.link}
-                    className="sr-btn sr-btn-outline"
-                    style={{ width: '100%', justifyContent: 'center' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.4rem',
+                      padding: '0.75rem',
+                      borderRadius: '8px',
+                      background: 'var(--primary)',
+                      color: '#fff',
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: 600,
+                      fontSize: '13px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s'
+                    }}
                   >
-                    <span>View Agent Details</span>
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                      <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    Open Agent Workspace
+                    <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_forward</span>
                   </Link>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── LIVE INTERACTIVE AGENT DEMO PLAYGROUND ─────────── */}
-      <section className="sr-section sr-bg-secondary" data-section-reveal>
-        <div className="sr-container">
-          <div className="sr-section-header">
-            <span className="sr-badge">INTERACTIVE PLAYGROUND</span>
-            <h2 className="sr-heading">Test GriZon Autonomous Execution</h2>
-            <p className="sr-subheading">
-              Select an agent and see real-time structured reasoning and audit-ready outputs.
-            </p>
-          </div>
+        {/* Bottom Banner */}
+        <section style={{ marginBottom: '2rem' }}>
+          <div style={{
+            position: 'relative',
+            borderRadius: '24px',
+            background: 'var(--primary)',
+            color: '#fff',
+            padding: '3rem 2.5rem',
+            overflow: 'hidden',
+            boxShadow: '0 20px 50px rgba(7,9,27,0.2)'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '-6rem',
+              right: '-6rem',
+              width: '380px',
+              height: '380px',
+              background: 'radial-gradient(circle, rgba(247,168,89,0.2) 0%, transparent 70%)',
+              borderRadius: '9999px',
+              filter: 'blur(70px)'
+            }} />
 
-          <div className="sr-card" style={{ background: '#0f0f1a', color: '#ffffff', padding: '32px', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
-            <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
-              {['Legal Contract Audit', 'Market Intelligence Radar', 'Code Vulnerability Scanner'].map((tab, idx) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(idx)}
+            <div style={{ position: 'relative', zIndex: 1, maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.25rem 0.75rem', borderRadius: '9999px', background: 'rgba(255,255,255,0.1)', color: 'var(--saffron-glow)', fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', width: 'fit-content' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '9999px', background: 'var(--saffron-glow)' }} />
+                Autonomous Multi-Agent Mesh
+              </div>
+
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 3.5vw, 3rem)', color: '#fff', margin: 0, lineHeight: 1.15 }}>
+                Orchestrate multi-agent swarms across your enterprise.
+              </h2>
+
+              <p style={{ fontSize: '1.0625rem', color: 'rgba(255,255,255,0.7)', margin: 0, lineHeight: 1.6 }}>
+                Route queries dynamically to specialized agents via Auto Mode or execute distributed parallel workflows with unified context memory.
+              </p>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', paddingTop: '0.5rem' }}>
+                <Link
+                  to="/app"
                   style={{
-                    padding: '8px 16px',
-                    borderRadius: 'var(--r-pill)',
-                    fontSize: '13px',
-                    fontWeight: activeTab === idx ? '600' : '400',
-                    background: activeTab === idx ? 'rgba(255,255,255,0.15)' : 'transparent',
-                    color: activeTab === idx ? '#ffffff' : 'rgba(255,255,255,0.6)',
-                    border: 'none',
-                    cursor: 'pointer'
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.9rem 1.6rem',
+                    borderRadius: '8px',
+                    background: '#fff',
+                    color: 'var(--primary)',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: 600,
+                    fontSize: '0.9375rem',
+                    textDecoration: 'none'
                   }}
                 >
-                  {tab}
-                </button>
-              ))}
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>rocket_launch</span>
+                  Launch Sovereign Swarm
+                </Link>
+                <Link
+                  to="/about"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.9rem 1.6rem',
+                    borderRadius: '8px',
+                    background: 'rgba(255,255,255,0.1)',
+                    color: '#fff',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: 600,
+                    fontSize: '0.9375rem',
+                    textDecoration: 'none',
+                    border: '1px solid rgba(255,255,255,0.15)'
+                  }}
+                >
+                  Platform Whitepaper
+                </Link>
+              </div>
             </div>
-
-            {activeTab === 0 && (
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', lineHeight: '1.7', color: '#d5e2ff' }}>
-                <div style={{ color: '#8f8faa', marginBottom: '8px' }}>// Executing LegalAgent.reviewContract() on Master Service Agreement v4...</div>
-                <div style={{ color: '#6a88e2', fontWeight: '600' }}>[✓] Document Parsed: 48 pages | 14,200 words | 12 Clause Types Detected</div>
-                <div style={{ color: '#ff7b7b', margin: '8px 0' }}>[!] FLAG HIGH RISK: Clause 14.2 (Limitation of Liability) exceeds playbook threshold (Uncapped Indirect Damages).</div>
-                <div style={{ color: '#7ce38b' }}>[+] REDLINE SUGGESTION: "Except for breaches of Section 8 (Confidentiality), neither party's liability shall exceed 2x annual fees."</div>
-                <div style={{ color: '#8f8faa', marginTop: '12px' }}>Audit log digest: 0x9f8a...3b21 verified against GDPR & Delaware corporate law.</div>
-              </div>
-            )}
-
-            {activeTab === 1 && (
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', lineHeight: '1.7', color: '#d5e2ff' }}>
-                <div style={{ color: '#8f8faa', marginBottom: '8px' }}>// Running MarketIntelligence.scanCompetitors() across 12,000 feeds...</div>
-                <div style={{ color: '#6a88e2', fontWeight: '600' }}>[✓] SEC 10-K Filings & PR feeds analyzed for top 5 competitors</div>
-                <div style={{ color: '#7ce38b', margin: '8px 0' }}>[+] KEY SIGNAL DETECTED: Competitor Alpha expanded EMEA enterprise sales force by +42% in Q3.</div>
-                <div style={{ color: '#d5e2ff' }}>[+] ACTION ITEM: Recommend updating EMEA pricing playbook and positioning sovereign cloud deployment USP.</div>
-                <div style={{ color: '#8f8faa', marginTop: '12px' }}>Synthesized briefing document delivered to Executive Portal.</div>
-              </div>
-            )}
-
-            {activeTab === 2 && (
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', lineHeight: '1.7', color: '#d5e2ff' }}>
-                <div style={{ color: '#8f8faa', marginBottom: '8px' }}>// Running CodeArchitect.auditRepository(branch: 'main')...</div>
-                <div style={{ color: '#6a88e2', fontWeight: '600' }}>[✓] AST Analyzed: 142 microservices | 280,000 LOC</div>
-                <div style={{ color: '#ff7b7b', margin: '8px 0' }}>[!] VULNERABILITY DETECTED: CVE-2024-38912 in auth-service/jwt_verifier.go (Unchecked token expiration).</div>
-                <div style={{ color: '#7ce38b' }}>[+] AUTO-REFIX GENERATED: Pull Request #391 created with zero-downtime hotfix and 12 unit tests passing.</div>
-                <div style={{ color: '#8f8faa', marginTop: '12px' }}>CI/CD Pipeline validated in 1.4 seconds.</div>
-              </div>
-            )}
           </div>
-        </div>
-      </section>
-
-      {/* ── CTA ────────────────────────────────────────────── */}
-      <section className="sr-cta-section" data-section-reveal>
-        <div className="sr-cta-container">
-          <h2 className="sr-cta-title">Need a Custom Agent for Your Enterprise Data?</h2>
-          <p className="sr-cta-sub">
-            Our AI engineering team can train and deploy custom sovereign agents in under 14 days.
-          </p>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-            <Link to="/about" className="sr-btn sr-btn-primary">
-              Schedule Architecture Review
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

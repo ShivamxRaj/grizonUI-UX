@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>GriZon AI — Data &amp; Market Analyst Agent</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-tertiary-container": "#897fca",
+          "secondary-container": "#ff9243",
+          "inverse-on-surface": "#f0f0f2",
+          "on-tertiary-fixed-variant": "#463d83",
+          "on-surface": "#1a1c1d",
+          "inverse-surface": "#2f3132",
+          "surface-container-high": "#e8e8ea",
+          "on-primary-container": "#86879f",
+          "primary": "#07091b",
+          "on-secondary-container": "#6b3100",
+          "surface-container-low": "#f3f3f5",
+          "saffron-glow": "#F7A859",
+          "surface-container": "#edeef0",
+          "background": "#f9f9fb",
+          "tertiary": "#090034",
+          "outline-variant": "#c7c5cd",
+          "secondary-fixed-dim": "#ffb688",
+          "on-background": "#1a1c1d",
+          "error-container": "#ffdad6",
+          "agent-dev-studio": "#107E7D",
+          "lavender-subtle": "#A5BBFC",
+          "on-secondary": "#ffffff",
+          "on-tertiary-fixed": "#1a0b56",
+          "surface-card": "#FFFFFF",
+          "surface-bright": "#f9f9fb",
+          "secondary": "#974800",
+          "on-secondary-fixed": "#311300",
+          "error": "#ba1a1a",
+          "outline": "#77767d",
+          "on-surface-variant": "#46464c",
+          "surface-variant": "#e2e2e4",
+          "on-secondary-fixed-variant": "#733600",
+          "tertiary-fixed": "#e5deff",
+          "on-primary": "#ffffff",
+          "on-error-container": "#93000a",
+          "on-primary-fixed-variant": "#43455a",
+          "inverse-primary": "#c4c4de",
+          "primary-container": "#1e2033",
+          "on-error": "#ffffff",
+          "surface-dim": "#d9dadc",
+          "parchment-bg": "#FAFAF8",
+          "border-hairline": "#E6E7EE",
+          "secondary-fixed": "#ffdbc7",
+          "primary-fixed-dim": "#c4c4de",
+          "tertiary-fixed-dim": "#c8bfff",
+          "surface": "#f9f9fb",
+          "tertiary-container": "#20135b",
+          "on-primary-fixed": "#181a2d",
+          "on-tertiary": "#ffffff",
+          "surface-tint": "#5b5d73",
+          "agent-legal": "#843B62",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-highest": "#e2e2e4",
+          "primary-fixed": "#e0e0fb",
+          "agent-deep-research": "#3C4B9B"
+        },
+        fontFamily: {
+          "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+          "headline-lg": ["Newsreader", "serif"],
+          "label-badge": ["Plus Jakarta Sans", "sans-serif"],
+          "display-hero-mobile": ["Newsreader", "serif"],
+          "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+          "headline-lg-mobile": ["Newsreader", "serif"],
+          "body-md": ["Plus Jakarta Sans", "sans-serif"],
+          "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+          "label-code": ["Space Grotesk", "monospace"],
+          "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+          "display-hero": ["Newsreader", "serif"]
+        }
+      }
+    }
+  };
+</script>
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body class="bg-parchment-bg font-body-md text-body-md text-on-surface antialiased relative min-h-screen selection:bg-tertiary-fixed selection:text-on-tertiary-fixed overflow-x-hidden">
+<!-- Ambient Background Glows -->
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-saffron-glow/10 via-lavender-subtle/10 to-transparent blur-3xl opacity-60"></div>
+<div class="absolute top-1/3 -right-28 w-[500px] h-[500px] bg-agent-deep-research/5 blur-3xl rounded-full"></div>
+<div class="absolute bottom-10 -left-28 w-[500px] h-[500px] bg-agent-dev-studio/5 blur-3xl rounded-full"></div>
+</div>
+<!-- Sticky Header -->
+<header class="sticky top-0 w-full z-50 bg-parchment-bg/90 backdrop-blur-md border-b border-slate-200/60 transition-all">
+<div class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between gap-4">
+<!-- Left Logo & Category Tag -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3" href="#">
+<img alt="GriZon AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U1X2ewwH580f1GxqB2jPBc1JS3eQMPQBXMVYcGdk3ZfckCqL4jZyvfgbu5a44yjLbxGF8U4y1C_BSLVPSzBp1iX9g3uDFJHzGGy8sFW3d6krfKcoDN5O8ikEpCs9dVXRmnWDpyLOL90XEKBTCejqk9FCehFK3i0i5xuxxqf9J4YJ8zYnZ8e1xd7tmPjn6cs-WIogq7lmIk_DrlxHw3dP6WePWDPW3qaeMMwQSWLiG888hgvHa3U0igDog"/>
+</a>
+<span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200/80 font-label-code">
+        Market Intelligence
+      </span>
+</div>
+<!-- Center Navigation Links -->
+<nav class="hidden lg:flex items-center gap-7">
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Agents</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Research</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Dev Studio</a>
+<a class="text-sm font-semibold text-primary relative after:content-[''] after:absolute after:-bottom-2.5 after:left-0 after:right-0 after:h-0.5 after:bg-primary" href="#">Market Analyst</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Docs</a>
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Pricing</a>
+</nav>
+<!-- Right CTAs -->
+<div class="flex items-center gap-3">
+<a class="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors px-2 py-1" href="#">Sign in</a>
+<a class="inline-flex items-center justify-center px-4 py-2 rounded-full font-headline-sm text-sm text-on-primary bg-primary hover:bg-primary-container shadow-sm transition-all whitespace-nowrap" href="#">
+        Start with AI
+      </a>
+</div>
+</div>
+</header>
+<main class="w-full relative z-10">
+<!-- Top Hero Section -->
+<section class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
+<div class="flex flex-col items-center text-center max-w-4xl mx-auto space-y-4">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-card border border-slate-200/70 shadow-xs">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-label-code text-xs font-semibold tracking-wider text-slate-700 uppercase">
+          SPECIALISED AGENT CATALOGUE • TIER 05
+        </span>
+</div>
+<h1 class="font-display-hero text-4xl sm:text-5xl lg:text-6xl text-primary font-normal tracking-tight leading-[1.12]">
+        Data &amp; Market Analyst
+      </h1>
+<p class="font-body-lg text-base sm:text-lg text-on-surface-variant max-w-3xl leading-relaxed">
+        Stock &amp; crypto analysis with technical, fundamentals, and news lenses — Bull vs Bear debate, charts, and downloadable reports. Educational research only — not financial advice.
+      </p>
+<!-- Live Trust/Metrics Bar -->
+<div class="w-full pt-3">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto p-2.5 sm:p-3 rounded-2xl bg-surface-card border border-slate-200/60 shadow-xs text-xs font-label-code">
+<div class="flex items-center justify-center gap-2 py-1 text-slate-700">
+<span class="material-symbols-outlined text-[17px] text-agent-dev-studio">autorenew</span>
+<span class="font-medium">Auto Mode Routing</span>
+</div>
+<div class="flex items-center justify-center gap-2 py-1 text-slate-700 border-l border-slate-200/60">
+<span class="material-symbols-outlined text-[17px] text-saffron-glow">account_balance_wallet</span>
+<span class="font-medium">Credits Transparent Usage</span>
+</div>
+<div class="flex items-center justify-center gap-2 py-1 text-slate-700 border-t sm:border-t-0 sm:border-l border-slate-200/60">
+<span class="material-symbols-outlined text-[17px] text-agent-deep-research">lock</span>
+<span class="font-medium">256-bit Encryption Standard</span>
+</div>
+<div class="flex items-center justify-center gap-2 py-1 text-slate-700 border-t sm:border-t-0 sm:border-l border-slate-200/60">
+<span class="material-symbols-outlined text-[17px] text-emerald-600">verified_user</span>
+<span class="font-medium">Indian DPDP Act Compliant</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Agent Console (Clean & Uncluttered) -->
+<section class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="bg-surface-card rounded-3xl border border-slate-200/80 shadow-md p-5 sm:p-8">
+<!-- Prompt Bar -->
+<div class="mb-6 p-2 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col md:flex-row items-stretch md:items-center gap-2.5">
+<div class="flex items-center gap-2.5 flex-1 px-3">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">smart_toy</span>
+<span class="font-body-md text-sm sm:text-base text-slate-800 font-medium select-none truncate">
+            Analyse NIFTY 50 &amp; Reliance Industries Q3 earnings with bull vs bear valuation comparison
+          </span>
+</div>
+<div class="flex items-center justify-end gap-2">
+<span class="font-label-code text-xs px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 font-medium">Auto-Synthesised</span>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-headline-sm text-xs sm:text-sm hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined text-[16px]">refresh</span> Re-run Synthesis
+          </button>
+</div>
+</div>
+<!-- Clean Tabs Bar -->
+<div class="flex items-center justify-between border-b border-slate-200/80 pb-3 mb-6 gap-2 overflow-x-auto">
+<div class="flex items-center gap-1 sm:gap-2">
+<button class="px-3.5 py-1.5 rounded-lg text-sm font-semibold text-primary bg-slate-100">Overview</button>
+<button class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:text-primary hover:bg-slate-50 transition-colors">Technical Analysis</button>
+<button class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:text-primary hover:bg-slate-50 transition-colors">Fundamental Health</button>
+<button class="px-3.5 py-1.5 rounded-lg text-sm font-semibold text-primary bg-amber-50 text-amber-900 border border-amber-200/80 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-amber-600">balance</span>
+            Bull vs Bear Debate
+          </button>
+<button class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:text-primary hover:bg-slate-50 transition-colors">Download Report</button>
+</div>
+<!-- Verifiable Sources & Download Artifact Pill -->
+<a class="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-xs font-label-code text-slate-700 transition-all flex-shrink-0" href="#">
+<span class="material-symbols-outlined text-[16px] text-agent-dev-studio">download</span>
+<span>Reliance_Q3_Synthesised_Report.pdf • 4.2 MB</span>
+</a>
+</div>
+<!-- Main Visual Grid: Chart & Summary -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+<!-- Left: High-Fidelity SVG Chart Sandbox -->
+<div class="lg:col-span-8 p-5 sm:p-6 rounded-2xl bg-slate-900 text-white flex flex-col justify-between">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm font-bold text-white text-base sm:text-lg">RELIANCE.NS • NSE Composite Overlay</span>
+<span class="font-label-code text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">+4.28% Q3 Beat</span>
+</div>
+<p class="text-xs text-slate-400 font-label-code mt-0.5">Model Horizon: Trailing 90 Days &amp; 180-Day Consensus Vector</p>
+</div>
+<!-- Chart Legend -->
+<div class="flex items-center gap-3 text-xs font-label-code text-slate-300">
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Bull Trajectory</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Consensus Base</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span> Bear Floor</span>
+</div>
+</div>
+<!-- Structured Responsive SVG Chart -->
+<div class="w-full h-56 sm:h-64 my-4 relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 800 240">
+<defs>
+<lineargradient id="bullGlow" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#10b981" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#10b981" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="baseGlow" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid horizontal guidelines -->
+<line stroke="#334155" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="800" y1="40" y2="40"></line>
+<line stroke="#334155" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="800" y1="100" y2="100"></line>
+<line stroke="#334155" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="800" y1="160" y2="160"></line>
+<line stroke="#334155" stroke-width="1" x1="0" x2="800" y1="210" y2="210"></line>
+<!-- Areas -->
+<path d="M0,180 Q200,165 400,120 T800,45 L800,210 L0,210 Z" fill="url(#bullGlow)"></path>
+<path d="M0,185 Q220,175 420,140 T800,90 L800,210 L0,210 Z" fill="url(#baseGlow)"></path>
+<!-- Lines -->
+<!-- Bear Floor line (dashed rose) -->
+<path d="M0,190 Q240,195 440,180 T800,165" fill="none" opacity="0.8" stroke="#f43f5e" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Base line (amber) -->
+<path d="M0,185 Q220,175 420,140 T800,90" fill="none" stroke="#f59e0b" stroke-width="2.5"></path>
+<!-- Bull line (emerald) -->
+<path d="M0,180 Q200,165 400,120 T800,45" fill="none" stroke="#10b981" stroke-width="3"></path>
+<!-- Highlight Anchors -->
+<circle cx="400" cy="120" fill="#ffffff" r="4.5" stroke="#10b981" stroke-width="2.5"></circle>
+<circle cx="800" cy="45" fill="#10b981" r="5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="800" cy="90" fill="#f59e0b" r="4"></circle>
+</svg>
+</div>
+<div class="flex items-center justify-between text-xs font-label-code text-slate-400 pt-2 border-t border-slate-800">
+<span>Q1 Baseline: ₹2,640</span>
+<span>Q2 Actual: ₹2,810</span>
+<span>Q3 Actual: ₹2,985</span>
+<span class="text-emerald-400 font-bold">Consensus Target: ₹3,240</span>
+</div>
+</div>
+<!-- Right: Diagnostic Metrics Card -->
+<div class="lg:col-span-4 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-slate-200/70 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-headline-sm font-bold text-primary text-base">Fundamental Health</span>
+<span class="font-label-code text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold">Healthy (8.4/10)</span>
+</div>
+<div class="space-y-3 font-body-sm text-sm">
+<div class="p-3 rounded-xl bg-surface-card border border-slate-200/60 flex items-center justify-between">
+<span class="text-slate-600">Operating Free Cash Flow</span>
+<span class="font-headline-sm font-bold text-primary">₹18,420 Cr</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-card border border-slate-200/60 flex items-center justify-between">
+<span class="text-slate-600">EBITDA Margin</span>
+<span class="font-headline-sm font-bold text-emerald-700">17.8% (+60 bps)</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-card border border-slate-200/60 flex items-center justify-between">
+<span class="text-slate-600">Interest Coverage Ratio</span>
+<span class="font-headline-sm font-bold text-slate-900">6.4x</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-card border border-slate-200/60 flex items-center justify-between">
+<span class="text-slate-600">XBRL Data Provenance</span>
+<span class="font-label-code font-bold text-agent-dev-studio">100% Sourced</span>
+</div>
+</div>
+</div>
+<!-- Direct Mobile/Compact Download pill -->
+<div class="mt-4 pt-3 border-t border-slate-200/70 md:hidden">
+<a class="flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-surface-card border border-slate-200/80 text-xs font-label-code text-slate-800" href="#">
+<span class="material-symbols-outlined text-[16px] text-agent-dev-studio">download</span>
+<span>Reliance_Q3_Report.pdf (4.2 MB)</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Bull vs Bear Debate Cards -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-600 text-[20px]">gavel</span>
+<h3 class="font-headline-md text-lg sm:text-xl text-primary font-semibold">Dual-Agent Adversarial Thesis Comparison</h3>
+</div>
+<span class="font-label-code text-xs text-slate-500 hidden sm:inline">Confidence Delta: +14.6% Bullish Edge</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Bull Thesis Card -->
+<div class="p-5 sm:p-6 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-emerald-200/60 mb-4">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+</span>
+<div>
+<h4 class="font-headline-sm font-bold text-slate-900 text-base">Bull Thesis — Agent 'Taurus'</h4>
+<p class="font-label-code text-xs text-emerald-800">GROWTH, OPERATING MARGINS &amp; CAPEX</p>
+</div>
+</div>
+<span class="font-label-code text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">68% Weight</span>
+</div>
+<ul class="space-y-3 text-sm text-slate-700">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px] flex-shrink-0 mt-0.5">check_circle</span>
+<span><strong>Telecom ARPU Expansion:</strong> Tariff rationalisation and 5G monetisation are expanding blended ARPU towards ₹200+ with 52% EBITDA contribution.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px] flex-shrink-0 mt-0.5">check_circle</span>
+<span><strong>Retail Operating Leverage:</strong> Footfall density across 18,000+ store network grew 14% YoY; supply-chain automation drives 40 bps operating margin expansion.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-[18px] flex-shrink-0 mt-0.5">check_circle</span>
+<span><strong>New Energy Capex Rollout:</strong> Giga-factory solar and hydrogen infrastructure execution on track, positioning long-term terminal value re-rating.</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-3 border-t border-emerald-200/60 flex items-center justify-between font-label-code text-xs text-emerald-900">
+<span>FCF Yield: 4.8% Projected</span>
+<span>12 SEC/SEBI Citations</span>
+</div>
+</div>
+<!-- Bear Thesis Card -->
+<div class="p-5 sm:p-6 rounded-2xl bg-rose-50/50 border border-rose-200/80 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-rose-200/60 mb-4">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">trending_down</span>
+</span>
+<div>
+<h4 class="font-headline-sm font-bold text-slate-900 text-base">Bear Thesis — Agent 'Ursa'</h4>
+<p class="font-label-code text-xs text-rose-800">VALUATION MULTIPLE &amp; MACRO HEADWINDS</p>
+</div>
+</div>
+<span class="font-label-code text-xs font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800">32% Weight</span>
+</div>
+<ul class="space-y-3 text-sm text-slate-700">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-rose-600 text-[18px] flex-shrink-0 mt-0.5">warning</span>
+<span><strong>Refining &amp; Petchem Margin Volatility:</strong> Global GRM (Gross Refining Margin) cyclicality faces pressure from soft Asian downstream petrochemical spreads.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-rose-600 text-[18px] flex-shrink-0 mt-0.5">warning</span>
+<span><strong>Net Debt &amp; Interest Coverage:</strong> Massive ongoing capital expenditure keeps free cash flow after capex constrained, leaving vulnerability to higher-for-longer interest rates.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-rose-600 text-[18px] flex-shrink-0 mt-0.5">warning</span>
+<span><strong>Valuation Multiple Ceiling:</strong> Trading near 24.5x forward P/E, limiting upside without immediate demerger announcements or subsidiary IPO timelines.</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-3 border-t border-rose-200/60 flex items-center justify-between font-label-code text-xs text-rose-900">
+<span>Downside Risk Floor: -8.5%</span>
+<span>8 Macro Indicators Correlated</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Mandatory Compliance Disclaimer Banner -->
+<section class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+<div class="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-900 flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+<div class="w-9 h-9 rounded-full bg-amber-200/70 flex items-center justify-center flex-shrink-0 text-amber-800">
+<span class="material-symbols-outlined text-[20px]">shield_with_heart</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-sm sm:text-base font-semibold text-amber-950">
+          Educational research only — not financial advice. Past performance does not guarantee future results.
+        </p>
+<p class="font-body-sm text-xs text-amber-800/90 mt-0.5">
+          GriZon AI produces automated algorithmic models for educational and scenario simulation purposes. Consult a SEBI registered investment advisor before executing trades.
+        </p>
+</div>
+</div>
+</section>
+<!-- Pricing & Access Tier from grizonai.com -->
+<section class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+<div class="text-center max-w-2xl mx-auto mb-10">
+<span class="font-label-code text-xs font-bold uppercase tracking-wider text-primary px-3 py-1 rounded-full bg-slate-100 border border-slate-200">
+        Transparent Subscription Tiers
+      </span>
+<h2 class="font-headline-lg text-3xl sm:text-4xl text-primary font-normal mt-3">
+        Simple, auditable agent pricing
+      </h2>
+<p class="text-slate-600 text-sm sm:text-base mt-2">
+        Equip your workflow with autonomous market intelligence. Transparent usage with rollover credits.
+      </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+<!-- Basic Tier -->
+<div class="p-6 rounded-3xl bg-surface-card border border-slate-200/80 shadow-xs flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-headline-sm text-lg font-bold text-primary">Basic</h3>
+<span class="font-label-code text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">STARTER</span>
+</div>
+<p class="text-xs text-slate-500 mb-5">For individual retail researchers and active learners.</p>
+<div class="mb-6">
+<span class="font-headline-lg text-4xl font-normal text-primary">₹999</span>
+<span class="text-xs text-slate-500 font-label-code"> / month</span>
+</div>
+<ul class="space-y-3 text-xs sm:text-sm text-slate-700 mb-8">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span>
+<span>Includes Data &amp; Market Analyst Agent</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span>
+<span>Fast technical and earnings summaries</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span>
+<span>Standard Bull vs Bear debate engine</span>
+</li>
+<li class="flex items-center gap-2 text-slate-400">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span>No credit rollover</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-2.5 rounded-xl border border-slate-300 text-primary font-headline-sm text-sm hover:bg-slate-50 transition-colors">
+          Select Basic
+        </button>
+</div>
+<!-- Pro Tier (Recommended) -->
+<div class="p-6 rounded-3xl bg-primary text-white border border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -top-12 -right-12 w-36 h-36 bg-saffron-glow/20 rounded-full blur-2xl pointer-events-none"></div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-headline-sm text-lg font-bold text-white">Pro</h3>
+<span class="font-label-code text-xs px-2.5 py-0.5 rounded-full bg-saffron-glow text-primary font-bold">MOST POPULAR</span>
+</div>
+<p class="text-xs text-slate-300 mb-5">For rigorous market analysts, desk teams, and active investors.</p>
+<div class="mb-6">
+<span class="font-headline-lg text-4xl font-normal text-white">₹1,999</span>
+<span class="text-xs text-slate-300 font-label-code"> / month</span>
+</div>
+<ul class="space-y-3 text-xs sm:text-sm text-slate-200 mb-8">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-saffron-glow">check_circle</span>
+<span><strong>500 credits + rollover</strong></span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-saffron-glow">check_circle</span>
+<span>Full Multi-Stage DCF &amp; Valuation Models</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-saffron-glow">check_circle</span>
+<span>Unlimited .xlsx / PDF synthesised downloads</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-saffron-glow">check_circle</span>
+<span>Priority SEC &amp; SEBI XBRL Ingestion</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-xl bg-saffron-glow text-primary font-headline-sm text-sm font-bold hover:bg-amber-400 transition-colors shadow-md">
+          Upgrade to Pro
+        </button>
+</div>
+<!-- Elite Tier -->
+<div class="p-6 rounded-3xl bg-surface-card border border-slate-200/80 shadow-xs flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-headline-sm text-lg font-bold text-primary">Elite</h3>
+<span class="font-label-code text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">SCALE</span>
+</div>
+<p class="text-xs text-slate-500 mb-5">For hedge desks, family offices, and quant research desks.</p>
+<div class="mb-6">
+<span class="font-headline-lg text-4xl font-normal text-primary">₹2,999</span>
+<span class="text-xs text-slate-500 font-label-code"> / month</span>
+</div>
+<ul class="space-y-3 text-xs sm:text-sm text-slate-700 mb-8">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span>
+<span><strong>1,000 credits + rollover</strong></span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span>
+<span>Autonomous swarm continuous surveillance</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span>
+<span>Direct Python API &amp; Webhook connectors</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check_circle</span>
+<span>Dedicated sovereign memory vault</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-2.5 rounded-xl border border-slate-300 text-primary font-headline-sm text-sm hover:bg-slate-50 transition-colors">
+          Get Elite
+        </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Unified 4-Column GriZon AI Footer -->
+<footer class="w-full bg-surface-card border-t border-slate-200/80 pt-16 pb-12 relative z-10">
+<div class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+<!-- Column 1: Brand & Bio -->
+<div class="space-y-4 md:col-span-1">
+<a class="inline-block" href="#">
+<img alt="GriZon AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U1X2ewwH580f1GxqB2jPBc1JS3eQMPQBXMVYcGdk3ZfckCqL4jZyvfgbu5a44yjLbxGF8U4y1C_BSLVPSzBp1iX9g3uDFJHzGGy8sFW3d6krfKcoDN5O8ikEpCs9dVXRmnWDpyLOL90XEKBTCejqk9FCehFK3i0i5xuxxqf9J4YJ8zYnZ8e1xd7tmPjn6cs-WIogq7lmIk_DrlxHw3dP6WePWDPW3qaeMMwQSWLiG888hgvHa3U0igDog"/>
+</a>
+<p class="font-body-md text-sm text-slate-600 leading-relaxed">
+          India's leading sovereign multi-agent intelligence platform engineered for uncompromised autonomy, rapid deep research, and mathematical accuracy.
+        </p>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-xs font-label-code text-slate-700">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span>SYSTEMS OPERATIONAL • TIER 5</span>
+</div>
+</div>
+<!-- Column 2: Platform & Agents -->
+<div>
+<h4 class="font-headline-sm text-sm font-bold text-primary uppercase tracking-wider mb-4">Agents</h4>
+<ul class="space-y-2.5 text-sm text-slate-600">
+<li><a class="hover:text-primary transition-colors" href="#">Data &amp; Market Analyst</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Fast Web Researcher</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Deep Research Pilot</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Dev Studio Pilot</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Legal Contract Synthesiser</a></li>
+</ul>
+</div>
+<!-- Column 3: Resources & Docs -->
+<div>
+<h4 class="font-headline-sm text-sm font-bold text-primary uppercase tracking-wider mb-4">Resources</h4>
+<ul class="space-y-2.5 text-sm text-slate-600">
+<li><a class="hover:text-primary transition-colors" href="#">Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Python SDK Client</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">SEBI/XBRL Data Model</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">API Pricing &amp; Credits</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Responsible AI Framework</a></li>
+</ul>
+</div>
+<!-- Column 4: Company & Compliance -->
+<div>
+<h4 class="font-headline-sm text-sm font-bold text-primary uppercase tracking-wider mb-4">Trust &amp; Governance</h4>
+<ul class="space-y-2.5 text-sm text-slate-600">
+<li><a class="hover:text-primary transition-colors" href="#">Indian DPDP Compliance</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Sovereign Data Isolation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Security Disclosure</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="pt-8 border-t border-slate-200/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-label-code">
+<div>
+        © 2025 GriZon AI Technologies Private Limited. All sovereign rights reserved.
+      </div>
+<div class="flex items-center gap-1.5 text-slate-700 font-medium">
+<span>Made with</span>
+<span class="text-rose-500">❤️</span>
+<span>in India</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

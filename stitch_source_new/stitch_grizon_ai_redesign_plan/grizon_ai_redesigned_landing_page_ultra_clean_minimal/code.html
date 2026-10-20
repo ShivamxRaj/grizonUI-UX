@@ -1,0 +1,574 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<title>GriZon AI — Sovereign Agent Workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+@layer base {
+  html, body { margin:0; padding:0; }
+  body { overscroll-behavior: none; }
+}
+::-webkit-scrollbar { display:none; }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "background": "#f9f9fb",
+        "parchment-bg": "#FAFAF8",
+        "surface-card": "#FFFFFF",
+        "primary": "#07091b",
+        "primary-container": "#1e2033",
+        "secondary": "#974800",
+        "saffron-glow": "#F7A859",
+        "lavender-subtle": "#A5BBFC",
+        "agent-deep-research": "#3C4B9B",
+        "agent-dev-studio": "#107E7D",
+        "agent-legal": "#843B62",
+        "border-hairline": "#E6E7EE",
+        "on-surface": "#1a1c1d",
+        "on-surface-variant": "#52545d"
+      },
+      fontFamily: {
+        "display-hero": ["Newsreader", "serif"],
+        "headline-lg": ["Newsreader", "serif"],
+        "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+        "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+        "body-md": ["Plus Jakarta Sans", "sans-serif"],
+        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+        "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+        "label-code": ["Space Grotesk", "monospace"],
+        "label-badge": ["Plus Jakarta Sans", "sans-serif"]
+      }
+    }
+  }
+};
+</script>
+</head>
+<body class="bg-parchment-bg font-body-md text-on-surface antialiased relative min-h-screen selection:bg-slate-200 selection:text-primary">
+<!-- Ethereal Subtle Ambient Light -->
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+<div class="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[850px] h-[480px] bg-gradient-to-b from-saffron-glow/8 via-lavender-subtle/8 to-transparent blur-3xl opacity-60"></div>
+</div>
+<!-- MINIMAL TOP NAVIGATION -->
+<header class="fixed top-0 w-full z-50 bg-parchment-bg/80 backdrop-blur-xl border-b border-border-hairline/60"><div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-2.5" href="#">
+<img alt="GriZon AI" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U1X2ewwH580f1GxqB2jPBc1JS3eQMPQBXMVYcGdk3ZfckCqL4jZyvfgbu5a44yjLbxGF8U4y1C_BSLVPSzBp1iX9g3uDFJHzGGy8sFW3d6krfKcoDN5O8ikEpCs9dVXRmnWDpyLOL90XEKBTCejqk9FCehFK3i0i5xuxxqf9J4YJ8zYnZ8e1xd7tmPjn6cs-WIogq7lmIk_DrlxHw3dP6WePWDPW3qaeMMwQSWLiG888hgvHa3U0igDog">
+</a>
+<span class="hidden sm:inline-block font-label-code text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider border border-border-hairline">Sovereign AI</span>
+</div>
+<nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+<a class="text-primary font-semibold hover:text-primary transition-colors flex items-center gap-1" href="#agents">
+<span class="">Agents</span>
+</a>
+<a class="hover:text-primary transition-colors" href="#agents">Research</a>
+<a class="hover:text-primary transition-colors" href="#workspace">Market Analyst</a>
+<a class="hover:text-primary transition-colors" href="#agents">Dev Studio</a>
+<a class="hover:text-primary transition-colors" href="#agents">Doc Intelligence</a>
+<a class="hover:text-primary transition-colors" href="#pricing">Pricing</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="text-sm font-medium text-slate-600 hover:text-primary px-3 py-1.5 transition-colors hidden sm:inline-block" href="https://app.grizonai.com">Sign In</a>
+<a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-white bg-primary hover:bg-slate-800 transition-all shadow-xs" href="https://app.grizonai.com">
+<span class="">Start Free</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+</div></header>
+<main class="w-full relative z-10 pt-28">
+<!-- HERO SECTION: Ultra-tight copy, huge typography, instant prompt pill -->
+<section class="max-w-5xl mx-auto px-6 pt-12 pb-16 text-center">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-border-hairline shadow-[0_1px_3px_rgba(0,0,0,0.03)] mb-8">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-label-code text-[11px] uppercase tracking-wider text-slate-600 font-medium">Auto-Routed Multi-Agent Intelligence</span>
+</div>
+<h1 class="font-display-hero text-4xl sm:text-6xl md:text-[68px] text-primary tracking-tight font-normal leading-[1.08] mb-6 max-w-4xl mx-auto">
+      Everything you need, <br>
+<span class="italic font-display-hero text-agent-deep-research">one workspace.</span>
+</h1>
+<p class="font-body-md sm:font-body-lg text-base sm:text-lg text-on-surface-variant max-w-xl mx-auto mb-10 leading-relaxed">
+      Purpose-built AI agents for research, coding, documents, markets, and video.
+    </p>
+<!-- Instant Interactive Intent / Prompt Bar (Minimalist, fast) -->
+<div class="max-w-2xl mx-auto bg-white rounded-2xl border border-border-hairline p-2 sm:p-2.5 shadow-[0_12px_40px_-10px_rgba(7,9,27,0.07)] mb-8 text-left transition-all focus-within:ring-2 focus-within:ring-slate-300">
+<div class="flex items-center gap-2.5 px-3 py-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">search</span>
+<input class="w-full bg-transparent border-0 p-0 text-sm sm:text-base text-primary placeholder-slate-400 focus:outline-none focus:ring-0" id="heroPromptInput" placeholder="Describe your goal, or let Auto Mode route it..." type="text">
+<a class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-white font-headline-sm text-xs font-semibold hover:bg-slate-800 transition-colors shadow-xs" href="https://app.grizonai.com">
+<span class="">Start Free</span>
+<span class="material-symbols-outlined text-[15px]">bolt</span>
+</a>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-2 px-2 border-t border-slate-100 mt-1">
+<span class="font-label-code text-[10px] text-slate-400 uppercase tracking-wider px-1">Route directly:</span>
+<button class="px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-medium border border-border-hairline/60 transition-colors flex items-center gap-1" onclick="setGoal('Analyze competitor balance sheet in Gujarat solar sector')">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> Fast Research
+        </button>
+<button class="px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-medium border border-border-hairline/60 transition-colors flex items-center gap-1" onclick="setGoal('Build a responsive analytics sparkline card with Tailwind CSS')">
+<span class="material-symbols-outlined text-[13px] text-agent-dev-studio">terminal</span> Dev Studio
+        </button>
+<button class="px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-medium border border-border-hairline/60 transition-colors flex items-center gap-1" onclick="setGoal('Bull vs Bear valuation breakdown for Nifty 50 banking leaders')">
+<span class="material-symbols-outlined text-[13px] text-agent-deep-research">candlestick_chart</span> Market Analyst
+        </button>
+</div>
+</div>
+</section>
+<!-- TELEMETRY STRIP (4 Key Metrics in one thin whisper line) -->
+<section class="max-w-5xl mx-auto px-6 pb-20">
+<div class="py-4 px-6 rounded-2xl bg-white/70 border border-border-hairline backdrop-blur-sm grid grid-cols-2 md:grid-cols-4 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border-hairline/80">
+<div class="py-1">
+<p class="font-headline-sm text-sm font-semibold text-primary">8 Specialised Agents</p>
+<p class="text-[11px] text-slate-500 font-label-code mt-0.5">Engineered toolchains</p>
+</div>
+<div class="py-1">
+<p class="font-headline-sm text-sm font-semibold text-primary">Smart Auto Mode</p>
+<p class="text-[11px] text-slate-500 font-label-code mt-0.5">&lt;50ms intent router</p>
+</div>
+<div class="py-1">
+<p class="font-headline-sm text-sm font-semibold text-primary">Monthly Rollover Credits</p>
+<p class="text-[11px] text-slate-500 font-label-code mt-0.5">Zero unused credit waste</p>
+</div>
+<div class="py-1">
+<p class="font-headline-sm text-sm font-semibold text-primary">256-bit Encryption</p>
+<p class="text-[11px] text-slate-500 font-label-code mt-0.5">DPDP safe • Zero training</p>
+</div>
+</div>
+</section>
+<!-- THE 8 AGENTS IN ONE GLANCE (Zero wall of text, ultra-scannable luxury cards) -->
+<section class="max-w-6xl mx-auto px-6 py-16" id="agents">
+<div class="text-center max-w-xl mx-auto mb-12">
+<span class="font-label-code text-[11px] uppercase tracking-widest text-agent-deep-research font-bold">Purpose-Built Suite</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-primary tracking-tight mt-1.5">
+        8 agents built for the job, <br>
+<span class="italic font-display-hero text-slate-500">not generic chat.</span>
+</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- 1: Fast Research -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-orange-50 text-secondary flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">bolt</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">Fast Research</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Instant web answers with verifiable citations.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">&lt;400ms speed</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+<!-- 2: Deep Research -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-indigo-50 text-agent-deep-research flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">psychology</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">Deep Research</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Multi-step autonomous synthesis &amp; risk reports.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">Recursive trees</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+<!-- 3: Dev Studio -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-teal-50 text-agent-dev-studio flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">terminal</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">Dev Studio</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Code, debug &amp; preview live HTML interfaces.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">Live canvas sandbox</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+<!-- 4: Data & Market Analyst -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">candlestick_chart</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">Data &amp; Market Analyst</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">NSE stocks &amp; crypto with bull vs bear lens.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">Live tickers &amp; DCF</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+<!-- 5: Doc Intelligence -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-rose-50 text-agent-legal flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">description</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">Doc Intelligence</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Analyse PDFs, extract tables &amp; draft reports.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">Table &amp; OCR parser</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+<!-- 6: Video Analyser -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">smart_display</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">Video Analyser</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Scene understanding &amp; frame-by-frame text extraction.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">Timestamp index</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+<!-- 7: System Architect -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">schema</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">System Architect</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Cloud blueprints, schemas &amp; architectural trade-offs.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">Mermaid &amp; UML ready</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+<!-- 8: General Assistant -->
+<div class="p-5 rounded-2xl bg-white border border-border-hairline hover:border-slate-300 transition-all shadow-xs flex flex-col justify-between group">
+<div>
+<div class="w-9 h-9 rounded-xl bg-sky-50 text-sky-800 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[19px]">chat</span>
+</div>
+<h3 class="font-headline-sm text-sm font-bold text-primary mb-1">General Assistant</h3>
+<p class="text-xs text-on-surface-variant leading-relaxed">Everyday reasoning, brainstorming &amp; quick Q&amp;A.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-label-code text-slate-400">
+<span class="">Zero setup</span>
+<span class="material-symbols-outlined text-[15px] group-hover:text-primary transition-colors">north_east</span>
+</div>
+</div>
+</div>
+</section>
+<!-- WORKSPACE PREVIEW: Show, Don't Tell (Visual comprehension in 1 second) -->
+<section class="max-w-6xl mx-auto px-6 py-16" id="workspace">
+<div class="text-center max-w-xl mx-auto mb-10">
+<span class="font-label-code text-[11px] uppercase tracking-widest text-secondary font-bold">One Screen, Zero Switching</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-primary tracking-tight mt-1.5">
+        Artifacts materialize live beside your thread
+      </h2>
+</div>
+<!-- Stunning Mock Workspace Container -->
+<div class="rounded-2xl bg-white border border-border-hairline shadow-[0_20px_60px_-15px_rgba(7,9,27,0.06)] overflow-hidden">
+<!-- Window Title Bar -->
+<div class="px-5 py-3 border-b border-border-hairline/80 bg-slate-50/60 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<div class="flex gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
+</div>
+<span class="text-slate-400 font-label-code ml-2 text-[11px]">grizon://session/market-dcf-analysis</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-code text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold">Active Agent: Market Analyst</span>
+<span class="text-slate-400 text-xs">• 112ms</span>
+</div>
+</div>
+<!-- Workspace Body: Left chat / Center artifact / Right export -->
+<div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border-hairline">
+<!-- LEFT: Minimal Auto-Routing Note & Query (4 cols) -->
+<div class="lg:col-span-4 p-5 sm:p-6 bg-slate-50/30 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="text-[11px] font-label-code text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Auto Mode Decision
+            </div>
+<div class="p-3.5 rounded-xl bg-white border border-border-hairline text-xs space-y-2 shadow-2xs">
+<p class="text-slate-500 font-label-code text-[10px]">USER PROMPT</p>
+<p class="font-medium text-slate-800">"Assess valuation multipliers and risk metrics for top 3 Indian clean energy leaders."</p>
+</div>
+<div class="p-3.5 rounded-xl bg-indigo-50/60 border border-indigo-100 text-xs space-y-1.5 text-slate-700">
+<div class="flex items-center gap-1.5 font-semibold text-agent-deep-research text-[11px] font-label-code">
+<span class="material-symbols-outlined text-[14px]">psychology</span> Routed to Market Analyst + Footnotes
+              </div>
+<p class="text-[11px] text-slate-600 leading-relaxed">Extracted 8 verified balance sheet filings &amp; generated live valuation curve.</p>
+</div>
+</div>
+<div class="pt-6">
+<span class="font-label-code text-[10px] text-slate-400">CREDIT BALANCE: 486 / 500 (Pro)</span>
+</div>
+</div>
+<!-- CENTER: Live Interactive Artifact Preview (6 cols) -->
+<div class="lg:col-span-5 p-5 sm:p-6 bg-white space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs font-label-code text-slate-400 uppercase">Interactive Artifact</p>
+<h4 class="font-headline-sm text-sm font-semibold text-primary">CleanEnergy_Valuation_Model.py</h4>
+</div>
+<span class="font-label-code text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold">Python 3.11</span>
+</div>
+<!-- Chart snippet visualization -->
+<div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+<div class="flex justify-between items-center text-xs mb-2">
+<span class="font-label-code text-slate-500 text-[11px]">EV / EBITDA MULTIPLES</span>
+<span class="font-label-code text-emerald-600 font-semibold text-[11px]">+18.4% Sector Premium</span>
+</div>
+<svg class="w-full h-24 text-agent-deep-research" fill="none" stroke="currentColor" viewBox="0 0 400 100">
+<path d="M 0 80 Q 80 50, 160 65 T 280 30 T 400 15" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+<path d="M 0 80 Q 80 50, 160 65 T 280 30 T 400 15 L 400 100 L 0 100 Z" fill="rgba(60,75,155,0.08)"></path>
+<circle class="fill-amber-500" cx="280" cy="30" r="3"></circle>
+<circle class="fill-agent-dev-studio" cx="400" cy="15" r="3"></circle>
+</svg>
+<div class="flex justify-between text-[10px] font-label-code text-slate-400 mt-2">
+<span class="">Q1 2024</span>
+<span class="">Q3 2024</span>
+<span class="">Q1 2025 (Forecast)</span>
+</div>
+</div>
+<!-- Markdown brief snippet -->
+<div class="text-xs text-slate-600 space-y-1 font-body-sm bg-slate-50/50 p-3 rounded-lg border border-slate-100">
+<p class="font-semibold text-slate-800 text-[11px]">Executive Takeaway:</p>
+<p class="text-[11px] text-slate-600 line-clamp-2">Sovereign transmission grid capex expands ROCE to 14.8%. Bull scenario targets ₹1,420.</p>
+</div>
+</div>
+<!-- RIGHT: Instant Export & Action Toggle (3 cols) -->
+<div class="lg:col-span-3 p-5 sm:p-6 bg-slate-50/40 flex flex-col justify-between">
+<div class="space-y-3">
+<p class="text-xs font-label-code text-slate-400 uppercase">Export Artifact</p>
+<div class="space-y-1.5">
+<a class="w-full px-3 py-2 rounded-lg bg-white border border-border-hairline text-slate-700 text-xs font-medium hover:bg-slate-50 transition-colors flex items-center justify-between shadow-2xs" href="#">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-slate-400">table_view</span> Excel Model</span>
+<span class="text-[10px] font-label-code text-slate-400">.XLSX</span>
+</a>
+<a class="w-full px-3 py-2 rounded-lg bg-white border border-border-hairline text-slate-700 text-xs font-medium hover:bg-slate-50 transition-colors flex items-center justify-between shadow-2xs" href="#">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-slate-400">picture_as_pdf</span> Executive Brief</span>
+<span class="text-[10px] font-label-code text-slate-400">.PDF</span>
+</a>
+<a class="w-full px-3 py-2 rounded-lg bg-white border border-border-hairline text-slate-700 text-xs font-medium hover:bg-slate-50 transition-colors flex items-center justify-between shadow-2xs" href="#">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-slate-400">code</span> Raw Script</span>
+<span class="text-[10px] font-label-code text-slate-400">.PY</span>
+</a>
+</div>
+</div>
+<div class="pt-4">
+<a class="w-full py-2.5 rounded-xl bg-primary text-white text-xs font-semibold text-center block hover:bg-slate-800 transition-colors" href="https://app.grizonai.com">
+              Try This in Workspace
+            </a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ULTRA-CLEAN PRICING (Fast scannable comparison: 3 bullets per tier) -->
+<section class="max-w-6xl mx-auto px-6 py-20" id="pricing">
+<div class="text-center max-w-xl mx-auto mb-12">
+<span class="font-label-code text-[11px] uppercase tracking-widest text-secondary font-bold">Transparent Plans</span>
+<h2 class="font-display-hero text-3xl sm:text-4xl text-primary tracking-tight mt-1.5">
+        Plans for every ambition
+      </h2>
+<p class="text-xs sm:text-sm text-slate-500 mt-2">Transparent compute credits. Zero hidden multipliers.</p>
+<!-- Billing Toggle: Monthly / Yearly -->
+<div class="inline-flex items-center gap-1 p-1 rounded-full bg-slate-200/60 mt-6 text-xs font-semibold">
+<button class="px-4 py-1.5 rounded-full bg-white text-primary shadow-xs transition-all" id="btn-monthly" onclick="switchBilling('monthly')">Monthly</button>
+<button class="px-4 py-1.5 rounded-full text-slate-600 hover:text-primary transition-all flex items-center gap-1" id="btn-yearly" onclick="switchBilling('yearly')">
+          Yearly <span class="px-1.5 py-0.2 rounded-full bg-orange-100 text-orange-800 text-[10px]">2 mo free</span>
+</button>
+</div>
+</div>
+<!-- 4 Sleek Cards (Free, Basic, Pro, Elite) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+<!-- Tier 1: Free -->
+<div class="p-6 rounded-2xl bg-white border border-border-hairline shadow-xs flex flex-col justify-between">
+<div>
+<h3 class="font-headline-sm text-base font-bold text-primary">Free</h3>
+<p class="text-xs text-slate-500 mt-0.5 mb-5">Core conversational reasoning</p>
+<div class="mb-5">
+<span class="font-display-hero text-3xl text-primary">₹0</span>
+<span class="text-xs text-slate-400">/mo</span>
+</div>
+<ul class="space-y-2.5 text-xs text-slate-600 mb-6">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class=""><strong>50 credits</strong> / month</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class="">General Assistant Agent</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class="">Core web search &amp; tools</span>
+</li>
+</ul>
+</div>
+<a class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold text-center block transition-colors" href="https://app.grizonai.com">Get Started</a>
+</div>
+<!-- Tier 2: Basic -->
+<div class="p-6 rounded-2xl bg-white border border-border-hairline shadow-xs flex flex-col justify-between">
+<div>
+<h3 class="font-headline-sm text-base font-bold text-primary">Basic</h3>
+<p class="text-xs text-slate-500 mt-0.5 mb-5">Students &amp; solo developers</p>
+<div class="mb-5">
+<span class="font-display-hero text-3xl text-primary" id="price-basic">₹999</span>
+<span class="text-xs text-slate-400">/mo</span>
+</div>
+<ul class="space-y-2.5 text-xs text-slate-600 mb-6">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class=""><strong>200 credits</strong> / month</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class="">5 specialised agents</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class="">Dev Studio &amp; Markets</span>
+</li>
+</ul>
+</div>
+<a class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold text-center block transition-colors" href="https://app.grizonai.com">Get Started</a>
+</div>
+<!-- Tier 3: Pro (Highlighted) -->
+<div class="p-6 rounded-2xl bg-white border-2 border-saffron-glow/60 shadow-[0_12px_36px_-10px_rgba(247,168,89,0.2)] flex flex-col justify-between relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-white font-label-code text-[10px] uppercase font-bold tracking-wider">Most Popular</div>
+<div>
+<h3 class="font-headline-sm text-base font-bold text-primary">Pro</h3>
+<p class="text-xs text-slate-500 mt-0.5 mb-5">Professionals &amp; builders</p>
+<div class="mb-5">
+<span class="font-display-hero text-3xl text-primary" id="price-pro">₹1,999</span>
+<span class="text-xs text-slate-400">/mo</span>
+</div>
+<ul class="space-y-2.5 text-xs text-slate-700 mb-6">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-secondary">check</span>
+<span class=""><strong>500 credits</strong> + rollover</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-secondary">check</span>
+<span class=""><strong>All 8 specialised agents</strong></span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-secondary">check</span>
+<span class="">Deep Research &amp; Video</span>
+</li>
+</ul>
+</div>
+<a class="w-full py-2.5 rounded-xl bg-primary hover:bg-slate-800 text-white text-xs font-semibold text-center block transition-colors shadow-xs" href="https://app.grizonai.com">Get Started</a>
+</div>
+<!-- Tier 4: Elite -->
+<div class="p-6 rounded-2xl bg-white border border-border-hairline shadow-xs flex flex-col justify-between">
+<div>
+<h3 class="font-headline-sm text-base font-bold text-primary">Elite</h3>
+<p class="text-xs text-slate-500 mt-0.5 mb-5">Teams &amp; heavy compute</p>
+<div class="mb-5">
+<span class="font-display-hero text-3xl text-primary" id="price-elite">₹2,999</span>
+<span class="text-xs text-slate-400">/mo</span>
+</div>
+<ul class="space-y-2.5 text-xs text-slate-600 mb-6">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class=""><strong>1,000 credits</strong> + rollover</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class="">All 8 agents + unlimited caps</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-slate-400">check</span>
+<span class="">Max context &amp; dedicated SLA</span>
+</li>
+</ul>
+</div>
+<a class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold text-center block transition-colors" href="https://app.grizonai.com">Get Started</a>
+</div>
+</div>
+</section>
+<!-- MINIMAL LUXURY CTA -->
+<section class="max-w-5xl mx-auto px-6 pb-24 text-center">
+<div class="rounded-3xl bg-primary text-white p-10 sm:p-14 relative overflow-hidden">
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-saffron-glow/20 blur-3xl rounded-full pointer-events-none"></div>
+<div class="relative z-10 max-w-xl mx-auto space-y-4">
+<h2 class="font-display-hero text-3xl sm:text-5xl tracking-tight leading-tight">
+          Ready for agents that <br><span class="italic text-saffron-glow">fit the job?</span>
+</h2>
+<p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
+          Start free with Auto Mode in seconds. Upgrade only when you need high-capacity compute swarms.
+        </p>
+<div class="pt-4">
+<a class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-primary text-xs sm:text-sm font-semibold hover:bg-slate-100 transition-colors shadow-sm" href="https://app.grizonai.com">
+<span class="">Start with AI Free</span>
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- MINIMAL LUXURY FOOTER -->
+<footer class="w-full border-t border-border-hairline bg-white/60">
+<div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<div class="flex items-center gap-3">
+<img alt="GriZon AI" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U1X2ewwH580f1GxqB2jPBc1JS3eQMPQBXMVYcGdk3ZfckCqL4jZyvfgbu5a44yjLbxGF8U4y1C_BSLVPSzBp1iX9g3uDFJHzGGy8sFW3d6krfKcoDN5O8ikEpCs9dVXRmnWDpyLOL90XEKBTCejqk9FCehFK3i0i5xuxxqf9J4YJ8zYnZ8e1xd7tmPjn6cs-WIogq7lmIk_DrlxHw3dP6WePWDPW3qaeMMwQSWLiG888hgvHa3U0igDog">
+<span class="">© 2025 GriZon AI Technologies. All rights reserved.</span>
+</div>
+<div class="flex items-center gap-4 font-label-code text-[11px]">
+<a class="hover:text-primary transition-colors" href="https://app.grizonai.com">App</a>
+<a class="hover:text-primary transition-colors" href="#agents">Agents</a>
+<a class="hover:text-primary transition-colors" href="#pricing">Pricing</a>
+<span class="text-slate-300">•</span>
+<span class="text-slate-600 font-medium">Made with ❤️ in India • DPDP Compliant</span>
+</div>
+</div>
+</footer>
+<!-- Interactive Scripts -->
+<script>
+function setGoal(text) {
+  const input = document.getElementById('heroPromptInput');
+  if (input) {
+    input.value = text;
+    input.focus();
+  }
+}
+
+function switchBilling(mode) {
+  const btnMonthly = document.getElementById('btn-monthly');
+  const btnYearly = document.getElementById('btn-yearly');
+  const basicEl = document.getElementById('price-basic');
+  const proEl = document.getElementById('price-pro');
+  const eliteEl = document.getElementById('price-elite');
+
+  if (mode === 'yearly') {
+    btnYearly.className = 'px-4 py-1.5 rounded-full bg-white text-primary shadow-xs transition-all flex items-center gap-1';
+    btnMonthly.className = 'px-4 py-1.5 rounded-full text-slate-600 hover:text-primary transition-all';
+    if (basicEl) basicEl.textContent = '₹799';
+    if (proEl) proEl.textContent = '₹1,599';
+    if (eliteEl) eliteEl.textContent = '₹2,399';
+  } else {
+    btnMonthly.className = 'px-4 py-1.5 rounded-full bg-white text-primary shadow-xs transition-all';
+    btnYearly.className = 'px-4 py-1.5 rounded-full text-slate-600 hover:text-primary transition-all flex items-center gap-1';
+    if (basicEl) basicEl.textContent = '₹999';
+    if (proEl) proEl.textContent = '₹1,999';
+    if (eliteEl) eliteEl.textContent = '₹2,999';
+  }
+}
+</script>
+
+
+</body></html>

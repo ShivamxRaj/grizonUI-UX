@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>GriZon AI — Sovereign Agent Workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+@layer base {
+  html, body { margin:0; padding:0; }
+  body { overscroll-behavior: none; }
+}
+::-webkit-scrollbar { display:none; }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "background": "#f9f9fb",
+        "parchment-bg": "#FAFAF8",
+        "surface-card": "#FFFFFF",
+        "primary": "#07091b",
+        "primary-container": "#1e2033",
+        "secondary": "#974800",
+        "saffron-glow": "#F7A859",
+        "lavender-subtle": "#A5BBFC",
+        "agent-deep-research": "#3C4B9B",
+        "agent-dev-studio": "#107E7D",
+        "agent-legal": "#843B62",
+        "border-hairline": "#E6E7EE",
+        "on-surface": "#1a1c1d",
+        "on-surface-variant": "#52545d"
+      },
+      fontFamily: {
+        "display-hero": ["Newsreader", "serif"],
+        "headline-lg": ["Newsreader", "serif"],
+        "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+        "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+        "body-md": ["Plus Jakarta Sans", "sans-serif"],
+        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+        "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+        "label-code": ["Space Grotesk", "monospace"],
+        "label-badge": ["Plus Jakarta Sans", "sans-serif"]
+      }
+    }
+  }
+};
+</script>
+</head>
+<body class="bg-parchment-bg font-body-md text-on-surface antialiased relative min-h-screen selection:bg-slate-200 selection:text-primary">
+<!-- Ethereal Subtle Ambient Light -->
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+<div class="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[850px] h-[480px] bg-gradient-to-b from-saffron-glow/8 via-lavender-subtle/8 to-transparent blur-3xl opacity-60"></div>
+</div>
+<!-- MINIMAL TOP NAVIGATION -->
+<header class="fixed top-0 w-full z-50 bg-parchment-bg/80 backdrop-blur-xl border-b border-border-hairline/60"><div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-2.5" href="#">
+<img alt="GriZon AI" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U1X2ewwH580f1GxqB2jPBc1JS3eQMPQBXMVYcGdk3ZfckCqL4jZyvfgbu5a44yjLbxGF8U4y1C_BSLVPSzBp1iX9g3uDFJHzGGy8sFW3d6krfKcoDN5O8ikEpCs9dVXRmnWDpyLOL90XEKBTCejqk9FCehFK3i0i5xuxxqf9J4YJ8zYnZ8e1xd7tmPjn6cs-WIogq7lmIk_DrlxHw3dP6WePWDPW3qaeMMwQSWLiG888hgvHa3U0igDog"/>
+</a>
+<span class="hidden sm:inline-block font-label-code text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider border border-border-hairline">Sovereign AI</span>
+</div>
+<nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+<a class="text-primary font-semibold hover:text-primary transition-colors flex items-center gap-1" href="#agents">
+<span class="">Agents</span>
+</a>
+<a class="hover:text-primary transition-colors" href="#agents">Research</a>
+<a class="hover:text-primary transition-colors" href="#workspace">Market Analyst</a>
+<a class="hover:text-primary transition-colors" href="#agents">Dev Studio</a>
+<a class="hover:text-primary transition-colors" href="#agents">Doc Intelligence</a>
+<a class="hover:text-primary transition-colors" href="#pricing">Pricing</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="text-sm font-medium text-slate-600 hover:text-primary px-3 py-1.5 transition-colors hidden sm:inline-block" href="https://app.grizonai.com">Sign In</a>
+<a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-white bg-primary hover:bg-slate-800 transition-all shadow-xs" href="https://app.grizonai.com">
+<span class="">Start Free</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+</div></header>
+<main class="w-full relative z-10 pt-28"><div class="flex flex-col w-full">
+<!-- AMBIENT TOP LIGHT SCATTER -->
+<div class="relative w-full max-w-6xl mx-auto px-6 pt-4 pb-12 sm:pb-20">
+<div class="absolute top-0 right-1/4 -z-10 w-96 h-96 rounded-full bg-saffron-glow/10 blur-3xl pointer-events-none"></div>
+<div class="absolute top-20 left-10 -z-10 w-80 h-80 rounded-full bg-lavender-subtle/15 blur-3xl pointer-events-none"></div>
+<!-- CATEGORY OVERLINE BADGE -->
+<div class="flex items-center gap-2 mb-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-card shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-agent-legal animate-pulse"></span>
+<span class="font-label-code text-label-code text-on-surface-variant uppercase tracking-wider">Specialised Agent Catalogue • Sovereign Compliance</span>
+</div>
+</div>
+<!-- HERO SECTION -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+<div class="lg:col-span-8 space-y-6">
+<h1 class="font-display-hero text-display-hero text-primary tracking-tight">
+          Audit contracts &amp; verify compliance. <span class="italic font-normal text-on-surface-variant">In seconds.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+          Multi-jurisdictional legal synthesis, clause risk redlining, and Indian DPDP Act compliance checks—without manual review. Built for fast-moving legal teams and autonomous enterprise governance.
+        </p>
+<!-- INTERACTIVE FILE DROP & QUERY BAR -->
+<div class="p-2 sm:p-3 rounded-2xl bg-surface-card shadow-xl shadow-primary/5 transition-all focus-within:shadow-2xl focus-within:shadow-saffron-glow/10 mt-4">
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+<label class="cursor-pointer flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors text-primary font-body-sm text-body-sm shrink-0 group">
+<span class="material-symbols-outlined text-secondary transition-transform group-hover:-translate-y-0.5">upload_file</span>
+<span class="font-medium">Attach PDF/DOCX</span>
+<input accept=".pdf,.docx,.txt" class="hidden" id="contractFileInput" onchange="updateUploadLabel(this)" type="file"/>
+</label>
+<div class="flex-1 relative flex items-center">
+<input class="w-full bg-transparent px-3 py-2 text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-hidden" id="legalPromptInput" placeholder="Upload NDA, MSA, or Vendor Agreement or ask a legal clause question..." type="text"/>
+</div>
+<button class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm font-medium transition-all active:scale-[0.98] shadow-md shadow-primary/20 shrink-0" onclick="simulateAnalysis()">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+<span>Analyse Contract</span>
+</button>
+</div>
+<div class="hidden pt-2 px-2 text-xs font-label-code text-agent-dev-studio flex items-center gap-1.5" id="uploadFeedback">
+<span class="material-symbols-outlined text-sm">task_alt</span>
+<span id="fileNameDisplay">File loaded. Ready for sovereign redline.</span>
+</div>
+</div>
+<!-- 4 GLANCEABLE TELEMETRY CHIPS -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+<div class="p-3 rounded-xl bg-surface-card shadow-xs flex items-center gap-2.5">
+<span class="material-symbols-outlined text-agent-legal text-lg">shield_locked</span>
+<div>
+<div class="font-label-code text-label-code uppercase text-outline">Privacy</div>
+<div class="font-headline-sm text-xs font-semibold text-primary">Zero Retention Air-Gapped</div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-surface-card shadow-xs flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-lg">verified_user</span>
+<div>
+<div class="font-label-code text-label-code uppercase text-outline">Legal Mandate</div>
+<div class="font-headline-sm text-xs font-semibold text-primary">DPDP Act 2023 Grounded</div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-surface-card shadow-xs flex items-center gap-2.5">
+<span class="material-symbols-outlined text-agent-dev-studio text-lg">bolt</span>
+<div>
+<div class="font-label-code text-label-code uppercase text-outline">Synthesis Rate</div>
+<div class="font-headline-sm text-xs font-semibold text-primary">&lt;1.2s Clause Parsing</div>
+</div>
+</div>
+<div class="p-3 rounded-xl bg-surface-card shadow-xs flex items-center gap-2.5">
+<span class="material-symbols-outlined text-agent-deep-research text-lg">difference</span>
+<div>
+<div class="font-label-code text-label-code uppercase text-outline">Audit Output</div>
+<div class="font-headline-sm text-xs font-semibold text-primary">Redline Diff Export</div>
+</div>
+</div>
+</div>
+</div>
+<!-- EDITORIAL STAT HERO CARD -->
+<div class="lg:col-span-4 -mt-2 lg:mt-0">
+<div class="p-6 rounded-2xl bg-surface-card shadow-lg shadow-slate-900/5 relative overflow-hidden flex flex-col justify-between h-full">
+<div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-saffron-glow/15 blur-2xl pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-code text-label-code text-outline uppercase tracking-wider">Benchmark Run • v4.2</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-code text-[10px] font-semibold">SOVEREIGN CORE</span>
+</div>
+<div class="font-display-hero text-headline-lg text-primary mb-1">99.4%</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">Unfettered indemnity &amp; data fiduciary liabilities flagged across standard enterprise vendor MSAs.</p>
+<div class="space-y-3 pt-2">
+<div class="flex items-center justify-between text-xs font-body-sm text-on-surface-variant">
+<span>DPDP 2023 Alignment</span>
+<span class="font-label-code text-primary font-medium">100% Deterministic</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-agent-dev-studio h-full rounded-full" style="width: 100%"></div>
+</div>
+<div class="flex items-center justify-between text-xs font-body-sm text-on-surface-variant pt-2">
+<span>Average Review Compression</span>
+<span class="font-label-code text-primary font-medium">4.8 Hrs → 42 Sec</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-agent-legal h-full rounded-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 bg-surface-container-low/50 rounded-xl p-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-2xl shrink-0">balance</span>
+<div class="text-xs text-on-surface-variant leading-relaxed">
+              Synthesises precedents from the Supreme Court of India, NCLT records, and international commercial law models.
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- LIVE CONTRACT AUDIT CONSOLE / INTERACTIVE ARTIFACT -->
+<div class="my-16">
+<div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-6 gap-4">
+<div>
+<div class="inline-flex items-center gap-2 mb-2 font-label-code text-label-code uppercase tracking-wider text-outline">
+<span class="material-symbols-outlined text-xs text-agent-legal">terminal</span>
+<span>Live Audit Console Snapshot</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Precision Clause Redlining</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-card hover:bg-surface-container-low text-primary font-headline-sm text-xs font-semibold shadow-xs transition-colors" onclick="downloadRedlineMock()">
+<span class="material-symbols-outlined text-sm text-agent-dev-studio">download</span>
+<span>Download Redlined DOCX</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-headline-sm text-xs font-semibold shadow-sm hover:bg-primary-container transition-colors" onclick="exportRiskMock()">
+<span class="material-symbols-outlined text-sm">share</span>
+<span>Export Risk Summary</span>
+</button>
+</div>
+</div>
+<!-- SPLIT VIEW ARTIFACT CARD -->
+<div class="rounded-3xl bg-surface-card shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+<!-- LEFT: ORIGINAL CONTRACT SOURCE WITH RISK HIGHLIGHT -->
+<div class="lg:col-span-6 p-6 sm:p-8 bg-surface-card flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-4 mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-agent-legal text-lg">description</span>
+<span class="font-headline-sm text-headline-sm text-primary">Master Services Agreement (MSA)</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-code text-label-badge font-semibold uppercase">
+                Uncapped Liability Risk • Severe
+              </span>
+</div>
+<div class="font-label-code text-label-code text-outline uppercase mb-2">Source Clause: Section 14.3 — Indemnification</div>
+<div class="p-4 rounded-xl bg-surface-container-low font-body-md text-body-md text-on-surface leading-relaxed relative">
+<span class="text-on-surface-variant font-label-code text-xs block mb-2">// Original Incoming Draft from Vendor</span>
+              "The Service Provider agrees to irrevocably defend, indemnify, and hold harmless Customer, its parent entities, affiliates, directors, and agents against <mark class="bg-secondary-fixed text-on-secondary-fixed px-1 rounded font-medium">any and all direct, indirect, incidental, punitive, or consequential losses, uncapped in aggregate magnitude</mark>, arising out of any breach of system warranties, intellectual property infringements, or <mark class="bg-secondary-fixed text-on-secondary-fixed px-1 rounded font-medium">regulatory data deviations without notice period</mark>."
+            </div>
+<!-- RISK CALLOUT CHIPS -->
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-error">warning</span>
+<span>Section 73 Indian Contract Act 1872 Conflict</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-secondary">database</span>
+<span>DPDP 2023 Sec 8(5) Strict Fiduciary Breach</span>
+</span>
+</div>
+</div>
+<div class="pt-6 mt-6 flex items-center justify-between text-xs text-outline font-label-code">
+<span>Doc ID: IN-MSA-2025-09881</span>
+<span class="text-agent-dev-studio font-medium">Calculated Risk Index: 88/100 (Unbalanced)</span>
+</div>
+</div>
+<!-- RIGHT: GRIZON SOVEREIGN LEGAL SYNTHESIS -->
+<div class="lg:col-span-6 p-6 sm:p-8 bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-4 mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">auto_awesome</span>
+<span class="font-headline-sm text-headline-sm text-primary">GriZon Sovereign Legal Synthesis</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-code text-label-badge font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>SYNTHESIS COMPLETE (0.84s)</span>
+</div>
+</div>
+<!-- CLAUSE SUMMARY -->
+<div class="mb-4">
+<div class="font-label-code text-label-code uppercase text-outline mb-1">Clause Diagnostic</div>
+<p class="font-body-md text-body-md text-on-surface">
+                Clause exposes the service provider to unbounded consequential damages and indefinite third-party indemnities. Violates standard market terms for enterprise SaaS agreements in India.
+              </p>
+</div>
+<!-- RECOMMENDED REDLINE SUBSTITUTION -->
+<div class="mb-5">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-code text-label-code uppercase text-outline">Recommended Sovereign Substitution</span>
+<button class="text-xs font-label-code text-secondary hover:text-on-secondary-container flex items-center gap-1" id="copyBtn" onclick="copySubstitution()">
+<span class="material-symbols-outlined text-xs">content_copy</span>
+<span>Copy Clause</span>
+</button>
+</div>
+<div class="p-4 rounded-xl bg-surface-card shadow-xs font-body-md text-body-md text-primary leading-relaxed" id="substituteClauseBox">
+                "Each party's aggregate indemnification liability under this Section 14 shall be strictly capped at the total fees paid or payable by Customer under the applicable Statement of Work over the prior twelve (12) month period. Neither party shall be liable for indirect, special, or consequential damages. Data governance liabilities remain governed strictly in adherence to Section 8 of the Indian Digital Personal Data Protection Act (DPDP) 2023."
+              </div>
+</div>
+<!-- JURISDICTIONAL CITATIONS -->
+<div class="space-y-2">
+<div class="font-label-code text-label-code uppercase text-outline">Statutory Grounding</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+<div class="p-2.5 rounded-lg bg-surface-card flex items-start gap-2">
+<span class="material-symbols-outlined text-agent-deep-research text-sm mt-0.5">menu_book</span>
+<div>
+<div class="font-semibold text-primary font-headline-sm text-xs">Indian Contract Act, 1872</div>
+<div class="text-on-surface-variant font-body-sm text-[11px]">Sec 73 (Remoteness of damage rule)</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-card flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-sm mt-0.5">verified</span>
+<div>
+<div class="font-semibold text-primary font-headline-sm text-xs">DPDP Act, 2023</div>
+<div class="text-on-surface-variant font-body-sm text-[11px]">Sec 8 &amp; Schedule 1 (Data Fiduciary obligations)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 flex items-center justify-between text-xs font-label-code text-outline">
+<span>Redline Confidence: 99.8%</span>
+<span class="text-primary font-medium">Audited in Sovereign Airgap</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 3 CORE PILLARS SECTION -->
+<div class="my-20">
+<div class="max-w-xl mb-12">
+<span class="font-label-code text-label-code text-outline uppercase tracking-wider block mb-2">Architectural Superiority</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Built for autonomous legal certainty.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+          Engineered to give general counsels, venture partners, and compliance officers enterprise-scale diligence velocity without sacrificing regulatory rigor.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- PILLAR 1 -->
+<div class="p-8 rounded-2xl bg-surface-card shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between group">
+<div>
+<div class="w-12 h-12 rounded-xl bg-error-container text-on-error-container flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-2xl">edit_note</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Clause-by-Clause Risk Redline</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Instant detection of onerous indemnities, unilateral termination triggers, and non-standard IP assignments with context-aware substitute language ready to merge into Word or Google Docs.
+            </p>
+</div>
+<div class="pt-6 mt-6 flex items-center gap-2 text-xs font-label-code text-agent-legal font-medium">
+<span>• Detects 120+ High-Risk Clause Types</span>
+</div>
+</div>
+<!-- PILLAR 2 -->
+<div class="p-8 rounded-2xl bg-surface-card shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between group">
+<div>
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-2xl">policy</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Indian DPDP &amp; Global Compliance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Real-time cross-referencing against the Indian Digital Personal Data Protection Act 2023, EU GDPR, and sovereign cloud residency mandates to certify cross-border data processing hygiene.
+            </p>
+</div>
+<div class="pt-6 mt-6 flex items-center gap-2 text-xs font-label-code text-secondary font-medium">
+<span>• In-Country Data Residency Certified</span>
+</div>
+</div>
+<!-- PILLAR 3 -->
+<div class="p-8 rounded-2xl bg-surface-card shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between group">
+<div>
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-2xl">translate</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Bilingual Legal Synthesis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Seamless legal reasoning across English and Indian official regional languages for state tender contracts, regional land lease agreements, and local procurement frameworks.
+            </p>
+</div>
+<div class="pt-6 mt-6 flex items-center gap-2 text-xs font-label-code text-agent-deep-research font-medium">
+<span>• Supports 10+ Official Indian Languages</span>
+</div>
+</div>
+</div>
+</div>
+<!-- COMPLIANCE DISCLAIMER PILL -->
+<div class="my-10 max-w-3xl mx-auto">
+<div class="p-4 rounded-full bg-surface-container-low shadow-xs flex items-center justify-center gap-3 text-center px-6">
+<span class="material-symbols-outlined text-secondary text-base shrink-0">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Educational &amp; operational legal intelligence tool — not formal legal representation. Verify high-risk contracts with certified legal counsel before binding execution.
+        </p>
+</div>
+</div>
+<!-- MINIMAL LUXURY CTA BANNER -->
+<div class="mt-16 mb-8 p-10 sm:p-14 rounded-3xl bg-primary text-on-primary relative overflow-hidden shadow-2xl">
+<!-- Glow ambient backdrop inside card -->
+<div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-saffron-glow/20 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-16 -bottom-16 w-80 h-80 rounded-full bg-lavender-subtle/15 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 max-w-2xl space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container font-label-code text-label-code text-primary-fixed uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-saffron-glow"></span>
+<span>Sovereign Enterprise Ready</span>
+</div>
+<h2 class="font-display-hero text-headline-lg sm:text-display-hero text-on-primary tracking-tight leading-tight">
+          Ready to protect your contracts with sovereign legal speed?
+        </h2>
+<p class="font-body-lg text-body-lg text-primary-fixed-dim">
+          Deploy GriZon Legal Agent in your private VPC or consume via air-gapped API endpoints. Onboard your legal repository in under five minutes.
+        </p>
+<div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+<a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-primary font-headline-sm text-sm font-semibold hover:bg-slate-100 transition-all shadow-md active:scale-[0.98]" href="https://app.grizonai.com">
+<span>Start Free with Legal Agent</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary-container text-on-primary hover:bg-slate-800 font-headline-sm text-sm font-semibold transition-all" href="mailto:enterprise@grizonai.com">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span>Schedule Enterprise Audit</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE CLIENT-SIDE LOGIC -->
+<script>
+    function updateUploadLabel(input) {
+      const feedback = document.getElementById('uploadFeedback');
+      const nameDisplay = document.getElementById('fileNameDisplay');
+      if (input.files && input.files[0]) {
+        nameDisplay.textContent = 'Uploaded: ' + input.files[0].name + ' (Processing vector embeddings...)';
+        feedback.classList.remove('hidden');
+      }
+    }
+
+    function simulateAnalysis() {
+      const input = document.getElementById('legalPromptInput');
+      const val = input.value.trim();
+      const feedback = document.getElementById('uploadFeedback');
+      const nameDisplay = document.getElementById('fileNameDisplay');
+      
+      feedback.classList.remove('hidden');
+      if (val) {
+        nameDisplay.textContent = 'Analysing query: "' + val.substring(0, 36) + '..." via DPDP compliance parser';
+      } else {
+        nameDisplay.textContent = 'Executing legal audit on current contract schema...';
+      }
+    }
+
+    function copySubstitution() {
+      const text = document.getElementById('substituteClauseBox').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.innerHTML = '<span class="material-symbols-outlined text-xs">check</span><span>Copied to Clipboard!</span>';
+        setTimeout(() => {
+          btn.innerHTML = '<span class="material-symbols-outlined text-xs">content_copy</span><span>Copy Clause</span>';
+        }, 2500);
+      });
+    }
+
+    function downloadRedlineMock() {
+      alert("Downloading sovereign redlined contract: IN-MSA-2025-09881-REDLINED.docx");
+    }
+
+    function exportRiskMock() {
+      alert("Exporting Executive Risk Summary: DPDP 2023 & Indian Contract Act Compliance Audit (PDF)");
+    }
+  </script>
+</div></main>
+<!-- MINIMAL LUXURY FOOTER -->
+<footer class="w-full border-t border-border-hairline bg-white/60">
+<div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<div class="flex items-center gap-3">
+<img alt="GriZon AI" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U1X2ewwH580f1GxqB2jPBc1JS3eQMPQBXMVYcGdk3ZfckCqL4jZyvfgbu5a44yjLbxGF8U4y1C_BSLVPSzBp1iX9g3uDFJHzGGy8sFW3d6krfKcoDN5O8ikEpCs9dVXRmnWDpyLOL90XEKBTCejqk9FCehFK3i0i5xuxxqf9J4YJ8zYnZ8e1xd7tmPjn6cs-WIogq7lmIk_DrlxHw3dP6WePWDPW3qaeMMwQSWLiG888hgvHa3U0igDog"/>
+<span class="">© 2025 GriZon AI Technologies. All rights reserved.</span>
+</div>
+<div class="flex items-center gap-4 font-label-code text-[11px]">
+<a class="hover:text-primary transition-colors" href="https://app.grizonai.com">App</a>
+<a class="hover:text-primary transition-colors" href="#agents">Agents</a>
+<a class="hover:text-primary transition-colors" href="#pricing">Pricing</a>
+<span class="text-slate-300">•</span>
+<span class="text-slate-600 font-medium">Made with ❤️ in India • DPDP Compliant</span>
+</div>
+</div>
+</footer>
+<!-- Interactive Scripts -->
+<script>
+function setGoal(text) {
+  const input = document.getElementById('heroPromptInput');
+  if (input) {
+    input.value = text;
+    input.focus();
+  }
+}
+
+function switchBilling(mode) {
+  const btnMonthly = document.getElementById('btn-monthly');
+  const btnYearly = document.getElementById('btn-yearly');
+  const basicEl = document.getElementById('price-basic');
+  const proEl = document.getElementById('price-pro');
+  const eliteEl = document.getElementById('price-elite');
+
+  if (mode === 'yearly') {
+    btnYearly.className = 'px-4 py-1.5 rounded-full bg-white text-primary shadow-xs transition-all flex items-center gap-1';
+    btnMonthly.className = 'px-4 py-1.5 rounded-full text-slate-600 hover:text-primary transition-all';
+    if (basicEl) basicEl.textContent = '₹799';
+    if (proEl) proEl.textContent = '₹1,599';
+    if (eliteEl) eliteEl.textContent = '₹2,399';
+  } else {
+    btnMonthly.className = 'px-4 py-1.5 rounded-full bg-white text-primary shadow-xs transition-all';
+    btnYearly.className = 'px-4 py-1.5 rounded-full text-slate-600 hover:text-primary transition-all flex items-center gap-1';
+    if (basicEl) basicEl.textContent = '₹999';
+    if (proEl) proEl.textContent = '₹1,999';
+    if (eliteEl) eliteEl.textContent = '₹2,999';
+  }
+}
+</script>
+</body></html>
