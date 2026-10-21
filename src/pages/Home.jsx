@@ -430,23 +430,23 @@ export default function Home() {
           </div>
 
           {/* Official Browser Frame with Interface Screenshot */}
-          <div className="max-w-5xl mx-auto rounded-2xl bg-surface-card p-2 sm:p-3 shadow-[0_25px_70px_-15px_rgba(7,9,27,0.12)] border border-border-hairline">
-            <div className="flex items-center justify-between px-3 sm:px-4 py-2 border-b border-border-hairline/60 bg-surface-container-low rounded-t-xl mb-2">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+          <div className="max-w-5xl mx-auto rounded-2xl bg-surface-card p-1.5 sm:p-3 shadow-[0_25px_70px_-15px_rgba(7,9,27,0.12)] border border-border-hairline overflow-hidden">
+            <div className="flex items-center justify-between px-2 sm:px-4 py-1.5 sm:py-2 border-b border-border-hairline/60 bg-surface-container-low rounded-t-xl mb-1.5 sm:mb-2 gap-1.5 sm:gap-3">
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#ff5f56]" />
+                <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#ffbd2e]" />
+                <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#27c93f]" />
               </div>
-              <div className="px-4 py-1 rounded-md bg-white border border-border-hairline text-on-surface-variant font-mono text-[11px] flex items-center gap-1.5 shadow-2xs">
-                <span className="material-symbols-outlined text-[13px] text-outline">lock</span>
-                <span>app.grizonai.com/workspace</span>
+              <div className="flex-1 min-w-0 max-w-[150px] xs:max-w-[210px] sm:max-w-xs mx-1 sm:mx-auto px-2 sm:px-3 py-0.5 sm:py-1 rounded-md bg-white border border-border-hairline text-on-surface-variant font-mono text-[10px] sm:text-[11px] flex items-center justify-center gap-1 sm:gap-1.5 shadow-2xs">
+                <span className="material-symbols-outlined text-[11px] sm:text-[13px] text-outline shrink-0">lock</span>
+                <span className="truncate">app.grizonai.com<span className="hidden sm:inline">/workspace</span></span>
               </div>
               <a
                 href="https://app.grizonai.com"
-                className="text-xs font-headline-sm text-primary hover:text-secondary flex items-center gap-1 font-semibold"
+                className="shrink-0 text-[11px] sm:text-xs font-headline-sm text-primary hover:text-secondary flex items-center gap-0.5 sm:gap-1 font-semibold pr-0.5"
               >
                 <span>Launch</span>
-                <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                <span className="material-symbols-outlined text-[13px] sm:text-[14px]">open_in_new</span>
               </a>
             </div>
             <div className="relative rounded-xl overflow-hidden group">
