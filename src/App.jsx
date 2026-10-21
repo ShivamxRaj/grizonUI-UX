@@ -27,16 +27,16 @@ function App() {
           {/* 2. AUTONOMOUS AGENTS FLEET & SPECIALIZED SUITES */}
           <Route path="/agents" element={<Agents />} />
           <Route path="/agents/research" element={<ResearchAgents />} />
-          <Route path="/agents/dev-studio" element={<DevStudio />} />
+          <Route path="/agents/dev-studio" element={<DevStudio defaultWorkbench="canvas" />} />
+          <Route path="/agents/system-architect" element={<DevStudio defaultWorkbench="arch" />} />
           <Route path="/agents/market-intelligence" element={<MarketIntelligenceAgent />} />
-          <Route path="/agents/doc-intelligence" element={<DocIntelligence />} />
+          <Route path="/agents/doc-intelligence" element={<DocIntelligence defaultModal="doc" />} />
+          <Route path="/agents/video-analyser" element={<DocIntelligence defaultModal="video" />} />
           <Route path="/agents/legal" element={<LegalAgent />} />
 
-          {/* 3. DEVELOPER PLATFORM & SOVEREIGN SDK */}
-          <Route path="/indus" element={<IndusDashboard />} />
-
-          {/* 4. COMPANY MISSION & GOVERNANCE */}
+          {/* 3. COMPANY MISSION & ABOUT */}
           <Route path="/about" element={<About />} />
+          <Route path="/indus" element={<About />} />
 
           {/* 5. LIVE AI APP WORKSPACE */}
           <Route path="/app" element={<AppDashboard />} />

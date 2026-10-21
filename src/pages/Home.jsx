@@ -1,638 +1,1335 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/sovereign.css';
+
+const HERO_AGENTS = {
+  auto: {
+    key: 'auto',
+    name: 'Auto Mode',
+    icon: 'tune',
+    iconColor: 'text-secondary',
+    status: 'Auto Mode active: Evaluating query complexity & routing intent...',
+    prompt: 'Synthesize the quarterly capex trends for renewable infrastructure in Gujarat with sensitivity analysis.',
+    tags: [
+      { icon: 'public', text: 'Web Citations On' },
+      { icon: 'attach_file', text: '3 Reports Attached' },
+      { text: 'Routed to Deep Research', isHighlight: true }
+    ],
+    artifactName: 'Gujarat_Renewable_CapEx_Model_2025.xlsx + Synthesis Report'
+  },
+  fast: {
+    key: 'fast',
+    name: 'Fast Research',
+    icon: 'bolt',
+    iconColor: 'text-secondary',
+    status: 'Fast Research active: Sub-400ms web search with instant citations...',
+    prompt: 'What are the latest battery storage policy incentives announced by MNRE India this week?',
+    tags: [
+      { icon: 'public', text: 'Real-Time Web' },
+      { icon: 'verified', text: '4 Gazette Sources' },
+      { text: '<400ms Latency', isHighlight: true }
+    ],
+    artifactName: 'MNRE_BESS_Policy_Incentives_2025.md'
+  },
+  deep: {
+    key: 'deep',
+    name: 'Deep Research',
+    icon: 'psychology',
+    iconColor: 'text-agent-deep-research',
+    status: 'Deep Research active: Multi-step synthesis, fact-checking & risk analysis...',
+    prompt: 'Conduct an in-depth competitive synthesis and patent landscape of sodium-ion battery manufacturers in APAC.',
+    tags: [
+      { icon: 'account_tree', text: 'Multi-Step Tree' },
+      { icon: 'fact_check', text: 'Risk Analysis' },
+      { text: 'Pro+ Synthesis', isHighlight: true }
+    ],
+    artifactName: 'Sodium_Ion_APAC_Landscape_Synthesis.pdf'
+  },
+  dev: {
+    key: 'dev',
+    name: 'Dev Studio',
+    icon: 'terminal',
+    iconColor: 'text-agent-dev-studio',
+    status: 'Dev Studio active: Code execution tools & live HTML canvas preview...',
+    prompt: 'Build a responsive dark-mode portfolio analytics card with interactive SVG sparklines using Tailwind CSS.',
+    tags: [
+      { icon: 'terminal', text: 'Sandbox Active' },
+      { icon: 'speed', text: 'Live HTML Preview' },
+      { text: 'Code Ready', isHighlight: true }
+    ],
+    artifactName: 'PortfolioAnalyticsCard.tsx'
+  },
+  doc: {
+    key: 'doc',
+    name: 'Doc Intelligence',
+    icon: 'description',
+    iconColor: 'text-agent-legal',
+    status: 'Doc Intelligence active: Analyse PDFs, extract tables & write structured reports...',
+    prompt: 'Extract all consolidated debt maturity schedules and cash flow lines from this 140-page annual filing.',
+    tags: [
+      { icon: 'table_view', text: 'Zero-Loss Table OCR' },
+      { icon: 'article', text: 'Structured Export' },
+      { text: 'PDF Parser', isHighlight: true }
+    ],
+    artifactName: 'Consolidated_Debt_Maturity_Schedule.xlsx'
+  },
+  market: {
+    key: 'market',
+    name: 'Market Analyst',
+    icon: 'query_stats',
+    iconColor: 'text-secondary',
+    status: 'Market Analyst active: Stock & crypto analysis with Bull vs Bear debate...',
+    prompt: 'Analyze valuation multiples, DCF sensitivity, and margin trajectory of Tata Motors EV division.',
+    tags: [
+      { icon: 'candlestick_chart', text: 'Technical & Fundamentals' },
+      { icon: 'compare_arrows', text: 'Bull vs Bear Debate' },
+      { text: 'Educational Research', isHighlight: true }
+    ],
+    artifactName: 'Tata_Motors_EV_Valuation_Model.xlsx'
+  },
+  video: {
+    key: 'video',
+    name: 'Video Analyser',
+    icon: 'videocam',
+    iconColor: 'text-primary',
+    status: 'Video Analyser active: Scene description, slide OCR & event timestamps...',
+    prompt: 'Examine this 45-minute product launch video: transcribe key announcements, extract on-screen slide tables, and index Q&A timestamps.',
+    tags: [
+      { icon: 'slideshow', text: 'Slide OCR' },
+      { icon: 'timer', text: 'Timestamp Index' },
+      { text: 'Multimodal Video', isHighlight: true }
+    ],
+    artifactName: 'Product_Launch_Event_Keyframes_Transcript.md'
+  },
+  legal: {
+    key: 'legal',
+    name: 'Legal Agent',
+    icon: 'gavel',
+    iconColor: 'text-secondary',
+    status: 'Legal Agent active: Statutory contract audit, DPDP compliance & clause redlining...',
+    prompt: 'Review Section 14.3 of this SaaS agreement: redline uncapped indemnities and generate compliant substitutions under DPDP Act 2023.',
+    tags: [
+      { icon: 'gavel', text: 'Contract Audit' },
+      { icon: 'shield', text: 'DPDP 2023 Compliance' },
+      { text: 'Clause Redline', isHighlight: true }
+    ],
+    artifactName: 'Master_Services_Agreement_Redline_Audit.docx'
+  }
+};
+
+const FAQS = [
+  {
+    q: 'What is Auto Mode?',
+    a: 'Auto Mode is the default way to chat on GriZon AI. Each message is evaluated and routed to the best eligible specialised agent for your task — so you do not have to pick manually unless you want to.'
+  },
+  {
+    q: 'How does the credit system work?',
+    a: 'Each plan includes monthly credits. Agent responses consume credits based on actual token processing and agent multipliers. You can view your live credit ledger in your workspace wallet at any moment. Paid tiers feature rollover credits.'
+  },
+  {
+    q: 'Is my data secure on GriZon AI?',
+    a: 'Yes. All conversational data and uploaded artifacts are isolated with encryption in transit and at rest. Most critically, your data is never used to train public or foundational AI models.'
+  },
+  {
+    q: 'Can I switch plans at any time?',
+    a: 'Yes. You can upgrade, downgrade, or cancel directly from your account settings with zero friction. There are no lock-in agreements or cancellation penalties.'
+  },
+  {
+    q: 'What can the Video Analyser do?',
+    a: 'On Pro and Elite plans, the Video Analyser agent reviews uploaded video files — breaking down footage to describe scenes, extract on-screen text, log event timestamps, and answer questions about the footage.'
+  }
+];
 
 export default function Home() {
-  const [heroPrompt, setHeroPrompt] = useState('');
-  const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'yearly'
-  const [activeCanvasTab, setActiveCanvasTab] = useState('chart'); // 'chart' | 'code'
+  const [selectedAgentKey, setSelectedAgentKey] = useState('auto');
+  const [heroPrompt, setHeroPrompt] = useState('Synthesize renewable infrastructure trends in Gujarat with sensitivity analysis.');
+  const [billingCycle, setBillingCycle] = useState('monthly');
+  const [openFaq, setOpenFaq] = useState(0);
+  const [canvasMode, setCanvasMode] = useState('chart');
 
-  const AGENT_CARDS = [
-    {
-      id: 'fast-research',
-      title: 'Fast Research',
-      desc: 'Sub-400ms web grounding with real-time source footnotes.',
-      icon: 'bolt',
-      iconColor: 'var(--secondary)',
-      iconBg: 'rgba(255,219,199,0.5)',
-      tag: '<400ms latency',
-      tagColor: 'var(--secondary)',
-      link: '/agents/research'
-    },
-    {
-      id: 'deep-research',
-      title: 'Deep Research',
-      desc: 'Multi-step hypothesis synthesis across 40+ primary sources.',
-      icon: 'psychology',
-      iconColor: 'var(--agent-deep-research)',
-      iconBg: 'rgba(60,75,155,0.1)',
-      tag: '48-node trees',
-      tagColor: 'var(--agent-deep-research)',
-      link: '/agents/research'
-    },
-    {
-      id: 'dev-studio',
-      title: 'Dev Studio',
-      desc: 'Code with execution runtimes and instant live HTML canvas.',
-      icon: 'terminal',
-      iconColor: 'var(--agent-dev-studio)',
-      iconBg: 'rgba(16,126,125,0.1)',
-      tag: 'Live HTML preview',
-      tagColor: 'var(--agent-dev-studio)',
-      link: '/agents/dev-studio'
-    },
-    {
-      id: 'system-architect',
-      title: 'System Architect',
-      desc: 'High-availability cloud blueprints, database schemas & trade-offs.',
-      icon: 'account_tree',
-      iconColor: 'var(--primary)',
-      iconBg: 'var(--surface-container)',
-      tag: 'Mermaid / PlantUML',
-      tagColor: 'var(--primary)',
-      link: '/agents/dev-studio'
-    },
-    {
-      id: 'market-analyst',
-      title: 'Market Analyst',
-      desc: 'Algorithmic Bull vs Bear debates, 10-K extractions & DCF models.',
-      icon: 'candlestick_chart',
-      iconColor: 'var(--secondary)',
-      iconBg: 'rgba(255,219,199,0.5)',
-      tag: 'NSE / BSE feeds',
-      tagColor: 'var(--secondary)',
-      link: '/agents/market-intelligence'
-    },
-    {
-      id: 'doc-intelligence',
-      title: 'Doc Intelligence',
-      desc: 'Ingest 400-page complex PDFs with zero-loss table OCR.',
-      icon: 'description',
-      iconColor: 'var(--agent-deep-research)',
-      iconBg: 'rgba(60,75,155,0.1)',
-      tag: 'Multi-page tables',
-      tagColor: 'var(--agent-deep-research)',
-      link: '/agents/doc-intelligence'
-    },
-    {
-      id: 'video-analyser',
-      title: 'Video Analyser',
-      desc: 'Frame-by-frame scene indexing, audio transcription & slide OCR.',
-      icon: 'movie',
-      iconColor: 'var(--secondary)',
-      iconBg: 'rgba(255,219,199,0.5)',
-      tag: 'Pro+ multi-modal',
-      tagColor: 'var(--secondary)',
-      link: '/agents/doc-intelligence'
-    },
-    {
-      id: 'legal-agent',
-      title: 'Legal Agent',
-      desc: 'Multi-jurisdictional contract review, DPDP compliance & redlines.',
-      icon: 'gavel',
-      iconColor: 'var(--agent-legal)',
-      iconBg: 'rgba(132,59,98,0.12)',
-      tag: 'Sovereign audit',
-      tagColor: 'var(--agent-legal)',
-      link: '/agents/legal'
+  const currentAgent = HERO_AGENTS[selectedAgentKey] || HERO_AGENTS.auto;
+
+  const handleRouteSelect = (promptText, agentKey) => {
+    setHeroPrompt(promptText);
+    if (HERO_AGENTS[agentKey]) {
+      setSelectedAgentKey(agentKey);
     }
-  ];
+  };
 
   return (
-    <div className="sv-page" style={{ background: 'var(--parchment)', minHeight: '100vh', paddingTop: '6rem' }}>
-      {/* ── HERO SECTION: Ultra-tight copy, huge typography, instant prompt pill ── */}
-      <section style={{ maxWidth: '1020px', margin: '0 auto', padding: '3rem 1.5rem 4rem', textAlign: 'center' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.3rem 0.85rem', borderRadius: '9999px', background: '#fff', border: '1px solid var(--border-hairline)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', marginBottom: '1.75rem' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '9999px', background: '#10b981' }} />
-          <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--on-surface-variant)', fontWeight: 600 }}>
-            Auto-Routed Multi-Agent Intelligence
-          </span>
-        </div>
+    <div className="w-full bg-parchment-bg font-body-md text-body-md text-on-surface antialiased relative min-h-screen selection:bg-tertiary-fixed selection:text-on-tertiary-fixed overflow-x-hidden pt-20 sm:pt-24">
+      {/* ── Luminous Ambient Background Glows ── */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-to-b from-saffron-glow/10 via-lavender-subtle/10 to-transparent blur-3xl opacity-70" />
+        <div className="absolute top-[40%] -right-[15%] w-[600px] h-[600px] bg-agent-deep-research/5 blur-3xl rounded-full pointer-events-none" />
+      </div>
 
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5.5vw, 4.4rem)', color: 'var(--primary)', lineHeight: 1.08, letterSpacing: '-0.025em', margin: '0 0 1.25rem' }}>
-          Everything you need, <br />
-          <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--agent-deep-research)' }}>one workspace.</span>
-        </h1>
-
-        <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: 'var(--on-surface-variant)', maxWidth: '580px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
-          Purpose-built AI agents for research, coding, documents, markets, and video.
-        </p>
-
-        {/* Instant Interactive Intent / Prompt Bar */}
-        <div style={{
-          maxWidth: '680px',
-          margin: '0 auto 2rem',
-          background: '#fff',
-          borderRadius: '16px',
-          border: '1px solid var(--border-hairline)',
-          padding: '0.6rem 0.75rem',
-          boxShadow: '0 12px 40px -10px rgba(7,9,27,0.08)',
-          textAlign: 'left'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.4rem 0.6rem' }}>
-            <span className="material-symbols-outlined" style={{ color: 'var(--outline)', fontSize: '20px' }}>search</span>
-            <input
-              type="text"
-              value={heroPrompt}
-              onChange={(e) => setHeroPrompt(e.target.value)}
-              placeholder="Describe your goal, or let Auto Mode route it..."
-              style={{ width: '100%', background: 'transparent', border: 'none', outline: 'none', fontSize: '14px', color: 'var(--primary)' }}
-            />
-            <Link
-              to="/app"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.5rem 1rem',
-                borderRadius: '10px',
-                background: 'var(--primary)',
-                color: '#fff',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-                fontSize: '12px',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              <span>Start Free</span>
-              <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>bolt</span>
-            </Link>
-          </div>
-
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.4rem', paddingTop: '0.5rem', paddingLeft: '0.5rem', borderTop: '1px solid var(--surface-low)', marginTop: '0.35rem' }}>
-            <span style={{ fontFamily: 'var(--font-code)', fontSize: '10px', color: 'var(--outline)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Route directly:
+      <div className="relative z-10 flex flex-col w-full">
+        {/* ── HERO SECTION ── */}
+        <section className="relative z-10 w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12 pt-4 sm:pt-6 pb-12 sm:pb-space-2xl text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 rounded-full bg-surface-card shadow-sm border border-border-hairline mb-5 sm:mb-6 max-w-full">
+            <span className="flex h-2 w-2 rounded-full bg-secondary-container animate-pulse shrink-0" />
+            <span className="font-label-code text-[11px] sm:text-label-code uppercase tracking-wider text-on-surface-variant font-medium truncate">
+              Specialised Agents for Every Workflow • Purpose-built AI
             </span>
-            <button
-              onClick={() => setHeroPrompt('Analyze competitor balance sheet in Gujarat solar sector')}
-              style={{ padding: '0.25rem 0.6rem', borderRadius: '6px', background: 'var(--surface-low)', border: '1px solid var(--border-hairline)', fontSize: '11px', color: 'var(--on-surface)', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer' }}
-            >
-              <span className="material-symbols-outlined" style={{ fontSize: '13px', color: 'var(--secondary)' }}>bolt</span> Fast Research
-            </button>
-            <button
-              onClick={() => setHeroPrompt('Build a responsive analytics sparkline card with Tailwind CSS')}
-              style={{ padding: '0.25rem 0.6rem', borderRadius: '6px', background: 'var(--surface-low)', border: '1px solid var(--border-hairline)', fontSize: '11px', color: 'var(--on-surface)', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer' }}
-            >
-              <span className="material-symbols-outlined" style={{ fontSize: '13px', color: 'var(--agent-dev-studio)' }}>terminal</span> Dev Studio
-            </button>
-            <button
-              onClick={() => setHeroPrompt('Extract financial metrics table from attached 48-page PDF')}
-              style={{ padding: '0.25rem 0.6rem', borderRadius: '6px', background: 'var(--surface-low)', border: '1px solid var(--border-hairline)', fontSize: '11px', color: 'var(--on-surface)', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer' }}
-            >
-              <span className="material-symbols-outlined" style={{ fontSize: '13px', color: 'var(--agent-deep-research)' }}>description</span> Doc Intel
-            </button>
-            <button
-              onClick={() => setHeroPrompt('Review vendor agreement for DPDP compliance & liability cap')}
-              style={{ padding: '0.25rem 0.6rem', borderRadius: '6px', background: 'var(--surface-low)', border: '1px solid var(--border-hairline)', fontSize: '11px', color: 'var(--on-surface)', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer' }}
-            >
-              <span className="material-symbols-outlined" style={{ fontSize: '13px', color: 'var(--agent-legal)' }}>gavel</span> Legal
-            </button>
+            <span className="font-label-badge text-[10px] sm:text-label-badge px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed shrink-0 font-bold">
+              v3.2
+            </span>
           </div>
-        </div>
-      </section>
 
-      {/* ── SECTION 2: 4-Metric Key Proof Strip ── */}
-      <section style={{ maxWidth: '1020px', margin: '0 auto', padding: '0 1.5rem 4.5rem' }}>
-        <div style={{
-          padding: '1rem 1.5rem',
-          borderRadius: '16px',
-          background: 'rgba(255,255,255,0.7)',
-          border: '1px solid var(--border-hairline)',
-          backdropFilter: 'blur(8px)',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1rem',
-          textAlign: 'center'
-        }}>
-          <div>
-            <p style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', color: 'var(--primary)', margin: 0 }}>8 Specialised Agents</p>
-            <p style={{ fontSize: '11px', color: 'var(--on-surface-variant)', fontFamily: 'var(--font-code)', margin: '0.15rem 0 0' }}>Engineered toolchains</p>
-          </div>
-          <div>
-            <p style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', color: 'var(--primary)', margin: 0 }}>Smart Auto Mode</p>
-            <p style={{ fontSize: '11px', color: 'var(--on-surface-variant)', fontFamily: 'var(--font-code)', margin: '0.15rem 0 0' }}>&lt;50ms intent router</p>
-          </div>
-          <div>
-            <p style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', color: 'var(--primary)', margin: 0 }}>Monthly Rollover Credits</p>
-            <p style={{ fontSize: '11px', color: 'var(--on-surface-variant)', fontFamily: 'var(--font-code)', margin: '0.15rem 0 0' }}>Zero unused credit waste</p>
-          </div>
-          <div>
-            <p style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', color: 'var(--primary)', margin: 0 }}>256-bit Encryption</p>
-            <p style={{ fontSize: '11px', color: 'var(--on-surface-variant)', fontFamily: 'var(--font-code)', margin: '0.15rem 0 0' }}>Air-gapped enclave privacy</p>
-          </div>
-        </div>
-      </section>
+          {/* Heading */}
+          <h1 className="font-display-hero text-3xl sm:text-4xl md:text-5xl lg:text-[56px] text-[#1e2033] tracking-tight max-w-4xl mx-auto mb-3 sm:mb-5 leading-tight sm:leading-[1.12]">
+            Everything you need, <br />
+            <span className="italic font-display-hero text-agent-deep-research">one unified workspace.</span>
+          </h1>
 
-      {/* ── SECTION 3: 8 agents built for the job, not generic chat ── */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem 4.5rem' }} id="agents">
-        <div style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 2.5rem' }}>
-          <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--agent-deep-research)', fontWeight: 700 }}>
-            Purpose-Built Suite
-          </span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', color: 'var(--primary)', margin: '0.25rem 0 0' }}>
-            8 agents built for the job, <br />
-            <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--on-surface-variant)' }}>not generic chat.</span>
-          </h2>
-        </div>
+          {/* Subtitle */}
+          <p className="font-body-md sm:font-body-lg text-sm sm:text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed px-2">
+            Purpose-built AI agents for research, coding, documents, markets, and video — or let Auto Mode pick the right agent for you.
+          </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-          {AGENT_CARDS.map((card) => (
-            <Link
-              key={card.id}
-              to={card.link}
-              style={{
-                padding: '1.25rem',
-                borderRadius: '16px',
-                background: '#fff',
-                border: '1px solid var(--border-hairline)',
-                textDecoration: 'none',
-                color: 'inherit',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--outline-variant)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.04)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--border-hairline)';
-                e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.02)';
-              }}
-            >
-              <div>
-                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: card.iconBg, color: card.iconColor, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '19px' }}>{card.icon}</span>
+          {/* ── SEARCH / PROMPT INPUT BAR (Preserved with Route Chips) ── */}
+          <div className="w-full max-w-2xl mx-auto mb-12 sm:mb-16">
+            <div className="bg-white rounded-2xl border border-black/10 shadow-sm p-2.5 text-left">
+              {/* Input Top Row - Pixel Perfect Vertical Centering */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <div className="flex items-center gap-3 px-3.5 flex-1 min-w-0 py-2 sm:py-0">
+                  <span className="material-symbols-outlined text-outline text-[20px] shrink-0 select-none">search</span>
+                  <input
+                    type="text"
+                    value={heroPrompt}
+                    onChange={(e) => setHeroPrompt(e.target.value)}
+                    placeholder="Ask anything or describe your task..."
+                    className="w-full bg-transparent border-none text-sm font-body-md text-on-surface placeholder:text-outline focus:outline-hidden leading-normal"
+                  />
                 </div>
-                <h3 style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', color: 'var(--primary)', margin: '0 0 0.25rem' }}>
-                  {card.title}
-                </h3>
-                <p style={{ fontSize: '12px', lineHeight: 1.5, color: 'var(--on-surface-variant)', margin: 0 }}>
-                  {card.desc}
-                </p>
+                <a
+                  href="https://app.grizonai.com"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-headline-sm text-sm hover:bg-primary-container shadow-xs transition-all min-h-[44px] shrink-0 font-semibold"
+                >
+                  <span className="leading-none">Start with AI</span>
+                  <span className="material-symbols-outlined text-[17px] leading-none select-none">bolt</span>
+                </a>
               </div>
-              <div style={{ paddingTop: '0.85rem', marginTop: '0.85rem', borderTop: '1px solid var(--surface-low)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontFamily: 'var(--font-code)', fontSize: '10px', color: card.tagColor, fontWeight: 600 }}>
-                  {card.tag}
+
+              {/* Direct Route Chips */}
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2.5 px-2 border-t border-border-hairline/60 mt-2">
+                <span className="font-label-code text-[10px] text-outline uppercase tracking-wider font-semibold mr-1">
+                  ROUTE DIRECTLY:
                 </span>
-                <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--outline)' }}>arrow_forward</span>
+                <button
+                  type="button"
+                  onClick={() => handleRouteSelect('Quick search: Latest EV battery tax incentives in India', 'fast')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container border border-border-hairline text-xs font-body-sm text-on-surface transition-colors cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-secondary text-[13px]">bolt</span>
+                  <span>Fast Research</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleRouteSelect('Build a responsive analytics sparkline card with Tailwind CSS', 'dev')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container border border-border-hairline text-xs font-body-sm text-on-surface transition-colors cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-agent-dev-studio text-[13px]">terminal</span>
+                  <span>Dev Studio</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleRouteSelect('Extract financial metrics table from attached quarterly PDF', 'doc')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container border border-border-hairline text-xs font-body-sm text-on-surface transition-colors cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-agent-legal text-[13px]">description</span>
+                  <span>Doc Intel</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleRouteSelect('Analyze valuation multiples and DCF sensitivity of Tata Motors EV', 'market')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container border border-border-hairline text-xs font-body-sm text-on-surface transition-colors cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-secondary text-[13px]">query_stats</span>
+                  <span>Market Analyst</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleRouteSelect('Review Section 14.3 of this MSA: audit uncapped liability and DPDP compliance', 'legal')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container border border-border-hairline text-xs font-body-sm text-on-surface transition-colors cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-secondary text-[13px]">gavel</span>
+                  <span>Legal Review</span>
+                </button>
               </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── SECTION 4: Artifacts materialize live beside your thread ── */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem 5rem' }} id="workspace">
-        <div style={{ textAlign: 'center', maxWidth: '620px', margin: '0 auto 2.5rem' }}>
-          <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--secondary)', fontWeight: 700 }}>
-            One Screen, Zero Switching
-          </span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', color: 'var(--primary)', margin: '0.25rem 0 0' }}>
-            Artifacts materialize live beside your thread
-          </h2>
-        </div>
-
-        {/* Workspace Mock Container */}
-        <div style={{ borderRadius: '16px', background: '#fff', border: '1px solid var(--border-hairline)', boxShadow: '0 20px 60px -15px rgba(7,9,27,0.06)', overflow: 'hidden' }}>
-          {/* Window Header */}
-          <div style={{ padding: '0.75rem 1.25rem', background: 'var(--surface-low)', borderBottom: '1px solid var(--border-hairline)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <div style={{ display: 'flex', gap: '0.35rem' }}>
-                <span style={{ width: '10px', height: '10px', borderRadius: '9999px', background: '#cbd5e1' }} />
-                <span style={{ width: '10px', height: '10px', borderRadius: '9999px', background: '#cbd5e1' }} />
-                <span style={{ width: '10px', height: '10px', borderRadius: '9999px', background: '#cbd5e1' }} />
-              </div>
-              <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--outline)' }}>
-                GriZon Sovereign Workspace • Auto-Routing Active
-              </span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--agent-dev-studio)', fontWeight: 600 }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '9999px', background: 'var(--agent-dev-studio)' }} />
-              <span>CLUSTER: ONLINE (14ms)</span>
             </div>
           </div>
 
-          {/* Split Screen: Left Thread & Right Canvas */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', minHeight: '480px' }}>
-            {/* Left Column: Chat Thread */}
-            <div style={{ padding: '1.5rem', background: 'var(--surface-low)', borderRight: '1px solid var(--border-hairline)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'flex-start' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '9999px', background: 'var(--primary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 700 }}>
-                    U
-                  </div>
-                  <div style={{ padding: '0.75rem 1rem', borderRadius: '12px', background: '#fff', fontSize: '13px', color: 'var(--primary)', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
-                    Analyze RELIANCE.NS cash flow and summarize key Capex lines.
-                  </div>
-                </div>
+          {/* ── INTERACTIVE HERO SHOWCASE CONSOLE (Sloped & Centered with Breathing Room) ── */}
+          <div className="w-full max-w-5xl mx-auto rounded-2xl bg-surface-card shadow-[0_24px_70px_-20px_rgba(7,9,27,0.08),0_2px_6px_rgba(0,0,0,0.03)] overflow-hidden text-left border border-border-hairline">
+            {/* Tabs Header - Unclipped Full-Width Agent Tabs */}
+            <div className="bg-surface-container-low px-4 sm:px-6 pt-3 sm:pt-4 border-b border-border-hairline/60">
+              <div className="flex items-center gap-1.5 sm:gap-2 pb-3 overflow-x-auto no-scrollbar" id="agentTabs">
+                {Object.values(HERO_AGENTS).map((agent) => {
+                  const isActive = selectedAgentKey === agent.key;
+                  return (
+                    <button
+                      key={agent.key}
+                      type="button"
+                      onClick={() => setSelectedAgentKey(agent.key)}
+                      className={`flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-lg font-label-badge text-xs shrink-0 transition-all cursor-pointer whitespace-nowrap ${
+                        isActive
+                          ? 'bg-surface-card text-primary shadow-xs font-semibold'
+                          : 'text-on-surface-variant hover:text-on-surface'
+                      }`}
+                    >
+                      <span className={`material-symbols-outlined text-[16px] ${agent.iconColor}`}>
+                        {agent.icon}
+                      </span>
+                      <span>{agent.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-                <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'flex-start' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '9999px', background: 'var(--secondary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>bolt</span>
+            {/* Console Content */}
+            <div className="p-4 sm:p-8 md:p-10 bg-gradient-to-b from-surface-card via-surface-card to-surface-container-low/40">
+              <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
+                {/* Meta status bar */}
+                <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="h-2 w-2 rounded-full bg-secondary shrink-0" />
+                    <span className="font-label-code text-[11px] text-on-surface-variant uppercase font-medium truncate" id="heroAgentLabel">
+                      {currentAgent.status}
+                    </span>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxWidth: '90%' }}>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', padding: '0.15rem 0.5rem', borderRadius: '4px', background: 'var(--surface-container)', fontSize: '10px', fontFamily: 'var(--font-code)', color: 'var(--primary)' }}>
-                      Auto-routed to: <strong>Market Analyst & Oracles</strong>
-                    </div>
-                    <div style={{ padding: '0.85rem 1rem', borderRadius: '12px', background: '#fff', fontSize: '13px', color: 'var(--primary)', lineHeight: 1.5, boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
-                      Operating cash conversion stood at 102%. Capex investments in 5G infrastructure and Retail store rollouts reached ₹38,420 Cr. Free cash flow turnaround projected for Q4.
-                    </div>
-                    <span style={{ fontSize: '10px', fontFamily: 'var(--font-code)', color: 'var(--outline)' }}>
-                      Materialized interactive artifact on your canvas →
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="font-label-code text-[10px] px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold uppercase">
+                      Data Encrypted
+                    </span>
+                    <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase hidden sm:inline-block">
+                      Sub-second Routing
                     </span>
                   </div>
                 </div>
-              </div>
 
-              {/* Chat Input */}
-              <div style={{ padding: '0.5rem 0.75rem', borderRadius: '10px', background: '#fff', border: '1px solid var(--border-hairline)', display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
-                <input
-                  type="text"
-                  placeholder="Ask a follow-up or command another agent..."
-                  style={{ width: '100%', border: 'none', outline: 'none', fontSize: '12px', color: 'var(--primary)', background: 'transparent' }}
-                />
-                <button style={{ padding: '0.35rem 0.65rem', borderRadius: '6px', background: 'var(--primary)', color: '#fff', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>arrow_forward</span>
-                </button>
+                {/* Prompt Box */}
+                <div className="rounded-xl bg-surface-container-lowest p-3.5 sm:p-5 shadow-[0_4px_24px_-6px_rgba(7,9,27,0.06)] relative border border-border-hairline/60">
+                  <div className="flex items-start gap-2.5 sm:gap-3">
+                    <span className="material-symbols-outlined text-agent-deep-research mt-0.5 text-[20px] sm:text-[24px]">
+                      auto_awesome
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-body-md sm:font-body-lg text-xs sm:text-body-lg text-on-surface font-medium leading-relaxed" id="heroPromptText">
+                        {heroPrompt || currentAgent.prompt}
+                      </p>
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-3 sm:pt-4">
+                        {currentAgent.tags.map((t, idx) => (
+                          <span
+                            key={idx}
+                            className={`inline-flex items-center gap-1 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md font-label-code text-[10px] sm:text-label-code ${
+                              t.isHighlight
+                                ? 'bg-secondary-fixed text-on-secondary-fixed font-semibold'
+                                : 'bg-surface-container text-on-surface-variant'
+                            }`}
+                          >
+                            {t.icon && (
+                              <span className="material-symbols-outlined text-[12px] sm:text-[14px]">
+                                {t.icon}
+                              </span>
+                            )}
+                            {t.text}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <a
+                      href="https://app.grizonai.com"
+                      className="shrink-0 h-8 w-8 sm:h-10 sm:w-10 rounded-lg bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container transition-colors shadow-sm"
+                      title="Launch in Workspace"
+                    >
+                      <span className="material-symbols-outlined text-[16px] sm:text-[20px]">
+                        arrow_upward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Live Artifact Generated Box */}
+                <div className="rounded-lg bg-surface-card p-3.5 sm:p-5 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4 border border-border-hairline/60">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold shrink-0">
+                      <span className="material-symbols-outlined text-[18px] sm:text-[20px]">dataset</span>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-headline-sm text-sm sm:text-headline-sm text-primary truncate font-semibold">
+                        Live Artifact Generated
+                      </p>
+                      <p className="font-body-sm text-[11px] sm:text-body-sm text-on-surface-variant truncate">
+                        {currentAgent.artifactName}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 w-full md:w-auto justify-between md:justify-end pt-2 md:pt-0">
+                    <span className="font-label-code text-[10px] sm:text-label-code px-2 py-1 rounded bg-surface-container text-on-surface-variant font-medium shrink-0">
+                      Verified Citations
+                    </span>
+                    <a
+                      href="https://app.grizonai.com"
+                      className="px-3 sm:px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-badge text-xs hover:bg-primary-container transition-colors text-center shrink-0 font-semibold"
+                    >
+                      Open in Canvas
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 2. TRUST & BENCHMARK METRICS STRIP ── */}
+        <section className="w-full bg-surface-container-lowest/70 backdrop-blur-md py-8 shadow-[0_1px_4px_rgba(0,0,0,0.02)] border-y border-border-hairline/60">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-border-hairline/80">
+              <div className="pt-4 md:pt-0">
+                <p className="font-display-hero text-3xl sm:text-4xl text-primary font-normal">8</p>
+                <p className="font-headline-sm text-xs sm:text-sm text-on-surface mt-1 font-semibold">Specialised Agents</p>
+                <p className="font-body-sm text-[11px] sm:text-xs text-on-surface-variant">Research, Dev, Docs, Markets, Video</p>
+              </div>
+              <div className="pt-4 md:pt-0 md:pl-6">
+                <p className="font-display-hero text-3xl sm:text-4xl text-secondary-container font-normal">Auto</p>
+                <p className="font-headline-sm text-xs sm:text-sm text-on-surface mt-1 font-semibold">Smart Routing</p>
+                <p className="font-body-sm text-[11px] sm:text-xs text-on-surface-variant">Directs queries to the right agent</p>
+              </div>
+              <div className="pt-4 md:pt-0 md:pl-6">
+                <p className="font-display-hero text-3xl sm:text-4xl text-agent-deep-research font-normal">100%</p>
+                <p className="font-headline-sm text-xs sm:text-sm text-on-surface mt-1 font-semibold">Transparent Usage</p>
+                <p className="font-body-sm text-[11px] sm:text-xs text-on-surface-variant">Clear credit ledger &amp; balance tracking</p>
+              </div>
+              <div className="pt-4 md:pt-0 md:pl-6">
+                <p className="font-display-hero text-3xl sm:text-4xl text-agent-dev-studio font-normal">Encrypted</p>
+                <p className="font-headline-sm text-xs sm:text-sm text-on-surface mt-1 font-semibold">Data Privacy</p>
+                <p className="font-body-sm text-[11px] sm:text-xs text-on-surface-variant">In transit &amp; at rest; zero model training</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 2B. OFFICIAL GRIZON AI WORKSPACE SHOWCASE (CALLED BACK & POSITIONED LOWER) ── */}
+        <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-20 text-center">
+          <div className="max-w-3xl mx-auto mb-8 sm:mb-12">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-card border border-border-hairline shadow-xs mb-3">
+              <span className="w-2 h-2 rounded-full bg-secondary-container" />
+              <span className="font-label-code text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">
+                Official Workspace Preview
+              </span>
+            </div>
+            <h2 className="font-display-hero text-2xl sm:text-3xl md:text-4xl text-primary tracking-tight font-normal">
+              The Official GriZon AI Interface
+            </h2>
+            <p className="font-body-md text-xs sm:text-sm text-on-surface-variant mt-2 max-w-xl mx-auto leading-relaxed">
+              Experience the authentic GriZon AI environment — live artifact canvas, dual-pane execution sandbox, and instant source-grounded citations.
+            </p>
+          </div>
+
+          {/* Official Browser Frame with Interface Screenshot */}
+          <div className="max-w-5xl mx-auto rounded-2xl bg-surface-card p-2 sm:p-3 shadow-[0_25px_70px_-15px_rgba(7,9,27,0.12)] border border-border-hairline">
+            <div className="flex items-center justify-between px-3 sm:px-4 py-2 border-b border-border-hairline/60 bg-surface-container-low rounded-t-xl mb-2">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+              </div>
+              <div className="px-4 py-1 rounded-md bg-white border border-border-hairline text-on-surface-variant font-mono text-[11px] flex items-center gap-1.5 shadow-2xs">
+                <span className="material-symbols-outlined text-[13px] text-outline">lock</span>
+                <span>app.grizonai.com/workspace</span>
+              </div>
+              <a
+                href="https://app.grizonai.com"
+                className="text-xs font-headline-sm text-primary hover:text-secondary flex items-center gap-1 font-semibold"
+              >
+                <span>Launch</span>
+                <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+              </a>
+            </div>
+            <div className="relative rounded-xl overflow-hidden group">
+              <img
+                src="/images/grizon-hero.png"
+                alt="Official GriZon AI Workspace Interface"
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.01]"
+                onError={(e) => {
+                  e.target.src = '/images/grizon-chat.png';
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Official Agent Marquee Strip */}
+          <div className="mt-10 pt-6 border-t border-border-hairline/80">
+            <p className="text-center font-label-code text-[11px] uppercase tracking-widest text-outline mb-4 font-semibold">
+              SPECIALISED AGENTS FOR EVERY WORKFLOW • PURPOSE-BUILT CATALOGUE
+            </p>
+            <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-2.5">
+              {[
+                { name: 'Auto Mode', icon: 'tune' },
+                { name: 'General Assistant', icon: 'chat' },
+                { name: 'Fast Research', icon: 'bolt' },
+                { name: 'Deep Research', icon: 'psychology' },
+                { name: 'Dev Studio', icon: 'terminal' },
+                { name: 'Doc Intelligence & Writer', icon: 'description' },
+                { name: 'Data & Market Analyst', icon: 'candlestick_chart' },
+                { name: 'System Architect', icon: 'schema' },
+                { name: 'Video Analyser', icon: 'smart_display' }
+              ].map((agent, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-card border border-border-hairline text-xs font-body-sm text-on-surface font-medium shadow-xs"
+                >
+                  <span className="material-symbols-outlined text-[14px] text-secondary">
+                    {agent.icon}
+                  </span>
+                  <span>{agent.name}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 3. WHY GRIZON AI ── */}
+        <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-space-3xl scroll-mt-20" id="features">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container border border-border-hairline">
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
+                <span className="font-label-code text-[11px] text-secondary font-semibold uppercase tracking-wider">
+                  Why GriZon AI
+                </span>
+              </div>
+              <h2 className="font-headline-lg text-3xl sm:text-4xl md:text-headline-lg text-primary tracking-tight">
+                Agents built for the job, <br />
+                <span className="italic font-display-hero text-agent-deep-research">not generic chat</span>
+              </h2>
+            </div>
+            <p className="font-body-md sm:font-body-lg text-sm sm:text-body-lg text-on-surface-variant max-w-md leading-relaxed">
+              Stop juggling generic chatbots. Pick a specialised agent engineered with dedicated toolchains — or let Auto Mode route your query dynamically.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* 1. Auto Mode */}
+            <div className="p-8 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group min-h-[290px]">
+              <div>
+                <div className="h-10 w-10 rounded-lg bg-secondary-fixed/40 flex items-center justify-center text-secondary mb-6">
+                  <span className="material-symbols-outlined text-[22px]">alt_route</span>
+                </div>
+                <h3 className="font-headline-md text-xl text-primary font-semibold mb-3 tracking-tight">Auto Mode Routing</h3>
+                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  Describe the task once. Auto Mode selects the best eligible specialised agent so you stay entirely in flow.
+                </p>
+              </div>
+              <div className="pt-8">
+                <span className="inline-block font-label-code text-[11px] px-3 py-1.5 rounded-md bg-surface-container text-on-surface-variant font-semibold tracking-wider uppercase">
+                  Intelligent Dispatch
+                </span>
               </div>
             </div>
 
-            {/* Right Column: Live Artifact Canvas */}
-            <div style={{ padding: '1.5rem', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            {/* 2. Specialised Agent Catalogue */}
+            <div className="p-8 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group min-h-[290px]">
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border-hairline)', marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '13px', color: 'var(--primary)' }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '9999px', background: 'var(--saffron-glow)' }} />
-                    Artifact: RELIANCE_Q4_VALUATION.HTML
+                <div className="h-10 w-10 rounded-lg bg-tertiary-fixed flex items-center justify-center text-agent-deep-research mb-6">
+                  <span className="material-symbols-outlined text-[22px]">apps</span>
+                </div>
+                <h3 className="font-headline-md text-xl text-primary font-semibold mb-3 tracking-tight">Specialised Agent Catalogue</h3>
+                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  Research, coding, documents, markets, architecture, and video — each agent is purpose-built for that workflow.
+                </p>
+              </div>
+              <div className="pt-8">
+                <span className="inline-block font-label-code text-[11px] px-3 py-1.5 rounded-md bg-surface-container text-on-surface-variant font-semibold tracking-wider uppercase">
+                  8 Live Workflows
+                </span>
+              </div>
+            </div>
+
+            {/* 3. Dev Studio */}
+            <div className="p-8 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group min-h-[290px]">
+              <div>
+                <div className="h-10 w-10 rounded-lg bg-agent-dev-studio/15 flex items-center justify-center text-agent-dev-studio mb-6">
+                  <span className="material-symbols-outlined text-[22px]">featured_video</span>
+                </div>
+                <h3 className="font-headline-md text-xl text-primary font-semibold mb-3 tracking-tight">Dev Studio</h3>
+                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  Write, debug, and iterate on code with execution tools and live HTML preview for UI and component work.
+                </p>
+              </div>
+              <div className="pt-8">
+                <span className="inline-block font-label-code text-[11px] px-3 py-1.5 rounded-md bg-agent-dev-studio/10 text-agent-dev-studio font-semibold tracking-wider uppercase">
+                  Live HTML Preview
+                </span>
+              </div>
+            </div>
+
+            {/* 4. Research with Citations */}
+            <div className="p-8 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group min-h-[290px]">
+              <div>
+                <div className="h-10 w-10 rounded-lg bg-agent-deep-research/10 flex items-center justify-center text-agent-deep-research mb-6">
+                  <span className="material-symbols-outlined text-[22px]">description</span>
+                </div>
+                <h3 className="font-headline-md text-xl text-primary font-semibold mb-3 tracking-tight">Research with Citations</h3>
+                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  Fast Research for quick answers, Deep Research for multi-step synthesis with real-time sources and risk analysis.
+                </p>
+              </div>
+              <div className="pt-8">
+                <span className="inline-block font-label-code text-[11px] px-3 py-1.5 rounded-md bg-agent-deep-research/10 text-agent-deep-research font-semibold tracking-wider uppercase">
+                  Source Grounded
+                </span>
+              </div>
+            </div>
+
+            {/* 5. Markets, Docs & Video */}
+            <div className="p-8 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group min-h-[290px]">
+              <div>
+                <div className="h-10 w-10 rounded-lg bg-secondary-fixed/40 flex items-center justify-center text-secondary mb-6">
+                  <span className="material-symbols-outlined text-[22px]">tune</span>
+                </div>
+                <h3 className="font-headline-md text-xl text-primary font-semibold mb-3 tracking-tight">Markets, Docs &amp; Video</h3>
+                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  Analyse stocks and crypto, summarise documents, create reports, and unpack uploaded videos — all in chat.
+                </p>
+              </div>
+              <div className="pt-8">
+                <span className="inline-block font-label-code text-[11px] px-3 py-1.5 rounded-md bg-secondary-fixed text-on-secondary-fixed font-semibold tracking-wider uppercase">
+                  Multimodal Suite
+                </span>
+              </div>
+            </div>
+
+            {/* 6. Credits You Can See */}
+            <div className="p-8 rounded-2xl bg-white border border-black/5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group min-h-[290px]">
+              <div>
+                <div className="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant mb-6">
+                  <span className="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+                </div>
+                <h3 className="font-headline-md text-xl text-primary font-semibold mb-3 tracking-tight">Credits You Can See</h3>
+                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                  Every plan includes monthly credits. Track balance and usage directly in your sovereign workspace wallet — upgrade when you need more.
+                </p>
+              </div>
+              <div className="pt-8">
+                <span className="inline-block font-label-code text-[11px] px-3 py-1.5 rounded-md bg-surface-container text-on-surface-variant font-semibold tracking-wider uppercase">
+                  Transparent Wallet
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 4. SPECIALISED AGENT CATALOGUE ── */}
+        <section className="w-full bg-surface-container-low/60 py-12 sm:py-space-3xl relative scroll-mt-20" id="agents">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+              <span className="font-label-code text-label-code text-agent-deep-research uppercase tracking-widest font-bold">
+                Agent Catalogue
+              </span>
+              <h2 className="font-headline-lg text-2xl sm:text-3xl md:text-headline-lg text-primary tracking-tight mt-2">
+                Specialised agents for every task
+              </h2>
+              <p className="font-body-md sm:font-body-lg text-sm sm:text-body-lg text-on-surface-variant mt-3 sm:mt-4">
+                Choose the sovereign agent that fits your objective — or let Auto Mode assign your prompt automatically based on intent.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-16">
+              {/* 1. Fast Research */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-[20px]">bolt</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">
+                      Fast
+                    </span>
                   </div>
-                  <div style={{ display: 'flex', gap: '0.4rem' }}>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">Fast Research</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Instant web research with real-time sources and direct citations.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Real-Time Web</span>
+                  <Link to="/agents/research" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 2. Deep Research */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-agent-deep-research/10 flex items-center justify-center text-agent-deep-research">
+                      <span className="material-symbols-outlined text-[20px]">psychology</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold">
+                      Pro+
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">Deep Research</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Comprehensive multi-step analysis and synthesis across complex reports and topics.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Multi-Step Synthesis</span>
+                  <Link to="/agents/research" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 3. Dev Studio */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-agent-dev-studio/10 flex items-center justify-center text-agent-dev-studio">
+                      <span className="material-symbols-outlined text-[20px]">code</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-agent-dev-studio font-semibold">
+                      Code
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">Dev Studio</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Write, debug, and preview code in real time with interactive UI execution.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Interactive UI</span>
+                  <Link to="/agents/dev-studio" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 4. System Architect */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-[20px]">schema</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold">
+                      Architecture
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">System Architect</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Design robust software architectures, database schemas, and system blueprints.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Diagrams &amp; Schemas</span>
+                  <Link to="/agents/system-architect" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 5. Market Analyst */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-secondary-fixed-dim/30 flex items-center justify-center text-secondary">
+                      <span className="material-symbols-outlined text-[20px]">analytics</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-semibold">
+                      Markets
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">Market Analyst</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Analyze stocks and cryptocurrencies with technical and fundamental breakdowns. For educational research.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Financial Data</span>
+                  <Link to="/agents/market-intelligence" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 6. Doc Intelligence */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-agent-legal/10 flex items-center justify-center text-agent-legal">
+                      <span className="material-symbols-outlined text-[20px]">description</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">
+                      Docs
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">Doc Intelligence</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Extract summaries, tables, and structured data from PDFs, scanned documents, and spreadsheets.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Document Parsing</span>
+                  <Link to="/agents/doc-intelligence" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 7. Video Analyser */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary text-on-primary flex items-center justify-center">
+                      <span className="material-symbols-outlined text-[20px]">smart_display</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold">
+                      Video
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">Video Analyser</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Examine video footage to describe scenes, extract on-screen text, and answer questions.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Video Reasoning</span>
+                  <Link to="/agents/video-analyser" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 8. Legal Agent */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+                      <span className="material-symbols-outlined text-[20px]">gavel</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-semibold">
+                      Contracts
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">Legal Agent</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Review agreements and contracts to highlight key clauses, risks, and standard obligations.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Clause Review</span>
+                  <Link to="/agents/legal" className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">
+                    north_east
+                  </Link>
+                </div>
+              </div>
+
+              {/* 9. General Assistant */}
+              <div className="p-5 sm:p-6 rounded-xl bg-surface-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-[20px]">chat</span>
+                    </div>
+                    <span className="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-semibold">
+                      Core Chat
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm text-base sm:text-headline-sm text-primary mb-2 font-semibold">General Assistant</h4>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant leading-relaxed">
+                    Everyday conversational reasoning, writing, brainstorming, and quick problem solving.
+                  </p>
+                </div>
+                <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-border-hairline/60 flex items-center justify-between">
+                  <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Everyday Q&amp;A</span>
+                  <a className="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]" href="https://app.grizonai.com">
+                    north_east
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5. ARTIFACTS & WORKSPACE CANVAS ── */}
+        <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-space-3xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-5 space-y-4 sm:space-y-6">
+              <span className="font-label-code text-label-code text-secondary uppercase tracking-widest font-bold">
+                Workspace Canvas
+              </span>
+              <h2 className="font-headline-lg text-2xl sm:text-3xl md:text-headline-lg text-primary tracking-tight">
+                Artifacts, canvas, and instant downloads
+              </h2>
+              <p className="font-body-md sm:font-body-lg text-sm sm:text-body-lg text-on-surface-variant leading-relaxed">
+                Generated documents, interactive financial charts, executable code files, and spreadsheets materialize directly into your dedicated side canvas.
+              </p>
+
+              <div className="space-y-3 sm:space-y-4 pt-2">
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="material-symbols-outlined text-secondary text-[14px]">check</span>
+                  </div>
+                  <div>
+                    <p className="font-headline-sm text-sm sm:text-headline-sm text-primary font-semibold">
+                      Downloadable Native Artifacts
+                    </p>
+                    <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant">
+                      Export reports in Markdown, Word, PDF, or clean Excel data structures.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="material-symbols-outlined text-secondary text-[14px]">check</span>
+                  </div>
+                  <div>
+                    <p className="font-headline-sm text-sm sm:text-headline-sm text-primary font-semibold">
+                      Live Code &amp; HTML Previews
+                    </p>
+                    <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant">
+                      Instant interactive sandbox rendering without leaving your current agent thread.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="material-symbols-outlined text-secondary text-[14px]">check</span>
+                  </div>
+                  <div>
+                    <p className="font-headline-sm text-sm sm:text-headline-sm text-primary font-semibold">
+                      Isolated Sovereign History
+                    </p>
+                    <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant">
+                      Audit trails, citations, and version history cached securely and privately.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 sm:pt-4">
+                <a
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-on-primary font-headline-sm text-sm sm:text-headline-sm hover:bg-primary-container transition-all font-semibold"
+                  href="https://app.grizonai.com"
+                >
+                  <span>Explore the Canvas</span>
+                  <span className="material-symbols-outlined text-[18px]">open_in_new</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Canvas Demo */}
+            <div className="lg:col-span-7 w-full overflow-hidden">
+              <div className="rounded-xl bg-surface-card shadow-[0_20px_60px_-15px_rgba(7,9,27,0.07)] p-4 sm:p-6 space-y-4 border border-border-hairline max-w-full">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-3 border-b border-border-hairline gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="h-3 w-3 rounded-full bg-secondary shrink-0" />
+                    <span className="font-label-code text-xs sm:text-label-code text-primary font-bold truncate">
+                      Interactive Product Demonstration (Illustrative Preview)
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
                     <button
-                      onClick={() => setActiveCanvasTab('chart')}
-                      style={{ padding: '0.25rem 0.6rem', borderRadius: '6px', background: activeCanvasTab === 'chart' ? 'var(--surface-container)' : 'transparent', border: 'none', fontSize: '11px', fontFamily: 'var(--font-code)', cursor: 'pointer', color: 'var(--primary)' }}
+                      type="button"
+                      onClick={() => setCanvasMode(canvasMode === 'chart' ? 'code' : 'chart')}
+                      className="px-2.5 py-1 rounded bg-surface-container font-label-code text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
                     >
-                      Canvas View
+                      <span className="material-symbols-outlined text-[14px]">code</span>
+                      {canvasMode === 'chart' ? 'View Code' : 'View Chart'}
                     </button>
                     <button
-                      onClick={() => setActiveCanvasTab('code')}
-                      style={{ padding: '0.25rem 0.6rem', borderRadius: '6px', background: activeCanvasTab === 'code' ? 'var(--surface-container)' : 'transparent', border: 'none', fontSize: '11px', fontFamily: 'var(--font-code)', cursor: 'pointer', color: 'var(--primary)' }}
+                      type="button"
+                      onClick={() => alert('Exporting artifact: Sector_Sentiment_Analysis.xlsx')}
+                      className="px-2.5 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-code text-xs font-semibold flex items-center gap-1 cursor-pointer"
                     >
-                      Raw Code
+                      <span className="material-symbols-outlined text-[14px]">download</span>
+                      Export
                     </button>
                   </div>
                 </div>
 
-                {activeCanvasTab === 'chart' ? (
-                  <div style={{ padding: '1.25rem', borderRadius: '12px', background: 'var(--surface-low)', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '14px', color: 'var(--primary)' }}>
-                        Segmental Revenue & Capex Trajectory
-                      </span>
-                      <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--agent-dev-studio)', fontWeight: 600 }}>
-                        +16.2% Alpha
-                      </span>
-                    </div>
-
-                    <div style={{ height: '140px', width: '100%', position: 'relative' }}>
-                      <svg style={{ width: '100%', height: '100%' }} viewBox="0 0 400 120" preserveAspectRatio="none">
+                <div className="rounded-lg bg-surface-container-low p-4 sm:p-6 max-w-full overflow-hidden">
+                  {canvasMode === 'chart' ? (
+                    <>
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                        <div>
+                          <span className="font-label-code text-[10px] sm:text-label-code text-outline uppercase font-medium">Simulation Metric</span>
+                          <p className="font-headline-sm text-sm sm:text-headline-sm text-primary font-semibold">Sector Sentiment Trend</p>
+                        </div>
+                        <span className="font-label-badge text-xs px-2 py-1 rounded bg-agent-dev-studio/15 text-agent-dev-studio font-bold">
+                          +14.2% Alpha
+                        </span>
+                      </div>
+                      <svg className="w-full h-36 sm:h-44 text-agent-deep-research max-w-full" fill="none" stroke="currentColor" viewBox="0 0 500 150">
                         <defs>
-                          <linearGradient id="gradAlpha" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#F7A859" stopOpacity="0.4" />
-                            <stop offset="100%" stopColor="#F7A859" stopOpacity="0" />
+                          <linearGradient id="chartGradient" x1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#3C4B9B" stopOpacity="0.25" />
+                            <stop offset="100%" stopColor="#3C4B9B" stopOpacity="0.0" />
                           </linearGradient>
                         </defs>
-                        <path d="M0,100 Q100,80 200,50 T400,20 L400,120 L0,120 Z" fill="url(#gradAlpha)" />
-                        <path d="M0,100 Q100,80 200,50 T400,20" fill="none" stroke="#F7A859" strokeWidth="2.5" />
-                        <circle cx="200" cy="50" r="4" fill="#fff" stroke="#F7A859" strokeWidth="2" />
-                        <circle cx="400" cy="20" r="4" fill="#F7A859" />
+                        <path d="M 0 110 Q 70 80, 140 95 T 280 60 T 420 30 T 500 20 L 500 150 L 0 150 Z" fill="url(#chartGradient)" stroke="none" />
+                        <path d="M 0 110 Q 70 80, 140 95 T 280 60 T 420 30 T 500 20" stroke="currentColor" strokeLinecap="round" strokeWidth="2.5" />
+                        <circle className="fill-secondary stroke-surface-card" cx="280" cy="60" r="4" strokeWidth="2" />
+                        <circle className="fill-agent-dev-studio stroke-surface-card" cx="420" cy="30" r="4" strokeWidth="2" />
                       </svg>
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-code)', fontSize: '10px', color: 'var(--on-surface-variant)' }}>
-                      <span>Q1: Base Capex</span>
-                      <span>Q2: 5G Spectrum</span>
-                      <span>Q3: Retail Expansion</span>
-                      <span style={{ color: 'var(--agent-dev-studio)', fontWeight: 600 }}>Q4: FCF Positive</span>
-                    </div>
-                  </div>
-                ) : (
-                  <pre style={{ margin: 0, padding: '1rem', borderRadius: '10px', background: 'var(--primary)', color: '#fff', fontFamily: 'var(--font-code)', fontSize: '11px', lineHeight: 1.5, overflowX: 'auto' }}>
-                    <code>
-{`// Exported Artifact: RELIANCE_Q4_VALUATION.HTML
-export const model = {
-  ticker: "RELIANCE.NS",
-  ebitdaConversion: 1.02,
-  telecom5GCapex: 38420, // INR Cr
-  projectedFCF: "+16.2% YoY",
-  status: "Sovereign Proof Validated"
-};`}
-                    </code>
-                  </pre>
-                )}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t border-border-hairline font-label-code text-xs">
+                        <div>
+                          <p className="text-outline text-[10px] sm:text-label-code font-medium">VALUATION MULTIPLE</p>
+                          <p className="text-primary font-bold">21.4x Median</p>
+                        </div>
+                        <div>
+                          <p className="text-outline text-[10px] sm:text-label-code font-medium">VOLATILITY PROFILE</p>
+                          <p className="text-agent-dev-studio font-bold">Low Variance</p>
+                        </div>
+                        <div>
+                          <p className="text-outline text-[10px] sm:text-label-code font-medium">SYNTHESIS STATUS</p>
+                          <p className="text-secondary font-bold">7 Footnotes Verified</p>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <pre className="p-3 bg-primary text-white rounded-lg font-label-code text-xs overflow-x-auto leading-relaxed">
+{`// Exported Artifact: SECTOR_SENTIMENT_ANALYSIS.XLSX
+{
+  "benchmark": "NIFTY_AUTO_50",
+  "projectedAlpha": "+14.2% YoY",
+  "medianValuation": "21.4x",
+  "sourceVerification": "Official Gazette & Company Filings",
+  "riskRating": "Low Variance"
+}`}
+                    </pre>
+                  )}
+                </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-hairline)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', fontFamily: 'var(--font-code)', color: 'var(--on-surface-variant)' }}>
-                <span>Download as: .HTML / .XLSX / .PDF</span>
+        {/* ── 6. PRICING TIERS ── */}
+        <section className="w-full bg-surface-container-low/50 py-12 sm:py-space-3xl scroll-mt-20" id="pricing">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12">
+            <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+              <span className="font-label-code text-label-code text-secondary uppercase tracking-widest font-bold">
+                Pricing
+              </span>
+              <h2 className="font-headline-lg text-2xl sm:text-3xl md:text-headline-lg text-primary tracking-tight mt-2">
+                Plans for every ambition
+              </h2>
+              <p className="font-body-md sm:font-body-lg text-sm sm:text-body-lg text-on-surface-variant mt-2 sm:mt-3">
+                Start free, upgrade when you require high-capacity workflows. No hidden fees or locked contracts.
+              </p>
+
+              {/* Monthly / Yearly Toggle */}
+              <div className="inline-flex items-center gap-2 sm:gap-3 p-1.5 rounded-full bg-surface-container mt-6 sm:mt-8 shadow-xs">
                 <button
-                  onClick={() => alert('Downloading artifact...')}
-                  style={{ padding: '0.35rem 0.75rem', borderRadius: '6px', background: 'var(--primary)', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}
+                  type="button"
+                  onClick={() => setBillingCycle('monthly')}
+                  className={`px-4 sm:px-5 py-1.5 rounded-full font-label-badge text-xs sm:text-label-badge transition-all cursor-pointer ${
+                    billingCycle === 'monthly'
+                      ? 'bg-surface-card text-primary shadow-xs font-semibold'
+                      : 'text-on-surface-variant hover:text-primary'
+                  }`}
                 >
-                  Export Artifact
+                  Monthly
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBillingCycle('yearly')}
+                  className={`px-4 sm:px-5 py-1.5 rounded-full font-label-badge text-xs sm:text-label-badge transition-all flex items-center gap-1.5 cursor-pointer ${
+                    billingCycle === 'yearly'
+                      ? 'bg-surface-card text-primary shadow-xs font-semibold'
+                      : 'text-on-surface-variant hover:text-primary'
+                  }`}
+                >
+                  Yearly{' '}
+                  <span className="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold">
+                    2 Months Free
+                  </span>
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── SECTION 5: Transparent Plans for every ambition ── */}
-      <section style={{ maxWidth: '1080px', margin: '0 auto', padding: '0 1.5rem 5rem' }} id="pricing">
-        <div style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 2.5rem' }}>
-          <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--secondary)', fontWeight: 700 }}>
-            Transparent Plans
-          </span>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', color: 'var(--primary)', margin: '0.25rem 0 0' }}>
-            Plans for every ambition
-          </h2>
-          <p style={{ fontSize: '13px', color: 'var(--on-surface-variant)', marginTop: '0.35rem' }}>
-            Transparent compute credits. Zero hidden multipliers.
-          </p>
-
-          {/* Monthly / Yearly Toggle */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', padding: '0.25rem', borderRadius: '9999px', background: 'var(--surface-container)', marginTop: '1.25rem' }}>
-            <button
-              onClick={() => setBillingCycle('monthly')}
-              style={{
-                padding: '0.35rem 1rem',
-                borderRadius: '9999px',
-                background: billingCycle === 'monthly' ? '#fff' : 'transparent',
-                color: billingCycle === 'monthly' ? 'var(--primary)' : 'var(--on-surface-variant)',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-                fontSize: '12px',
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: billingCycle === 'monthly' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none'
-              }}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setBillingCycle('yearly')}
-              style={{
-                padding: '0.35rem 1rem',
-                borderRadius: '9999px',
-                background: billingCycle === 'yearly' ? '#fff' : 'transparent',
-                color: billingCycle === 'yearly' ? 'var(--primary)' : 'var(--on-surface-variant)',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-                fontSize: '12px',
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: billingCycle === 'yearly' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.25rem'
-              }}
-            >
-              Yearly <span style={{ padding: '0.1rem 0.35rem', borderRadius: '9999px', background: 'var(--secondary-fixed)', color: 'var(--on-secondary-fixed)', fontSize: '9px', fontWeight: 'bold' }}>SAVE 20%</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Pricing Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-          {/* Starter */}
-          <div style={{ padding: '1.75rem', borderRadius: '16px', background: '#fff', border: '1px solid var(--border-hairline)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--on-surface-variant)', textTransform: 'uppercase' }}>Starter</span>
-              <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--primary)', margin: '0.5rem 0' }}>
-                Free
+            {/* Pricing Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-stretch">
+              {/* Free */}
+              <div className="p-6 sm:p-8 rounded-xl bg-surface-card shadow-sm flex flex-col justify-between border border-border-hairline">
+                <div>
+                  <h3 className="font-headline-sm text-lg sm:text-headline-sm text-primary font-semibold">Free</h3>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant mt-1 mb-4 sm:mb-6">
+                    Try GriZon with core conversational reasoning
+                  </p>
+                  <div className="mb-4 sm:mb-6">
+                    <span className="font-display-hero text-3xl sm:text-[40px] leading-none text-primary font-normal">₹0</span>
+                    <span className="font-body-sm text-body-sm text-outline">/mo</span>
+                  </div>
+                  <ul className="space-y-2.5 sm:space-y-3 font-body-sm text-xs sm:text-body-sm text-on-surface mb-6 sm:mb-8">
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span><strong>50 credits</strong> / month</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>General Assistant Agent</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Standard web search</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Document tools &amp; weather</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>File upload up to 50 MB</span>
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  className="w-full py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-headline-sm text-sm sm:text-body-md text-center transition-colors block font-semibold"
+                  href="https://app.grizonai.com"
+                >
+                  Get Started
+                </a>
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--on-surface-variant)', marginBottom: '1.25rem' }}>
-                For individual engineers & researchers trying out sovereign AI workflows.
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '12px', color: 'var(--on-surface)' }}>
-                <div>✓ 500 Compute Credits included</div>
-                <div>✓ Fast Web Research & Auto Mode</div>
-                <div>✓ Live UI Canvas previews</div>
-                <div style={{ color: 'var(--outline)' }}>✕ Deep multi-node research swarms</div>
+
+              {/* Basic */}
+              <div className="p-6 sm:p-8 rounded-xl bg-surface-card shadow-sm flex flex-col justify-between border border-border-hairline">
+                <div>
+                  <h3 className="font-headline-sm text-lg sm:text-headline-sm text-primary font-semibold">Basic</h3>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant mt-1 mb-4 sm:mb-6">
+                    For students, hobbyists &amp; light creators
+                  </p>
+                  <div className="mb-4 sm:mb-6">
+                    <span className="font-display-hero text-3xl sm:text-[40px] leading-none text-primary font-normal">
+                      {billingCycle === 'monthly' ? '₹999' : '₹799'}
+                    </span>
+                    <span className="font-body-sm text-body-sm text-outline">/mo</span>
+                  </div>
+                  <ul className="space-y-2.5 sm:space-y-3 font-body-sm text-xs sm:text-body-sm text-on-surface mb-6 sm:mb-8">
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span><strong>200 credits</strong> / month</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>5 specialised agents</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Dev Studio &amp; Doc Writer</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Data &amp; Market Analyst</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Code, charts &amp; image analysis</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>On-demand credit top-ups</span>
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  className="w-full py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-headline-sm text-sm sm:text-body-md text-center transition-colors block font-semibold"
+                  href="https://app.grizonai.com"
+                >
+                  Get Started
+                </a>
+              </div>
+
+              {/* Pro */}
+              <div className="p-6 sm:p-8 rounded-xl bg-surface-card shadow-[0_16px_40px_-10px_rgba(247,168,89,0.22)] relative flex flex-col justify-between border-2 border-saffron-glow/40">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-primary text-on-primary font-label-badge text-xs uppercase tracking-wider shrink-0 font-bold">
+                  Best Value
+                </div>
+                <div>
+                  <h3 className="font-headline-sm text-lg sm:text-headline-sm text-primary font-semibold">Pro</h3>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant mt-1 mb-4 sm:mb-6">
+                    For professionals, freelancers &amp; developers
+                  </p>
+                  <div className="mb-4 sm:mb-6">
+                    <span className="font-display-hero text-3xl sm:text-[40px] leading-none text-primary font-normal">
+                      {billingCycle === 'monthly' ? '₹1,999' : '₹1,599'}
+                    </span>
+                    <span className="font-body-sm text-body-sm text-outline">/mo</span>
+                  </div>
+                  <ul className="space-y-2.5 sm:space-y-3 font-body-sm text-xs sm:text-body-sm text-on-surface mb-6 sm:mb-8">
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span><strong>500 credits</strong> / mo + rollover</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span><strong>All 8 specialised agents</strong></span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Deep Research &amp; Architect</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Video Analyser Multi-modal</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Higher file &amp; search limits</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Credit top-up enabled</span>
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  className="w-full py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-sm sm:text-body-md text-center transition-colors shadow-sm block font-semibold"
+                  href="https://app.grizonai.com"
+                >
+                  Get Started
+                </a>
+              </div>
+
+              {/* Elite */}
+              <div className="p-6 sm:p-8 rounded-xl bg-surface-card shadow-sm flex flex-col justify-between border border-border-hairline">
+                <div>
+                  <h3 className="font-headline-sm text-lg sm:text-headline-sm text-primary font-semibold">Elite</h3>
+                  <p className="font-body-sm text-xs sm:text-body-sm text-on-surface-variant mt-1 mb-4 sm:mb-6">
+                    For power users, agencies &amp; heavy teams
+                  </p>
+                  <div className="mb-4 sm:mb-6">
+                    <span className="font-display-hero text-3xl sm:text-[40px] leading-none text-primary font-normal">
+                      {billingCycle === 'monthly' ? '₹2,999' : '₹2,399'}
+                    </span>
+                    <span className="font-body-sm text-body-sm text-outline">/mo</span>
+                  </div>
+                  <ul className="space-y-2.5 sm:space-y-3 font-body-sm text-xs sm:text-body-sm text-on-surface mb-6 sm:mb-8">
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span><strong>1,000 credits</strong> / mo + rollover</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>All 8 specialised agents</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>High context window limits</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Extended artifact version history</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Priority support</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                      <span>Dedicated assistance</span>
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  className="w-full py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-headline-sm text-sm sm:text-body-md text-center transition-colors block font-semibold"
+                  href="https://app.grizonai.com"
+                >
+                  Get Started
+                </a>
               </div>
             </div>
-            <Link to="/app" style={{ display: 'block', textAlign: 'center', padding: '0.65rem', borderRadius: '8px', background: 'var(--surface-container)', color: 'var(--primary)', fontWeight: 600, fontSize: '12px', textDecoration: 'none', marginTop: '1.5rem' }}>
-              Start Free
-            </Link>
           </div>
+        </section>
 
-          {/* Pro */}
-          <div style={{ padding: '1.75rem', borderRadius: '16px', background: 'var(--primary)', color: '#fff', border: '1px solid var(--primary)', boxShadow: '0 12px 30px rgba(7,9,27,0.15)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative' }}>
-            <span style={{ position: 'absolute', top: '1rem', right: '1rem', padding: '0.2rem 0.55rem', borderRadius: '9999px', background: 'var(--secondary)', color: '#fff', fontFamily: 'var(--font-code)', fontSize: '10px', fontWeight: 700 }}>
-              MOST POPULAR
+        {/* ── 7. FAQ ACCORDION ── */}
+        <section className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-space-3xl scroll-mt-20" id="faq">
+          <div className="text-center mb-10 sm:mb-16">
+            <span className="font-label-code text-label-code text-secondary uppercase tracking-widest font-bold">
+              FAQ
             </span>
-            <div>
-              <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--saffron-glow)', textTransform: 'uppercase' }}>Pro Specialist</span>
-              <div style={{ fontSize: '2rem', fontWeight: 700, margin: '0.5rem 0' }}>
-                {billingCycle === 'monthly' ? '₹2,499' : '₹1,999'} <span style={{ fontSize: '12px', fontWeight: 'normal', color: 'rgba(255,255,255,0.6)' }}>/ month</span>
-              </div>
-              <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', marginBottom: '1.25rem' }}>
-                Full access to all 8 specialized agents with monthly compute rollover.
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '12px', color: '#fff' }}>
-                <div>✓ 5,000 Compute Credits / mo</div>
-                <div>✓ Deep Research 48-node trees</div>
-                <div>✓ Bull vs Bear Financial Debates</div>
-                <div>✓ Video Analyser Keyframe OCR</div>
-                <div>✓ 100% Unused Credit Rollover</div>
-              </div>
-            </div>
-            <Link to="/app" style={{ display: 'block', textAlign: 'center', padding: '0.65rem', borderRadius: '8px', background: 'var(--secondary)', color: '#fff', fontWeight: 600, fontSize: '12px', textDecoration: 'none', marginTop: '1.5rem' }}>
-              Upgrade to Pro
-            </Link>
-          </div>
-
-          {/* Enterprise */}
-          <div style={{ padding: '1.75rem', borderRadius: '16px', background: '#fff', border: '1px solid var(--border-hairline)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--on-surface-variant)', textTransform: 'uppercase' }}>Sovereign Enterprise</span>
-              <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--primary)', margin: '0.5rem 0' }}>
-                Custom
-              </div>
-              <p style={{ fontSize: '12px', color: 'var(--on-surface-variant)', marginBottom: '1.25rem' }}>
-                Dedicated VPC clusters, air-gapped runtimes, and SLA guarantees for enterprises.
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '12px', color: 'var(--on-surface)' }}>
-                <div>✓ Unlimited Autonomous Swarms</div>
-                <div>✓ Air-gapped on-premise GPU nodes</div>
-                <div>✓ Custom Indian DPDP Audit Enclaves</div>
-                <div>✓ 24/7 Dedicated Sovereign Engineering Desk</div>
-              </div>
-            </div>
-            <Link to="/about" style={{ display: 'block', textAlign: 'center', padding: '0.65rem', borderRadius: '8px', background: 'var(--surface-container)', color: 'var(--primary)', fontWeight: 600, fontSize: '12px', textDecoration: 'none', marginTop: '1.5rem' }}>
-              Contact Sovereign Desk
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 6: Ready for agents that fit the job? ── */}
-      <section style={{ maxWidth: '1020px', margin: '0 auto', padding: '0 1.5rem 4rem', textAlign: 'center' }}>
-        <div style={{
-          borderRadius: '24px',
-          background: 'var(--primary)',
-          color: '#fff',
-          padding: '3rem 2rem',
-          position: 'relative',
-          overflow: 'hidden',
-          boxShadow: '0 20px 50px rgba(7,9,27,0.2)'
-        }}>
-          <div style={{
-            position: 'absolute',
-            top: '-6rem',
-            left: '-6rem',
-            width: '240px',
-            height: '240px',
-            background: 'radial-gradient(circle, rgba(247,168,89,0.2) 0%, transparent 70%)',
-            borderRadius: '9999px',
-            filter: 'blur(50px)'
-          }} />
-
-          <div style={{ position: 'relative', zIndex: 1, maxWidth: '580px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', margin: 0, lineHeight: 1.15 }}>
-              Ready for agents that <br />
-              <span style={{ fontStyle: 'italic', color: 'var(--saffron-glow)' }}>fit the job?</span>
+            <h2 className="font-headline-lg text-2xl sm:text-3xl md:text-headline-lg text-primary tracking-tight mt-2">
+              Frequently asked questions
             </h2>
+          </div>
 
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', margin: 0, lineHeight: 1.6 }}>
-              Start free with Auto Mode in seconds. Upgrade only when you need high-capacity compute swarms.
-            </p>
+          <div className="space-y-3 sm:space-y-4">
+            {FAQS.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-xl bg-surface-card p-4 sm:p-6 shadow-xs cursor-pointer border border-border-hairline transition-all hover:border-outline-variant"
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="font-headline-sm text-sm sm:text-headline-sm text-primary font-semibold">
+                      {faq.q}
+                    </h3>
+                    <span
+                      className={`material-symbols-outlined text-outline transition-transform duration-200 shrink-0 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    >
+                      expand_more
+                    </span>
+                  </div>
+                  {isOpen && (
+                    <div className="pt-3 sm:pt-4 font-body-md text-xs sm:text-body-md text-on-surface-variant leading-relaxed border-t border-border-hairline/40 mt-3">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
 
-            <div style={{ paddingTop: '0.75rem' }}>
-              <Link
-                to="/app"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.85rem 1.6rem',
-                  borderRadius: '9999px',
-                  background: '#fff',
-                  color: 'var(--primary)',
-                  fontFamily: 'var(--font-body)',
-                  fontWeight: 600,
-                  fontSize: '13px',
-                  textDecoration: 'none'
-                }}
-              >
-                <span>Start with AI Free</span>
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>bolt</span>
-              </Link>
+        {/* ── 8. BOTTOM CALL TO ACTION ── */}
+        <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-12 pb-12 sm:pb-space-3xl">
+          <div className="rounded-2xl bg-gradient-to-br from-primary via-primary-container to-primary text-on-primary p-6 sm:p-12 md:p-16 relative overflow-hidden text-center shadow-xl">
+            <div className="absolute -top-32 -left-32 w-80 h-80 bg-saffron-glow/20 blur-3xl rounded-full pointer-events-none" />
+            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-lavender-subtle/20 blur-3xl rounded-full pointer-events-none" />
+            <div className="relative z-10 max-w-2xl mx-auto space-y-4 sm:space-y-6">
+              <span className="font-label-code text-[11px] sm:text-label-code px-3 py-1 rounded-full bg-surface-container/20 text-saffron-glow font-semibold uppercase tracking-wider inline-block">
+                Autonomous Intelligence
+              </span>
+              <h2 className="font-display-hero text-2xl sm:text-4xl md:text-display-hero text-on-primary tracking-tight leading-tight sm:leading-none">
+                Ready for agents that <br />
+                <span className="italic font-display-hero text-saffron-glow">fit the job?</span>
+              </h2>
+              <p className="font-body-md sm:font-body-lg text-xs sm:text-body-lg text-primary-fixed-dim leading-relaxed">
+                Start free with Auto Mode today, then unlock specialised autonomous agents for deep research, code, markets, docs, and video.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full max-w-sm sm:max-w-none mx-auto">
+                <a
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg bg-on-primary text-primary font-headline-sm text-sm sm:text-headline-sm hover:bg-surface-container-low transition-all font-semibold"
+                  href="https://app.grizonai.com"
+                >
+                  <span>Start with AI Free</span>
+                  <span className="material-symbols-outlined text-[18px]">bolt</span>
+                </a>
+                <a
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-lg bg-surface-container/20 hover:bg-surface-container/30 text-on-primary font-headline-sm text-sm sm:text-headline-sm transition-all font-semibold"
+                  href="#pricing"
+                >
+                  <span>View Pricing Tiers →</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

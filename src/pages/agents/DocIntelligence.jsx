@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/sovereign.css';
 
-export default function DocIntelligence() {
-  const [modalView, setModalView] = useState('doc'); // 'doc' | 'video'
+export default function DocIntelligence({ defaultModal = 'doc' }) {
+  const [modalView, setModalView] = useState(defaultModal); // 'doc' | 'video'
   const [activePage, setActivePage] = useState(14);
   const [videoTimestamp, setVideoTimestamp] = useState('04:12');
   const [videoQuery, setVideoQuery] = useState('');
+
+  useEffect(() => {
+    setModalView(defaultModal);
+  }, [defaultModal]);
 
   return (
     <div className="sv-page" style={{ background: 'var(--parchment)', minHeight: '100vh', paddingTop: '5.5rem' }}>

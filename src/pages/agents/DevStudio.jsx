@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/sovereign.css';
 
-export default function DevStudio() {
-  const [workbenchView, setWorkbenchView] = useState('canvas'); // 'canvas' | 'arch'
+export default function DevStudio({ defaultWorkbench = 'canvas' }) {
+  const [workbenchView, setWorkbenchView] = useState(defaultWorkbench);
   const [isRunningVM, setIsRunningVM] = useState(false);
   const [activeTabCode, setActiveTabCode] = useState('SecurityLedger.tsx');
+
+  useEffect(() => {
+    setWorkbenchView(defaultWorkbench);
+  }, [defaultWorkbench]);
 
   const handleRunVM = () => {
     setIsRunningVM(true);

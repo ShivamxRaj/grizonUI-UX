@@ -4,61 +4,79 @@ import '../styles/sovereign.css';
 
 const AGENT_COL_1 = [
   {
-    title: 'Research Engine',
-    subtitle: 'Sub-400ms web search & 48-node recursive epistemic trees',
+    title: 'Fast & Deep Research',
+    subtitle: 'Instant citations & multi-step hypothesis synthesis',
     href: '/agents/research',
     icon: 'psychology',
     color: 'var(--agent-deep-research)',
     bg: 'rgba(60, 75, 155, 0.08)',
-    badge: 'Dual Engine'
+    badge: 'Research'
   },
   {
-    title: 'Dev Studio & Architect',
-    subtitle: 'Micro-VM sandbox, 60 FPS live canvas & Mermaid compiler',
+    title: 'Dev Studio',
+    subtitle: 'Code sandbox, execution tools & live HTML preview',
     href: '/agents/dev-studio',
     icon: 'terminal',
     color: 'var(--agent-dev-studio)',
     bg: 'rgba(16, 126, 125, 0.08)',
-    badge: 'Pro+ VM'
+    badge: 'Code'
   },
   {
-    title: 'Market Intelligence',
-    subtitle: 'Taurus vs Ursa Bull/Bear debate & 14ms live market feeds',
-    href: '/agents/market-intelligence',
-    icon: 'query_stats',
-    color: 'var(--secondary)',
-    bg: 'rgba(255, 219, 199, 0.5)',
-    badge: '14ms Feeds'
+    title: 'System Architect',
+    subtitle: 'System designs, cloud blueprints & database schemas',
+    href: '/agents/system-architect',
+    icon: 'schema',
+    color: 'var(--primary)',
+    bg: 'rgba(7, 9, 27, 0.06)',
+    badge: 'Pro+'
+  },
+  {
+    title: 'Legal & Contract Agent',
+    subtitle: 'Clause redlining, compliance & DPDP Act 2023 audit',
+    href: '/agents/legal',
+    icon: 'gavel',
+    color: 'var(--agent-legal)',
+    bg: 'rgba(132, 59, 98, 0.08)',
+    badge: 'Legal'
   }
 ];
 
 const AGENT_COL_2 = [
   {
-    title: 'Doc & Video Intelligence',
-    subtitle: '400-page table OCR & frame-by-frame video deconstruction',
-    href: '/agents/doc-intelligence',
-    icon: 'filter_center_focus',
+    title: 'Data & Market Analyst',
+    subtitle: 'Stock & crypto analysis, Bull vs Bear debate & charts',
+    href: '/agents/market-intelligence',
+    icon: 'query_stats',
     color: 'var(--secondary)',
-    bg: 'rgba(247, 168, 89, 0.15)',
-    badge: 'Multimodal'
+    bg: 'rgba(255, 219, 199, 0.5)',
+    badge: 'Markets'
   },
   {
-    title: 'Legal & Compliance Agent',
-    subtitle: 'Clause risk redlining, DPDP Act 2023 & liability audits',
-    href: '/agents/legal',
-    icon: 'gavel',
+    title: 'Doc Intelligence & Writer',
+    subtitle: 'PDF table parsing, reports, emails & copy',
+    href: '/agents/doc-intelligence',
+    icon: 'description',
     color: 'var(--agent-legal)',
-    bg: 'rgba(132, 59, 98, 0.10)',
-    badge: 'DPDP 2023'
+    bg: 'rgba(132, 59, 98, 0.08)',
+    badge: 'Docs'
   },
   {
-    title: 'Full Agent Mesh Catalog',
-    subtitle: 'Explore all 8 specialized agents, benchmarks & tools',
-    href: '/agents',
-    icon: 'hub',
+    title: 'Video Analyser',
+    subtitle: 'Video scene reasoning, OCR & event timestamps',
+    href: '/agents/video-analyser',
+    icon: 'smart_display',
+    color: 'var(--primary)',
+    bg: 'rgba(7, 9, 27, 0.06)',
+    badge: 'Pro+'
+  },
+  {
+    title: 'General Assistant',
+    subtitle: 'Everyday Q&A, reasoning, drafting & brainstorming',
+    href: 'https://app.grizonai.com',
+    icon: 'chat',
     color: 'var(--primary)',
     bg: 'var(--surface-container)',
-    badge: 'All 8'
+    badge: 'Core Chat'
   }
 ];
 
@@ -155,44 +173,32 @@ export default function Navbar() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: '10px',
               textDecoration: 'none',
               flexShrink: 0
             }}
             aria-label="GriZon AI Home"
+            className="group"
           >
-            <div
-              style={{
-                width: '30px',
-                height: '30px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #1e2033 0%, #07091b 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(7,9,27,0.2)'
+            <img
+              src="/logo.svg"
+              alt="GriZon AI Logo"
+              style={{ height: '32px', width: '32px', objectFit: 'contain' }}
+              onError={(e) => {
+                e.target.src = '/grizon-icon.png';
               }}
-            >
-              <img
-                src="/grizon-logo.png"
-                alt="GriZon"
-                style={{ height: '18px', width: 'auto' }}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<span style="color:#fff;font-weight:700;font-size:12px;">G</span>';
-                }}
-              />
-            </div>
+            />
             <span
               style={{
-                fontFamily: 'var(--font-display)',
+                fontFamily: 'var(--font-headline, "Plus Jakarta Sans", sans-serif)',
                 fontSize: '18px',
-                fontWeight: 600,
-                color: 'var(--primary)',
-                letterSpacing: '-0.02em'
+                fontWeight: 700,
+                color: '#1e2033',
+                letterSpacing: '-0.02em',
+                lineHeight: 1
               }}
             >
-              GriZon <span style={{ color: 'var(--on-surface-variant)', fontWeight: 400 }}>AI</span>
+              GriZon AI
             </span>
           </Link>
 
@@ -497,16 +503,15 @@ export default function Navbar() {
                 )}
               </li>
 
-              {/* PLATFORM LINK */}
+              {/* FEATURES LINK */}
               <li>
-                <Link
-                  to="/indus"
+                <a
+                  href="/#features"
                   style={{
                     display: 'block',
                     padding: '6px 12px',
                     borderRadius: '9999px',
-                    color: location.pathname === '/indus' ? 'var(--primary)' : 'var(--on-surface-variant)',
-                    background: location.pathname === '/indus' ? 'var(--surface-container)' : 'transparent',
+                    color: 'var(--on-surface-variant)',
                     fontFamily: 'var(--font-body)',
                     fontSize: '13px',
                     fontWeight: 500,
@@ -515,8 +520,8 @@ export default function Navbar() {
                   }}
                   className="nav-pill-item"
                 >
-                  Platform &amp; SDK
-                </Link>
+                  Features
+                </a>
               </li>
 
               {/* ABOUT LINK */}
@@ -559,6 +564,27 @@ export default function Navbar() {
                   className="nav-pill-item"
                 >
                   Pricing
+                </a>
+              </li>
+
+              {/* FAQ LINK */}
+              <li>
+                <a
+                  href="/#faq"
+                  style={{
+                    display: 'block',
+                    padding: '6px 12px',
+                    borderRadius: '9999px',
+                    color: 'var(--on-surface-variant)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    transition: 'all 0.15s ease'
+                  }}
+                  className="nav-pill-item"
+                >
+                  FAQ
                 </a>
               </li>
             </ul>
@@ -695,33 +721,58 @@ export default function Navbar() {
                       justifyContent: 'space-between'
                     }}
                   >
-                    <span>Browse All 8 Agents Catalog</span>
+                    <span>Browse All 9 Agents Catalog</span>
                     <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>arrow_forward</span>
                   </Link>
 
-                  {[...AGENT_COL_1, ...AGENT_COL_2.slice(0, 2)].map((agent) => (
-                    <Link
-                      key={agent.title}
-                      to={agent.href}
-                      onClick={() => setMobileOpen(false)}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '8px 10px',
-                        borderRadius: '10px',
-                        backgroundColor: 'var(--surface-low)',
-                        textDecoration: 'none',
-                        color: 'inherit'
-                      }}
-                    >
-                      <span className="material-symbols-outlined" style={{ fontSize: '18px', color: agent.color }}>
-                        {agent.icon}
-                      </span>
-                      <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--primary)' }}>
-                        {agent.title}
-                      </span>
-                    </Link>
+                  {[...AGENT_COL_1, ...AGENT_COL_2].map((agent) => (
+                    agent.href.startsWith('http') ? (
+                      <a
+                        key={agent.title}
+                        href={agent.href}
+                        onClick={() => setMobileOpen(false)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          padding: '8px 10px',
+                          borderRadius: '10px',
+                          backgroundColor: 'var(--surface-low)',
+                          textDecoration: 'none',
+                          color: 'inherit'
+                        }}
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: '18px', color: agent.color }}>
+                          {agent.icon}
+                        </span>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--primary)' }}>
+                          {agent.title}
+                        </span>
+                      </a>
+                    ) : (
+                      <Link
+                        key={agent.title}
+                        to={agent.href}
+                        onClick={() => setMobileOpen(false)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          padding: '8px 10px',
+                          borderRadius: '10px',
+                          backgroundColor: 'var(--surface-low)',
+                          textDecoration: 'none',
+                          color: 'inherit'
+                        }}
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: '18px', color: agent.color }}>
+                          {agent.icon}
+                        </span>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--primary)' }}>
+                          {agent.title}
+                        </span>
+                      </Link>
+                    )
                   ))}
                 </div>
               )}
@@ -729,8 +780,8 @@ export default function Navbar() {
 
             {/* Other Mobile Links */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--border-hairline)' }}>
-              <Link
-                to="/indus"
+              <a
+                href="/#features"
                 onClick={() => setMobileOpen(false)}
                 style={{
                   padding: '10px 4px',
@@ -741,8 +792,8 @@ export default function Navbar() {
                   textDecoration: 'none'
                 }}
               >
-                Platform &amp; SDK
-              </Link>
+                Features
+              </a>
               <Link
                 to="/about"
                 onClick={() => setMobileOpen(false)}
@@ -770,6 +821,20 @@ export default function Navbar() {
                 }}
               >
                 Pricing Plans
+              </a>
+              <a
+                href="/#faq"
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  padding: '10px 4px',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: 'var(--on-surface)',
+                  textDecoration: 'none'
+                }}
+              >
+                FAQ
               </a>
 
               <a
