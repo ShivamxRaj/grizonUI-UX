@@ -70,30 +70,6 @@ export default function Home() {
                 </span>
               </Link>
             </div>
-
-            {/* Minimal Reassurance Metrics Row */}
-            <div className="pt-6 border-t border-hairline flex flex-col gap-3">
-              <div className="flex items-center gap-2 text-mutedInk">
-                <span className="material-symbols-outlined text-[15px] text-terracotta">verified_user</span>
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.1em] font-medium">
-                  Deterministic Grounding Guarantee
-                </span>
-              </div>
-              <div className="grid grid-cols-3 gap-4 pt-1">
-                <div>
-                  <p className="font-mono text-[18px] font-semibold text-charcoal">0%</p>
-                  <p className="font-sans text-[12px] text-mutedInk">Training Retention</p>
-                </div>
-                <div>
-                  <p className="font-mono text-[18px] font-semibold text-charcoal">340ms</p>
-                  <p className="font-sans text-[12px] text-mutedInk">Citation Verify</p>
-                </div>
-                <div>
-                  <p className="font-mono text-[18px] font-semibold text-charcoal">&lt;1.0s</p>
-                  <p className="font-sans text-[12px] text-mutedInk">Sovereign Routing</p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Tactile Interactive Briefing Console Centerpiece */}
@@ -415,6 +391,35 @@ export default function Home() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Minimal Reassurance Metrics Row - moved below hero grid so it doesn't obstruct initial view */}
+        <div className="mt-14 lg:mt-16 pt-8 border-t border-hairline flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center gap-2.5 text-mutedInk">
+            <span className="material-symbols-outlined text-[17px] text-terracotta">verified_user</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] font-medium text-charcoal">
+              Deterministic Grounding Guarantee
+            </span>
+            <span className="hidden sm:inline text-hairline">|</span>
+            <span className="hidden sm:inline font-sans text-[12.5px] text-mutedInk">
+              Statutory gazettes, court dockets &amp; NSE option chain grounding
+            </span>
+          </div>
+
+          <div className="grid grid-cols-3 gap-6 sm:gap-10">
+            <div>
+              <p className="font-mono text-[18px] font-semibold text-charcoal">0%</p>
+              <p className="font-sans text-[12px] text-mutedInk">Training Retention</p>
+            </div>
+            <div>
+              <p className="font-mono text-[18px] font-semibold text-charcoal">340ms</p>
+              <p className="font-sans text-[12px] text-mutedInk">Citation Verify</p>
+            </div>
+            <div>
+              <p className="font-mono text-[18px] font-semibold text-charcoal">&lt;1.0s</p>
+              <p className="font-sans text-[12px] text-mutedInk">Sovereign Routing</p>
             </div>
           </div>
         </div>
