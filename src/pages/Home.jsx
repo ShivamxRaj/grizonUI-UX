@@ -394,31 +394,38 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Minimal Reassurance Metrics Row - moved below hero grid so it doesn't obstruct initial view */}
-        <div className="mt-14 lg:mt-16 pt-8 border-t border-hairline flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5 text-mutedInk">
-            <span className="material-symbols-outlined text-[17px] text-terracotta">verified_user</span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.12em] font-medium text-charcoal">
-              Deterministic Grounding Guarantee
-            </span>
-            <span className="hidden sm:inline text-hairline">|</span>
-            <span className="hidden sm:inline font-sans text-[12.5px] text-mutedInk">
-              Statutory gazettes, court dockets &amp; NSE option chain grounding
-            </span>
+      {/* =====================================================================
+          DETERMINISTIC GROUNDING GUARANTEE (Dedicated Transition Ribbon)
+      ====================================================================== */}
+      <section className="w-full border-y border-hairline bg-surfaceMuted/40 py-10 md:py-12 my-6 md:my-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center gap-3 text-mutedInk">
+            <div className="w-8 h-8 rounded-full bg-terracotta/10 border border-terracotta/20 flex items-center justify-center flex-shrink-0">
+              <span className="material-symbols-outlined text-[17px] text-terracotta">verified_user</span>
+            </div>
+            <div>
+              <span className="font-mono text-[11px] uppercase tracking-[0.12em] font-semibold text-charcoal block">
+                Deterministic Grounding Guarantee
+              </span>
+              <span className="font-sans text-[12.5px] text-mutedInk">
+                Statutory gazettes, court dockets &amp; NSE option chain grounding
+              </span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-6 sm:gap-10">
+          <div className="grid grid-cols-3 gap-6 sm:gap-12">
             <div>
-              <p className="font-mono text-[18px] font-semibold text-charcoal">0%</p>
+              <p className="font-mono text-[20px] font-semibold text-charcoal">0%</p>
               <p className="font-sans text-[12px] text-mutedInk">Training Retention</p>
             </div>
             <div>
-              <p className="font-mono text-[18px] font-semibold text-charcoal">340ms</p>
+              <p className="font-mono text-[20px] font-semibold text-charcoal">340ms</p>
               <p className="font-sans text-[12px] text-mutedInk">Citation Verify</p>
             </div>
             <div>
-              <p className="font-mono text-[18px] font-semibold text-charcoal">&lt;1.0s</p>
+              <p className="font-mono text-[20px] font-semibold text-charcoal">&lt;1.0s</p>
               <p className="font-sans text-[12px] text-mutedInk">Sovereign Routing</p>
             </div>
           </div>
