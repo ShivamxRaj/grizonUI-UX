@@ -76,7 +76,7 @@ export default function Home() {
           <div className="lg:col-span-7 flex flex-col">
             <div className="w-full bg-surfacePure rounded-xl border border-hairline shadow-[0_4px_24px_rgba(24,24,27,0.03)] overflow-hidden flex flex-col">
               {/* 3 Clean Scenario Tabs */}
-              <div className="bg-surfaceMuted/60 px-3 pt-2 flex items-center gap-1 border-b border-hairline overflow-x-auto">
+              <div className="bg-surfaceMuted/60 px-3 pt-2 flex items-center gap-1 border-b border-hairline overflow-x-auto no-scrollbar">
                 <button
                   type="button"
                   onClick={() => setActiveScenario(1)}
