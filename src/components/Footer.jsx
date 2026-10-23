@@ -3,115 +3,119 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-surface-container-lowest relative z-10 shadow-[0_-1px_12px_rgba(0,0,0,0.02)] border-t border-border-hairline">
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 pt-10 sm:pt-space-2xl pb-8 sm:pb-space-xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10 sm:mb-space-2xl">
-          {/* Col 1: Brand */}
-          <div>
-            <div className="flex items-center gap-2.5 mb-4">
+    <footer className="w-full bg-[#FAF9F5] border-t border-hairline pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        {/* Top Brand Row */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between pb-12 border-b border-hairline gap-4">
+          <div className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2.5 tracking-tight group" aria-label="GriZon AI">
               <img
+                src="/grizon-icon.png"
                 alt="GriZon AI Logo"
-                className="h-8 w-8 object-contain"
-                src="/logo.svg"
-                onError={(e) => {
-                  e.target.src = '/grizon-icon.png';
-                }}
+                className="w-6 h-6 object-contain rounded-md"
               />
-              <span className="font-headline-sm text-base text-[#1e2033] font-bold">
-                GriZon AI
-              </span>
-            </div>
-            <p className="font-body-md text-xs sm:text-body-md text-on-surface-variant max-w-sm mb-5 leading-relaxed">
-              Purpose-built autonomous multi-agent intelligence ecosystem engineered for research, code, documents, and synthesis.
-            </p>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-label-code text-[10px] sm:text-label-code px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant uppercase tracking-wider font-semibold">
-                SYSTEM ACTIVE
-              </span>
-              <span className="font-label-code text-[10px] sm:text-label-code px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed uppercase tracking-wider font-semibold">
-                v3.2
-              </span>
-            </div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-syne text-[20px] font-bold text-charcoal tracking-[-0.03em] leading-none group-hover:text-botanical transition-colors">
+                  GriZon
+                </span>
+                <span className="font-mono text-[9px] font-bold tracking-[0.16em] uppercase text-white bg-charcoal px-1.5 py-[2px] rounded leading-none shadow-xs group-hover:bg-botanical transition-colors">
+                  AI
+                </span>
+              </div>
+            </Link>
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-mutedInk font-medium ml-2 pl-3 border-l border-hairline">
+              Autonomous Intelligence
+            </span>
           </div>
-
-          {/* Col 2: Product */}
-          <div>
-            <h4 className="font-headline-sm text-sm sm:text-headline-sm text-primary mb-3 sm:mb-4 font-semibold">
-              Product
-            </h4>
-            <ul className="space-y-2.5 sm:space-y-3 font-body-sm text-xs sm:text-body-sm">
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <a href="/#features">Features</a>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <a href="/#agents">Agents</a>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <a href="/#pricing">Pricing</a>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <a href="https://app.grizonai.com">Workspace Canvas</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Agents */}
-          <div>
-            <h4 className="font-headline-sm text-sm sm:text-headline-sm text-primary mb-3 sm:mb-4 font-semibold">
-              Agents
-            </h4>
-            <ul className="space-y-2.5 sm:space-y-3 font-body-sm text-xs sm:text-body-sm">
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/agents/research">Fast Research</Link>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/agents/research">Deep Research</Link>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/agents/dev-studio">Dev Studio</Link>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/agents/market-intelligence">Market Analyst</Link>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/agents/doc-intelligence">Video Analyser</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Company & Trust */}
-          <div>
-            <h4 className="font-headline-sm text-sm sm:text-headline-sm text-primary mb-3 sm:mb-4 font-semibold">
-              Company &amp; Trust
-            </h4>
-            <ul className="space-y-2.5 sm:space-y-3 font-body-sm text-xs sm:text-body-sm">
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/about">About Us</Link>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/about">Privacy Policy</Link>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/about">Terms of Service</Link>
-              </li>
-              <li className="text-on-surface-variant hover:text-on-surface transition-colors">
-                <Link to="/about">Security Portal</Link>
-              </li>
-            </ul>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surfacePure border border-hairline font-mono text-[11px] text-mutedInk">
+            <span className="w-2 h-2 rounded-full bg-terracotta"></span>
+            <span>6 LLM Providers · 7 Live Indian APIs · DPDP Aligned</span>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-6 sm:pt-space-lg border-t border-border-hairline flex flex-col sm:flex-row items-center justify-between gap-4 font-body-sm text-xs sm:text-body-sm text-on-surface-variant text-center sm:text-left">
-          <div className="flex items-center gap-2">
-            <p>© 2026 GriZon AI Technologies. All rights reserved.</p>
-          </div>
-          <div className="flex items-center gap-3 font-label-badge text-xs text-primary font-semibold">
-            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container">
-              <span className="material-symbols-outlined text-secondary text-sm">favorite</span>
-              Made with devotion in India
+        {/* 4 Columns Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-hairline">
+          {/* Specialists */}
+          <div className="flex flex-col gap-2.5">
+            <span className="font-mono text-[11px] uppercase text-charcoal font-semibold tracking-[0.1em] mb-2">
+              Specialists
             </span>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/agents">
+              The 10 Specialists
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/agents">
+              Domain Ensembles
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/agents">
+              Custom Archetypes
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Evaluation &amp; Drift
+            </Link>
           </div>
+
+          {/* Platform */}
+          <div className="flex flex-col gap-2.5">
+            <span className="font-mono text-[11px] uppercase text-charcoal font-semibold tracking-[0.1em] mb-2">
+              Platform
+            </span>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/workflow">
+              Routines &amp; Memory
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              National Data Rails
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/pricing">
+              Pricing
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              DPDP &amp; Sovereignty
+            </Link>
+          </div>
+
+          {/* Company */}
+          <div className="flex flex-col gap-2.5">
+            <span className="font-mono text-[11px] uppercase text-charcoal font-semibold tracking-[0.1em] mb-2">
+              Company
+            </span>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Our Philosophy
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Monographs
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Press &amp; Archive
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Careers
+            </Link>
+          </div>
+
+          {/* Legal */}
+          <div className="flex flex-col gap-2.5">
+            <span className="font-mono text-[11px] uppercase text-charcoal font-semibold tracking-[0.1em] mb-2">
+              Legal
+            </span>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              DPDP Compliance
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Terms of Utility
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Privacy Manifesto
+            </Link>
+            <Link className="font-sans text-[13.5px] text-mutedInk hover:text-charcoal transition-colors" to="/about">
+              Security Disclosures
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom Note */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[12px] text-mutedInk">
+          <p>© 2026 Grizon AI. All rights reserved.</p>
+          <p className="font-display italic text-[14px] text-mutedInk">Made with devotion in India.</p>
         </div>
       </div>
     </footer>

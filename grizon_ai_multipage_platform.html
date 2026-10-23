@@ -1,0 +1,2693 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grizon AI — Autonomous Multi-Agent Execution & Intelligence OS</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter, JetBrains Mono, Newsreader -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+            serif: ['Newsreader', 'Georgia', 'serif'],
+          },
+          colors: {
+            bg: {
+              DEFAULT: '#F7F8FA',
+              soft: '#EEF1F5',
+            },
+            surface: {
+              DEFAULT: '#FFFFFF',
+              soft: '#FAFBFC',
+            },
+            ink: {
+              DEFAULT: '#1F2937',
+              secondary: '#667085',
+              muted: '#98A2B3',
+            },
+            line: {
+              DEFAULT: '#E4E7EC',
+              soft: '#EAECF0',
+            },
+            primary: {
+              DEFAULT: '#6366F1',
+              hover: '#5558E8',
+              soft: '#EEF2FF',
+              text: '#4338CA',
+            },
+            secondary: {
+              DEFAULT: '#14B8A6',
+              soft: '#ECFDF9',
+              text: '#0F766E',
+            },
+            success: {
+              DEFAULT: '#16A34A',
+              soft: '#F0FDF4',
+            },
+            warning: {
+              DEFAULT: '#D97706',
+              soft: '#FFFBEB',
+            },
+            danger: {
+              DEFAULT: '#DC2626',
+              soft: '#FEF2F2',
+            },
+            info: {
+              DEFAULT: '#2563EB',
+              soft: '#EFF6FF',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #F7F8FA;
+      --bg-soft: #EEF1F5;
+      --surface: #FFFFFF;
+      --surface-soft: #FAFBFC;
+      --text: #1F2937;
+      --text-secondary: #667085;
+      --text-muted: #98A2B3;
+      --border: #E4E7EC;
+      --border-soft: #EAECF0;
+      --primary: #6366F1;
+      --primary-hover: #5558E8;
+      --primary-soft: #EEF2FF;
+      --primary-text: #4338CA;
+      --secondary: #14B8A6;
+      --secondary-soft: #ECFDF9;
+      --secondary-text: #0F766E;
+      --success: #16A34A;
+      --success-soft: #F0FDF4;
+      --warning: #D97706;
+      --warning-soft: #FFFBEB;
+      --danger: #DC2626;
+      --danger-soft: #FEF2F2;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Responsive Fluid Typography */
+    .heading-hero {
+      font-size: clamp(2.15rem, 4vw + 0.5rem, 3.5rem);
+      line-height: 1.08;
+      letter-spacing: -0.028em;
+      font-weight: 600;
+    }
+
+    .heading-section {
+      font-size: clamp(1.65rem, 2.5vw + 0.4rem, 2.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.022em;
+      font-weight: 600;
+    }
+
+    /* Subtle Architectural Grid Pattern */
+    .arch-grid {
+      background-size: 36px 36px;
+      background-image: 
+        linear-gradient(to right, rgba(228, 231, 236, 0.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(228, 231, 236, 0.55) 1px, transparent 1px);
+    }
+
+    /* Page View Transitions */
+    .page-view {
+      display: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1), transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .page-view.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Range Input */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #E4E7EC;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #6366F1;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 1px 4px rgba(16, 24, 40, 0.25);
+      cursor: pointer;
+      transition: transform 150ms ease, background-color 150ms ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      background: #5558E8;
+    }
+
+    /* Pipeline Step Pulse */
+    @keyframes pulseRing {
+      0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.35); }
+      70% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+    }
+    .step-active {
+      animation: pulseRing 1.6s infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page-view { transition: none; transform: none; }
+      .step-active { animation: none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-primary-soft selection:text-primary-text">
+
+  <!-- =====================================================================
+       TOP SYSTEM TELEMETRY BAR
+  ====================================================================== -->
+  <div class="bg-bg-soft border-b border-line text-xs text-ink-secondary py-2 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-secondary-soft text-secondary-text border border-secondary/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+          OS v3.4 LIVE
+        </span>
+        <span class="hidden sm:inline text-ink-secondary">
+          Auto-Agent Router · Persistent Sign-Up &amp; Chat Memory · Multi-Run Cron Scheduler
+        </span>
+      </div>
+      <div class="flex items-center gap-4 font-mono text-[11px]">
+        <button data-nav="agents" class="hover:text-primary-text transition-colors">10 Specialist Agents</button>
+        <span class="text-line">|</span>
+        <button data-nav="about" class="hover:text-primary-text transition-colors">6 LLM Providers</button>
+        <span class="text-line">|</span>
+        <button data-nav="pricing" class="hover:text-primary-text transition-colors">1.0–10.0 Credit Engine</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       STICKY HEADER & MULTIPAGE NAVIGATION
+  ====================================================================== -->
+  <header class="sticky top-0 z-40 bg-surface/95 backdrop-blur-md border-b border-line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Identity -->
+      <div class="flex items-center gap-3">
+        <button data-nav="home" class="flex items-center gap-2.5 text-left group focus:outline-none">
+          <div class="w-9 h-9 rounded-lg bg-ink text-surface flex items-center justify-center font-mono font-semibold text-sm tracking-tighter border border-ink group-hover:bg-primary group-hover:border-primary transition-colors">
+            GZ
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-semibold text-base tracking-tight text-ink">Grizon AI</span>
+              <span class="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-bg-soft text-ink-secondary border border-line">OS</span>
+            </div>
+            <p class="text-[11px] text-ink-muted leading-none hidden sm:block">Memory · Agent · Tools · Answer</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- Center Multipage Navigation (Desktop) -->
+      <nav aria-label="Main Multipage Navigation" class="hidden md:flex items-center bg-bg-soft p-1 rounded-lg border border-line">
+        <button data-nav="home" class="nav-tab px-3.5 py-1.5 rounded-md text-xs font-medium transition-all text-ink bg-surface shadow-sm">
+          Home
+        </button>
+        <button data-nav="agents" class="nav-tab px-3.5 py-1.5 rounded-md text-xs font-medium transition-all text-ink-secondary hover:text-ink">
+          Agents <span class="font-mono text-[10px] ml-0.5 px-1.5 py-0.2 rounded bg-primary-soft text-primary-text">10</span>
+        </button>
+        <button data-nav="tasks" class="nav-tab px-3.5 py-1.5 rounded-md text-xs font-medium transition-all text-ink-secondary hover:text-ink">
+          Task &amp; Memory
+        </button>
+        <button data-nav="pricing" class="nav-tab px-3.5 py-1.5 rounded-md text-xs font-medium transition-all text-ink-secondary hover:text-ink">
+          Pricing &amp; Credits
+        </button>
+        <button data-nav="about" class="nav-tab px-3.5 py-1.5 rounded-md text-xs font-medium transition-all text-ink-secondary hover:text-ink">
+          About &amp; Architecture
+        </button>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-2.5">
+        <button id="open-sandbox-btn" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium text-ink bg-surface-soft hover:bg-bg-soft border border-line transition-all">
+          <svg class="w-3.5 h-3.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Live Prompt Sandbox
+        </button>
+        <button id="open-onboarding-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-white bg-primary hover:bg-primary-hover transition-all shadow-sm">
+          <span>Initialize Workspace</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-toggle" aria-label="Toggle Navigation Drawer" class="md:hidden p-2 rounded-lg border border-line bg-surface text-ink hover:bg-bg-soft">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-line bg-surface px-4 pt-3 pb-4 space-y-2">
+      <div class="grid grid-cols-2 gap-1.5">
+        <button data-nav="home" class="mobile-nav-btn text-left px-3 py-2 rounded-md text-xs font-medium bg-primary-soft text-primary-text">1. Home</button>
+        <button data-nav="agents" class="mobile-nav-btn text-left px-3 py-2 rounded-md text-xs font-medium text-ink-secondary hover:bg-bg-soft">2. Agents (10)</button>
+        <button data-nav="tasks" class="mobile-nav-btn text-left px-3 py-2 rounded-md text-xs font-medium text-ink-secondary hover:bg-bg-soft">3. Task &amp; Memory</button>
+        <button data-nav="pricing" class="mobile-nav-btn text-left px-3 py-2 rounded-md text-xs font-medium text-ink-secondary hover:bg-bg-soft">4. Pricing &amp; Credits</button>
+        <button data-nav="about" class="mobile-nav-btn col-span-2 text-left px-3 py-2 rounded-md text-xs font-medium text-ink-secondary hover:bg-bg-soft">5. About &amp; Architecture</button>
+      </div>
+      <div class="pt-2 border-t border-line-soft flex items-center justify-between">
+        <button id="mobile-sandbox-btn" class="w-full py-2 rounded-md text-xs font-medium bg-bg-soft text-ink border border-line">
+          Open Live Prompt Sandbox ⚡
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN MULTIPAGE ROUTER CONTAINER
+  ====================================================================== -->
+  <main class="flex-grow">
+
+    <!-- ===================================================================
+         PAGE 1: HOME (#home)
+    ==================================================================== -->
+    <section id="page-home" class="page-view active">
+      
+      <!-- HERO SECTION: Live Execution Pipeline -->
+      <div class="relative arch-grid border-b border-line pt-10 pb-16 lg:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+            
+            <!-- Left Column: Editorial Positioning -->
+            <div class="lg:col-span-5 space-y-6">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-surface border border-line shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-primary"></span>
+                <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-secondary">
+                  USER → AGENT → TOOLS → ANSWER
+                </span>
+              </div>
+
+              <h1 class="heading-hero text-ink">
+                One Prompt. Ten Specialist Minds. <span class="font-serif italic font-normal text-primary-text">Scheduled on Autopilot.</span>
+              </h1>
+
+              <p class="text-base text-ink-secondary leading-relaxed">
+                Grizon AI combines persistent <strong class="text-ink font-medium">Sign-Up &amp; Conversational Memory</strong> with an intelligent <strong class="text-ink font-medium">Auto-Agent Router</strong>. It dispatches your intent across 6 frontier LLM providers, executes live financial, legal, and code APIs, and runs your recurring tasks multiple times a day inside isolated Project Workspaces.
+              </p>
+
+              <!-- Key Architectural Badges -->
+              <div class="grid grid-cols-2 gap-3 pt-1">
+                <div class="p-3 rounded-lg bg-surface border border-line">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-medium text-ink">Dual-Layer Memory</span>
+                    <span class="font-mono text-[11px] text-secondary-text bg-secondary-soft px-1.5 py-0.5 rounded">Persistent</span>
+                  </div>
+                  <p class="text-xs text-ink-secondary mt-1">Sign-up onboarding profile + live chat context extraction.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-surface border border-line">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-medium text-ink">Multi-Run Cron Tasks</span>
+                    <span class="font-mono text-[11px] text-primary-text bg-primary-soft px-1.5 py-0.5 rounded">1x–12x / Day</span>
+                  </div>
+                  <p class="text-xs text-ink-secondary mt-1">Schedule hourly, daily, weekly, or monthly automated runs.</p>
+                </div>
+              </div>
+
+              <!-- Hero CTAs -->
+              <div class="flex flex-wrap items-center gap-3 pt-2">
+                <button data-nav="agents" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-hover transition-all shadow-sm">
+                  <span>Explore All 10 Agents</span>
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </button>
+                <button data-nav="tasks" class="inline-flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium text-ink bg-surface hover:bg-bg-soft border border-line transition-all">
+                  <svg class="w-4 h-4 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Build a Scheduled Task</span>
+                </button>
+              </div>
+
+              <!-- Provider & API Trust Strip -->
+              <div class="pt-4 border-t border-line flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-ink-muted">
+                <span class="font-mono uppercase text-[10px] tracking-wider text-ink-secondary">Powered By:</span>
+                <span>Anthropic</span>
+                <span>·</span>
+                <span>Gemini</span>
+                <span>·</span>
+                <span>Grok</span>
+                <span>·</span>
+                <span>ChatGPT</span>
+                <span>·</span>
+                <span>DeepSeek</span>
+                <span>·</span>
+                <span>NSE &amp; Yahoo Fin</span>
+                <span>·</span>
+                <span>Indian Kanoon &amp; eCourts</span>
+              </div>
+            </div>
+
+            <!-- Right Column: Interactive Live Pipeline Simulator -->
+            <div class="lg:col-span-7">
+              <div class="bg-surface rounded-xl border border-line shadow-sm overflow-hidden">
+                
+                <!-- Console Top Bar -->
+                <div class="bg-surface-soft border-b border-line px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-line"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+                    <span class="font-mono text-xs font-medium text-ink ml-1">grizon://auto-router-pipeline</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-mono text-ink-secondary">Mode:</span>
+                    <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-primary-soft text-primary-text border border-primary/20">
+                      Auto-Agent Router ⚡
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Preset Scenario Selector Pills -->
+                <div class="p-4 border-b border-line bg-bg/60">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-medium text-ink-secondary">Select a real user prompt or enter your own to inspect the pipeline:</span>
+                    <span id="sim-status-badge" class="font-mono text-[11px] text-success bg-success-soft px-2 py-0.5 rounded border border-success/20">Trace Verified</span>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="hero-preset-buttons">
+                    <button data-preset="market" class="preset-btn text-left p-2.5 rounded-lg border border-primary bg-primary-soft/60 transition-all">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-primary-text">1. Market &amp; NSE Options</span>
+                        <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface text-ink-secondary border border-line">4.5 cr</span>
+                      </div>
+                      <p class="text-[11px] text-ink-secondary truncate mt-0.5">"RELIANCE 3000 CE option chain &amp; swing analysis"</p>
+                    </button>
+                    <button data-preset="legal" class="preset-btn text-left p-2.5 rounded-lg border border-line bg-surface hover:bg-surface-soft transition-all">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-ink">2. Legal eCourts &amp; BNS</span>
+                        <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-bg-soft text-ink-secondary">5.0 cr</span>
+                      </div>
+                      <p class="text-[11px] text-ink-secondary truncate mt-0.5">"Check CNR DLHC010048212026 &amp; IPC 420 to BNS"</p>
+                    </button>
+                    <button data-preset="dev" class="preset-btn text-left p-2.5 rounded-lg border border-line bg-surface hover:bg-surface-soft transition-all">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-ink">3. Dev Studio UI Gen</span>
+                        <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-bg-soft text-ink-secondary">7.0 cr</span>
+                      </div>
+                      <p class="text-[11px] text-ink-secondary truncate mt-0.5">"Build an institutional portfolio risk matrix UI"</p>
+                    </button>
+                    <button data-preset="math" class="preset-btn text-left p-2.5 rounded-lg border border-line bg-surface hover:bg-surface-soft transition-all">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-ink">4. Dual-Verified Math</span>
+                        <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-bg-soft text-ink-secondary">2.0 cr</span>
+                      </div>
+                      <p class="text-[11px] text-ink-secondary truncate mt-0.5">"Closed-form integral of ln(1+x^2)/(1+x^2) on [0,1]"</p>
+                    </button>
+                  </div>
+
+                  <!-- Custom Prompt Input Row -->
+                  <form id="custom-sim-form" class="mt-3 flex gap-2">
+                    <label for="custom-sim-input" class="sr-only">Test your own prompt</label>
+                    <input id="custom-sim-input" type="text" placeholder="Or type any custom prompt (e.g., 'Review this vendor NDA PDF' or 'Design a Postgres schema')..." class="flex-1 px-3 py-2 text-xs rounded-lg border border-line bg-surface text-ink focus:outline-none focus:border-primary" />
+                    <button type="submit" class="px-3.5 py-2 rounded-lg text-xs font-medium bg-ink text-white hover:bg-primary transition-colors shrink-0">
+                      Execute Trace
+                    </button>
+                  </form>
+                </div>
+
+                <!-- 4-STAGE PIPELINE VISUALIZATION -->
+                <div class="p-4 sm:p-5 space-y-4">
+                  
+                  <!-- Stage Progress Nodes -->
+                  <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
+                    
+                    <!-- Node 1: User + Memory -->
+                    <div id="node-1" class="p-3 rounded-lg border border-line bg-surface-soft transition-all">
+                      <div class="flex items-center justify-between text-[11px] font-mono text-ink-muted mb-1">
+                        <span>01 / MEMORY</span>
+                        <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                      </div>
+                      <div id="sim-memory-title" class="text-xs font-semibold text-ink">Sign-Up + Chat Context</div>
+                      <p id="sim-memory-desc" class="text-[11px] text-ink-secondary mt-1 leading-snug">
+                        Profile: NSE F&amp;O Trader · Watchlist: RELIANCE, NIFTY
+                      </p>
+                    </div>
+
+                    <!-- Node 2: Auto-Agent Router -->
+                    <div id="node-2" class="p-3 rounded-lg border border-primary/40 bg-primary-soft/30 transition-all">
+                      <div class="flex items-center justify-between text-[11px] font-mono text-primary-text mb-1">
+                        <span>02 / AGENT ROUTER</span>
+                        <span id="sim-credit-badge" class="px-1.5 py-0.2 bg-surface rounded border border-primary/20">4.5 cr</span>
+                      </div>
+                      <div id="sim-agent-title" class="text-xs font-semibold text-ink">Market Intelligence</div>
+                      <p id="sim-provider-desc" class="text-[11px] text-ink-secondary mt-1 leading-snug">
+                        Model: Anthropic Claude + Deterministic Engine
+                      </p>
+                    </div>
+
+                    <!-- Node 3: Tools & APIs -->
+                    <div id="node-3" class="p-3 rounded-lg border border-line bg-surface-soft transition-all">
+                      <div class="flex items-center justify-between text-[11px] font-mono text-ink-muted mb-1">
+                        <span>03 / LIVE TOOLS</span>
+                        <span class="text-secondary font-semibold">API OK</span>
+                      </div>
+                      <div id="sim-tools-title" class="text-xs font-semibold text-ink">3 Tools Executed</div>
+                      <div id="sim-tools-badges" class="flex flex-wrap gap-1 mt-1.5">
+                        <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface border border-line text-ink-secondary">NSE Option Chain</span>
+                        <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface border border-line text-ink-secondary">Yahoo Fin</span>
+                        <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface border border-line text-ink-secondary">Serper News</span>
+                      </div>
+                    </div>
+
+                    <!-- Node 4: Schedule / Project -->
+                    <div id="node-4" class="p-3 rounded-lg border border-line bg-surface-soft transition-all">
+                      <div class="flex items-center justify-between text-[11px] font-mono text-ink-muted mb-1">
+                        <span>04 / AUTOMATION</span>
+                        <span class="text-primary font-semibold">CRON</span>
+                      </div>
+                      <div id="sim-schedule-title" class="text-xs font-semibold text-ink">Project: F&amp;O Alpha</div>
+                      <p id="sim-schedule-desc" class="text-[11px] text-ink-secondary mt-1 leading-snug">
+                        Scheduled: 3 runs/day (09:20, 12:30, 15:15 IST)
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Output Terminal / Grounded Answer Preview -->
+                  <div class="rounded-lg border border-line bg-bg p-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-line">
+                      <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-ink" id="sim-output-header">RELIANCE — ₹2,984.50 (+1.42%) | 3000 CE Analysis</span>
+                      </div>
+                      <span id="sim-output-stance" class="font-mono text-[11px] px-2 py-0.5 rounded bg-success-soft text-success border border-success/20 font-medium">
+                        Stance: Moderately Bullish | Confidence: Medium
+                      </span>
+                    </div>
+
+                    <div id="sim-output-body" class="text-xs text-ink-secondary space-y-2.5 leading-relaxed">
+                      <!-- Dynamically populated by JS -->
+                    </div>
+
+                    <div class="mt-3 pt-2.5 border-t border-line flex flex-wrap items-center justify-between gap-2 text-[11px] text-ink-muted font-mono">
+                      <span id="sim-output-footer">Sources: Yahoo Finance (10:42 IST) · NSE Option Chain Snapshot · Serper News [1][2]</span>
+                      <button data-nav="tasks" class="text-primary-text hover:underline font-sans font-medium">
+                        Schedule this run 3x/day →
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: THE 4 ARCHITECTURAL DIFFERENTIATORS -->
+      <div class="py-16 lg:py-20 bg-surface border-b border-line">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl">
+            <span class="font-mono text-xs uppercase tracking-wider text-primary-text font-medium">Core Operating Architecture</span>
+            <h2 class="heading-section text-ink mt-2">
+              Designed for Continuity, Verification, and Autonomous Execution.
+            </h2>
+            <p class="text-sm sm:text-base text-ink-secondary mt-3">
+              Standard chat tools forget who you are after every tab close, guess numbers instead of running deterministic code, and require you to manually re-type daily prompts. Grizon AI solves all four layers.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+            <!-- Pillar 1 -->
+            <div class="p-6 rounded-xl bg-bg border border-line flex flex-col justify-between">
+              <div>
+                <div class="w-10 h-10 rounded-lg bg-primary-soft text-primary-text flex items-center justify-center font-mono font-semibold text-sm mb-4">
+                  01
+                </div>
+                <h3 class="text-base font-semibold text-ink">Sign-Up + Chat Memory</h3>
+                <p class="text-xs text-ink-secondary mt-2 leading-relaxed">
+                  Configure your role, jurisdiction, tech stack, and risk profile once at sign-up. As you chat, Grizon extracts evolving facts so every agent starts with rich context.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-line flex items-center justify-between text-xs">
+                <span class="font-mono text-[11px] text-ink-muted">2-Layer Context Graph</span>
+                <button data-nav="tasks" class="font-medium text-primary-text hover:underline">Inspect Memory →</button>
+              </div>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="p-6 rounded-xl bg-bg border border-line flex flex-col justify-between">
+              <div>
+                <div class="w-10 h-10 rounded-lg bg-secondary-soft text-secondary-text flex items-center justify-center font-mono font-semibold text-sm mb-4">
+                  02
+                </div>
+                <h3 class="text-base font-semibold text-ink">Auto-Agent &amp; Tool Router</h3>
+                <p class="text-xs text-ink-secondary mt-2 leading-relaxed">
+                  Your prompt is analyzed in milliseconds to dispatch the right specialist agent, pick from 6 model providers, and trigger live APIs (NSE, Kanoon, eCourts, Serper, Code).
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-line flex items-center justify-between text-xs">
+                <span class="font-mono text-[11px] text-ink-muted">10 Agents · 7+ Live APIs</span>
+                <button data-nav="agents" class="font-medium text-primary-text hover:underline">Explore Agents →</button>
+              </div>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="p-6 rounded-xl bg-bg border border-line flex flex-col justify-between">
+              <div>
+                <div class="w-10 h-10 rounded-lg bg-primary-soft text-primary-text flex items-center justify-center font-mono font-semibold text-sm mb-4">
+                  03
+                </div>
+                <h3 class="text-base font-semibold text-ink">Multi-Run Task Scheduler</h3>
+                <p class="text-xs text-ink-secondary mt-2 leading-relaxed">
+                  Set any agent workflow to run hourly, daily, weekly, or once a month—and specify exactly how many times per day (e.g., 3x/day market snapshots or daily eCourts checks).
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-line flex items-center justify-between text-xs">
+                <span class="font-mono text-[11px] text-ink-muted">N-Runs / Day Cron</span>
+                <button data-nav="tasks" class="font-medium text-primary-text hover:underline">Try Scheduler →</button>
+              </div>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div class="p-6 rounded-xl bg-bg border border-line flex flex-col justify-between">
+              <div>
+                <div class="w-10 h-10 rounded-lg bg-secondary-soft text-secondary-text flex items-center justify-center font-mono font-semibold text-sm mb-4">
+                  04
+                </div>
+                <h3 class="text-base font-semibold text-ink">Projects &amp; Credit Control</h3>
+                <p class="text-xs text-ink-secondary mt-2 leading-relaxed">
+                  Group your files, legal drafts, UI artifacts, and scheduled tasks into dedicated Projects. Pay transparently from 1 credit (fast models) to 1.5–10 credits (deep multi-tool).
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-line flex items-center justify-between text-xs">
+                <span class="font-mono text-[11px] text-ink-muted">1.0 to 10.0 Credits</span>
+                <button data-nav="pricing" class="font-medium text-primary-text hover:underline">Credit Calculator →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: QUICK DIRECTORY OF THE 10 AGENTS ON HOME PAGE -->
+      <div class="py-16 lg:py-20 bg-bg border-b border-line">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+              <span class="font-mono text-xs uppercase tracking-wider text-secondary-text font-medium">10 Domain-Engineered Minds</span>
+              <h2 class="heading-section text-ink mt-1">Meet the Grizon AI Specialist Fleet</h2>
+              <p class="text-sm text-ink-secondary mt-2 max-w-2xl">
+                Every agent has its own strict reasoning framework, dedicated API integrations, and anti-hallucination verification rules. Click any agent to inspect its workbench.
+              </p>
+            </div>
+            <button data-nav="agents" class="self-start md:self-auto inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium bg-ink text-white hover:bg-primary transition-colors">
+              <span>Open Full 10-Agent Workbench</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+
+          <div id="home-agents-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <!-- Populated dynamically from the master 10-agent dataset -->
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: HOME WORKFLOW CALLOUT BANNER -->
+      <div class="py-16 bg-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="rounded-2xl bg-bg-soft border border-line p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-8 space-y-3">
+              <span class="font-mono text-xs uppercase tracking-wider text-primary-text font-semibold">Ready for Real Production Workloads</span>
+              <h3 class="text-xl sm:text-2xl font-semibold text-ink">
+                Stop repeating context and manually running daily research.
+              </h3>
+              <p class="text-sm text-ink-secondary max-w-2xl leading-relaxed">
+                Initialize your User Memory once, create a Project Workspace, and schedule your first multi-run daily agent in under two minutes.
+              </p>
+            </div>
+            <div class="lg:col-span-4 flex flex-wrap lg:justify-end gap-3">
+              <button data-nav="tasks" class="px-4 py-2.5 rounded-lg text-xs font-medium bg-surface text-ink border border-line hover:bg-bg transition-colors">
+                Configure Scheduled Task
+              </button>
+              <button data-nav="pricing" class="px-5 py-2.5 rounded-lg text-xs font-medium bg-primary text-white hover:bg-primary-hover transition-colors shadow-sm">
+                View Credit Tiers &amp; Plans
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 2: AGENTS (10) (#agents)
+    ==================================================================== -->
+    <section id="page-agents" class="page-view">
+      
+      <!-- Page Header -->
+      <div class="bg-surface border-b border-line py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-primary-soft text-primary-text font-mono text-xs mb-3">
+                <span>AUTO-ROUTED OR MANUALLY LOCKED</span>
+              </div>
+              <h1 class="heading-section text-ink">The 10 Specialist Agents Workbench</h1>
+              <p class="text-sm sm:text-base text-ink-secondary mt-2 max-w-3xl">
+                Unlike generic wrappers, each Grizon AI agent is governed by a domain-specific execution protocol, deterministic tool-calling rules, source-grounding hierarchies, and anti-hallucination quality gates.
+              </p>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="w-full lg:w-80">
+              <label for="agent-search-input" class="block text-xs font-medium text-ink-secondary mb-1.5">Search Agents, APIs, or Capabilities</label>
+              <div class="relative">
+                <input id="agent-search-input" type="text" placeholder="Search 'NSE', 'eCourts', 'SymPy', 'Dev Studio'..." class="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink focus:outline-none focus:border-primary" />
+                <svg class="w-4 h-4 text-ink-muted absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="flex flex-wrap items-center gap-2 mt-6 pt-6 border-t border-line" id="agent-category-filters">
+            <button data-cat="all" class="agent-cat-btn px-3 py-1.5 rounded-md text-xs font-medium bg-ink text-white">All 10 Agents</button>
+            <button data-cat="finance-legal" class="agent-cat-btn px-3 py-1.5 rounded-md text-xs font-medium bg-bg-soft text-ink-secondary hover:text-ink">Market &amp; Legal Intelligence</button>
+            <button data-cat="engineering" class="agent-cat-btn px-3 py-1.5 rounded-md text-xs font-medium bg-bg-soft text-ink-secondary hover:text-ink">Dev Studio, Architecture &amp; Math</button>
+            <button data-cat="research" class="agent-cat-btn px-3 py-1.5 rounded-md text-xs font-medium bg-bg-soft text-ink-secondary hover:text-ink">Fast &amp; Deep Research</button>
+            <button data-cat="docs-media" class="agent-cat-btn px-3 py-1.5 rounded-md text-xs font-medium bg-bg-soft text-ink-secondary hover:text-ink">Docs, Video &amp; General</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Master Workbench -->
+      <div class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Left Column: 10 Agent Selector List -->
+          <div class="lg:col-span-4 space-y-2" id="agent-selector-list">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Right Column: Deep-Dive Agent Specification & Live Output Inspector -->
+          <div class="lg:col-span-8 lg:sticky lg:top-24">
+            <div id="agent-detail-panel" class="bg-surface rounded-xl border border-line shadow-sm overflow-hidden">
+              <!-- Populated dynamically by JS when an agent is selected -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 3: TASK SCHEDULER, MEMORY & PROJECTS (#tasks)
+    ==================================================================== -->
+    <section id="page-tasks" class="page-view">
+      
+      <!-- Header -->
+      <div class="bg-surface border-b border-line py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-secondary-soft text-secondary-text font-mono text-xs mb-3">
+            <span>PROACTIVE AUTONOMOUS WORKFLOWS</span>
+          </div>
+          <h1 class="heading-section text-ink">Autonomous Task Scheduler, Persistent Memory &amp; Projects</h1>
+          <p class="text-sm sm:text-base text-ink-secondary mt-2 max-w-3xl">
+            Configure recurring tasks with exact frequencies—hourly, daily, weekly, or once a month—and control how many runs execute each day. Every run leverages your dual-layer memory and deposits verified results directly into your Project Workspace.
+          </p>
+        </div>
+      </div>
+
+      <!-- PART 1: INTERACTIVE AUTONOMOUS TASK SCHEDULER SANDBOX -->
+      <div class="py-12 border-b border-line">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left: Task Configuration Form -->
+            <div class="lg:col-span-6 bg-surface rounded-xl border border-line p-6 shadow-sm space-y-5">
+              <div class="flex items-center justify-between border-b border-line pb-4">
+                <div>
+                  <h2 class="text-base font-semibold text-ink">Create Autonomous Scheduled Task</h2>
+                  <p class="text-xs text-ink-secondary mt-0.5">Define agent, frequency, and how many times per day the task runs.</p>
+                </div>
+                <span class="font-mono text-[11px] px-2 py-1 rounded bg-primary-soft text-primary-text">Cron Engine v2</span>
+              </div>
+
+              <!-- Quick Template Buttons -->
+              <div>
+                <span class="block text-xs font-medium text-ink-secondary mb-2">Load Preset Schedule Template:</span>
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" data-task-tpl="nse" class="task-tpl-btn px-2.5 py-1.5 rounded-md text-xs font-medium bg-primary-soft text-primary-text border border-primary/20">
+                    📈 NSE Option Chain (3x / Day)
+                  </button>
+                  <button type="button" data-task-tpl="ecourts" class="task-tpl-btn px-2.5 py-1.5 rounded-md text-xs font-medium bg-bg-soft text-ink-secondary hover:text-ink border border-line">
+                    ⚖️ eCourts CNR Monitor (2x / Day)
+                  </button>
+                  <button type="button" data-task-tpl="research" class="task-tpl-btn px-2.5 py-1.5 rounded-md text-xs font-medium bg-bg-soft text-ink-secondary hover:text-ink border border-line">
+                    🔍 Competitor Deep Research (Weekly)
+                  </button>
+                </div>
+              </div>
+
+              <form id="schedule-builder-form" class="space-y-4">
+                <div>
+                  <label for="task-title-input" class="block text-xs font-medium text-ink mb-1">Task Name</label>
+                  <input id="task-title-input" type="text" required value="NIFTY & RELIANCE Option Chain Confluence Snapshot" class="w-full px-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink focus:outline-none focus:border-primary" />
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="task-agent-select" class="block text-xs font-medium text-ink mb-1">Assigned Specialist Agent</label>
+                    <select id="task-agent-select" class="w-full px-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink focus:outline-none focus:border-primary">
+                      <option value="Market Intelligence" data-credits="4.5">Market &amp; Trading Intelligence (4.5 cr)</option>
+                      <option value="Legal Intelligence" data-credits="5.0">Legal Intelligence — eCourts/Kanoon (5.0 cr)</option>
+                      <option value="Deep Research" data-credits="6.0">Deep Research Agent (6.0 cr)</option>
+                      <option value="Fast Research" data-credits="2.0">Fast Research Agent (2.0 cr)</option>
+                      <option value="Doc Intelligence" data-credits="3.5">Doc Intelligence &amp; Writer (3.5 cr)</option>
+                      <option value="System Architect" data-credits="4.0">System Architect (4.0 cr)</option>
+                      <option value="Auto Router" data-credits="3.0">Auto-Agent Router ⚡ (~3.0 cr)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label for="task-project-select" class="block text-xs font-medium text-ink mb-1">Target Project Workspace</label>
+                    <select id="task-project-select" class="w-full px-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink focus:outline-none focus:border-primary">
+                      <option value="F&O Alpha Desk">Project: F&amp;O Alpha Desk</option>
+                      <option value="Delhi HC Writ - Case 402">Project: Delhi HC Writ - Case 402</option>
+                      <option value="Core SaaS v2 Architecture">Project: Core SaaS v2 Architecture</option>
+                      <option value="Q4 Market Expansion">Project: Q4 Market Expansion</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="task-prompt-input" class="block text-xs font-medium text-ink mb-1">Autonomous Execution Prompt</label>
+                  <textarea id="task-prompt-input" rows="2" required class="w-full px-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink focus:outline-none focus:border-primary">Fetch latest NSE Option Chain for RELIANCE & NIFTY. Calculate OI PCR, Max Pain, and largest Call/Put OI additions near ATM. Flag any anomaly vs previous snapshot.</textarea>
+                </div>
+
+                <!-- Cadence / Frequency Selector -->
+                <div>
+                  <span class="block text-xs font-medium text-ink mb-1.5">Schedule Cadence</span>
+                  <div class="grid grid-cols-4 gap-2" id="cadence-selector">
+                    <button type="button" data-cadence="Hourly" class="cadence-btn py-2 px-2 rounded-lg text-xs font-medium border border-line bg-bg text-ink-secondary">Hourly</button>
+                    <button type="button" data-cadence="Daily" class="cadence-btn py-2 px-2 rounded-lg text-xs font-medium border border-primary bg-primary-soft text-primary-text">Daily</button>
+                    <button type="button" data-cadence="Weekly" class="cadence-btn py-2 px-2 rounded-lg text-xs font-medium border border-line bg-bg text-ink-secondary">Weekly</button>
+                    <button type="button" data-cadence="Monthly" class="cadence-btn py-2 px-2 rounded-lg text-xs font-medium border border-line bg-bg text-ink-secondary">Once a Month</button>
+                  </div>
+                </div>
+
+                <!-- How Many Runs Per Day Selector -->
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <label class="text-xs font-medium text-ink">How Many Runs in a Day?</label>
+                    <span id="runs-per-day-label" class="font-mono text-xs font-semibold text-primary-text">3 Runs / Day</span>
+                  </div>
+                  <div class="grid grid-cols-5 gap-2" id="runs-count-selector">
+                    <button type="button" data-runs="1" class="runs-btn py-1.5 rounded-lg font-mono text-xs border border-line bg-bg text-ink-secondary">1x / day</button>
+                    <button type="button" data-runs="2" class="runs-btn py-1.5 rounded-lg font-mono text-xs border border-line bg-bg text-ink-secondary">2x / day</button>
+                    <button type="button" data-runs="3" class="runs-btn py-1.5 rounded-lg font-mono text-xs border border-primary bg-primary-soft text-primary-text font-semibold">3x / day</button>
+                    <button type="button" data-runs="4" class="runs-btn py-1.5 rounded-lg font-mono text-xs border border-line bg-bg text-ink-secondary">4x / day</button>
+                    <button type="button" data-runs="6" class="runs-btn py-1.5 rounded-lg font-mono text-xs border border-line bg-bg text-ink-secondary">6x / day</button>
+                  </div>
+                </div>
+
+                <!-- Dynamic Time Slots -->
+                <div>
+                  <span class="block text-xs font-medium text-ink-secondary mb-1.5">Scheduled Execution Time Windows (IST):</span>
+                  <div id="time-slots-container" class="flex flex-wrap gap-2">
+                    <!-- Populated dynamically by JS -->
+                  </div>
+                </div>
+
+                <!-- Submit & Estimate Bar -->
+                <div class="pt-3 border-t border-line flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <span class="text-[11px] text-ink-secondary block">Estimated Daily Credit Usage:</span>
+                    <span id="task-credit-estimate" class="font-mono text-sm font-semibold text-ink">13.5 Credits / day (3 runs × 4.5 cr)</span>
+                  </div>
+                  <button type="submit" class="px-4 py-2.5 rounded-lg text-xs font-medium bg-primary text-white hover:bg-primary-hover transition-colors shadow-sm">
+                    + Add to Active Task Queue
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right: 24-Hour Execution Visualizer & Live Active Task Queue -->
+            <div class="lg:col-span-6 space-y-6">
+              
+              <!-- 24-Hour Timeline Card -->
+              <div class="bg-surface rounded-xl border border-line p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-ink">24-Hour Daily Execution Timeline</h3>
+                    <p class="text-xs text-ink-secondary">Visualizing exact daily run triggers for your configured task</p>
+                  </div>
+                  <span class="font-mono text-[11px] text-secondary-text bg-secondary-soft px-2 py-0.5 rounded">Auto-Retry Enabled</span>
+                </div>
+
+                <!-- 24h Bar -->
+                <div class="relative pt-6 pb-2">
+                  <div class="h-3 w-full rounded-full bg-bg-soft border border-line relative" id="timeline-track">
+                    <!-- Dynamic markers injected by JS -->
+                  </div>
+                  <div class="flex justify-between text-[10px] font-mono text-ink-muted mt-2">
+                    <span>00:00</span>
+                    <span>06:00</span>
+                    <span>09:15 (Open)</span>
+                    <span>12:00</span>
+                    <span>15:30 (Close)</span>
+                    <span>18:00</span>
+                    <span>23:59</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Active Scheduled Tasks Queue -->
+              <div class="bg-surface rounded-xl border border-line p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-ink">Active Scheduled Tasks Queue</h3>
+                    <p class="text-xs text-ink-secondary">Tasks running autonomously across your Project Workspaces</p>
+                  </div>
+                  <span id="active-task-count" class="font-mono text-xs px-2 py-0.5 rounded bg-bg-soft text-ink font-medium">3 Active Tasks</span>
+                </div>
+
+                <div id="scheduled-tasks-list" class="space-y-3">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 2: DUAL-LAYER PERSISTENT MEMORY INSPECTOR -->
+      <div class="py-14 bg-surface border-b border-line">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mb-10">
+            <span class="font-mono text-xs uppercase tracking-wider text-primary-text font-medium">Dual-Layer Memory Architecture</span>
+            <h2 class="heading-section text-ink mt-1">Memory Built at Sign-Up. Enriched by Every Chat.</h2>
+            <p class="text-sm text-ink-secondary mt-2">
+              Toggle the memory nodes below to see how Grizon AI combines your initial Sign-Up Profile Details with ongoing Chat Memory before routing your prompt to an agent.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            <!-- Layer 1: Sign-up Memory -->
+            <div class="lg:col-span-4 rounded-xl border border-line bg-bg p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-line">
+                  <span class="font-mono text-xs font-semibold text-primary-text">LAYER 1: SIGN-UP MEMORY</span>
+                  <span class="text-[11px] bg-surface px-2 py-0.5 rounded border border-line text-ink-secondary">Set at Onboarding</span>
+                </div>
+                <div class="space-y-2.5" id="signup-memory-toggles">
+                  <label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface border border-line cursor-pointer">
+                    <input type="checkbox" checked data-mem="Role: Quant & Options Strategist (NSE India)" class="mem-toggle mt-0.5 accent-primary" />
+                    <span class="text-xs text-ink"><strong>User Role:</strong> Quant &amp; Options Strategist (NSE India)</span>
+                  </label>
+                  <label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface border border-line cursor-pointer">
+                    <input type="checkbox" checked data-mem="Jurisdiction: Delhi High Court & Supreme Court of India" class="mem-toggle mt-0.5 accent-primary" />
+                    <span class="text-xs text-ink"><strong>Legal Jurisdiction:</strong> Delhi High Court &amp; Supreme Court of India</span>
+                  </label>
+                  <label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface border border-line cursor-pointer">
+                    <input type="checkbox" checked data-mem="Stack Preference: Modular Monolith, PostgreSQL, TypeScript" class="mem-toggle mt-0.5 accent-primary" />
+                    <span class="text-xs text-ink"><strong>Tech Stack:</strong> Modular Monolith, PostgreSQL, TypeScript</span>
+                  </label>
+                </div>
+              </div>
+              <p class="text-[11px] text-ink-muted mt-4">Captured during user sign-up so your very first prompt requires zero boilerplate explanation.</p>
+            </div>
+
+            <!-- Layer 2: Conversational Memory -->
+            <div class="lg:col-span-4 rounded-xl border border-line bg-bg p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-line">
+                  <span class="font-mono text-xs font-semibold text-secondary-text">LAYER 2: CHAT MEMORY</span>
+                  <span class="text-[11px] bg-surface px-2 py-0.5 rounded border border-line text-ink-secondary">Auto-Extracted</span>
+                </div>
+                <div class="space-y-2.5">
+                  <label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface border border-line cursor-pointer">
+                    <input type="checkbox" checked data-mem="Active Case CNR: DLHC010048212026 (Representing Respondent)" class="mem-toggle mt-0.5 accent-primary" />
+                    <span class="text-xs text-ink"><strong>From Tuesday's Chat:</strong> Active Case CNR <code class="font-mono">DLHC010048212026</code> (Representing Respondent)</span>
+                  </label>
+                  <label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface border border-line cursor-pointer">
+                    <input type="checkbox" checked data-mem="Portfolio Rule: Never hold naked OTM calls within 2 days of expiry" class="mem-toggle mt-0.5 accent-primary" />
+                    <span class="text-xs text-ink"><strong>From Yesterday's Chat:</strong> Risk rule — avoid naked OTM calls within 48h of expiry</span>
+                  </label>
+                  <label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface border border-line cursor-pointer">
+                    <input type="checkbox" checked data-mem="Output Preference: Chat-first concise tables; only generate DOCX on explicit request" class="mem-toggle mt-0.5 accent-primary" />
+                    <span class="text-xs text-ink"><strong>Learned Preference:</strong> Concise tables in chat; generate DOCX only when requested</span>
+                  </label>
+                </div>
+              </div>
+              <p class="text-[11px] text-ink-muted mt-4">Automatically synthesized from your ongoing conversations across sessions.</p>
+            </div>
+
+            <!-- Resulting Synthesized Context Payload -->
+            <div class="lg:col-span-4 rounded-xl border border-primary/30 bg-primary-soft/30 p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-primary/20">
+                  <span class="font-mono text-xs font-semibold text-primary-text">INJECTED AGENT CONTEXT</span>
+                  <span id="active-mem-count" class="font-mono text-[11px] bg-surface px-2 py-0.5 rounded text-primary-text">6 Active Nodes</span>
+                </div>
+                <div class="font-mono text-[11px] bg-surface p-3.5 rounded-lg border border-line text-ink-secondary space-y-1.5" id="memory-payload-preview">
+                  <!-- Dynamically updated by JS -->
+                </div>
+              </div>
+              <div class="mt-4 pt-3 border-t border-primary/20 flex items-center justify-between text-xs">
+                <span class="text-ink-secondary">User retains 100% edit/delete control</span>
+                <span class="font-mono text-[11px] text-success font-medium">Zero Context Leakage</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 3: PROJECT WORKSPACES -->
+      <div class="py-14 bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <span class="font-mono text-xs uppercase tracking-wider text-secondary-text font-medium">Isolated Project Containers</span>
+              <h2 class="heading-section text-ink mt-1">Project Workspaces</h2>
+              <p class="text-sm text-ink-secondary mt-1">
+                Create dedicated Projects to organize domain documents, chat threads, Dev Studio code artifacts, and scheduled multi-run tasks.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-surface rounded-xl border border-line p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded text-xs font-medium bg-primary-soft text-primary-text">Finance &amp; Derivatives</span>
+                <span class="font-mono text-xs text-ink-muted">3 Scheduled Tasks</span>
+              </div>
+              <h3 class="text-base font-semibold text-ink">Project: F&amp;O Alpha Desk</h3>
+              <p class="text-xs text-ink-secondary mt-1.5">
+                Houses automated NSE Option Chain snapshots (3x/day), quarterly earnings PDFs, and historical PCR anomaly logs.
+              </p>
+              <div class="mt-4 pt-3 border-t border-line font-mono text-[11px] text-ink-muted flex justify-between">
+                <span>Agents: Market, Math, Doc</span>
+                <span class="text-secondary-text">Active</span>
+              </div>
+            </div>
+
+            <div class="bg-surface rounded-xl border border-line p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded text-xs font-medium bg-secondary-soft text-secondary-text">Indian Litigation</span>
+                <span class="font-mono text-xs text-ink-muted">2 Scheduled Tasks</span>
+              </div>
+              <h3 class="text-base font-semibold text-ink">Project: Delhi HC Writ - Case 402</h3>
+              <p class="text-xs text-ink-secondary mt-1.5">
+                Tracks eCourts CNR <code class="font-mono">DLHC010048212026</code> every morning at 08:30 IST, stores `AUTH-001` Kanoon citations, and maintains the Writ Petition DOCX draft.
+              </p>
+              <div class="mt-4 pt-3 border-t border-line font-mono text-[11px] text-ink-muted flex justify-between">
+                <span>Agents: Legal, Doc, Deep Research</span>
+                <span class="text-secondary-text">Active</span>
+              </div>
+            </div>
+
+            <div class="bg-surface rounded-xl border border-line p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded text-xs font-medium bg-bg-soft text-ink">Product &amp; Engineering</span>
+                <span class="font-mono text-xs text-ink-muted">1 Scheduled Task</span>
+              </div>
+              <h3 class="text-base font-semibold text-ink">Project: Core SaaS v2 Architecture</h3>
+              <p class="text-xs text-ink-secondary mt-1.5">
+                Combines System Architect ADRs, PostgreSQL schema plans, and Dev Studio responsive frontend artifacts with automated QA checks.
+              </p>
+              <div class="mt-4 pt-3 border-t border-line font-mono text-[11px] text-ink-muted flex justify-between">
+                <span>Agents: System Architect, Dev Studio</span>
+                <span class="text-secondary-text">Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 4: PRICING & CREDITS (#pricing)
+    ==================================================================== -->
+    <section id="page-pricing" class="page-view">
+      
+      <!-- Header -->
+      <div class="bg-surface border-b border-line py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-primary-soft text-primary-text font-mono text-xs mb-3">
+            <span>TRANSPARENT CREDIT ECONOMY</span>
+          </div>
+          <h1 class="heading-section text-ink">Unified Credit System &amp; Predictable Plans</h1>
+          <p class="text-sm sm:text-base text-ink-secondary mt-2 max-w-3xl">
+            Grizon AI operates on a transparent credit ledger: <strong class="text-ink font-medium">1.0 Credit</strong> for lightweight models and fast queries, scaling from <strong class="text-ink font-medium">1.5 to 10.0 Credits</strong> based on model depth, multi-tool execution, and artifact generation.
+          </p>
+        </div>
+      </div>
+
+      <!-- PART 1: THE 3 CREDIT TIERS EXPLAINED + INTERACTIVE CALCULATOR -->
+      <div class="py-12 border-b border-line">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left: How Credits Work Table -->
+            <div class="lg:col-span-6 space-y-4">
+              <h2 class="text-lg font-semibold text-ink">How Credits Map to Models &amp; Agent Depth</h2>
+              <p class="text-xs text-ink-secondary leading-relaxed">
+                Whether the Auto-Agent Router picks the model or you lock a specific provider manually, credit consumption is always shown upfront before execution.
+              </p>
+
+              <div class="space-y-3 pt-2">
+                <!-- Tier 1 -->
+                <div class="p-4 rounded-xl bg-surface border border-line">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-ink">Tier 1 · Low / Fast Models</span>
+                    <span class="font-mono text-xs font-semibold px-2.5 py-0.5 rounded bg-secondary-soft text-secondary-text">1.0 Credit / run</span>
+                  </div>
+                  <p class="text-xs text-ink-secondary mt-1.5">
+                    General Agent Q&amp;A, OpenWeather lookups, basic code/math checks, and high-speed models (DeepSeek V3, Gemini Flash, GPT-4o Mini).
+                  </p>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="p-4 rounded-xl bg-surface border border-line">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-ink">Tier 2 · Medium Multi-Tool Execution</span>
+                    <span class="font-mono text-xs font-semibold px-2.5 py-0.5 rounded bg-primary-soft text-primary-text">1.5 – 4.0 Credits / run</span>
+                  </div>
+                  <p class="text-xs text-ink-secondary mt-1.5">
+                    Fast Research (1–3 cited sources), eCourts CNR status lookup, standard PDF/DOCX summary, Dual-Verified SymPy Math, and System Architecture reviews.
+                  </p>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="p-4 rounded-xl bg-surface border border-line">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-ink">Tier 3 · High Reasoning &amp; Heavy Synthesis</span>
+                    <span class="font-mono text-xs font-semibold px-2.5 py-0.5 rounded bg-ink text-white">4.5 – 10.0 Credits / run</span>
+                  </div>
+                  <p class="text-xs text-ink-secondary mt-1.5">
+                    Full Dev Studio production UI generation, Deep Research (5–8 fetched sources + Risk Analysis), full NSE Option Chain + Multi-Timeframe Confluence, and Legal Petition drafting with verified Indian Kanoon Registry.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Interactive Monthly Credit Estimator -->
+            <div class="lg:col-span-6 bg-surface rounded-xl border border-line p-6 shadow-sm space-y-5">
+              <div class="flex items-center justify-between border-b border-line pb-4">
+                <div>
+                  <h3 class="text-base font-semibold text-ink">Interactive Credit &amp; Task Calculator</h3>
+                  <p class="text-xs text-ink-secondary">Estimate your monthly credit burn across chat and scheduled tasks.</p>
+                </div>
+                <span class="font-mono text-xs text-primary-text bg-primary-soft px-2 py-1 rounded">Live Estimator</span>
+              </div>
+
+              <div class="space-y-4">
+                <!-- Slider 1 -->
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <label for="calc-low" class="font-medium text-ink">Daily Fast Queries (1.0 Credit each)</label>
+                    <span id="calc-low-val" class="font-mono text-ink-secondary">10 / day</span>
+                  </div>
+                  <input id="calc-low" type="range" min="0" max="50" value="10" />
+                </div>
+
+                <!-- Slider 2 -->
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <label for="calc-med" class="font-medium text-ink">Daily Medium Agent Workflows (~2.5 Credits each)</label>
+                    <span id="calc-med-val" class="font-mono text-ink-secondary">6 / day</span>
+                  </div>
+                  <input id="calc-med" type="range" min="0" max="30" value="6" />
+                </div>
+
+                <!-- Slider 3 -->
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <label for="calc-high" class="font-medium text-ink">Daily Deep / Dev Studio / NSE / Legal Runs (~6.0 Credits)</label>
+                    <span id="calc-high-val" class="font-mono text-ink-secondary">3 / day</span>
+                  </div>
+                  <input id="calc-high" type="range" min="0" max="20" value="3" />
+                </div>
+
+                <!-- Slider 4: Scheduled Tasks -->
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <label for="calc-cron" class="font-medium text-ink">Automated Scheduled Task Runs per Day (~3.5 Credits)</label>
+                    <span id="calc-cron-val" class="font-mono text-primary-text font-semibold">4 runs / day</span>
+                  </div>
+                  <input id="calc-cron" type="range" min="0" max="24" value="4" />
+                </div>
+              </div>
+
+              <!-- Output Box -->
+              <div class="p-4 rounded-xl bg-bg border border-line flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs text-ink-secondary block">Estimated Monthly Requirement (30 Days):</span>
+                  <div class="flex items-baseline gap-2 mt-0.5">
+                    <span id="calc-total-credits" class="font-mono text-2xl font-bold text-ink">1,710</span>
+                    <span class="font-mono text-xs text-ink-secondary">Credits / month</span>
+                  </div>
+                  <span id="calc-daily-breakdown" class="text-[11px] text-ink-muted font-mono">57.0 Credits / day total</span>
+                </div>
+                <div class="sm:text-right">
+                  <span class="text-[11px] text-ink-secondary block">Recommended Tier:</span>
+                  <span id="calc-recommended-plan" class="inline-block mt-1 px-3 py-1 rounded-md text-xs font-semibold bg-primary text-white">
+                    Pro Operator Plan
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 2: SUBSCRIPTION PLANS -->
+      <div class="py-14 bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
+            <div>
+              <h2 class="heading-section text-ink">Workspace Plans</h2>
+              <p class="text-sm text-ink-secondary mt-1">All plans include access to all 10 Agents, Sign-Up + Chat Memory, and the Auto-Agent Router.</p>
+            </div>
+            <!-- Billing Toggle -->
+            <div class="inline-flex items-center bg-surface p-1 rounded-lg border border-line self-start">
+              <button id="bill-monthly" class="px-3 py-1.5 rounded-md text-xs font-medium bg-ink text-white transition-all">Monthly Billing</button>
+              <button id="bill-annual" class="px-3 py-1.5 rounded-md text-xs font-medium text-ink-secondary hover:text-ink transition-all">Annual (Save 20%)</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Plan 1: Starter -->
+            <div class="bg-surface rounded-xl border border-line p-6 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <h3 class="text-base font-semibold text-ink">Explorer</h3>
+                  <span class="font-mono text-xs px-2 py-0.5 rounded bg-bg-soft text-ink-secondary">Starter</span>
+                </div>
+                <p class="text-xs text-ink-secondary mt-1">For individuals testing multi-agent routing and memory.</p>
+                <div class="mt-5 pb-5 border-b border-line">
+                  <span class="text-3xl font-bold text-ink font-mono">$0</span>
+                  <span class="text-xs text-ink-muted"> / month</span>
+                  <div class="font-mono text-xs text-secondary-text mt-1">Includes 150 Free Credits / mo</div>
+                </div>
+                <ul class="space-y-2.5 text-xs text-ink-secondary mt-5">
+                  <li>✓ Access to all 10 Specialist Agents</li>
+                  <li>✓ Sign-Up Profile + Chat Memory</li>
+                  <li>✓ Up to 2 Active Scheduled Tasks (Max 2 runs/day)</li>
+                  <li>✓ 2 Project Workspaces</li>
+                  <li>✓ Standard Model Routing (1.0–5.0 cr)</li>
+                </ul>
+              </div>
+              <button data-plan="Explorer" class="select-plan-btn mt-6 w-full py-2.5 rounded-lg text-xs font-medium border border-line bg-bg hover:bg-bg-soft text-ink transition-colors">
+                Start Free with 150 Credits
+              </button>
+            </div>
+
+            <!-- Plan 2: Pro Operator -->
+            <div class="bg-surface rounded-xl border-2 border-primary p-6 flex flex-col justify-between shadow-sm relative">
+              <div>
+                <div class="flex items-center justify-between">
+                  <h3 class="text-base font-semibold text-ink">Pro Operator</h3>
+                  <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-primary-soft text-primary-text font-semibold">Most Popular</span>
+                </div>
+                <p class="text-xs text-ink-secondary mt-1">For traders, legal researchers, engineers, and analysts.</p>
+                <div class="mt-5 pb-5 border-b border-line">
+                  <span id="price-pro" class="text-3xl font-bold text-ink font-mono">$29</span>
+                  <span class="text-xs text-ink-muted"> / month</span>
+                  <div class="font-mono text-xs text-primary-text mt-1 font-medium">Includes 2,500 Credits / mo</div>
+                </div>
+                <ul class="space-y-2.5 text-xs text-ink-secondary mt-5">
+                  <li>✓ Full access to all 6 Frontier LLM Providers</li>
+                  <li>✓ Live NSE Option Chain, Yahoo Fin, Kanoon &amp; eCourts APIs</li>
+                  <li>✓ Up to 25 Scheduled Tasks (Up to 12 runs/day each)</li>
+                  <li>✓ Unlimited Project Workspaces &amp; Artifact Exports (DOCX/PDF/XLSX)</li>
+                  <li>✓ On-demand credit top-ups never expire</li>
+                </ul>
+              </div>
+              <button data-plan="Pro Operator" class="select-plan-btn mt-6 w-full py-2.5 rounded-lg text-xs font-medium bg-primary hover:bg-primary-hover text-white transition-colors">
+                Initialize Pro Workspace
+              </button>
+            </div>
+
+            <!-- Plan 3: Quant & Agency Desk -->
+            <div class="bg-surface rounded-xl border border-line p-6 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <h3 class="text-base font-semibold text-ink">Quant &amp; Agency Desk</h3>
+                  <span class="font-mono text-xs px-2 py-0.5 rounded bg-secondary-soft text-secondary-text">High Volume</span>
+                </div>
+                <p class="text-xs text-ink-secondary mt-1">For teams running heavy multi-run cron workflows and Dev Studio.</p>
+                <div class="mt-5 pb-5 border-b border-line">
+                  <span id="price-desk" class="text-3xl font-bold text-ink font-mono">$99</span>
+                  <span class="text-xs text-ink-muted"> / month</span>
+                  <div class="font-mono text-xs text-secondary-text mt-1 font-medium">Includes 10,000 Credits / mo</div>
+                </div>
+                <ul class="space-y-2.5 text-xs text-ink-secondary mt-5">
+                  <li>✓ 10,000 Monthly Credits + Priority API Concurrency</li>
+                  <li>✓ Unlimited Scheduled Tasks (Hourly, Daily, N-runs/day)</li>
+                  <li>✓ Shared Team Project Workspaces &amp; Memory Graphs</li>
+                  <li>✓ Historical NSE Option Snapshot Storage &amp; Anomaly Alerts</li>
+                  <li>✓ Dedicated Citation Registry &amp; Audit Logs</li>
+                </ul>
+              </div>
+              <button data-plan="Quant & Agency Desk" class="select-plan-btn mt-6 w-full py-2.5 rounded-lg text-xs font-medium bg-ink hover:bg-primary text-white transition-colors">
+                Deploy Desk Workspace
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 5: ABOUT & SYSTEM ARCHITECTURE (#about)
+    ==================================================================== -->
+    <section id="page-about" class="page-view">
+      
+      <!-- Header -->
+      <div class="bg-surface border-b border-line py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-bg-soft text-ink-secondary font-mono text-xs mb-3 border border-line">
+            <span>SYSTEM ARCHITECTURE &amp; VERIFICATION CHARTER</span>
+          </div>
+          <h1 class="heading-section text-ink">Inside the Grizon AI Operating System</h1>
+          <p class="text-sm sm:text-base text-ink-secondary mt-2 max-w-3xl">
+            How we connect Persistent User Memory, an Auto-Agent Router, 6 Frontier LLM Providers, and 7+ Deterministic Data APIs into a single, verifiable execution pipeline.
+          </p>
+        </div>
+      </div>
+
+      <!-- PART 1: END-TO-END SYSTEM ARCHITECTURE BLUEPRINT -->
+      <div class="py-12 border-b border-line bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-lg font-semibold text-ink mb-6">End-to-End Execution Pipeline (`User → Agent → Tools → Answer`)</h2>
+          
+          <div class="bg-surface rounded-xl border border-line p-6 sm:p-8 shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch">
+              
+              <div class="p-4 rounded-lg bg-bg border border-line">
+                <span class="font-mono text-[10px] text-primary-text font-semibold uppercase">Stage 01</span>
+                <h3 class="text-sm font-semibold text-ink mt-1">User Prompt or Cron Trigger</h3>
+                <p class="text-xs text-ink-secondary mt-1.5">
+                  Initiated interactively via chat or triggered automatically by the Task Scheduler (hourly/daily/weekly/monthly, N runs/day).
+                </p>
+              </div>
+
+              <div class="p-4 rounded-lg bg-bg border border-line">
+                <span class="font-mono text-[10px] text-primary-text font-semibold uppercase">Stage 02</span>
+                <h3 class="text-sm font-semibold text-ink mt-1">Dual-Layer Memory Injection</h3>
+                <p class="text-xs text-ink-secondary mt-1.5">
+                  Merges Sign-Up Profile details with auto-extracted Conversational Memory and Project-scoped documents.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-lg bg-primary-soft/50 border border-primary/30">
+                <span class="font-mono text-[10px] text-primary-text font-semibold uppercase">Stage 03</span>
+                <h3 class="text-sm font-semibold text-ink mt-1">Auto-Agent &amp; LLM Router</h3>
+                <p class="text-xs text-ink-secondary mt-1.5">
+                  Classifies intent across the 10 Specialist Agents and selects the optimal model across 6 providers (1.0 to 10.0 credits).
+                </p>
+              </div>
+
+              <div class="p-4 rounded-lg bg-secondary-soft/50 border border-secondary/30">
+                <span class="font-mono text-[10px] text-secondary-text font-semibold uppercase">Stage 04</span>
+                <h3 class="text-sm font-semibold text-ink mt-1">Deterministic APIs &amp; Code</h3>
+                <p class="text-xs text-ink-secondary mt-1.5">
+                  Executes Yahoo Fin, NSE Option Chain, Indian Kanoon, eCourts CNR, Serper, Tavily, Brave, or SymPy code verification.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-lg bg-bg border border-line">
+                <span class="font-mono text-[10px] text-ink-secondary font-semibold uppercase">Stage 05</span>
+                <h3 class="text-sm font-semibold text-ink mt-1">Verified Output &amp; Artifacts</h3>
+                <p class="text-xs text-ink-secondary mt-1.5">
+                  Renders source-grounded chat first, or exports requested DOCX, PDF, XLSX, and production HTML/CSS/JS interfaces.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 2: THE 6 LLM PROVIDERS & 7+ EXTERNAL APIs -->
+      <div class="py-14 bg-surface border-b border-line">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          <!-- 6 Providers -->
+          <div class="lg:col-span-6 space-y-4">
+            <span class="font-mono text-xs uppercase tracking-wider text-primary-text font-medium">Multi-Provider Model Mesh</span>
+            <h2 class="text-xl font-semibold text-ink">6 Frontier Model Providers</h2>
+            <p class="text-xs text-ink-secondary">
+              Grizon AI never locks you into a single model bottleneck. The Auto-Agent Router dynamically dispatches sub-tasks to the best provider for reasoning, code synthesis, multimodal vision, or token cost efficiency.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div class="p-3.5 rounded-lg bg-bg border border-line">
+                <div class="font-semibold text-xs text-ink">1. Anthropic (Claude)</div>
+                <p class="text-[11px] text-ink-secondary mt-1">Primary engine for Dev Studio UI architecture, Legal drafting, and nuanced contract review.</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-bg border border-line">
+                <div class="font-semibold text-xs text-ink">2. Google Gemini</div>
+                <p class="text-[11px] text-ink-secondary mt-1">Powers the Video Analyser (`video_analyse`), long-context PDF ingestion, and multimodal chart reading.</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-bg border border-line">
+                <div class="font-semibold text-xs text-ink">3. OpenAI (ChatGPT)</div>
+                <p class="text-[11px] text-ink-secondary mt-1">High-precision structured reasoning, System Architect synthesis, and multi-step orchestration.</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-bg border border-line">
+                <div class="font-semibold text-xs text-ink">4. xAI Grok</div>
+                <p class="text-[11px] text-ink-secondary mt-1">Real-time market sentiment synthesis, rapid catalyst detection, and contrarian bull/bear debates.</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-bg border border-line">
+                <div class="font-semibold text-xs text-ink">5. DeepSeek</div>
+                <p class="text-[11px] text-ink-secondary mt-1">Quantitative reasoning, symbolic math verification, and high-efficiency 1-credit execution.</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-bg border border-line">
+                <div class="font-semibold text-xs text-ink">6. OpenRouter</div>
+                <p class="text-[11px] text-ink-secondary mt-1">Automatic provider fallback, specialized open-weights routing, and zero-downtime resilience.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7+ Live APIs -->
+          <div class="lg:col-span-6 space-y-4">
+            <span class="font-mono text-xs uppercase tracking-wider text-secondary-text font-medium">Deterministic Grounding Layer</span>
+            <h2 class="text-xl font-semibold text-ink">7+ Integrated Live Data APIs</h2>
+            <p class="text-xs text-ink-secondary">
+              LLMs should reason over evidence, not guess facts from stale training weights. Grizon AI retrieves live records and runs deterministic calculations before the model writes a single word.
+            </p>
+
+            <div class="space-y-2.5 pt-2">
+              <div class="p-3 rounded-lg bg-bg border border-line flex items-start justify-between gap-4">
+                <div>
+                  <span class="text-xs font-semibold text-ink">1. eCourts India API</span>
+                  <p class="text-[11px] text-ink-secondary">Live CNR validation, case status, next hearing dates, party records, and court order PDF retrieval.</p>
+                </div>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface border border-line shrink-0">Legal Agent</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-bg border border-line flex items-start justify-between gap-4">
+                <div>
+                  <span class="text-xs font-semibold text-ink">2. Indian Kanoon API</span>
+                  <p class="text-[11px] text-ink-secondary">Supreme Court &amp; High Court precedent search, ratio decidendi extraction, and later judicial treatment checks.</p>
+                </div>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface border border-line shrink-0">Legal Agent</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-bg border border-line flex items-start justify-between gap-4">
+                <div>
+                  <span class="text-xs font-semibold text-ink">3. Yahoo Finance + NSE Option Chain Engine</span>
+                  <p class="text-[11px] text-ink-secondary">Spot prices, historical OHLCV, deterministic OI PCR, Max Pain, IV skew, and Call/Put OI concentration.</p>
+                </div>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface border border-line shrink-0">Market Agent</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-bg border border-line flex items-start justify-between gap-4">
+                <div>
+                  <span class="text-xs font-semibold text-ink">4. Serper · 5. Tavily API · 6. Brave Search API</span>
+                  <p class="text-[11px] text-ink-secondary">Tri-engine web discovery, Official Gazette &amp; regulatory notifications, and primary source full-page fetching.</p>
+                </div>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface border border-line shrink-0">Research Fleet</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-bg border border-line flex items-start justify-between gap-4">
+                <div>
+                  <span class="text-xs font-semibold text-ink">7. OpenWeather API &amp; Sandboxed Code Execution</span>
+                  <p class="text-[11px] text-ink-secondary">Real-time meteorological telemetry plus Python/SymPy numerical &amp; symbolic cross-verification.</p>
+                </div>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-surface border border-line shrink-0">General &amp; Math</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PART 3: ANTI-HALLUCINATION & SAFETY CHARTER -->
+      <div class="py-14 bg-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-lg font-semibold text-ink mb-6">Strict Anti-Hallucination &amp; Verification Guardrails</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-surface p-5 rounded-xl border border-line">
+              <span class="font-mono text-xs text-danger font-semibold">ZERO FABRICATED CITATIONS</span>
+              <h3 class="text-sm font-semibold text-ink mt-1">Verified Legal &amp; Doc Registry</h3>
+              <p class="text-xs text-ink-secondary mt-1.5 leading-relaxed">
+                Legal Intelligence never constructs an Indian Kanoon URL from memory or invents a case citation. Every statute and judgment is logged in an internal `AUTH-001` registry before drafting.
+              </p>
+            </div>
+            <div class="bg-surface p-5 rounded-xl border border-line">
+              <span class="font-mono text-xs text-primary-text font-semibold">DETERMINISTIC SEPARATION</span>
+              <h3 class="text-sm font-semibold text-ink mt-1">Programmatic Math &amp; Derivatives</h3>
+              <p class="text-xs text-ink-secondary mt-1.5 leading-relaxed">
+                Market Intelligence never asks an LLM to do mental math on raw option chains—PCR, Max Pain, and moving averages are computed programmatically first. Math problems require an independent cross-check with a different failure mode.
+              </p>
+            </div>
+            <div class="bg-surface p-5 rounded-xl border border-line">
+              <span class="font-mono text-xs text-secondary-text font-semibold">CHAT-FIRST DISCIPLINE</span>
+              <h3 class="text-sm font-semibold text-ink mt-1">Explicit Artifact Generation</h3>
+              <p class="text-xs text-ink-secondary mt-1.5 leading-relaxed">
+                Agents never waste your credits generating unwanted 5-page PDFs when you asked a chat question. Downloadable DOCX, PDF, XLSX, and code files are generated cleanly on explicit request.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       INTERACTIVE MODAL: LIVE PROMPT SANDBOX / WORKSPACE INITIALIZER
+  ====================================================================== -->
+  <div id="workspace-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-ink/50 backdrop-blur-xs">
+    <div class="bg-surface rounded-2xl border border-line max-w-xl w-full p-6 shadow-xl space-y-5">
+      <div class="flex items-center justify-between border-b border-line pb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+          <h2 id="modal-title" class="text-base font-semibold text-ink">Initialize Grizon AI Workspace &amp; Memory</h2>
+        </div>
+        <button id="close-modal-btn" aria-label="Close modal" class="p-1 rounded-lg text-ink-secondary hover:text-ink hover:bg-bg-soft">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="onboarding-sim-form" class="space-y-4">
+        <p class="text-xs text-ink-secondary">
+          Set up your Sign-Up Profile Memory once. Every Grizon AI agent and scheduled task will automatically personalize to your domain.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="onboard-name" class="block text-xs font-medium text-ink mb-1">Your Name / Handle</label>
+            <input id="onboard-name" type="text" required value="Aarav Mehta" class="w-full px-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink" />
+          </div>
+          <div>
+            <label for="onboard-role" class="block text-xs font-medium text-ink mb-1">Primary Domain (Sign-Up Memory)</label>
+            <select id="onboard-role" class="w-full px-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink">
+              <option value="NSE Options & Swing Trading">Markets, NSE Options &amp; Swing Trading</option>
+              <option value="Indian Law, eCourts & Litigation">Indian Law, eCourts &amp; Legal Drafting</option>
+              <option value="Full-Stack Product & System Architecture">Full-Stack Product &amp; System Architecture</option>
+              <option value="Deep Research & Quantitative Analysis">Deep Research &amp; Quantitative Math</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="onboard-memory-notes" class="block text-xs font-medium text-ink mb-1">Persistent Memory Directives (Injected into Agent Router)</label>
+          <textarea id="onboard-memory-notes" rows="2" class="w-full px-3 py-2 text-xs rounded-lg border border-line bg-bg text-ink">Prefer concise evidence-grounded tables first. Track NIFTY, BANKNIFTY, and Delhi High Court commercial disputes. Default daily scheduled runs to 09:20 IST and 15:15 IST.</textarea>
+        </div>
+
+        <div class="p-3 rounded-lg bg-primary-soft/50 border border-primary/20 flex items-center justify-between text-xs">
+          <span class="text-ink-secondary">Initial Credit Grant on Sign-Up:</span>
+          <span class="font-mono font-semibold text-primary-text">150.0 Free Credits Ready</span>
+        </div>
+
+        <div id="onboard-success-msg" class="hidden p-3 rounded-lg bg-success-soft border border-success/30 text-xs text-success font-medium">
+          ✓ Profile Memory saved! Routing you to your interactive Agent Workbench...
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" id="cancel-modal-btn" class="px-4 py-2 rounded-lg text-xs font-medium border border-line bg-bg text-ink-secondary hover:text-ink">
+            Close
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-lg text-xs font-medium bg-primary text-white hover:bg-primary-hover">
+            Save Memory &amp; Launch Agents →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       FOOTER
+  ====================================================================== -->
+  <footer class="bg-surface border-t border-line py-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-line">
+        <div class="md:col-span-5 space-y-2.5">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded bg-ink text-white flex items-center justify-center font-mono text-xs font-semibold">GZ</div>
+            <span class="font-semibold text-sm text-ink">Grizon AI Platform</span>
+          </div>
+          <p class="text-xs text-ink-secondary max-w-sm leading-relaxed">
+            Autonomous Multi-Agent Operating System. Built with persistent Sign-Up &amp; Chat Memory, 10 domain specialists, 6 frontier LLM providers, 7+ live data APIs, and multi-run daily task scheduling.
+          </p>
+        </div>
+
+        <div class="md:col-span-2 space-y-2">
+          <div class="font-mono text-[11px] uppercase tracking-wider text-ink font-semibold">Navigation</div>
+          <ul class="space-y-1.5 text-xs text-ink-secondary">
+            <li><button data-nav="home" class="hover:text-ink">Home &amp; Pipeline</button></li>
+            <li><button data-nav="agents" class="hover:text-ink">10 Specialist Agents</button></li>
+            <li><button data-nav="tasks" class="hover:text-ink">Task Scheduler &amp; Memory</button></li>
+            <li><button data-nav="pricing" class="hover:text-ink">Pricing &amp; Credit Engine</button></li>
+            <li><button data-nav="about" class="hover:text-ink">System Architecture</button></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-3 space-y-2">
+          <div class="font-mono text-[11px] uppercase tracking-wider text-ink font-semibold">10 Specialist Agents</div>
+          <ul class="space-y-1.5 text-xs text-ink-secondary">
+            <li><button data-jump-agent="market" class="hover:text-ink">Market &amp; Trading Intelligence</button></li>
+            <li><button data-jump-agent="legal" class="hover:text-ink">Legal Intelligence (Kanoon &amp; eCourts)</button></li>
+            <li><button data-jump-agent="dev" class="hover:text-ink">Dev Studio (Agency UI &amp; Code)</button></li>
+            <li><button data-jump-agent="doc" class="hover:text-ink">Doc Intelligence &amp; Writer</button></li>
+            <li><button data-jump-agent="math" class="hover:text-ink">Mathematics &amp; Quant Reasoning</button></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-2 space-y-2">
+          <div class="font-mono text-[11px] uppercase tracking-wider text-ink font-semibold">Providers &amp; APIs</div>
+          <ul class="space-y-1 text-xs text-ink-secondary font-mono text-[11px]">
+            <li>Anthropic · Gemini</li>
+            <li>Grok · ChatGPT</li>
+            <li>OpenRouter · DeepSeek</li>
+            <li>NSE · Yahoo Finance</li>
+            <li>eCourts · Indian Kanoon</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-muted">
+        <span>© 2026 Grizon AI. Engineered to Dev Studio Agency Standards.</span>
+        <span class="font-mono text-[11px]">User → Memory → Agent → Tools → Answer</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       APPLICATION STATE, DATA & INTERACTIVE CONTROLLERS
+  ====================================================================== -->
+  <script>
+    // ---------------------------------------------------------------------
+    // 1. MASTER DATASET FOR ALL 10 GRIZON AI SPECIALIST AGENTS
+    // ---------------------------------------------------------------------
+    const GRIZON_AGENTS = [
+      {
+        id: 'market',
+        name: 'Market & Trading Intelligence',
+        shortTag: 'Equities, NSE Option Chain & Scenarios',
+        category: 'finance-legal',
+        credits: '3.5 – 6.5 cr',
+        providers: 'Anthropic / Grok / Gemini + Deterministic Analytics Layer',
+        apis: ['Yahoo Finance API', 'NSE Option Chain API', 'Serper News API', 'Chart Generator'],
+        framework: 'PRICE → TECHNICALS → MARKET → SECTOR → FUNDAMENTALS → NEWS → OPTIONS → RISK → CONFLUENCE → SCENARIOS',
+        summary: 'Provides evidence-based market research and derivatives intelligence for long-term investors, swing traders, day traders, and NSE options traders without hype or fabricated targets.',
+        capabilities: [
+          'Deterministic calculation of OI PCR, Volume PCR, Max Pain, ATM IV skew, and Call/Put OI concentration before LLM reasoning.',
+          'Multi-timeframe confluence engine (Monthly/Weekly/Daily for Investors; Daily/1H/15M/5M + VWAP for Intraday).',
+          'Relative strength calculation (Stock Return minus NIFTY 50 / Sector Return).',
+          'Structured Bull vs. Bear debate, conditional Bull/Base/Bear scenarios, and explicit Invalidation conditions.'
+        ],
+        guardrails: 'Educational decision-support only (never financial advice). Never equates PCR > 1 or Max Pain with guaranteed direction. Tracks separate timestamps for Yahoo Finance spot and NSE Option Chain snapshots.',
+        samplePrompt: 'Analyze RELIANCE 3000 CE for this week’s expiry along with underlying daily/intraday technical confluence.',
+        sampleOutput: `RELIANCE — ₹2,984.50 | +1.42% (Yahoo Finance: 14:15 IST)
+Analytical Stance: Moderately Bullish | Confidence: Medium | Mode: Options & Swing
+
+• 🟢 Bull Case: Price holding above 20DMA (₹2,940) & intraday VWAP; relative strength +0.65% vs NIFTY 50; 2950 PE added +14.2L OI (put-side support zone).
+• 🔴 Bear Case: Heavy Call OI concentration at 3000 CE (42.8L OI) acting as immediate overhead supply; ATM IV elevated at 21.4% ahead of sector policy update.
+• ⚠️ Invalidation Condition: Sustained hourly close below ₹2,945 accompanied by 2950 PE unwinding invalidates the bullish structure.
+
+[NSE Option Chain Lens — Timestamp 14:14 IST]
+• Spot: ₹2,984.50 | ATM Strike: 2980 | OI PCR: 1.14 | Max Pain Reference: ₹2,980
+• Disclaimer: For educational and informational purposes only. Not financial or trading advice.`
+      },
+      {
+        id: 'legal',
+        name: 'Legal Intelligence (India Law)',
+        shortTag: 'Indian Kanoon, eCourts CNR & Drafting',
+        category: 'finance-legal',
+        credits: '3.0 – 8.0 cr',
+        providers: 'Anthropic Claude / OpenAI + Citation Registry',
+        apis: ['Indian Kanoon API', 'eCourts India API', 'Serper (Official Gazette & Notifications)'],
+        framework: 'FACT → LEGAL RULE → VERIFIED AUTHORITY → APPLICATION TO FACTS → COUNTERARGUMENT → PROCEDURAL REMEDY',
+        summary: 'Educational Indian legal research, live eCourts CNR case-record intelligence, statutory currentness verification, and court-facing legal document drafting.',
+        capabilities: [
+          'Mandatory Indian Kanoon routing for Supreme Court and High Court precedent, ratio decidendi, and subsequent judicial treatment (followed, distinguished, overruled).',
+          'Live eCourts India CNR lookup for case status, next hearing date, party names, and operative court order summaries.',
+          'Full IPC / CrPC / Indian Evidence Act ↔ BNS / BNSS / BSA (effective 1 July 2024) transition and date-of-conduct applicability mapping.',
+          'Internal Citation Registry (AUTH-001, AUTH-002) ensuring only verified statutory and judicial authorities enter formal petitions, bail applications, or legal notices.'
+        ],
+        guardrails: 'Never constructs Indian Kanoon URLs from memory. Never guesses missing CNR hearing dates. Chat-first drafting workflow before explicit DOCX/PDF export. Includes mandatory Not-Legal-Advice & AI-Assisted Legal Draft disclaimers.',
+        samplePrompt: 'Check eCourts status for CNR DLHC010048212026 and analyze whether IPC Section 420 or BNS Section 318 applies to an alleged transaction dated 14 May 2024.',
+        sampleOutput: `## Case Status (eCourts India API — Checked Today)
+• CNR: DLHC010048212026 | Court: High Court of Delhi | Status: Pending (Admission Stage)
+• Latest Order: Notice issued; interim stay on coercive steps subject to deposit within 4 weeks.
+
+## Statutory Applicability: IPC vs. BNS (1 July 2024 Transition)
+• Preliminary Assessment: Strong — Confidence: High
+• Legal Basis: Because the alleged transaction and cause of action occurred on 14 May 2024 (prior to 1 July 2024 commencement of the Bharatiya Nyaya Sanhita, 2023), substantive criminal liability is governed by Section 420 of the Indian Penal Code, 1860, read with transitional savings provisions [AUTH-001].
+• Not Legal Advice: Educational legal research and preliminary assessment; consult a qualified advocate before filing.`
+      },
+      {
+        id: 'dev',
+        name: 'Dev Studio',
+        shortTag: 'Agency-Grade UI/UX & Full-Stack Code',
+        category: 'engineering',
+        credits: '5.0 – 10.0 cr',
+        providers: 'Anthropic Claude / OpenAI + Code & QA Engine',
+        apis: ['html_generate', 'artifact_patch', 'file_gen', 'image_analyse', 'image_search', 'code_execution'],
+        framework: 'PRODUCT STRATEGY → INFORMATION HIERARCHY → CREATIVE CONCEPT → STORYBOARD → IMPLEMENTATION → 3-STAGE QA',
+        summary: 'Functions as a complete digital product agency—combining UX architecture, art direction, senior frontend/full-stack engineering, and mandatory Responsive, Interaction, and Visual QA.',
+        capabilities: [
+          'Enforces the Soft Two-Tone Design System and Anti-AI-Sameness test—eliminating generic purple neon gradients and fake unclickable buttons.',
+          'Builds complete, runnable, responsive interfaces tested across 10 breakpoints from 320px mobile to 1920px desktop.',
+          'Supports targeted iterative updates via `artifact_patch` and standalone source exports via `file_gen`.',
+          'Reproduces uploaded wireframes or screenshots faithfully using `image_analyse` while fixing underlying usability defects.'
+        ],
+        guardrails: 'Interactive Integrity Rule: If an element looks interactive (<button>, filter, search, tab, modal), it MUST have working keyboard and click handlers. Zero placeholder href="#" links.',
+        samplePrompt: 'Design and build a responsive treasury liquidity terminal with working currency filters, live stress-test sliders, and accessible drawer modals.',
+        sampleOutput: `[Dev Studio Artifact Generated — html_generate]
+• Visual Direction: Soft Two-Tone Daylight (#F7F8FA / #FFFFFF) with JetBrains Mono financial telemetry.
+• Interactive QA Passed: 4 Currency Filter Tabs, Liquidity Stress-Test Range Slider, Keyboard-Trapped Export Modal (Esc + Focus Restoration verified).
+• Responsive QA Passed: Verified fluid layout transformation from 320px mobile drawer to 1440px 12-column grid.`
+      },
+      {
+        id: 'doc',
+        name: 'Doc Intelligence & Writer',
+        shortTag: 'Contract Review, OCR & Executive Writing',
+        category: 'docs-media',
+        credits: '2.0 – 6.0 cr',
+        providers: 'Anthropic Claude / Gemini + Document Parser',
+        apis: ['PDF/DOCX Parser', 'image_analyse (Scanned Tables/Charts)', 'web_search', 'DOCX/PDF/XLSX Exporter'],
+        framework: 'UNDERSTAND INTENT → INSPECT STRUCTURE → RETRIEVE CONTEXT → CROSS-CHECK CLAUSES → VALIDATE CITATIONS → DELIVER',
+        summary: 'Source-grounded analysis of uploaded PDFs, DOCX files, contracts, and scanned tables—paired with executive-grade writing and multi-format artifact export.',
+        capabilities: [
+          'Precise page, section, paragraph, table, and clause citations distinguishing explicit document facts from reasonable inferences.',
+          'Contract & Legal Review Risk Matrix covering 28 risk areas (unlimited liability, indemnity, auto-renewal, IP, termination) in structured tables.',
+          'Multi-version Document Comparison highlighting substantive changes in obligations, numbers, and commercial terms.',
+          'Chat-first output by default; generates downloadable DOCX, PDF, XLSX, CSV, or PPTX artifacts when explicitly requested.'
+        ],
+        guardrails: 'Never fabricates page numbers, clause references, or unread visual chart values. Flags unreadable scanned cells explicitly as [illegible].',
+        samplePrompt: 'Review this uploaded Master Services Agreement PDF for one-sided indemnification and termination risks.',
+        sampleOutput: `### Contract Review Risk Matrix (Source: Uploaded MSA_v4.pdf)
+| Clause / Section | Issue Identified | Risk Level | Suggested Action |
+|---|---|---|---|
+| Clause 14.2 (p. 9) | Uncapped mutual indemnification includes indirect consequential damages | HIGH | Cap indemnity at 12 months of fees paid under Clause 8.1 |
+| Clause 19.4 (p. 13) | 90-day auto-renewal window with unilateral vendor price escalation up to 15% | MEDIUM | Require 30-day written notice prior to renewal & cap escalation at CPI |`
+      },
+      {
+        id: 'architect',
+        name: 'System Architect',
+        shortTag: 'Pragmatic Cloud, DB & LLM Architecture',
+        category: 'engineering',
+        credits: '2.5 – 5.5 cr',
+        providers: 'OpenAI / Anthropic + Cost & Scale Estimator',
+        apis: ['web_search (Live Cloud Pricing & Limits)', 'Mermaid Diagram Generator', 'ADR Exporter'],
+        framework: 'REQUIREMENTS FIRST → ESTABLISH SCALE (1x/10x/100x) → ARCHITECTURE GATE → DATA & API DESIGN → FAILURE & COST ANALYSIS',
+        summary: 'Designs scalable, secure, cost-effective production software systems guided by "Simplicity Before Complexity"—challenging over-engineering before it happens.',
+        capabilities: [
+          'Applies the strict Architecture Gate: "What requirement does this complexity solve? You don’t need microservices/Kubernetes/vector DBs yet."',
+          'Evaluates trade-offs across Monolith, Modular Monolith, Event-Driven, and Serverless with explicit Revisit Conditions for 10× and 100× scale.',
+          'Specialized AI/LLM Architecture lens covering model routing, token cost optimization, prompt injection guardrails, and caching.',
+          'Reviews existing codebases or diagrams and categorizes findings into Must Fix, Should Improve, and Future.'
+        ],
+        guardrails: 'Separates Known Requirements from Assumptions and Open Questions. Never invents fake benchmark numbers.',
+        samplePrompt: 'We have 8,000 daily active users and 4 backend engineers. Should we migrate our PostgreSQL monolith to 14 microservices on Kubernetes?',
+        sampleOutput: `### Executive Recommendation: Do NOT Migrate to Microservices Yet
+• Architecture Gate Verdict: At 8,000 DAU (~15–40 RPS peak), 14 microservices with Kubernetes will multiply operational burden and deployment failure modes for a 4-engineer team without solving an actual bottleneck.
+• Recommended Architecture: Modular Monolith + Primary PostgreSQL (with PgBouncer connection pooling + 1 Read Replica) + Redis Queue for async background jobs.
+• Revisit Condition: Reconsider service extraction only when independent team scaling exceeds 25+ engineers or a specific module requires isolated hardware scaling (>1,500 sustained writes/sec).`
+      },
+      {
+        id: 'math',
+        name: 'Mathematics & Quantitative Reasoning',
+        shortTag: 'Dual-Verified Symbolic & Numerical Proofs',
+        category: 'engineering',
+        credits: '1.5 – 4.5 cr',
+        providers: 'DeepSeek / OpenAI + Python SymPy Execution',
+        apis: ['code_execution (SymPy / NumPy / SciPy / mpmath)', 'image_analyse', 'Plot Visualiser'],
+        framework: '1. RESTATE PROBLEM → 2. CHOOSE METHOD → 3. COMPUTE EXACT/NUMERICAL → 4. INDEPENDENT CROSS-CHECK → 5. TRANSCRIPTION CHECK',
+        summary: 'Solves symbolic algebra, calculus, linear algebra, probability, statistics, and optimization problems with mandatory dual-method verification.',
+        capabilities: [
+          'Defends against both Computation Error (via sandboxed code execution) and Translation Error (via formal restatement & final transcription check).',
+          'Uses exact symbolic objects (`sp.Rational`, `sp.pi`, `sp.sqrt`) before decimal rounding at the final presentation step.',
+          'Mandatory Independent Cross-Check using a method with a different failure mode (e.g., differentiating an antiderivative + numerical quadrature check).',
+          'Explicitly reports UNVERIFIED if the primary calculation and independent cross-check disagree.'
+        ],
+        guardrails: 'Never relies on mental arithmetic or recalled formulas without verifying them in the current conversation. Distinguishes sample vs. population variance.',
+        samplePrompt: 'Find the exact closed-form value of the definite integral of ln(1 + x^2) / (1 + x^2) from x = 0 to 1, and cross-check numerically.',
+        sampleOutput: `1. FINAL ANSWER
+• Exact Form: -π·ln(2)/4 + G  (where G ≈ 0.915965594177 is Catalan's constant)
+• Decimal Approximation: 0.371569362438 (rounded to 12 decimal places)
+
+2. DERIVATION & COMPUTATION
+• Substituted x = tan(θ), θ ∈ [0, π/4] → ∫₀^(π/4) ln(sec²θ) dθ = -2 ∫₀^(π/4) ln(cos θ) dθ.
+• Evaluated via Fourier series of ln(cos θ) yielding Catalan's constant G - (π/4)ln(2).
+
+3. INDEPENDENT VERIFICATION
+• Checked via high-precision Gaussian quadrature (mpmath, 50 digits): 0.371569362438129...
+• Absolute residual difference between symbolic closed form and numerical quadrature: 0.0e-50.`
+      },
+      {
+        id: 'deep-research',
+        name: 'Deep Research Agent',
+        shortTag: '5–8 Source Synthesis & Risk Analysis',
+        category: 'research',
+        credits: '4.0 – 8.0 cr',
+        providers: 'OpenAI / Anthropic + Multi-Hop Web Fetch',
+        apis: ['Serper API', 'Tavily API', 'Brave Search API', 'web_fetch', 'image_analyse'],
+        framework: 'DISCOVER (5–8 AUTHORITATIVE SOURCES) → DEEP FETCH → CROSS-VERIFY CLAIMS → FLAG CONFLICTS → RISK ANALYSIS',
+        summary: 'Conducts exhaustive, multi-step research with strict source grounding, cross-verification across primary sources, and dedicated Risk & Limitation analysis.',
+        capabilities: [
+          'Retrieves 5–8 authoritative sources and reads full primary documents via `web_fetch` rather than relying on search snippets.',
+          'Cross-verifies key claims across independent sources and explicitly surfaces conflicting evidence.',
+          'Structured deliverable containing ## Summary, ## Key Findings (with inline [n] citations), ## Risk Analysis, and ## Sources.',
+          'Examines user-uploaded charts or research figures via `image_analyse` to integrate visual evidence.'
+        ],
+        guardrails: 'Strict Grounding Rule: Only states facts supported by retrieved sources or attachments. Refuses to fill evidence gaps with unverified training data.',
+        samplePrompt: 'Conduct a deep research synthesis on India’s green hydrogen electrolyzer manufacturing subsidies, PLI allocations, and grid-tariff risks.',
+        sampleOutput: `## Summary
+India's SIGHT programme under the National Green Hydrogen Mission has allocated ₹17,490 crore for electrolyzer manufacturing and green hydrogen production [1][2]...
+
+## Risk Analysis & Evidence Gaps
+• Offtake Uncertainty: While 3,000 MW/year electrolyzer capacity has been awarded under Tranche-II [2], binding industrial offtake agreements remain below 28% due to green-ammonia cost parity gaps [4].
+• Interstate Open Access Waivers: Conflicting state electricity regulatory commission (SERC) timelines create banking charge risk after 2030 [5].`
+      },
+      {
+        id: 'fast-research',
+        name: 'Fast Research Agent',
+        shortTag: 'Rapid 1–3 Source Cited Lookup',
+        category: 'research',
+        credits: '1.5 – 2.5 cr',
+        providers: 'Gemini Flash / DeepSeek / OpenAI',
+        apis: ['Serper API', 'Tavily API', 'web_fetch (Selective)', 'image_analyse'],
+        framework: 'TARGETED WEB SEARCH (1–3 PRIMARY SOURCES) → SNIPPET EXTRACTION → INLINE [1][2] CITATION',
+        summary: 'Engineered for high-speed, low-credit verification of facts, benchmarks, releases, and current documentation with clean inline citations.',
+        capabilities: [
+          'Executes focused 1–3 result searches prioritizing official and primary documentation.',
+          'Skips slow full-page fetches when the answer is unambiguous from primary snippets—delivering verified answers in seconds.',
+          'Includes inline `[1]`, `[2]` citations and a clean `## Sources` URL list on every response.'
+        ],
+        guardrails: 'Optimized for token and tool efficiency so users get verified answers at 1.5–2.5 credits.',
+        samplePrompt: 'What is the current RBI repo rate and standing deposit facility (SDF) rate following the latest MPC meeting?',
+        sampleOutput: `According to the latest Reserve Bank of India Monetary Policy Committee (MPC) statement, the policy repo rate stands at 6.25% [1], with the Standing Deposit Facility (SDF) rate at 6.00% and the Marginal Standing Facility (MSF) rate at 6.50% [1][2].
+
+## Sources
+[1] Reserve Bank of India — Monetary Policy Statement (rbi.org.in)
+[2] PIB Government of India — MPC Resolution Summary`
+      },
+      {
+        id: 'video',
+        name: 'Video Analyser',
+        shortTag: 'Gemini Frame-by-Frame Video Intelligence',
+        category: 'docs-media',
+        credits: '2.5 – 5.0 cr',
+        providers: 'Google Gemini Multimodal Engine',
+        apis: ['video_analyse (Google Gemini)', 'web_search', 'code_execution (Charts from Video Data)'],
+        framework: 'INSPECT VIDEO STREAM → EXTRACT TIMESTAMPS & ON-SCREEN TEXT → SYNTHESIZE EVENTS → AUGMENT WITH WEB/CHARTS',
+        summary: 'Specialized multimodal video intelligence powered by Google Gemini that inspects uploaded video files for visual events, on-screen text, subjects, and chronological actions.',
+        capabilities: [
+          'Always calls `video_analyse` before responding—never guessing about video contents.',
+          'Extracts exact timestamps, visible slide/UI text, speaker actions, and physical environment details.',
+          'Combines video findings with live web search or Python chart generation to plot metrics shown inside video recordings.'
+        ],
+        guardrails: 'Breaks multi-part user questions into clear, focused visual inspection queries and cites exact video timestamps.',
+        samplePrompt: 'Analyze this recorded product demo video and list every UI bug or latency spike visible on screen with timestamps.',
+        sampleOutput: `### Video Inspection Report (via video_analyse)
+• [00:42 – 00:47] On-screen network tab shows HTTP 504 timeout on \`/api/v2/portfolio/sync\` while the spinner freezes.
+• [01:18] Checkout drawer modal clips below the 375px mobile viewport simulator; "Confirm Order" button is partially obstructed.
+• [02:05] On-screen telemetry banner displays: "WebSocket Reconnected (312ms latency)".`
+      },
+      {
+        id: 'general',
+        name: 'General Agent',
+        shortTag: 'Everyday Assistant, Live Web & Vision',
+        category: 'docs-media',
+        credits: '1.0 – 2.0 cr',
+        providers: 'Auto-Routed (Gemini / ChatGPT / Anthropic / DeepSeek)',
+        apis: ['web_search', 'OpenWeather API', 'image_analyse', 'image_search'],
+        framework: 'INTENT DETECTION → REAL-TIME SEARCH / IMAGE INSPECTION → STEP-BY-STEP REASONING → CONCISE RESPONSE',
+        summary: 'Your fast, friendly everyday AI assistant that automatically checks live web data for current events, inspects shared photos, searches for images, and reasons step-by-step.',
+        capabilities: [
+          'Automatically triggers `web_search` or `OpenWeather` for time-sensitive prices, scores, weather, and current events.',
+          'Inspects user-uploaded screenshots and photos using `image_analyse` and fetches requested visuals via `image_search`.',
+          'Shows clear step-by-step work for mathematical word problems and enumerates cases for logic puzzles.'
+        ],
+        guardrails: 'Never relies on stale training data for real-time facts; defaults to 1.0 credit efficiency for everyday workflows.',
+        samplePrompt: 'Check today’s weather in Bengaluru and suggest an indoor/outdoor itinerary for a visiting engineering team.',
+        sampleOutput: `Live Bengaluru Telemetry (OpenWeather API): 26°C, scattered afternoon rain showers (65% precipitation probability after 14:30 IST).
+• Morning (09:30 – 13:00): Outdoor walk & coffee briefing in Indiranagar / Cubbon Park while skies are clear.
+• Afternoon (14:00 onwards): Move indoors to your Koramangala workspace before the afternoon rain window begins.`
+      }
+    ];
+
+    // ---------------------------------------------------------------------
+    // 2. HERO PIPELINE SIMULATOR PRESETS
+    // ---------------------------------------------------------------------
+    const HERO_PRESETS = {
+      market: {
+        memoryTitle: 'Sign-Up + Chat Context',
+        memoryDesc: 'Profile: NSE F&O Trader · Watchlist: RELIANCE, NIFTY · Risk: Swing/Options',
+        agentTitle: 'Market Intelligence Agent',
+        providerDesc: 'Anthropic Claude + Deterministic Option Engine',
+        credits: '4.5 cr',
+        toolsTitle: '3 Live Tools Executed',
+        tools: ['NSE Option Chain', 'Yahoo Finance', 'Serper News'],
+        scheduleTitle: 'Project: F&O Alpha Desk',
+        scheduleDesc: 'Scheduled: 3 runs/day (09:20, 12:30, 15:15 IST)',
+        outputHeader: 'RELIANCE — ₹2,984.50 (+1.42%) | 3000 CE Analysis',
+        outputStance: 'Stance: Moderately Bullish | Confidence: Medium',
+        outputStanceClass: 'bg-success-soft text-success border-success/20',
+        outputBody: `
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-[11px] bg-surface p-2.5 rounded border border-line">
+            <div><span class="text-ink-muted">OI PCR:</span> <strong class="text-ink">1.14 (Supportive)</strong></div>
+            <div><span class="text-ink-muted">Max Pain Ref:</span> <strong class="text-ink">₹2,980</strong></div>
+            <div><span class="text-ink-muted">3000 CE OI:</span> <strong class="text-ink">42.8L (+4.1L)</strong></div>
+          </div>
+          <p><strong class="text-ink">Confluence Summary:</strong> Underlying holds above 20DMA (₹2,940) and intraday VWAP with +0.65% relative strength vs NIFTY. High Put OI at 2950 PE provides confluence support, while 3000 CE represents key overhead positioning.</p>
+          <p><strong class="text-ink">What Would Change the View (Invalidation):</strong> Sustained break below ₹2,945 with volume expansion and 2950 PE unwinding weakens the bullish interpretation. <em>(Not Financial Advice)</em></p>
+        `,
+        outputFooter: 'Sources: Yahoo Finance (Live) · NSE Option Chain Snapshot · Serper News [1][2]'
+      },
+      legal: {
+        memoryTitle: 'Sign-Up + Chat Context',
+        memoryDesc: 'Jurisdiction: Delhi High Court · Role: Litigation Counsel (Respondent)',
+        agentTitle: 'Legal Intelligence Agent',
+        providerDesc: 'Anthropic Claude + Citation Registry (AUTH-001)',
+        credits: '5.0 cr',
+        toolsTitle: '3 Legal APIs Executed',
+        tools: ['eCourts India CNR', 'Indian Kanoon API', 'Serper Gazette'],
+        scheduleTitle: 'Project: Delhi HC Case 402',
+        scheduleDesc: 'Scheduled: 2 runs/day (08:30 & 17:00 IST)',
+        outputHeader: 'CNR DLHC010048212026 Status & BNS / IPC Transition Check',
+        outputStance: 'Position: Strong | Confidence: High',
+        outputStanceClass: 'bg-primary-soft text-primary-text border-primary/20',
+        outputBody: `
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-[11px] bg-surface p-2.5 rounded border border-line">
+            <div><span class="text-ink-muted">eCourts CNR:</span> <strong class="text-ink">Verified Active</strong></div>
+            <div><span class="text-ink-muted">Next Hearing:</span> <strong class="text-ink">18 Nov 2026</strong></div>
+            <div><span class="text-ink-muted">Registry:</span> <strong class="text-ink">AUTH-001, AUTH-002</strong></div>
+          </div>
+          <p><strong class="text-ink">Court Record (eCourts):</strong> Latest order directs parties to complete pleadings within 3 weeks; interim protection continued.</p>
+          <p><strong class="text-ink">BNS Transition Analysis:</strong> Since the impugned transaction occurred prior to <strong>1 July 2024</strong>, substantive provisions of IPC Section 420 govern rather than BNS Section 318, per statutory savings clauses verified via Official Gazette &amp; Indian Kanoon precedent. <em>(Not Legal Advice)</em></p>
+        `,
+        outputFooter: 'Sources: eCourts India API (Retrieved Today) · Indian Kanoon API · Official Gazette'
+      },
+      dev: {
+        memoryTitle: 'Sign-Up + Chat Context',
+        memoryDesc: 'Design System: Soft Two-Tone Daylight · Stack: Tailwind + Clean JS',
+        agentTitle: 'Dev Studio Agent',
+        providerDesc: 'Anthropic Claude + Responsive/Interaction QA Gate',
+        credits: '7.0 cr',
+        toolsTitle: '3 Studio Tools Executed',
+        tools: ['html_generate', 'image_search', 'Responsive QA (320px-1920px)'],
+        scheduleTitle: 'Project: Core SaaS v2 UI',
+        scheduleDesc: 'Interactive Artifact Saved to Project Canvas',
+        outputHeader: 'Institutional Portfolio Risk Matrix Application (Production Artifact)',
+        outputStance: 'QA Gate: 100% Passed (Responsive + A11y)',
+        outputStanceClass: 'bg-secondary-soft text-secondary-text border-secondary/20',
+        outputBody: `
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-[11px] bg-surface p-2.5 rounded border border-line">
+            <div><span class="text-ink-muted">Breakpoints:</span> <strong class="text-ink">320px → 1920px OK</strong></div>
+            <div><span class="text-ink-muted">Handlers:</span> <strong class="text-ink">14/14 Verified</strong></div>
+            <div><span class="text-ink-muted">Design Token:</span> <strong class="text-ink">#F7F8FA / #6366F1</strong></div>
+          </div>
+          <p><strong class="text-ink">Architecture Delivered:</strong> Complete single-file application with live sector correlation heatmap, interactive VaR (Value at Risk) stress-test sliders, keyboard-accessible slide-over drawer, and CSV export.</p>
+          <p><strong class="text-ink">Dev Studio QA Verification:</strong> Zero horizontal overflow across 10 viewports, 44×44px touch targets enforced, and semantic ARIA dialog focus trapping active.</p>
+        `,
+        outputFooter: 'Tools: html_generate · Visual QA · Interaction QA · Accessible DOM'
+      },
+      math: {
+        memoryTitle: 'Sign-Up + Chat Context',
+        memoryDesc: 'Precision: Exact Symbolic First + 12-Digit Numerical Residual Check',
+        agentTitle: 'Mathematics & Quant Reasoning',
+        providerDesc: 'DeepSeek + Python SymPy / mpmath Execution',
+        credits: '2.0 cr',
+        toolsTitle: '2 Verification Passes',
+        tools: ['code_execution (SymPy)', 'Numerical Quadrature Check'],
+        scheduleTitle: 'Project: Quant Derivatives Lab',
+        scheduleDesc: 'Dual-Method Cross-Check Completed',
+        outputHeader: 'Exact Evaluation of ∫₀¹ ln(1 + x²) / (1 + x²) dx',
+        outputStance: 'Verified: Residual = 0.0e-50',
+        outputStanceClass: 'bg-success-soft text-success border-success/20',
+        outputBody: `
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-[11px] bg-surface p-2.5 rounded border border-line">
+            <div><span class="text-ink-muted">Exact Form:</span> <strong class="text-ink">G - (π/4)ln(2)</strong></div>
+            <div><span class="text-ink-muted">Decimal:</span> <strong class="text-ink">0.371569362438</strong></div>
+            <div><span class="text-ink-muted">Cross-Check:</span> <strong class="text-ink">mpmath Quadrature</strong></div>
+          </div>
+          <p><strong class="text-ink">Method 1 (Symbolic Derivation):</strong> Using trig substitution x = tan(θ) on [0, π/4] reduces the integral to -2 ∫ ln(cos θ) dθ = Catalan's constant G - (π/4)ln(2).</p>
+          <p><strong class="text-ink">Method 2 (Independent Numerical Verification):</strong> Evaluated directly via 50-digit adaptive Gaussian quadrature; matches symbolic evaluation to 50 significant figures.</p>
+        `,
+        outputFooter: 'Tools: code_execution (SymPy 1.13 + mpmath) · Transcription Check Passed'
+      }
+    };
+
+    // ---------------------------------------------------------------------
+    // 3. INITIAL ACTIVE SCHEDULED TASKS QUEUE
+    // ---------------------------------------------------------------------
+    let scheduledTasksQueue = [
+      {
+        id: 'TSK-101',
+        title: 'NIFTY & RELIANCE Option Chain Confluence Snapshot',
+        agent: 'Market Intelligence',
+        project: 'F&O Alpha Desk',
+        cadence: 'Daily',
+        runsPerDay: 3,
+        times: ['09:20 IST', '12:30 IST', '15:15 IST'],
+        creditsPerRun: 4.5,
+        status: 'Active · Last run 12:30 IST'
+      },
+      {
+        id: 'TSK-102',
+        title: 'eCourts CNR DLHC010048212026 Order & Cause-List Check',
+        agent: 'Legal Intelligence',
+        project: 'Delhi HC Writ - Case 402',
+        cadence: 'Daily',
+        runsPerDay: 2,
+        times: ['08:30 IST', '17:30 IST'],
+        creditsPerRun: 5.0,
+        status: 'Active · Next run 17:30 IST'
+      },
+      {
+        id: 'TSK-103',
+        title: 'Cloud & LLM Token Cost Bottleneck Audit',
+        agent: 'System Architect',
+        project: 'Core SaaS v2 Architecture',
+        cadence: 'Weekly',
+        runsPerDay: 1,
+        times: ['10:00 IST'],
+        creditsPerRun: 4.0,
+        status: 'Active · Runs Every Monday'
+      }
+    ];
+
+    // ---------------------------------------------------------------------
+    // 4. MULTIPAGE ROUTER CONTROLLER
+    // ---------------------------------------------------------------------
+    const VALID_PAGES = ['home', 'agents', 'tasks', 'pricing', 'about'];
+
+    function navigateToPage(pageId, skipScroll = false) {
+      const target = VALID_PAGES.includes(pageId) ? pageId : 'home';
+
+      // Switch active page view
+      VALID_PAGES.forEach(id => {
+        const el = document.getElementById(`page-${id}`);
+        if (el) {
+          if (id === target) {
+            el.classList.add('active');
+          } else {
+            el.classList.remove('active');
+          }
+        }
+      });
+
+      // Update Desktop Nav Tabs
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        const navTarget = btn.getAttribute('data-nav');
+        if (navTarget === target) {
+          btn.className = 'nav-tab px-3.5 py-1.5 rounded-md text-xs font-medium transition-all text-ink bg-surface shadow-sm';
+        } else {
+          btn.className = 'nav-tab px-3.5 py-1.5 rounded-md text-xs font-medium transition-all text-ink-secondary hover:text-ink';
+        }
+      });
+
+      // Update Mobile Nav Buttons
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        const navTarget = btn.getAttribute('data-nav');
+        if (navTarget === target) {
+          btn.classList.add('bg-primary-soft', 'text-primary-text');
+          btn.classList.remove('text-ink-secondary');
+        } else {
+          btn.classList.remove('bg-primary-soft', 'text-primary-text');
+          btn.classList.add('text-ink-secondary');
+        }
+      });
+
+      // Close mobile drawer if open
+      const mobileDrawer = document.getElementById('mobile-nav-drawer');
+      if (mobileDrawer) mobileDrawer.classList.add('hidden');
+
+      // Update URL Hash cleanly
+      if (window.location.hash !== `#${target}`) {
+        history.replaceState(null, '', `#${target}`);
+      }
+
+      if (!skipScroll) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 5. HERO PIPELINE SIMULATOR CONTROLLER
+    // ---------------------------------------------------------------------
+    function renderHeroPreset(presetKey, customText = null) {
+      const data = HERO_PRESETS[presetKey] || HERO_PRESETS.market;
+
+      // Update active preset button styling
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        if (btn.getAttribute('data-preset') === presetKey && !customText) {
+          btn.className = 'preset-btn text-left p-2.5 rounded-lg border border-primary bg-primary-soft/60 transition-all';
+        } else {
+          btn.className = 'preset-btn text-left p-2.5 rounded-lg border border-line bg-surface hover:bg-surface-soft transition-all';
+        }
+      });
+
+      // Pulse animation on pipeline nodes
+      const node2 = document.getElementById('node-2');
+      if (node2) {
+        node2.classList.remove('step-active');
+        void node2.offsetWidth;
+        node2.classList.add('step-active');
+      }
+
+      document.getElementById('sim-memory-title').textContent = data.memoryTitle;
+      document.getElementById('sim-memory-desc').textContent = data.memoryDesc;
+      document.getElementById('sim-agent-title').textContent = data.agentTitle;
+      document.getElementById('sim-provider-desc').textContent = data.providerDesc;
+      document.getElementById('sim-credit-badge').textContent = data.credits;
+      document.getElementById('sim-tools-title').textContent = data.toolsTitle;
+
+      const toolsContainer = document.getElementById('sim-tools-badges');
+      toolsContainer.innerHTML = data.tools.map(t =>
+        `<span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface border border-line text-ink-secondary">${t}</span>`
+      ).join('');
+
+      document.getElementById('sim-schedule-title').textContent = data.scheduleTitle;
+      document.getElementById('sim-schedule-desc').textContent = data.scheduleDesc;
+
+      const headerEl = document.getElementById('sim-output-header');
+      headerEl.textContent = customText ? `Custom Prompt Routed → ${data.agentTitle}` : data.outputHeader;
+
+      const stanceEl = document.getElementById('sim-output-stance');
+      stanceEl.textContent = data.outputStance;
+      stanceEl.className = `font-mono text-[11px] px-2 py-0.5 rounded border font-medium ${data.outputStanceClass}`;
+
+      document.getElementById('sim-output-body').innerHTML = data.outputBody;
+      document.getElementById('sim-output-footer').textContent = data.outputFooter;
+    }
+
+    // ---------------------------------------------------------------------
+    // 6. HOME 10-AGENT PREVIEW STRIP & PAGE 2 MASTER WORKBENCH
+    // ---------------------------------------------------------------------
+    let activeAgentId = 'market';
+    let activeAgentCategory = 'all';
+    let agentSearchQuery = '';
+
+    function renderHomeAgentsGrid() {
+      const grid = document.getElementById('home-agents-grid');
+      if (!grid) return;
+
+      grid.innerHTML = GRIZON_AGENTS.map((agent, idx) => `
+        <button data-jump-agent="${agent.id}" class="text-left p-4 rounded-xl bg-surface border border-line hover:border-primary transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-ink-muted mb-2">
+              <span>AGENT 0${idx + 1 > 9 ? '' : ''}${idx + 1}</span>
+              <span class="px-1.5 py-0.5 rounded bg-bg-soft text-ink-secondary">${agent.credits}</span>
+            </div>
+            <h3 class="text-sm font-semibold text-ink group-hover:text-primary-text transition-colors">${agent.name}</h3>
+            <p class="text-xs text-ink-secondary mt-1 line-clamp-2">${agent.shortTag}</p>
+          </div>
+          <div class="mt-4 pt-2.5 border-t border-line-soft flex items-center justify-between text-[11px] font-medium text-primary-text">
+            <span>Inspect Agent</span>
+            <span>→</span>
+          </div>
+        </button>
+      `).join('');
+    }
+
+    function renderAgentsWorkbench() {
+      const listEl = document.getElementById('agent-selector-list');
+      const detailEl = document.getElementById('agent-detail-panel');
+      if (!listEl || !detailEl) return;
+
+      const filtered = GRIZON_AGENTS.filter(agent => {
+        const matchesCat = activeAgentCategory === 'all' || agent.category === activeAgentCategory;
+        const q = agentSearchQuery.toLowerCase().trim();
+        const matchesSearch = !q ||
+          agent.name.toLowerCase().includes(q) ||
+          agent.shortTag.toLowerCase().includes(q) ||
+          agent.summary.toLowerCase().includes(q) ||
+          agent.apis.some(a => a.toLowerCase().includes(q));
+        return matchesCat && matchesSearch;
+      });
+
+      if (filtered.length > 0 && !filtered.some(a => a.id === activeAgentId)) {
+        activeAgentId = filtered[0].id;
+      }
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div class="p-6 rounded-xl bg-surface border border-line text-center space-y-2">
+            <p class="text-xs font-semibold text-ink">No matching specialist agents found.</p>
+            <p class="text-xs text-ink-secondary">Try clearing your search filter to view all 10 Grizon AI agents.</p>
+            <button id="reset-agent-filter-btn" class="mt-2 px-3 py-1.5 rounded bg-primary text-white text-xs font-medium">Reset Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(agent => {
+        const isSelected = agent.id === activeAgentId;
+        return `
+          <button data-select-agent="${agent.id}" class="w-full text-left p-3.5 rounded-xl border transition-all ${
+            isSelected
+              ? 'bg-primary-soft/70 border-primary shadow-xs'
+              : 'bg-surface border-line hover:bg-surface-soft'
+          }">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold ${isSelected ? 'text-primary-text' : 'text-ink'}">${agent.name}</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface border border-line text-ink-secondary">${agent.credits}</span>
+            </div>
+            <p class="text-[11px] text-ink-secondary mt-1">${agent.shortTag}</p>
+          </button>
+        `;
+      }).join('');
+
+      const selected = GRIZON_AGENTS.find(a => a.id === activeAgentId) || GRIZON_AGENTS[0];
+
+      detailEl.innerHTML = `
+        <div class="p-6 border-b border-line bg-surface-soft flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-primary-soft text-primary-text font-medium">Active Agent Specification</span>
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-surface border border-line text-ink-secondary">Cost: ${selected.credits}</span>
+            </div>
+            <h2 class="text-xl font-semibold text-ink mt-2">${selected.name}</h2>
+            <p class="text-xs text-ink-secondary mt-1 max-w-2xl">${selected.summary}</p>
+          </div>
+          <button data-nav="tasks" class="px-3.5 py-2 rounded-lg text-xs font-medium bg-ink text-white hover:bg-primary transition-colors">
+            Schedule This Agent ⏱
+          </button>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <!-- Reasoning Pipeline Bar -->
+          <div>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-ink-muted block mb-1.5">Core Reasoning &amp; Execution Protocol</span>
+            <div class="p-3 rounded-lg bg-bg border border-line font-mono text-xs text-primary-text overflow-x-auto">
+              ${selected.framework}
+            </div>
+          </div>
+
+          <!-- Providers & Live Tools -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-lg bg-bg border border-line">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-ink-muted block">Model Routing</span>
+              <div class="text-xs font-semibold text-ink mt-1">${selected.providers}</div>
+            </div>
+            <div class="p-4 rounded-lg bg-bg border border-line">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-ink-muted block">Connected Live APIs &amp; Tools</span>
+              <div class="flex flex-wrap gap-1.5 mt-1.5">
+                ${selected.apis.map(api => `<span class="font-mono text-[11px] px-2 py-0.5 rounded bg-surface border border-line text-secondary-text">${api}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Capabilities & Anti-Hallucination Guardrails -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-ink mb-2.5">Domain Capabilities</h3>
+              <ul class="space-y-2 text-xs text-ink-secondary leading-relaxed">
+                ${selected.capabilities.map(c => `<li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>${c}</span></li>`).join('')}
+              </ul>
+            </div>
+            <div class="p-4 rounded-lg bg-surface-soft border border-line">
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-ink mb-2">Strict Grounding &amp; Quality Gate</h3>
+              <p class="text-xs text-ink-secondary leading-relaxed">${selected.guardrails}</p>
+            </div>
+          </div>
+
+          <!-- Sample Prompt & Verified Output Preview -->
+          <div class="rounded-xl border border-line overflow-hidden">
+            <div class="bg-bg-soft px-4 py-2.5 border-b border-line flex items-center justify-between">
+              <span class="text-xs font-medium text-ink">Sample User Prompt: <span class="font-normal text-ink-secondary">"${selected.samplePrompt}"</span></span>
+              <span class="font-mono text-[10px] text-secondary-text">Grounded Output</span>
+            </div>
+            <pre class="p-4 bg-bg text-xs font-mono text-ink-secondary whitespace-pre-wrap leading-relaxed overflow-x-auto">${selected.sampleOutput}</pre>
+          </div>
+        </div>
+      `;
+    }
+
+    // ---------------------------------------------------------------------
+    // 7. AUTONOMOUS TASK SCHEDULER & 24-HOUR TIMELINE CONTROLLER
+    // ---------------------------------------------------------------------
+    let currentCadence = 'Daily';
+    let currentRunsPerDay = 3;
+    const DEFAULT_RUN_TIMES = {
+      1: ['09:30 IST'],
+      2: ['09:20 IST', '15:15 IST'],
+      3: ['09:20 IST', '12:30 IST', '15:15 IST'],
+      4: ['08:30 IST', '11:30 IST', '14:30 IST', '17:30 IST'],
+      6: ['08:00 IST', '10:30 IST', '13:00 IST', '15:30 IST', '18:00 IST', '21:00 IST']
+    };
+
+    function updateSchedulerBuilderUI() {
+      // Update runs label
+      document.getElementById('runs-per-day-label').textContent = `${currentRunsPerDay} Run${currentRunsPerDay > 1 ? 's' : ''} / Day (${currentCadence})`;
+
+      // Render time slots
+      const times = DEFAULT_RUN_TIMES[currentRunsPerDay] || DEFAULT_RUN_TIMES[3];
+      const slotsContainer = document.getElementById('time-slots-container');
+      slotsContainer.innerHTML = times.map((t, i) => `
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-bg border border-line font-mono text-xs text-ink">
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          <span>Run #${i + 1}: ${t}</span>
+        </div>
+      `).join('');
+
+      // Render 24h timeline markers
+      const track = document.getElementById('timeline-track');
+      if (track) {
+        track.innerHTML = times.map((t, i) => {
+          const hour = parseInt(t.split(':')[0], 10);
+          const pct = Math.min(96, Math.max(4, (hour / 24) * 100));
+          return `
+            <div style="left: ${pct}%" class="absolute -top-1.5 -translate-x-1/2 flex flex-col items-center group">
+              <div class="w-5 h-5 rounded-full bg-primary text-white font-mono text-[10px] flex items-center justify-center shadow-sm border-2 border-white">
+                ${i + 1}
+              </div>
+              <span class="font-mono text-[9px] text-primary-text mt-1 whitespace-nowrap">${t.replace(' IST', '')}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update credit estimate
+      const agentSelect = document.getElementById('task-agent-select');
+      const selectedOpt = agentSelect.options[agentSelect.selectedIndex];
+      const creditsPerRun = parseFloat(selectedOpt.getAttribute('data-credits') || '4.5');
+      const dailyTotal = (creditsPerRun * currentRunsPerDay).toFixed(1);
+      document.getElementById('task-credit-estimate').textContent =
+        `${dailyTotal} Credits / day (${currentRunsPerDay} runs × ${creditsPerRun} cr)`;
+    }
+
+    function renderScheduledTasksQueue() {
+      const listEl = document.getElementById('scheduled-tasks-list');
+      const countEl = document.getElementById('active-task-count');
+      if (!listEl || !countEl) return;
+
+      countEl.textContent = `${scheduledTasksQueue.length} Active Tasks`;
+
+      listEl.innerHTML = scheduledTasksQueue.map(task => `
+        <div class="p-3.5 rounded-lg bg-bg border border-line flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-primary-soft text-primary-text font-semibold">${task.cadence} · ${task.runsPerDay}x/day</span>
+              <span class="text-xs font-semibold text-ink">${task.title}</span>
+            </div>
+            <div class="text-[11px] text-ink-secondary">
+              Agent: <strong class="text-ink">${task.agent}</strong> · Project: <strong class="text-ink">${task.project}</strong>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              ${task.times.map(t => `<span class="font-mono text-[10px] px-1.5 py-0.2 rounded bg-surface border border-line text-ink-secondary">⏱ ${t}</span>`).join('')}
+            </div>
+          </div>
+          <div class="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0">
+            <span class="font-mono text-xs font-semibold text-secondary-text">${(task.runsPerDay * task.creditsPerRun).toFixed(1)} cr/day</span>
+            <button data-remove-task="${task.id}" class="text-[11px] text-ink-muted hover:text-danger transition-colors">Pause / Remove</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ---------------------------------------------------------------------
+    // 8. DUAL-LAYER MEMORY INSPECTOR CONTROLLER
+    // ---------------------------------------------------------------------
+    function updateMemoryInspector() {
+      const checked = Array.from(document.querySelectorAll('.mem-toggle:checked')).map(
+        cb => cb.getAttribute('data-mem')
+      );
+      const countEl = document.getElementById('active-mem-count');
+      const payloadEl = document.getElementById('memory-payload-preview');
+      if (!countEl || !payloadEl) return;
+
+      countEl.textContent = `${checked.length} Active Nodes`;
+
+      if (checked.length === 0) {
+        payloadEl.innerHTML = `<div class="text-ink-muted">// All memory nodes toggled off. Agent will run with zero prior user context.</div>`;
+      } else {
+        payloadEl.innerHTML = checked.map((item, idx) =>
+          `<div><span class="text-primary-text">[MEM_0${idx + 1}]</span> ${item}</div>`
+        ).join('');
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 9. CREDIT & PRICING CALCULATOR CONTROLLER
+    // ---------------------------------------------------------------------
+    function updateCreditCalculator() {
+      const low = parseInt(document.getElementById('calc-low').value, 10) || 0;
+      const med = parseInt(document.getElementById('calc-med').value, 10) || 0;
+      const high = parseInt(document.getElementById('calc-high').value, 10) || 0;
+      const cron = parseInt(document.getElementById('calc-cron').value, 10) || 0;
+
+      document.getElementById('calc-low-val').textContent = `${low} / day`;
+      document.getElementById('calc-med-val').textContent = `${med} / day`;
+      document.getElementById('calc-high-val').textContent = `${high} / day`;
+      document.getElementById('calc-cron-val').textContent = `${cron} runs / day`;
+
+      const dailyCredits = (low * 1.0) + (med * 2.5) + (high * 6.0) + (cron * 3.5);
+      const monthlyCredits = Math.round(dailyCredits * 30);
+
+      document.getElementById('calc-total-credits').textContent = monthlyCredits.toLocaleString();
+      document.getElementById('calc-daily-breakdown').textContent = `${dailyCredits.toFixed(1)} Credits / day total`;
+
+      const recEl = document.getElementById('calc-recommended-plan');
+      if (monthlyCredits <= 150) {
+        recEl.textContent = 'Explorer Plan (Free)';
+        recEl.className = 'inline-block mt-1 px-3 py-1 rounded-md text-xs font-semibold bg-secondary text-white';
+      } else if (monthlyCredits <= 2500) {
+        recEl.textContent = 'Pro Operator Plan (2,500 cr)';
+        recEl.className = 'inline-block mt-1 px-3 py-1 rounded-md text-xs font-semibold bg-primary text-white';
+      } else {
+        recEl.textContent = 'Quant & Agency Desk (10,000 cr)';
+        recEl.className = 'inline-block mt-1 px-3 py-1 rounded-md text-xs font-semibold bg-ink text-white';
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 10. EVENT LISTENERS & INITIALIZATION
+    // ---------------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initial Render Calls
+      renderHeroPreset('market');
+      renderHomeAgentsGrid();
+      renderAgentsWorkbench();
+      updateSchedulerBuilderUI();
+      renderScheduledTasksQueue();
+      updateMemoryInspector();
+      updateCreditCalculator();
+
+      // Check initial URL hash
+      const initialHash = window.location.hash.replace('#', '');
+      if (VALID_PAGES.includes(initialHash)) {
+        navigateToPage(initialHash, true);
+      }
+
+      // Global Delegated Click Listener for Navigation, Presets, Agents, Tasks
+      document.body.addEventListener('click', (e) => {
+        // 1. Page Navigation
+        const navBtn = e.target.closest('[data-nav]');
+        if (navBtn) {
+          e.preventDefault();
+          const targetPage = navBtn.getAttribute('data-nav');
+          navigateToPage(targetPage);
+          return;
+        }
+
+        // 2. Jump directly to a specific Agent on the Agents Page
+        const jumpAgentBtn = e.target.closest('[data-jump-agent]');
+        if (jumpAgentBtn) {
+          e.preventDefault();
+          activeAgentId = jumpAgentBtn.getAttribute('data-jump-agent');
+          activeAgentCategory = 'all';
+          agentSearchQuery = '';
+          const searchInput = document.getElementById('agent-search-input');
+          if (searchInput) searchInput.value = '';
+          renderAgentsWorkbench();
+          navigateToPage('agents');
+          return;
+        }
+
+        // 3. Select Agent inside Workbench
+        const selectAgentBtn = e.target.closest('[data-select-agent]');
+        if (selectAgentBtn) {
+          activeAgentId = selectAgentBtn.getAttribute('data-select-agent');
+          renderAgentsWorkbench();
+          return;
+        }
+
+        // 4. Filter Agent Category
+        const catBtn = e.target.closest('.agent-cat-btn');
+        if (catBtn) {
+          activeAgentCategory = catBtn.getAttribute('data-cat');
+          document.querySelectorAll('.agent-cat-btn').forEach(b => {
+            if (b.getAttribute('data-cat') === activeAgentCategory) {
+              b.className = 'agent-cat-btn px-3 py-1.5 rounded-md text-xs font-medium bg-ink text-white';
+            } else {
+              b.className = 'agent-cat-btn px-3 py-1.5 rounded-md text-xs font-medium bg-bg-soft text-ink-secondary hover:text-ink';
+            }
+          });
+          renderAgentsWorkbench();
+          return;
+        }
+
+        // 5. Reset Agent Filter
+        if (e.target.id === 'reset-agent-filter-btn') {
+          activeAgentCategory = 'all';
+          agentSearchQuery = '';
+          document.getElementById('agent-search-input').value = '';
+          renderAgentsWorkbench();
+          return;
+        }
+
+        // 6. Hero Pipeline Preset Buttons
+        const presetBtn = e.target.closest('.preset-btn');
+        if (presetBtn) {
+          renderHeroPreset(presetBtn.getAttribute('data-preset'));
+          return;
+        }
+
+        // 7. Task Schedule Templates
+        const tplBtn = e.target.closest('.task-tpl-btn');
+        if (tplBtn) {
+          const tpl = tplBtn.getAttribute('data-task-tpl');
+          if (tpl === 'nse') {
+            document.getElementById('task-title-input').value = 'NIFTY & RELIANCE Option Chain Confluence Snapshot';
+            document.getElementById('task-agent-select').value = 'Market Intelligence';
+            document.getElementById('task-project-select').value = 'F&O Alpha Desk';
+            document.getElementById('task-prompt-input').value = 'Fetch latest NSE Option Chain for RELIANCE & NIFTY. Calculate OI PCR, Max Pain, and largest Call/Put OI additions near ATM.';
+            currentCadence = 'Daily';
+            currentRunsPerDay = 3;
+          } else if (tpl === 'ecourts') {
+            document.getElementById('task-title-input').value = 'eCourts CNR DLHC010048212026 Daily Order & Cause-List Check';
+            document.getElementById('task-agent-select').value = 'Legal Intelligence';
+            document.getElementById('task-project-select').value = 'Delhi HC Writ - Case 402';
+            document.getElementById('task-prompt-input').value = 'Query eCourts India API for CNR DLHC010048212026. Check if any new interim order or next hearing date has been uploaded.';
+            currentCadence = 'Daily';
+            currentRunsPerDay = 2;
+          } else if (tpl === 'research') {
+            document.getElementById('task-title-input').value = 'Weekly Competitor & Regulatory Deep Research Synthesis';
+            document.getElementById('task-agent-select').value = 'Deep Research';
+            document.getElementById('task-project-select').value = 'Q4 Market Expansion';
+            document.getElementById('task-prompt-input').value = 'Run 6-source deep research on SEBI derivatives margin notifications and summarize key risks with citations.';
+            currentCadence = 'Weekly';
+            currentRunsPerDay = 1;
+          }
+          syncCadenceAndRunsButtons();
+          updateSchedulerBuilderUI();
+          return;
+        }
+
+        // 8. Cadence Selector Buttons
+        const cadenceBtn = e.target.closest('.cadence-btn');
+        if (cadenceBtn) {
+          currentCadence = cadenceBtn.getAttribute('data-cadence');
+          syncCadenceAndRunsButtons();
+          updateSchedulerBuilderUI();
+          return;
+        }
+
+        // 9. Runs Per Day Buttons
+        const runsBtn = e.target.closest('.runs-btn');
+        if (runsBtn) {
+          currentRunsPerDay = parseInt(runsBtn.getAttribute('data-runs'), 10);
+          syncCadenceAndRunsButtons();
+          updateSchedulerBuilderUI();
+          return;
+        }
+
+        // 10. Remove Scheduled Task
+        const removeTaskBtn = e.target.closest('[data-remove-task]');
+        if (removeTaskBtn) {
+          const id = removeTaskBtn.getAttribute('data-remove-task');
+          scheduledTasksQueue = scheduledTasksQueue.filter(t => t.id !== id);
+          renderScheduledTasksQueue();
+          return;
+        }
+
+        // 11. Select Pricing Plan Button -> Opens Modal
+        const planBtn = e.target.closest('.select-plan-btn');
+        if (planBtn) {
+          openWorkspaceModal();
+          return;
+        }
+      });
+
+      function syncCadenceAndRunsButtons() {
+        document.querySelectorAll('.cadence-btn').forEach(btn => {
+          if (btn.getAttribute('data-cadence') === currentCadence) {
+            btn.className = 'cadence-btn py-2 px-2 rounded-lg text-xs font-medium border border-primary bg-primary-soft text-primary-text';
+          } else {
+            btn.className = 'cadence-btn py-2 px-2 rounded-lg text-xs font-medium border border-line bg-bg text-ink-secondary';
+          }
+        });
+        document.querySelectorAll('.runs-btn').forEach(btn => {
+          if (parseInt(btn.getAttribute('data-runs'), 10) === currentRunsPerDay) {
+            btn.className = 'runs-btn py-1.5 rounded-lg font-mono text-xs border border-primary bg-primary-soft text-primary-text font-semibold';
+          } else {
+            btn.className = 'runs-btn py-1.5 rounded-lg font-mono text-xs border border-line bg-bg text-ink-secondary';
+          }
+        });
+      }
+
+      // Custom Hero Prompt Form Submission
+      document.getElementById('custom-sim-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('custom-sim-input');
+        const val = input.value.trim();
+        if (!val) return;
+        const lower = val.toLowerCase();
+        let routedKey = 'market';
+        if (lower.includes('cnr') || lower.includes('law') || lower.includes('bns') || lower.includes('court') || lower.includes('contract') || lower.includes('nda')) {
+          routedKey = 'legal';
+        } else if (lower.includes('ui') || lower.includes('website') || lower.includes('html') || lower.includes('design') || lower.includes('schema') || lower.includes('postgres')) {
+          routedKey = 'dev';
+        } else if (lower.includes('integral') || lower.includes('math') || lower.includes('solve') || lower.includes('matrix') || lower.includes('probability')) {
+          routedKey = 'math';
+        }
+        renderHeroPreset(routedKey, val);
+      });
+
+      // Agent Search Input
+      document.getElementById('agent-search-input').addEventListener('input', (e) => {
+        agentSearchQuery = e.target.value;
+        renderAgentsWorkbench();
+      });
+
+      // Task Agent Dropdown change updates credit calculation
+      document.getElementById('task-agent-select').addEventListener('change', updateSchedulerBuilderUI);
+
+      // Add Scheduled Task Form Submission
+      document.getElementById('schedule-builder-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('task-title-input').value.trim();
+        const agentSelect = document.getElementById('task-agent-select');
+        const agent = agentSelect.value;
+        const creditsPerRun = parseFloat(agentSelect.options[agentSelect.selectedIndex].getAttribute('data-credits') || '4.0');
+        const project = document.getElementById('task-project-select').value;
+        const times = DEFAULT_RUN_TIMES[currentRunsPerDay] || DEFAULT_RUN_TIMES[3];
+
+        scheduledTasksQueue.unshift({
+          id: 'TSK-' + Math.floor(100 + Math.random() * 900),
+          title,
+          agent,
+          project,
+          cadence: currentCadence,
+          runsPerDay: currentRunsPerDay,
+          times,
+          creditsPerRun,
+          status: 'Just Scheduled · Ready'
+        });
+
+        renderScheduledTasksQueue();
+      });
+
+      // Memory Checkboxes
+      document.querySelectorAll('.mem-toggle').forEach(cb => {
+        cb.addEventListener('change', updateMemoryInspector);
+      });
+
+      // Credit Calculator Sliders
+      ['calc-low', 'calc-med', 'calc-high', 'calc-cron'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateCreditCalculator);
+      });
+
+      // Monthly / Annual Billing Toggle
+      const billMonthly = document.getElementById('bill-monthly');
+      const billAnnual = document.getElementById('bill-annual');
+      billMonthly.addEventListener('click', () => {
+        billMonthly.className = 'px-3 py-1.5 rounded-md text-xs font-medium bg-ink text-white transition-all';
+        billAnnual.className = 'px-3 py-1.5 rounded-md text-xs font-medium text-ink-secondary hover:text-ink transition-all';
+        document.getElementById('price-pro').textContent = '$29';
+        document.getElementById('price-desk').textContent = '$99';
+      });
+      billAnnual.addEventListener('click', () => {
+        billAnnual.className = 'px-3 py-1.5 rounded-md text-xs font-medium bg-ink text-white transition-all';
+        billMonthly.className = 'px-3 py-1.5 rounded-md text-xs font-medium text-ink-secondary hover:text-ink transition-all';
+        document.getElementById('price-pro').textContent = '$23';
+        document.getElementById('price-desk').textContent = '$79';
+      });
+
+      // Mobile Navigation Toggle
+      document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+        const drawer = document.getElementById('mobile-nav-drawer');
+        drawer.classList.toggle('hidden');
+      });
+
+      // Modal Controls
+      const modal = document.getElementById('workspace-modal');
+      function openWorkspaceModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.getElementById('onboard-name').focus();
+      }
+      function closeWorkspaceModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.getElementById('onboard-success-msg').classList.add('hidden');
+      }
+
+      document.getElementById('open-sandbox-btn').addEventListener('click', openWorkspaceModal);
+      document.getElementById('open-onboarding-btn').addEventListener('click', openWorkspaceModal);
+      document.getElementById('mobile-sandbox-btn').addEventListener('click', openWorkspaceModal);
+      document.getElementById('close-modal-btn').addEventListener('click', closeWorkspaceModal);
+      document.getElementById('cancel-modal-btn').addEventListener('click', closeWorkspaceModal);
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeWorkspaceModal();
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeWorkspaceModal();
+        }
+      });
+
+      document.getElementById('onboarding-sim-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('onboard-success-msg').classList.remove('hidden');
+        setTimeout(() => {
+          closeWorkspaceModal();
+          navigateToPage('agents');
+        }, 900);
+      });
+    });
+  </script>
+</body>
+</html>

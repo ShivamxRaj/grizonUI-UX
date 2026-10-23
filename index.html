@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/grizon-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GriZon AI — Purpose-Built Autonomous Multi-Agent Intelligence</title>
     <meta name="description" content="Purpose-built AI agents for research, coding, documents, markets, and video — or let Auto Mode pick the right agent for you." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
     <style>
       .no-scrollbar::-webkit-scrollbar {
@@ -30,81 +30,47 @@
         theme: {
           extend: {
             colors: {
-              "background": "#f9f9fb",
-              "parchment-bg": "#FAFAF8",
-              "secondary-fixed-dim": "#ffb688",
-              "inverse-on-surface": "#f0f0f2",
-              "agent-deep-research": "#3C4B9B",
-              "tertiary-fixed": "#e5deff",
-              "outline": "#77767d",
-              "on-primary": "#ffffff",
-              "border-hairline": "#E6E7EE",
-              "on-tertiary-container": "#897fca",
-              "surface-container-high": "#e8e8ea",
-              "surface-bright": "#f9f9fb",
-              "on-tertiary-fixed": "#1a0b56",
+              alabaster: "#FAF9F5",
+              charcoal: "#18181B",
+              mutedInk: "#52525B",
+              botanical: "#1E3A3A",
+              "botanical-dark": "#182626",
+              terracotta: "#D97736",
+              "terracotta-soft": "#FBF1EB",
+              hairline: "#E6E4DD",
+              surfacePure: "#FFFFFF",
+              surfaceMuted: "#F4F2EC",
+              surfaceAlt: "#EDEAE1",
+              "background": "#FAF9F5",
+              "parchment-bg": "#FAF9F5",
               "surface-card": "#FFFFFF",
-              "on-primary-fixed": "#181a2d",
-              "agent-legal": "#843B62",
-              "tertiary-fixed-dim": "#c8bfff",
-              "primary-container": "#1e2033",
-              "secondary-container": "#ff9243",
-              "on-secondary": "#ffffff",
-              "on-secondary-container": "#6b3100",
-              "outline-variant": "#c7c5cd",
-              "on-secondary-fixed": "#311300",
-              "surface": "#f9f9fb",
-              "surface-container": "#edeef0",
-              "primary-fixed-dim": "#c4c4de",
-              "primary": "#07091b",
-              "surface-variant": "#e2e2e4",
-              "surface-container-highest": "#e2e2e4",
-              "tertiary": "#090034",
-              "primary-fixed": "#e0e0fb",
-              "on-background": "#1a1c1d",
-              "on-surface": "#1a1c1d",
-              "on-error": "#ffffff",
-              "on-secondary-fixed-variant": "#733600",
-              "on-surface-variant": "#46464c",
-              "lavender-subtle": "#A5BBFC",
-              "on-primary-container": "#86879f",
-              "secondary": "#974800",
-              "saffron-glow": "#F7A859",
-              "surface-container-low": "#f3f3f5",
-              "inverse-primary": "#c4c4de",
-              "inverse-surface": "#2f3132",
-              "surface-dim": "#d9dadc",
-              "secondary-fixed": "#ffdbc7",
-              "tertiary-container": "#20135b",
-              "error-container": "#ffdad6",
-              "on-primary-fixed-variant": "#43455a",
-              "on-error-container": "#93000a",
-              "surface-tint": "#5b5d73",
-              "error": "#ba1a1a",
+              "border-hairline": "#E6E4DD",
+              "primary": "#1E3A3A",
+              "secondary": "#D97736",
+              "agent-deep-research": "#3C4B9B",
               "agent-dev-studio": "#107E7D",
-              "surface-container-lowest": "#ffffff",
-              "on-tertiary": "#ffffff",
-              "on-tertiary-fixed-variant": "#463d83"
+              "agent-legal": "#843B62"
             },
             fontFamily: {
+              display: ["Newsreader", "serif"],
+              sans: ["Plus Jakarta Sans", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+              syne: ["Syne", "sans-serif"],
+              outfit: ["Outfit", "sans-serif"],
+              cinzel: ["Cinzel", "serif"],
               "headline-md": ["Plus Jakarta Sans", "sans-serif"],
               "body-sm": ["Plus Jakarta Sans", "sans-serif"],
-              "label-code": ["Space Grotesk", "monospace"],
+              "label-code": ["JetBrains Mono", "monospace"],
               "body-md": ["Plus Jakarta Sans", "sans-serif"],
-              "display-hero-mobile": ["Newsreader", "serif"],
-              "label-badge": ["Plus Jakarta Sans", "sans-serif"],
-              "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
-              "body-lg": ["Plus Jakarta Sans", "sans-serif"],
               "display-hero": ["Newsreader", "serif"],
-              "headline-lg": ["Newsreader", "serif"],
-              "headline-lg-mobile": ["Newsreader", "serif"]
+              "headline-lg": ["Newsreader", "serif"]
             }
           }
         }
       };
     </script>
   </head>
-  <body class="bg-parchment-bg font-body-md text-body-md text-on-surface antialiased relative min-h-screen selection:bg-tertiary-fixed selection:text-on-tertiary-fixed overflow-x-hidden">
+  <body class="bg-alabaster font-sans text-charcoal antialiased relative min-h-screen selection:bg-terracotta/20 selection:text-charcoal overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

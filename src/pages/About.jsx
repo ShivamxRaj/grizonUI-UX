@@ -1,374 +1,624 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function About() {
+  const [scrollProgress, setScrollProgress] = useState(14);
+  const [diffMode, setDiffMode] = useState('ungrounded');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / (scrollTotal || 1)) * 100;
+      setScrollProgress(Math.max(14, Math.min(100, progress)));
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="w-full bg-parchment-bg font-body-md text-body-md text-on-surface antialiased relative min-h-screen selection:bg-lavender-subtle selection:text-tertiary overflow-x-hidden pt-20 sm:pt-24 pb-16">
-      {/* Subtle Ambient Glow Canvas Background */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[520px] bg-gradient-to-b from-saffron-glow/10 via-lavender-subtle/10 to-transparent blur-[120px]" />
-        <div className="absolute top-[420px] -right-32 w-96 h-96 bg-primary-fixed/30 rounded-full blur-[100px]" />
+    <div className="w-full flex flex-col bg-alabaster">
+      {/* Top Progress Reading Bar Micro-indicator */}
+      <div className="w-full h-0.5 bg-hairline relative sticky top-20 z-40">
+        <div
+          className="h-full bg-terracotta transition-all duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col">
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-8 sm:mb-10">
-          <Link
-            to="/"
-            className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5"
-          >
-            <span className="material-symbols-outlined text-[15px]">home</span>
-            <span>Home</span>
-          </Link>
-          <span className="text-on-surface-variant/40 font-body-sm text-body-sm">/</span>
-          <span className="font-body-sm text-body-sm text-on-surface font-medium flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-saffron-glow" />
-            <span>About Us</span>
-          </span>
-        </nav>
-
-        {/* Editorial Header Section */}
-        <div className="max-w-3xl flex flex-col gap-2 mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full bg-surface-card shadow-sm w-fit border-0">
-            <span className="w-2 h-2 rounded-full bg-saffron-glow shadow-[0_0_8px_rgba(247,168,89,0.9)] animate-pulse" />
-            <span className="font-label-code text-label-code tracking-widest text-on-surface uppercase">
-              Mission &amp; Vision
-            </span>
-          </div>
-          <h1 className="font-display-hero text-4xl sm:text-5xl md:text-[56px] text-primary tracking-tight font-normal leading-tight">
-            About GriZon AI
-          </h1>
-          <p className="font-headline-lg text-lg sm:text-2xl text-on-surface-variant font-normal leading-relaxed mt-2 text-balance">
-            Our mission: make specialised AI agents accessible, transparent, and reliable for creators, developers, and professionals worldwide.
-          </p>
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <div className="flex items-center gap-2 font-label-code text-label-code text-on-surface-variant uppercase tracking-wider">
-              <span className="material-symbols-outlined text-agent-dev-studio text-[16px]">verified</span>
-              <span>Sovereign Architecture 2.4</span>
+      <main className="max-w-5xl mx-auto px-6 py-12 md:py-16 w-full flex flex-col gap-16 md:gap-20">
+        {/* =====================================================================
+            1. EDITORIAL HEADER & MANIFESTO
+        ====================================================================== */}
+        <header className="flex flex-col gap-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-2">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-terracotta animate-pulse"></span>
+              <span className="font-mono text-[11px] uppercase tracking-widest text-mutedInk font-semibold">
+                Our Philosophy &amp; Architecture · Essay N° 04
+              </span>
             </div>
-            <span className="text-on-surface-variant/30 hidden sm:inline">•</span>
-            <div className="flex items-center gap-2 font-label-code text-label-code text-on-surface-variant uppercase tracking-wider">
-              <span className="material-symbols-outlined text-secondary text-[16px]">lock</span>
-              <span>Zero Model Training</span>
+            <div className="flex items-center gap-3 font-mono text-[11px] text-mutedInk">
+              <span className="tabular-nums">EST. READ: 6 MIN</span>
+              <span>/</span>
+              <span className="uppercase">DECOUPLED COGNITION</span>
             </div>
           </div>
-        </div>
 
-        {/* Verified Visual Storytelling: Editorial Collage & Philosophy */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12 sm:mb-16 items-stretch">
-          <div className="lg:col-span-7 bg-surface-card rounded-2xl p-6 sm:p-10 shadow-sm flex flex-col justify-between relative overflow-hidden border border-border-hairline">
-            <div className="space-y-4 z-10">
-              <div className="flex items-center justify-between">
-                <span className="font-label-code text-label-code text-agent-deep-research tracking-wider uppercase bg-primary-fixed/40 px-3 py-1 rounded-full">
-                  Autonomous Inference Manifesto
-                </span>
-                <span className="font-label-code text-label-code text-on-surface-variant">EST. 2024</span>
+          <div className="max-w-4xl space-y-4">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] text-charcoal leading-[1.08] tracking-tight font-normal">
+              Why confidence without{' '}
+              <em className="italic font-normal text-terracotta font-serif">verification</em> is broken.
+            </h1>
+            <p className="font-sans text-lg sm:text-xl text-mutedInk max-w-3xl leading-relaxed font-normal">
+              The central hazard of contemporary generative AI is not inability, but synthetic conviction. In jurisprudence, treasury governance, and regulatory compliance, ungrounded fluency is catastrophic.
+            </p>
+          </div>
+
+          {/* Essay Introduction Grid (Two Columns) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-4">
+            <div className="md:col-span-6 space-y-4">
+              <div className="flex items-center gap-2 text-charcoal font-mono text-xs tracking-wider uppercase font-semibold">
+                <span className="tabular-nums text-terracotta">§ 1.01</span>
+                <span>The Hallucination Fallacy</span>
               </div>
-              <h2 className="font-headline-lg text-2xl sm:text-3xl lg:text-[36px] text-primary leading-tight font-normal">
-                Built on the belief that specialized craft outperforms generalist approximations.
-              </h2>
-              <p className="font-body-lg text-sm sm:text-base text-on-surface-variant leading-relaxed">
-                Modern enterprises and high-velocity engineers do not require another conversational mirror. They require focused autonomous instruments capable of mathematical precision in codebase generation, rigorous document interrogation with verified line-level citations, and real-time sovereign market synthesis.
+              <p className="font-sans text-[14.5px] text-charcoal leading-relaxed">
+                Large language models are inherently auto-regressive probability distribution engines. By architecture, their fundamental objective is semantic coherence, not epistemic truth. When presented with an ambiguous statutory boundary or complex derivative settlement, the model optimizes for plausible syntax rather than ontological verification.
+              </p>
+              <p className="font-sans text-[14px] text-mutedInk leading-relaxed">
+                In everyday conversation, confabulation is harmless; in high-consequence enterprise workflows—such as filing an appeal under Section 197 of the CrPC or estimating Value-at-Risk under illiquid debt markets—a synthetic citation can dismantle an entire corporate defense.
               </p>
             </div>
-            <div className="mt-8 pt-4 bg-surface-container-low/60 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 z-10">
+
+            <div className="md:col-span-6 space-y-4">
+              <div className="flex items-center gap-2 text-charcoal font-mono text-xs tracking-wider uppercase font-semibold">
+                <span className="tabular-nums text-terracotta">§ 1.02</span>
+                <span>The GriZon Mandate: Decoupled Truth</span>
+              </div>
+              <p className="font-sans text-[14.5px] text-charcoal leading-relaxed">
+                We reject the notion that a single frontier foundation model should act as both prosecutor and judge, analyst and ledger. True institutional reliability demands the complete severance of the{' '}
+                <strong className="text-botanical font-semibold">reasoning engine</strong> from the{' '}
+                <strong className="text-botanical font-semibold">state of record</strong>.
+              </p>
+              <p className="font-sans text-[14px] text-mutedInk leading-relaxed">
+                GriZon treats LLMs strictly as conversational translators and structural orchestrators. Every assertion, numeric calculation, and judicial reference must be deterministically retrieved, cryptographically verified, and computed through sandboxed symbolic machinery prior to presentation.
+              </p>
+            </div>
+          </div>
+
+          {/* Editorial Axiom Callout Box */}
+          <div className="relative bg-surfacePure p-6 sm:p-8 rounded-xl border border-hairline shadow-xs overflow-hidden mt-2">
+            <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-terracotta"></div>
+            <div className="pl-3 sm:pl-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs uppercase tracking-wider text-terracotta font-semibold">
+                  Core Axiom
+                </span>
+                <span className="font-mono text-[11px] text-mutedInk">THE AXIOM OF FORMAL RESTRAINT</span>
+              </div>
+              <blockquote className="font-display text-xl sm:text-2xl text-charcoal leading-snug font-normal">
+                “Fluency is not evidence. A model that speaks with absolute poise about a non-existent statute is more hazardous than one that confesses ignorance.”
+              </blockquote>
+              <p className="font-sans text-xs text-mutedInk pt-1">
+                GriZon Foundation Research Paper: <em>Determinism Over Hallucinated Eloquence</em>, § 4.
+              </p>
+            </div>
+          </div>
+        </header>
+
+        {/* =====================================================================
+            2. UNIFIED ORCHESTRATION ARCHITECTURE DIAGRAM
+        ====================================================================== */}
+        <section className="flex flex-col gap-6">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-mutedInk font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-botanical"></span>
+              <span>System Topology</span>
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl text-charcoal tracking-tight font-normal">
+              Strict Bidirectional Decoupling
+            </h2>
+            <p className="font-sans text-sm text-mutedInk max-w-2xl">
+              Probabilistic cognitive synthesis layered strictly upon deterministic institutional ground truth.
+            </p>
+          </div>
+
+          {/* Architecture Main Canvas */}
+          <div className="w-full bg-surfaceMuted/50 p-6 md:p-8 rounded-xl border border-hairline shadow-xs space-y-8">
+            {/* Layer A Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm font-semibold">
-                  G
-                </div>
-                <div>
-                  <p className="font-body-md text-sm font-semibold text-on-surface">The GriZon Engineering Council</p>
-                  <p className="font-body-sm text-xs text-on-surface-variant">Bengaluru • Delhi NCR</p>
-                </div>
+                <span className="px-2.5 py-0.5 bg-botanical text-white rounded font-mono text-[10px] tracking-widest uppercase font-semibold">
+                  Layer A
+                </span>
+                <span className="font-display text-2xl text-charcoal font-medium">Cognitive Fabric</span>
               </div>
-              <span className="font-label-code text-label-code text-on-surface-variant bg-surface-card px-2.5 py-1 rounded border border-border-hairline">
-                SECURE DPDP-COMPLIANT NODE
+              <span className="font-mono text-xs text-mutedInk">
+                6 Frontier Reasoning Engines · Multi-Provider Routing
               </span>
             </div>
-            {/* Decorative subtle typography in background */}
-            <span className="absolute -right-6 -bottom-10 font-headline-lg text-[130px] text-surface-container-high/30 select-none pointer-events-none italic">
-              Sovereign
-            </span>
-          </div>
 
-          <div className="lg:col-span-5 flex flex-col gap-6 justify-between">
-            <div className="relative h-64 lg:h-auto flex-1 rounded-2xl overflow-hidden shadow-sm border border-border-hairline group">
-              <img
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-                alt="Modern serene workspace in India featuring a warm sunlit stone desk, ambient linen textures, a pristine minimalist monitor displaying agent graphs, warm saffron light glow, soft architectural brutalism."
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEvGwYR1u5USlp2o3BY5lA_YiVYmHB8AjVp7P95xHN2AeyJfcciSZYnqYPTjljsjHMCCLv5QOOtcy30bhKZs_5OLiUkBsATdjTFRKGHQHox4-PnLi3zYIEPI-v-EVQLv4SNK8f6pMFtyJNG8cwPMQs1lclj3ed1KVgx3gIEvgi_XvzJGP-dkjK1xmuMHNFZ5o2QP_8_70-MJrobVFm-O5ZyRhn-10jqsyT9jZTOhbr6ieYl35oMwTz"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent flex items-end p-4 sm:p-6">
-                <p className="font-body-sm text-xs sm:text-sm text-on-primary font-medium tracking-wide">
-                  Calm computing • Autonomous multi-agent orchestration
-                </p>
+            {/* 6 Frontier Providers Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Provider 1 */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs hover:border-mutedInk/40 transition-all flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-sans text-sm font-semibold text-charcoal">Anthropic</span>
+                    <span className="font-mono text-[11px] text-terracotta font-medium">Claude 3.5 Sonnet</span>
+                  </div>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Statutory analysis, judicial briefing, and meticulous contract drafting with strict logical guardrails.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-mutedInk font-mono text-[10px]">
+                  <span className="uppercase">Role: Legal Synthesis</span>
+                  <span className="w-2 h-2 rounded-full bg-botanical"></span>
+                </div>
+              </div>
+
+              {/* Provider 2 */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs hover:border-mutedInk/40 transition-all flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-sans text-sm font-semibold text-charcoal">Google Gemini</span>
+                    <span className="font-mono text-[11px] text-terracotta font-medium">1.5 Pro / Flash</span>
+                  </div>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Multi-million token corporate gazette ingestion, lengthy judicial records, and whole-corpus cross-referencing.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-mutedInk font-mono text-[10px]">
+                  <span className="uppercase">Role: Deep Context</span>
+                  <span className="w-2 h-2 rounded-full bg-botanical"></span>
+                </div>
+              </div>
+
+              {/* Provider 3 */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs hover:border-mutedInk/40 transition-all flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-sans text-sm font-semibold text-charcoal">xAI Grok</span>
+                    <span className="font-mono text-[11px] text-terracotta font-medium">Grok-2</span>
+                  </div>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Real-time regulatory shifts, fast social-sentiment correlation, and live breaking intelligence synthesis.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-mutedInk font-mono text-[10px]">
+                  <span className="uppercase">Role: Temporal Pulse</span>
+                  <span className="w-2 h-2 rounded-full bg-botanical"></span>
+                </div>
+              </div>
+
+              {/* Provider 4 */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs hover:border-mutedInk/40 transition-all flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-sans text-sm font-semibold text-charcoal">OpenAI</span>
+                    <span className="font-mono text-[11px] text-terracotta font-medium">GPT-4o</span>
+                  </div>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Multimodal corporate filing parsing, structural diagram interpretation, and complex ledger cross-checks.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-mutedInk font-mono text-[10px]">
+                  <span className="uppercase">Role: Multimodal Logic</span>
+                  <span className="w-2 h-2 rounded-full bg-botanical"></span>
+                </div>
+              </div>
+
+              {/* Provider 5 */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs hover:border-mutedInk/40 transition-all flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-sans text-sm font-semibold text-charcoal">DeepSeek</span>
+                    <span className="font-mono text-[11px] text-terracotta font-medium">DeepSeek R1</span>
+                  </div>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Pure algorithmic math, discrete multi-step chains-of-thought, and formal programmatic validation.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-mutedInk font-mono text-[10px]">
+                  <span className="uppercase">Role: Discrete Math</span>
+                  <span className="w-2 h-2 rounded-full bg-botanical"></span>
+                </div>
+              </div>
+
+              {/* Provider 6 */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs hover:border-mutedInk/40 transition-all flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-sans text-sm font-semibold text-charcoal">OpenRouter</span>
+                    <span className="font-mono text-[11px] text-terracotta font-medium">Mesh Routing</span>
+                  </div>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Zero-downtime sovereign multi-model failover with dynamic latency, cost, and rate-limit arbitration.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-mutedInk font-mono text-[10px]">
+                  <span className="uppercase">Role: Sovereign Resiliency</span>
+                  <span className="w-2 h-2 rounded-full bg-botanical"></span>
+                </div>
               </div>
             </div>
-            <div className="p-6 rounded-2xl bg-surface-card shadow-sm border border-border-hairline flex items-center justify-between gap-4">
-              <div>
-                <p className="font-headline-sm text-base sm:text-lg text-on-surface font-semibold">Precision-Tuned Engines</p>
-                <p className="font-body-sm text-xs sm:text-sm text-on-surface-variant">Isolated execution envelopes for total enterprise data safety.</p>
-              </div>
-              <div className="w-12 h-12 rounded-full bg-saffron-glow/15 flex items-center justify-center text-secondary shrink-0">
-                <span className="material-symbols-outlined text-[24px]">hub</span>
+
+            {/* Conduit: Zero-Hallucination Bus (Bidirectional Bridge) */}
+            <div className="relative py-2">
+              <div className="bg-surfacePure p-5 rounded-xl border border-hairline shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-botanical flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-white text-[18px]">sync_alt</span>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-semibold uppercase tracking-wider text-charcoal">
+                        Zero-Hallucination Isolation Bus
+                      </span>
+                      <span className="px-2 py-0.5 bg-terracotta-soft text-terracotta rounded text-[10px] font-mono uppercase font-semibold border border-terracotta/20">
+                        Active Interlock
+                      </span>
+                    </div>
+                    <div className="font-sans text-xs text-mutedInk mt-0.5">
+                      Translates speculative intent into deterministic SQL, SPARQL &amp; Python AST queries
+                    </div>
+                  </div>
+                </div>
+
+                {/* Flow Indicators */}
+                <div className="flex items-center gap-6 font-mono text-xs">
+                  <div className="flex items-center gap-1.5 text-mutedInk">
+                    <span className="material-symbols-outlined text-terracotta text-[16px]">arrow_downward</span>
+                    <span>Structured Requests</span>
+                  </div>
+                  <div className="h-4 w-px bg-hairline"></div>
+                  <div className="flex items-center gap-1.5 text-charcoal font-medium">
+                    <span className="material-symbols-outlined text-botanical text-[16px]">arrow_upward</span>
+                    <span>Cryptographic Proofs &amp; Diffs</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* The 3 Core Pillars */}
-        <div className="mb-12 sm:mb-16">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
-            <div>
-              <span className="font-label-code text-label-code text-secondary tracking-widest uppercase">
-                FOUNDATIONAL ARCHITECTURE
+            {/* Layer B Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 pt-2">
+              <div className="flex items-center gap-3">
+                <span className="px-2.5 py-0.5 bg-terracotta text-white rounded font-mono text-[10px] tracking-widest uppercase font-semibold">
+                  Layer B
+                </span>
+                <span className="font-display text-2xl text-charcoal font-medium">Deterministic Ground Truth</span>
+              </div>
+              <span className="font-mono text-xs text-mutedInk">
+                Immutable Registries · Real-Time Market Tapes · Sandboxed Python
               </span>
-              <h3 className="font-display-hero text-2xl sm:text-3xl md:text-4xl text-primary mt-1 font-normal">
-                Core Pillars of GriZon
-              </h3>
             </div>
-            <p className="font-body-sm text-xs sm:text-sm text-on-surface-variant max-w-sm">
-              Designed for transparent governance, mathematical certainty, and effortless professional acceleration.
+
+            {/* Layer B Cards (4 Ground Truth Components) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* B1: Legal & Judicial */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs flex flex-col justify-between space-y-3">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] uppercase tracking-wide text-terracotta font-semibold">
+                      Judicial Verification
+                    </span>
+                    <span className="font-mono text-[10px] text-mutedInk">API MESH 01</span>
+                  </div>
+                  <h4 className="font-display text-xl text-charcoal font-medium">Indian Kanoon &amp; eCourts India</h4>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Direct lookup of 16-digit CNR case registers, Bench Order status, live cause lists, and Supreme Court precedent verification. No model is permitted to invent citations.
+                  </p>
+                </div>
+                <div className="bg-surfaceMuted p-2.5 rounded text-[11px] font-mono text-charcoal flex items-center justify-between border border-hairline">
+                  <code>cnr_lookup(state="DL", year="2024")</code>
+                  <span className="text-botanical font-semibold">99.98% Latency SLA</span>
+                </div>
+              </div>
+
+              {/* B2: Markets & Treasury */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs flex flex-col justify-between space-y-3">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] uppercase tracking-wide text-terracotta font-semibold">
+                      Financial Precision
+                    </span>
+                    <span className="font-mono text-[10px] text-mutedInk">API MESH 02</span>
+                  </div>
+                  <h4 className="font-display text-xl text-charcoal font-medium">NSE Option Chains &amp; Institutional Tapes</h4>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Sub-second feeds for tick data, Black-Scholes implied volatilities, delta/gamma Greeks, and open-interest strikes. Mental math by the LLM is strictly forbidden.
+                  </p>
+                </div>
+                <div className="bg-surfaceMuted p-2.5 rounded text-[11px] font-mono text-charcoal flex items-center justify-between border border-hairline">
+                  <code>fetch_nse_oi(expiry="2025-04-24")</code>
+                  <span className="text-botanical font-semibold">Deterministic Greeks</span>
+                </div>
+              </div>
+
+              {/* B3: Live Grounding */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs flex flex-col justify-between space-y-3">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] uppercase tracking-wide text-terracotta font-semibold">
+                      Web Provenance
+                    </span>
+                    <span className="font-mono text-[10px] text-mutedInk">API MESH 03</span>
+                  </div>
+                  <h4 className="font-display text-xl text-charcoal font-medium">Serper, Tavily &amp; Brave Web Indexes</h4>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Full-page crawl snapshots with sha256 cryptographic provenance, publication timestamp validation, and automated multi-source consensus scoring.
+                  </p>
+                </div>
+                <div className="bg-surfaceMuted p-2.5 rounded text-[11px] font-mono text-charcoal flex items-center justify-between border border-hairline">
+                  <code>sha256_verify(url, fetched_at)</code>
+                  <span className="text-botanical font-semibold">Immutable Provenance</span>
+                </div>
+              </div>
+
+              {/* B4: Compute */}
+              <div className="bg-surfacePure p-5 rounded-lg border border-hairline shadow-2xs flex flex-col justify-between space-y-3">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] uppercase tracking-wide text-terracotta font-semibold">
+                      Discrete Compute
+                    </span>
+                    <span className="font-mono text-[10px] text-mutedInk">API MESH 04</span>
+                  </div>
+                  <h4 className="font-display text-xl text-charcoal font-medium">Sandboxed Symbolic Python</h4>
+                  <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                    Isolated virtual execution environments running SymPy, NumPy, and SciPy. Every financial model, compound interest scenario, or amortization table is executed, not simulated.
+                  </p>
+                </div>
+                <div className="bg-surfaceMuted p-2.5 rounded text-[11px] font-mono text-charcoal flex items-center justify-between border border-hairline">
+                  <code>exec_sandbox(sympy.Matrix)</code>
+                  <span className="text-botanical font-semibold">Zero Mental Drift</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Architecture Footnote */}
+            <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 font-mono text-[11px] text-mutedInk border-t border-hairline">
+              <span>Figure 4.1: GriZon Decoupled Dual-Plane Execution Topology (Release 2.4).</span>
+              <span className="uppercase text-charcoal font-medium">Telemetry: 0 Inferences unverified</span>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================================
+            3. EPISTEMIC HONESTY & DOMAIN STANDARDS
+        ====================================================================== */}
+        <section className="flex flex-col gap-6">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-mutedInk font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
+              <span>Institutional Guarantees</span>
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl text-charcoal tracking-tight font-normal">
+              Epistemic Honesty Standards
+            </h2>
+            <p className="font-sans text-sm text-mutedInk max-w-2xl">
+              Three non-negotiable architectural mandates embedded into every routine, specialist, and autonomous dispatch.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Pillar 1: Who We Are */}
-            <div className="bg-surface-card p-6 sm:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline hover:-translate-y-0.5">
-              <div className="space-y-4">
+            {/* Standard 1 */}
+            <div className="bg-surfacePure p-7 rounded-xl border border-hairline shadow-xs flex flex-col justify-between space-y-6">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
-                    <span className="material-symbols-outlined text-[20px]">group_work</span>
-                  </span>
-                  <span className="font-label-code text-label-code text-on-surface-variant tracking-wider uppercase bg-surface-container px-2.5 py-1 rounded-full">
-                    01 • Identity
-                  </span>
+                  <span className="font-mono text-xs text-terracotta font-semibold uppercase">Protocol 01</span>
+                  <span className="material-symbols-outlined text-botanical text-[20px]">verified</span>
                 </div>
-                <div className="pt-2">
-                  <span className="font-label-code text-label-code text-agent-dev-studio uppercase tracking-widest block mb-1">
-                    Multi-Agent Workspace
-                  </span>
-                  <h4 className="font-headline-md text-xl text-primary font-semibold">Who We Are</h4>
-                </div>
-                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
-                  GriZon AI is a multi-agent workspace with purpose-built specialised agents for research, coding, documents, markets, architecture, and video. We build for creators, developers, analysts, and professionals who want the right agent for the job — not a generic chatbot.
+                <h3 className="font-display text-xl text-charcoal font-medium">Source Grounding &amp; Tri-Tier Classification</h3>
+                <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                  Every sentence rendered by GriZon is tagged with an epistemic provenance tier. The client always knows whether a clause is proven, derived, or inferred.
                 </p>
               </div>
-              <Link
-                to="/agents"
-                className="mt-6 pt-2 flex items-center gap-2 text-on-surface font-body-sm text-xs font-semibold hover:text-primary transition-colors"
-              >
-                <span>Explore Agent Matrix</span>
-                <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </Link>
+              <div className="space-y-1.5 pt-2 font-mono text-[11px]">
+                <div className="flex items-center justify-between p-2 bg-surfaceMuted rounded border border-hairline">
+                  <span className="font-medium text-charcoal">Confirmed Fact</span>
+                  <span className="text-mutedInk">Direct API Hash</span>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-surfaceMuted rounded border border-hairline">
+                  <span className="font-medium text-charcoal">Derived Metric</span>
+                  <span className="text-mutedInk">Computed Sandbox</span>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-terracotta-soft text-terracotta rounded border border-terracotta/20 font-medium">
+                  <span>Inferred Hypothesis</span>
+                  <span className="text-mutedInk">Marked Speculation</span>
+                </div>
+              </div>
             </div>
 
-            {/* Pillar 2: Our Mission */}
-            <div className="bg-surface-card p-6 sm:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline hover:-translate-y-0.5">
-              <div className="space-y-4">
+            {/* Standard 2 */}
+            <div className="bg-surfacePure p-7 rounded-xl border border-hairline shadow-xs flex flex-col justify-between space-y-6">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
-                    <span className="material-symbols-outlined text-[20px]">alt_route</span>
-                  </span>
-                  <span className="font-label-code text-label-code text-on-surface-variant tracking-wider uppercase bg-surface-container px-2.5 py-1 rounded-full">
-                    02 • Purpose
-                  </span>
+                  <span className="font-mono text-xs text-terracotta font-semibold uppercase">Protocol 02</span>
+                  <span className="material-symbols-outlined text-botanical text-[20px]">balance</span>
                 </div>
-                <div className="pt-2">
-                  <span className="font-label-code text-label-code text-secondary uppercase tracking-widest block mb-1">
-                    Adaptive Auto-Routing
-                  </span>
-                  <h4 className="font-headline-md text-xl text-primary font-semibold">Our Mission</h4>
-                </div>
-                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
-                  We believe AI should be accessible, transparent, and reliable. Auto Mode routes each request to the best eligible agent on your plan, or you can pick from the catalogue — Fast Research, Dev Studio, Data &amp; Market Analyst, Video Analyser, and more — so you stay focused on the work.
+                <h3 className="font-display text-xl text-charcoal font-medium">Statutory Temporal Migration</h3>
+                <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                  Native reconciliation for India’s transformative criminal code overhaul effective 1 July 2024. GriZon enforces continuous cross-temporal validity checks.
                 </p>
               </div>
-              <Link
-                to="/#features"
-                className="mt-6 pt-2 flex items-center gap-2 text-on-surface font-body-sm text-xs font-semibold hover:text-secondary transition-colors"
-              >
-                <span>Inspect Auto Mode</span>
-                <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </Link>
+              <div className="space-y-1.5 pt-2 font-mono text-[11px]">
+                <div className="flex items-center justify-between p-2 bg-surfaceMuted rounded border border-hairline">
+                  <span className="font-medium text-charcoal">IPC → BNS 2023</span>
+                  <span className="text-mutedInk">Auto Re-indexed</span>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-surfaceMuted rounded border border-hairline">
+                  <span className="font-medium text-charcoal">CrPC → BNSS 2023</span>
+                  <span className="text-mutedInk">Procedural Sync</span>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-surfaceMuted rounded border border-hairline">
+                  <span className="font-medium text-charcoal">IEA → BSA 2023</span>
+                  <span className="text-mutedInk">Evidence Rule Diff</span>
+                </div>
+              </div>
             </div>
 
-            {/* Pillar 3: Why GriZon AI */}
-            <div className="bg-surface-card p-6 sm:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between group border border-border-hairline hover:-translate-y-0.5">
-              <div className="space-y-4">
+            {/* Standard 3 */}
+            <div className="bg-surfacePure p-7 rounded-xl border border-hairline shadow-xs flex flex-col justify-between space-y-6">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-agent-deep-research group-hover:bg-agent-deep-research group-hover:text-on-primary transition-colors">
-                    <span className="material-symbols-outlined text-[20px]">verified_user</span>
-                  </span>
-                  <span className="font-label-code text-label-code text-on-surface-variant tracking-wider uppercase bg-surface-container px-2.5 py-1 rounded-full">
-                    03 • Integrity
-                  </span>
+                  <span className="font-mono text-xs text-terracotta font-semibold uppercase">Protocol 03</span>
+                  <span className="material-symbols-outlined text-botanical text-[20px]">show_chart</span>
                 </div>
-                <div className="pt-2">
-                  <span className="font-label-code text-label-code text-agent-deep-research uppercase tracking-widest block mb-1">
-                    Enterprise Cryptography &amp; Trust
-                  </span>
-                  <h4 className="font-headline-md text-xl text-primary font-semibold">Why GriZon AI</h4>
-                </div>
-                <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
-                  One workspace for specialised agents, file uploads, citations, and downloadable artifacts. Transparent credit plans from Free to Elite, data privacy first, and encryption for your conversations and files. We’re here to simplify your AI workflow so you can focus on what matters.
+                <h3 className="font-display text-xl text-charcoal font-medium">Financial Invalidation Criteria</h3>
+                <p className="font-sans text-xs text-mutedInk leading-relaxed">
+                  No financial thesis may be output without its mathematical negation. GriZon guarantees balanced Bull and Bear confluence with explicit thresholds.
                 </p>
               </div>
-              <Link
-                to="/#pricing"
-                className="mt-6 pt-2 flex items-center gap-2 text-on-surface font-body-sm text-xs font-semibold hover:text-agent-deep-research transition-colors"
-              >
-                <span>Read Trust Paper</span>
-                <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </Link>
+              <div className="space-y-1.5 pt-2 font-mono text-[11px]">
+                <div className="flex items-center justify-between p-2 bg-surfaceMuted rounded border border-hairline">
+                  <span className="font-medium text-charcoal">Bull Thesis</span>
+                  <span className="text-mutedInk">Catalyst Triggers</span>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-surfaceMuted rounded border border-hairline">
+                  <span className="font-medium text-charcoal">Bear Thesis</span>
+                  <span className="text-mutedInk">Downside Confluence</span>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-terracotta-soft text-terracotta rounded border border-terracotta/20 font-medium">
+                  <span>Invalidation Level</span>
+                  <span className="text-mutedInk">Hard Math Cutoff</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Key Verified Metrics Strip */}
-        <div className="mb-12 sm:mb-16 bg-surface-card rounded-2xl p-6 sm:p-8 shadow-sm border border-border-hairline">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center sm:text-left">
-            {/* Metric 1 */}
-            <div className="p-2 sm:p-4 flex flex-col justify-center">
-              <span className="font-headline-lg text-3xl sm:text-[44px] text-primary leading-none font-normal">8</span>
-              <span className="font-body-md text-sm sm:text-base font-semibold text-on-surface mt-2">Specialised Agents</span>
-              <span className="font-body-sm text-xs text-on-surface-variant">Purpose-built workflows</span>
+        {/* =====================================================================
+            INTERACTIVE EPISTEMIC DIFF DEMONSTRATION
+        ====================================================================== */}
+        <section className="bg-surfacePure p-6 md:p-8 rounded-xl border border-hairline shadow-xs flex flex-col gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-hairline">
+            <div>
+              <span className="font-mono text-xs text-terracotta uppercase font-semibold">Interactive Exemplar</span>
+              <h3 className="font-display text-2xl text-charcoal font-medium">The Epistemic Diff in Practice</h3>
             </div>
-            {/* Metric 2 */}
-            <div className="p-2 sm:p-4 flex flex-col justify-center">
-              <span className="font-headline-lg text-3xl sm:text-[44px] text-secondary leading-none font-normal">Auto</span>
-              <span className="font-body-md text-sm sm:text-base font-semibold text-on-surface mt-2">Smart Routing</span>
-              <span className="font-body-sm text-xs text-on-surface-variant">Dispatches by query intent</span>
-            </div>
-            {/* Metric 3 */}
-            <div className="p-2 sm:p-4 flex flex-col justify-center">
-              <span className="font-headline-lg text-3xl sm:text-[44px] text-agent-dev-studio leading-none font-normal">100%</span>
-              <span className="font-body-md text-sm sm:text-base font-semibold text-on-surface mt-2">Transparent Credits</span>
-              <span className="font-body-sm text-xs text-on-surface-variant">Visible in your wallet</span>
-            </div>
-            {/* Metric 4 */}
-            <div className="p-2 sm:p-4 flex flex-col justify-center">
-              <span className="font-headline-lg text-3xl sm:text-[44px] text-primary leading-none font-normal">256-bit</span>
-              <span className="font-body-md text-sm sm:text-base font-semibold text-on-surface mt-2">Data Privacy</span>
-              <span className="font-body-sm text-xs text-on-surface-variant">Zero model training</span>
+            <div className="flex items-center gap-1.5 bg-surfaceMuted p-1 rounded-lg border border-hairline">
+              <button
+                type="button"
+                onClick={() => setDiffMode('ungrounded')}
+                className={`px-3 py-1 font-mono text-xs rounded transition-all cursor-pointer ${
+                  diffMode === 'ungrounded'
+                    ? 'bg-surfacePure text-charcoal font-semibold shadow-2xs border border-hairline'
+                    : 'text-mutedInk hover:text-charcoal'
+                }`}
+              >
+                Standard LLM
+              </button>
+              <button
+                type="button"
+                onClick={() => setDiffMode('grizon')}
+                className={`px-3 py-1 font-mono text-xs rounded transition-all cursor-pointer ${
+                  diffMode === 'grizon'
+                    ? 'bg-botanical text-white font-semibold shadow-2xs'
+                    : 'text-mutedInk hover:text-charcoal'
+                }`}
+              >
+                GriZon Architecture
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* Agent Family Taxonomy Showcase */}
-        <div className="mb-12 sm:mb-16 bg-surface-container-low/70 rounded-2xl p-6 sm:p-10 border border-border-hairline">
-          <div className="max-w-2xl mb-8">
-            <span className="font-label-code text-label-code text-agent-deep-research uppercase tracking-widest font-semibold">
-              ECOSYSTEM SPECIALIZATIONS
+          {/* Mode 1: Ungrounded Standard */}
+          {diffMode === 'ungrounded' && (
+            <div className="space-y-4 animate-in fade-in duration-200">
+              <div className="p-5 bg-red-50/60 border border-red-200/60 rounded-lg space-y-2">
+                <div className="flex items-center justify-between text-red-700 font-mono text-xs font-semibold">
+                  <span className="flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[16px]">warning</span>
+                    Synthetic Confidence Hazard
+                  </span>
+                  <span>Unverified Output</span>
+                </div>
+                <p className="font-sans text-[14px] text-charcoal italic leading-relaxed">
+                  “Under Section 302 of the Indian Penal Code, bail cannot be granted by the Metropolitan Magistrate. Furthermore, the petitioner’s petition under Section 439 of the CrPC is rendered void by the decision in <em>State v. Kumar (2024 SC 1982)</em>.”
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-mutedInk font-sans text-xs">
+                <div className="p-3 bg-red-50/80 rounded border border-red-200/50 text-red-900">
+                  <strong>Critical Defect:</strong> Cites IPC post-July 1 2024 instead of Bharatiya Nyaya Sanhita (BNS Section 103).
+                </div>
+                <div className="p-3 bg-red-50/80 rounded border border-red-200/50 text-red-900">
+                  <strong>Hallucination:</strong> Citation <em>State v. Kumar (2024 SC 1982)</em> does not exist in eCourts registry.
+                </div>
+                <div className="p-3 bg-red-50/80 rounded border border-red-200/50 text-red-900">
+                  <strong>Liability:</strong> Filing this in court triggers immediate rejection and punitive judicial reprimand.
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Mode 2: GriZon Grounded */}
+          {diffMode === 'grizon' && (
+            <div className="space-y-4 animate-in fade-in duration-200">
+              <div className="p-5 bg-botanical text-white rounded-lg space-y-3 shadow-xs">
+                <div className="flex items-center justify-between text-emerald-200 font-mono text-xs font-semibold">
+                  <span className="flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[16px]">verified</span>
+                    Decoupled Ground-Truth Output
+                  </span>
+                  <span className="tabular-nums">CNR: DLHC01-089211-2024 · VERIFIED</span>
+                </div>
+                <div className="font-sans text-[14px] space-y-2 text-white/95 leading-relaxed">
+                  <p>
+                    Under <strong className="text-white underline decoration-dotted font-semibold">BNS Section 103 (replaces IPC 302)</strong>, the offense is cognizable and non-bailable.
+                  </p>
+                  <p className="text-xs text-white/90">
+                    Pursuant to <strong className="text-white underline decoration-dotted font-semibold">BNSS Section 483 (replaces CrPC 439)</strong>, the Special Court retains jurisdiction. Real-time Kanoon verification reveals controlling precedent is <em>Ramesh Chandra v. State (NCT of Delhi) [2024 INSC 742]</em>.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-sans text-xs">
+                <div className="p-3 bg-surfaceMuted rounded border border-hairline text-charcoal">
+                  <strong>Temporal Map:</strong> Automatic translation applied for 1 July 2024 criminal code transition.
+                </div>
+                <div className="p-3 bg-surfaceMuted rounded border border-hairline text-charcoal">
+                  <strong>CNR Proof:</strong> Precedent authenticated with SHA-256 Kanoon bench order archive.
+                </div>
+                <div className="p-3 bg-surfaceMuted rounded border border-hairline text-charcoal">
+                  <strong>Audit Guarantee:</strong> Ready for signed institutional filing without human remedial drafting.
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* =====================================================================
+            4. CONCLUDING EDITORIAL MONOGRAPH QUOTE
+        ====================================================================== */}
+        <footer className="pt-8 border-t border-hairline flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
+          <div className="w-12 h-0.5 bg-terracotta"></div>
+          <blockquote className="font-display text-2xl sm:text-3xl text-charcoal italic leading-relaxed font-normal">
+            “An intellectual tool must never pretend to know what it has not verified. In high-consequence enterprise, modesty in assertion is the foundation of institutional power.”
+          </blockquote>
+          <div className="flex flex-col items-center space-y-1">
+            <span className="font-mono text-xs tracking-widest uppercase text-terracotta font-semibold">
+              The GriZon Monograph Series
             </span>
-            <h3 className="font-display-hero text-2xl sm:text-3xl text-primary mt-1 font-normal">
-              A catalogue engineered for high-rigor domain outputs
-            </h3>
-            <p className="font-body-md text-sm text-on-surface-variant mt-2 leading-relaxed">
-              No single neural backbone satisfies all problem spaces. GriZon decouples tasks into purpose-instantiated agents with dedicated context memory and custom toolings.
-            </p>
+            <span className="font-sans text-xs text-mutedInk">Volume I · Treatises on Cognitive Determinism &amp; Indian Law</span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-surface-card p-5 rounded-xl shadow-xs flex flex-col justify-between border border-border-hairline">
-              <div>
-                <div className="w-8 h-8 rounded-full bg-agent-deep-research/10 text-agent-deep-research flex items-center justify-center mb-3">
-                  <span className="material-symbols-outlined text-[18px]">travel_explore</span>
-                </div>
-                <h4 className="font-headline-sm text-base text-primary font-semibold">Fast &amp; Deep Research</h4>
-                <p className="font-body-sm text-xs text-on-surface-variant mt-1.5 leading-relaxed">
-                  Multi-hop synthesis with peer-reviewed source validation.
-                </p>
-              </div>
-              <span className="font-label-code text-[11px] text-on-surface-variant mt-4 pt-2 border-t border-border-hairline/60 block">
-                128k Live Citations
-              </span>
-            </div>
-            <div className="bg-surface-card p-5 rounded-xl shadow-xs flex flex-col justify-between border border-border-hairline">
-              <div>
-                <div className="w-8 h-8 rounded-full bg-agent-dev-studio/10 text-agent-dev-studio flex items-center justify-center mb-3">
-                  <span className="material-symbols-outlined text-[18px]">terminal</span>
-                </div>
-                <h4 className="font-headline-sm text-base text-primary font-semibold">Dev Studio</h4>
-                <p className="font-body-sm text-xs text-on-surface-variant mt-1.5 leading-relaxed">
-                  Production AST linting, test suites, and multi-file refactoring.
-                </p>
-              </div>
-              <span className="font-label-code text-[11px] text-on-surface-variant mt-4 pt-2 border-t border-border-hairline/60 block">
-                Sandboxed Execution
-              </span>
-            </div>
-            <div className="bg-surface-card p-5 rounded-xl shadow-xs flex flex-col justify-between border border-border-hairline">
-              <div>
-                <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mb-3">
-                  <span className="material-symbols-outlined text-[18px]">query_stats</span>
-                </div>
-                <h4 className="font-headline-sm text-base text-primary font-semibold">Market &amp; Data Analyst</h4>
-                <p className="font-body-sm text-xs text-on-surface-variant mt-1.5 leading-relaxed">
-                  Quantitative balance-sheet modeling and macro indicators.
-                </p>
-              </div>
-              <span className="font-label-code text-[11px] text-on-surface-variant mt-4 pt-2 border-t border-border-hairline/60 block">
-                Instant SVG Visualizer
-              </span>
-            </div>
-            <div className="bg-surface-card p-5 rounded-xl shadow-xs flex flex-col justify-between border border-border-hairline">
-              <div>
-                <div className="w-8 h-8 rounded-full bg-agent-legal/10 text-agent-legal flex items-center justify-center mb-3">
-                  <span className="material-symbols-outlined text-[18px]">play_circle</span>
-                </div>
-                <h4 className="font-headline-sm text-base text-primary font-semibold">Video &amp; Doc Analyser</h4>
-                <p className="font-body-sm text-xs text-on-surface-variant mt-1.5 leading-relaxed">
-                  Frame-by-frame scene indexing, OCR extraction, and legal digest.
-                </p>
-              </div>
-              <span className="font-label-code text-[11px] text-on-surface-variant mt-4 pt-2 border-t border-border-hairline/60 block">
-                Up to 2GB Artifacts
-              </span>
-            </div>
-          </div>
-        </div>
 
-        {/* Start Free CTA Card (Obsidian sovereign deployment banner) */}
-        <div className="relative w-full rounded-2xl bg-primary text-on-primary p-8 sm:p-12 overflow-hidden shadow-xl">
-          {/* Chromatic Accent Auras inside Card */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-secondary-container/20 rounded-full blur-[80px] pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-tertiary-fixed-dim/15 rounded-full blur-[80px] pointer-events-none" />
-          <div className="relative z-10 max-w-3xl flex flex-col items-start gap-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-highest/10 text-saffron-glow">
-              <span className="w-1.5 h-1.5 rounded-full bg-saffron-glow animate-ping" />
-              <span className="font-label-code text-label-code uppercase tracking-widest font-semibold">
-                Continuous Multi-Agent Inference
-              </span>
-            </div>
-            <h3 className="font-display-hero text-2xl sm:text-3xl md:text-4xl text-on-primary font-normal tracking-tight">
-              Ready for agents that fit the job?
-            </h3>
-            <p className="font-body-lg text-sm sm:text-base text-on-primary-container max-w-2xl leading-relaxed">
-              Start free with Auto Mode today, then unlock specialised agents for research, code, markets, docs, and video.
-            </p>
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-surface-card text-primary font-body-md text-sm font-semibold hover:bg-surface-bright hover:scale-[1.015] active:scale-[0.99] transition-all shadow-md"
-                href="https://app.grizonai.com"
-              >
-                <span>Start with AI Free</span>
-                <span className="text-secondary font-bold">⚡</span>
-              </a>
-              <Link
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary-container/80 text-on-primary font-body-md text-sm font-medium hover:bg-primary-container transition-all"
-                to="/#pricing"
-              >
-                <span>View Plans</span>
-                <span className="material-symbols-outlined text-[18px] ml-1.5">north_east</span>
-              </Link>
-            </div>
-            <div className="flex items-center gap-2 pt-2 font-body-sm text-xs text-on-primary-container/80">
-              <span className="material-symbols-outlined text-[15px] text-saffron-glow">check_circle</span>
-              <span>No credit card required • Instant sandbox deployment</span>
-            </div>
+          <div className="pt-3 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to="/agents"
+              className="inline-flex items-center justify-center bg-botanical text-white hover:bg-botanical-dark px-5 py-2.5 rounded-full font-sans text-xs font-medium transition-all shadow-xs"
+            >
+              Examine the 10 Specialists
+            </Link>
+            <Link
+              to="/workflow"
+              className="inline-flex items-center justify-center bg-surfacePure border border-hairline text-charcoal hover:bg-surfaceMuted px-5 py-2.5 rounded-full font-sans text-xs font-medium transition-all shadow-xs"
+            >
+              Inspect Memory &amp; Routines Engine
+            </Link>
           </div>
-        </div>
-      </div>
+        </footer>
+      </main>
     </div>
   );
 }

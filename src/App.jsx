@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -12,15 +12,25 @@ import ResearchAgents from './pages/agents/ResearchAgents';
 import DevStudio from './pages/agents/DevStudio';
 import DocIntelligence from './pages/agents/DocIntelligence';
 import AppDashboard from './pages/AppDashboard';
-import IndusDashboard from './pages/IndusDashboard';
+import Welcome from './pages/Welcome';
+import Workflow from './pages/Workflow';
+import Pricing from './pages/Pricing';
 
-function App() {
+function AppLayout() {
+  const location = useLocation();
+  // Part B app screens have their own dedicated utility headers and full-screen layouts
+  const isPartBWorkspace =
+    location.pathname.startsWith('/app') || location.pathname.startsWith('/welcome');
+
   return (
-    <Router>
+    <>
       <ScrollToTop />
-      <Navbar />
-      <main style={{ minHeight: '80vh' }}>
+      {!isPartBWorkspace && <Navbar />}
+      <main style={{ minHeight: isPartBWorkspace ? '100vh' : '80vh' }}>
         <Routes>
+          {/* =========================================================
+              PART A: MULTIPAGE PUBLIC MARKETING WEBSITE
+          ========================================================== */}
           {/* 1. PRIMARY ENTRY / MAIN LANDING PAGE */}
           <Route path="/" element={<Home />} />
 
@@ -34,18 +44,43 @@ function App() {
           <Route path="/agents/video-analyser" element={<DocIntelligence defaultModal="video" />} />
           <Route path="/agents/legal" element={<LegalAgent />} />
 
-          {/* 3. COMPANY MISSION & ABOUT */}
+          {/* 3. ROUTINES, MEMORY & PROJECTS */}
+          <Route path="/workflow" element={<Workflow />} />
+          <Route path="/routines" element={<Workflow />} />
+          <Route path="/tasks" element={<Workflow />} />
+
+          {/* 4. PRICING & CREDIT ECONOMY */}
+          <Route path="/pricing" element={<Pricing />} />
+
+          {/* 5. COMPANY MISSION & PHILOSOPHY */}
           <Route path="/about" element={<About />} />
           <Route path="/indus" element={<About />} />
 
-          {/* 5. LIVE AI APP WORKSPACE */}
-          <Route path="/app" element={<AppDashboard />} />
+          {/* =========================================================
+              PART B: LOGGED-IN END-USER WEB APPLICATION WORKSPACE
+          ========================================================== */}
+          {/* SCREEN 1: 60-SECOND PROFILE MEMORY ONBOARDING */}
+          <Route path="/welcome" element={<Welcome />} />
 
-          {/* 6. FALLBACK: Any unknown URL smoothly redirects to Home */}
+          {/* SCREEN 2: THREE-PANE UNIFIED COMMAND WORKSPACE */}
+          <Route path="/app" element={<AppDashboard />} />
+          <Route path="/app/tasks" element={<AppDashboard />} />
+          <Route path="/app/projects" element={<AppDashboard />} />
+          <Route path="/app/settings" element={<AppDashboard />} />
+
+          {/* FALLBACK: Any unknown URL smoothly redirects to Home */}
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
-      <Footer />
+      {!isPartBWorkspace && <Footer />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppLayout />
     </Router>
   );
 }

@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grizon — Ten Specialist Minds That Know Your Context</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Newsreader (Editorial Serif), Plus Jakarta Sans (Humanist Sans), JetBrains Mono (Subtle Citations) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'Cambria', 'serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            paper: {
+              DEFAULT: '#FAF9F5',
+              soft: '#F2EFE9',
+              warm: '#EBE6DC',
+            },
+            surface: {
+              DEFAULT: '#FFFFFF',
+            },
+            ink: {
+              DEFAULT: '#18181B',
+              secondary: '#52525B',
+              muted: '#71717A',
+            },
+            hairline: {
+              DEFAULT: '#E6E4DD',
+              dark: '#D5D1C8',
+            },
+            botanical: {
+              DEFAULT: '#1E3A3A',
+              hover: '#152A2A',
+              soft: '#EBF1F0',
+            },
+            terracotta: {
+              DEFAULT: '#D97736',
+              soft: '#FDF3EC',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #FAF9F5;
+      --bg-soft: #F2EFE9;
+      --surface: #FFFFFF;
+      --text: #18181B;
+      --text-secondary: #52525B;
+      --text-muted: #71717A;
+      --border: #E6E4DD;
+      --primary: #1E3A3A;
+      --accent: #D97736;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Expressive Editorial Typography */
+    .editorial-display {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(2.5rem, 4.6vw + 0.5rem, 4.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+    }
+
+    .editorial-h2 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(2rem, 3.2vw + 0.4rem, 3.1rem);
+      line-height: 1.14;
+      letter-spacing: -0.015em;
+      font-weight: 400;
+    }
+
+    .editorial-h3 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(1.45rem, 2vw + 0.25rem, 2rem);
+      line-height: 1.22;
+      font-weight: 400;
+    }
+
+    /* Smooth Page Transitions */
+    .page-view {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 360ms cubic-bezier(0.16, 1, 0.3, 1), transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .page-view.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Inline Sentence Select Styling */
+    .sentence-select {
+      appearance: none;
+      background-color: transparent;
+      border-bottom: 2px solid #D97736;
+      color: #1E3A3A;
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      padding: 0 0.35rem 0.05rem 0.35rem;
+      cursor: pointer;
+      transition: background-color 180ms ease, border-color 180ms ease;
+    }
+    .sentence-select:hover, .sentence-select:focus {
+      background-color: #FDF3EC;
+      outline: none;
+      border-bottom-color: #1E3A3A;
+    }
+
+    /* Minimalist Range Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #E6E4DD;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #1E3A3A;
+      border: 3px solid #FAF9F5;
+      box-shadow: 0 2px 6px rgba(24, 24, 27, 0.2);
+      cursor: pointer;
+      transition: transform 150ms ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page-view { transition: none; transform: none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-terracotta-soft selection:text-botanical">
+
+  <!-- =====================================================================
+       CALM, UNCROWDED EDITORIAL NAVIGATION
+  ====================================================================== -->
+  <header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-md border-b border-hairline">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Wordmark -->
+      <button data-nav="home" class="text-left focus:outline-none group flex items-baseline gap-1">
+        <span class="font-serif text-2xl sm:text-3xl tracking-tight text-ink">Grizon</span>
+        <span class="w-2 h-2 rounded-full bg-terracotta inline-block group-hover:scale-125 transition-transform"></span>
+      </button>
+
+      <!-- 5 Calm Navigation Links (Desktop) -->
+      <nav aria-label="Primary Navigation" class="hidden md:flex items-center gap-8">
+        <button data-nav="home" class="nav-link text-sm font-medium text-ink border-b-2 border-botanical pb-1 transition-colors">
+          Home
+        </button>
+        <button data-nav="agents" class="nav-link text-sm font-medium text-ink-secondary hover:text-ink pb-1 border-b-2 border-transparent transition-colors">
+          The 10 Specialists
+        </button>
+        <button data-nav="tasks" class="nav-link text-sm font-medium text-ink-secondary hover:text-ink pb-1 border-b-2 border-transparent transition-colors">
+          Routines &amp; Memory
+        </button>
+        <button data-nav="pricing" class="nav-link text-sm font-medium text-ink-secondary hover:text-ink pb-1 border-b-2 border-transparent transition-colors">
+          Pricing
+        </button>
+        <button data-nav="about" class="nav-link text-sm font-medium text-ink-secondary hover:text-ink pb-1 border-b-2 border-transparent transition-colors">
+          Our Philosophy
+        </button>
+      </nav>
+
+      <!-- Primary Action -->
+      <div class="flex items-center gap-3">
+        <button id="open-drawer-btn" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white bg-botanical hover:bg-botanical-hover transition-colors shadow-xs">
+          <span>Start Your Workspace</span>
+        </button>
+        <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="md:hidden p-2.5 rounded-full border border-hairline text-ink hover:bg-paper-soft">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu-panel" class="hidden md:hidden border-t border-hairline bg-paper px-6 py-6 space-y-4">
+      <div class="flex flex-col space-y-3">
+        <button data-nav="home" class="mobile-link text-left text-base font-serif text-ink">Home</button>
+        <button data-nav="agents" class="mobile-link text-left text-base font-serif text-ink-secondary">The 10 Specialists</button>
+        <button data-nav="tasks" class="mobile-link text-left text-base font-serif text-ink-secondary">Routines &amp; Memory</button>
+        <button data-nav="pricing" class="mobile-link text-left text-base font-serif text-ink-secondary">Pricing</button>
+        <button data-nav="about" class="mobile-link text-left text-base font-serif text-ink-secondary">Our Philosophy</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN MULTIPAGE CONTENT CONTAINER
+  ====================================================================== -->
+  <main class="flex-grow">
+
+    <!-- ===================================================================
+         PAGE 1: HOME
+    ==================================================================== -->
+    <section id="page-home" class="page-view active">
+      
+      <!-- HERO SECTION: Breathable Editorial Storytelling -->
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-24 md:pt-24 md:pb-32">
+        <div class="max-w-3xl">
+          <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold mb-5">
+            Personal Intelligence &amp; Autonomous Routines
+          </p>
+          <h1 class="editorial-display text-ink">
+            Work with ten specialist minds that <em class="italic text-botanical">already know</em> your context.
+          </h1>
+          <p class="text-lg sm:text-xl text-ink-secondary mt-7 leading-relaxed font-normal">
+            When you join Grizon, you tell us about your work once. From then on—whether you are studying Indian derivatives before the opening bell, checking a High Court case status, designing a product interface, or scheduling a morning research briefing—Grizon remembers your preferences, consults the right specialist, and brings back verified work.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 mt-10">
+            <button id="hero-start-btn" class="px-7 py-3.5 rounded-full text-sm font-medium text-white bg-botanical hover:bg-botanical-hover transition-all">
+              Set Up Your Profile Memory
+            </button>
+            <button data-nav="agents" class="px-7 py-3.5 rounded-full text-sm font-medium text-ink border border-hairline-dark hover:bg-paper-soft transition-all">
+              Meet the 10 Specialists →
+            </button>
+          </div>
+        </div>
+
+        <!-- SERENE INTERACTIVE CONVERSATION PREVIEW (Replaces Robotic Flowchart) -->
+        <div class="mt-20 md:mt-24">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-hairline">
+            <div>
+              <span class="text-xs uppercase tracking-widest text-ink-muted">Live Conversation Preview</span>
+              <h2 class="font-serif text-2xl text-ink mt-1">See how a single request unfolds with memory and live sources</h2>
+            </div>
+            <!-- 3 Relatable Real-Life Scenario Switchers -->
+            <div class="flex flex-wrap gap-2" id="home-scenario-tabs">
+              <button data-scenario="market" class="scenario-tab px-4 py-2 rounded-full text-xs font-medium bg-botanical text-white transition-all">
+                1. Morning Market Briefing
+              </button>
+              <button data-scenario="legal" class="scenario-tab px-4 py-2 rounded-full text-xs font-medium bg-paper-soft text-ink-secondary hover:text-ink transition-all">
+                2. Delhi High Court Case Check
+              </button>
+              <button data-scenario="architect" class="scenario-tab px-4 py-2 rounded-full text-xs font-medium bg-paper-soft text-ink-secondary hover:text-ink transition-all">
+                3. Pragmatic System Review
+              </button>
+            </div>
+          </div>
+
+          <!-- Editorial Briefing Canvas -->
+          <div class="mt-8 bg-surface rounded-2xl border border-hairline p-6 sm:p-10 md:p-12 shadow-xs">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              
+              <!-- Left Column: The Human Prompt & Remembered Context -->
+              <div class="lg:col-span-5 space-y-8 lg:border-r lg:border-hairline lg:pr-10">
+                <div>
+                  <span class="text-xs uppercase tracking-wider text-ink-muted block mb-2">What you asked</span>
+                  <p id="scenario-prompt" class="font-serif text-2xl text-ink italic leading-snug">
+                    “Brief me on RELIANCE and the 3000 Call option before the market opens.”
+                  </p>
+                </div>
+
+                <div class="pt-6 border-t border-hairline">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+                    <span class="text-xs uppercase tracking-wider text-ink font-semibold">What Grizon already remembers about you</span>
+                  </div>
+                  <p id="scenario-memory" class="text-sm text-ink-secondary leading-relaxed">
+                    From your sign-up profile and Tuesday’s chat, Grizon knows you trade NSE swing setups, prefer seeing both the Bull and Bear cases, and want a clear invalidation level rather than hype.
+                  </p>
+                </div>
+
+                <div class="pt-6 border-t border-hairline">
+                  <span class="text-xs uppercase tracking-wider text-ink-muted block mb-2">Behind the scenes</span>
+                  <p id="scenario-trace" class="text-xs font-mono text-botanical bg-botanical-soft px-3.5 py-2.5 rounded-lg leading-relaxed">
+                    Consulted Market Specialist · Checked live NSE Option Chain &amp; Yahoo Finance · Scheduled to run daily at 9:15 AM
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right Column: The Calm, Readable Editorial Briefing -->
+              <div class="lg:col-span-7 space-y-6" id="scenario-answer">
+                <!-- Populated smoothly by JS -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: THREE HUMAN PILLARS (Open Editorial Layout, Zero Boxed Clutter) -->
+      <div class="border-t border-hairline bg-paper-soft py-24 md:py-32">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8">
+          <div class="max-w-2xl mb-16">
+            <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold mb-3">How Grizon Works</p>
+            <h2 class="editorial-h2 text-ink">
+              Built around the way thoughtful professionals actually work.
+            </h2>
+          </div>
+
+          <div class="divide-y divide-hairline-dark">
+            <!-- Pillar 01 -->
+            <div class="py-12 first:pt-0 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-baseline">
+              <div class="md:col-span-4">
+                <span class="font-mono text-xs text-terracotta block mb-2">01 / CONTINUITY</span>
+                <h3 class="editorial-h3 text-ink">Memory that grows with you</h3>
+              </div>
+              <div class="md:col-span-8 max-w-2xl space-y-4">
+                <p class="text-base text-ink-secondary leading-relaxed">
+                  Most AI tools treat you like a stranger every morning. With Grizon, you set your foundation once when you sign up—your profession, your preferred depth, the laws or markets you follow. As you converse, Grizon quietly remembers new context so you never have to repeat yourself.
+                </p>
+                <button data-nav="tasks" class="text-sm font-medium text-botanical hover:underline inline-flex items-center gap-1.5">
+                  <span>See how profile &amp; conversation memory work</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pillar 02 -->
+            <div class="py-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-baseline">
+              <div class="md:col-span-4">
+                <span class="font-mono text-xs text-terracotta block mb-2">02 / SPECIALIZATION</span>
+                <h3 class="editorial-h3 text-ink">Ten specialists, one calm conversation</h3>
+              </div>
+              <div class="md:col-span-8 max-w-2xl space-y-4">
+                <p class="text-base text-ink-secondary leading-relaxed">
+                  You don’t need to juggle six different subscriptions or guess which AI model is best for law, code, or calculus. Simply ask your question. Grizon’s router brings in the exact specialist—equipped with live Indian Kanoon records, eCourts lookups, NSE option chains, or sandboxed Python verification.
+                </p>
+                <button data-nav="agents" class="text-sm font-medium text-botanical hover:underline inline-flex items-center gap-1.5">
+                  <span>Browse the 10 specialist portraits</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pillar 03 -->
+            <div class="py-12 last:pb-0 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-baseline">
+              <div class="md:col-span-4">
+                <span class="font-mono text-xs text-terracotta block mb-2">03 / RHYTHM</span>
+                <h3 class="editorial-h3 text-ink">Routines that run while you rest</h3>
+              </div>
+              <div class="md:col-span-8 max-w-2xl space-y-4">
+                <p class="text-base text-ink-secondary leading-relaxed">
+                  Some questions shouldn’t wait for you to type them. Turn any prompt into a recurring routine—running once a month, every week, or three times a day at the exact hours you choose. Your findings are neatly filed inside the right Project workspace before you open your laptop.
+                </p>
+                <button data-nav="tasks" class="text-sm font-medium text-botanical hover:underline inline-flex items-center gap-1.5">
+                  <span>Design your daily routine</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: DEDICATED PROJECT WORKSPACES (Editorial Story) -->
+      <div class="py-24 md:py-32 border-t border-hairline bg-paper">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-5 space-y-5">
+              <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold">Dedicated Project Rooms</p>
+              <h2 class="editorial-h2 text-ink">
+                Every matter gets its own quiet room.
+              </h2>
+              <p class="text-base text-ink-secondary leading-relaxed">
+                A lawyer’s writ petition, a trader’s derivatives watchlist, and an architect’s cloud migration shouldn’t blur together in one endless chat scroll. Inside Grizon, you create distinct <strong class="text-ink font-medium">Projects</strong>—keeping your uploaded PDFs, saved drafts, and scheduled daily runs cleanly separated.
+              </p>
+              <div class="pt-3">
+                <button data-nav="tasks" class="px-6 py-3 rounded-full text-sm font-medium bg-paper-soft text-ink border border-hairline-dark hover:bg-paper-warm transition-colors">
+                  Explore Projects &amp; Routines →
+                </button>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 divide-y divide-hairline border-t border-b border-hairline">
+              <div class="py-7 flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
+                <div class="space-y-1 max-w-lg">
+                  <span class="text-xs font-mono text-terracotta">PROJECT WORKSPACE · INDIAN LITIGATION</span>
+                  <h3 class="font-serif text-2xl text-ink">Delhi High Court Commercial Writ</h3>
+                  <p class="text-sm text-ink-secondary">
+                    Watches eCourts CNR <span class="font-mono text-xs">DLHC010048212026</span> every morning at 8:30 AM, holds verified Indian Kanoon precedents, and preserves your petition draft.
+                  </p>
+                </div>
+                <span class="text-xs font-mono text-ink-muted shrink-0">2 Daily Routines</span>
+              </div>
+
+              <div class="py-7 flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
+                <div class="space-y-1 max-w-lg">
+                  <span class="text-xs font-mono text-botanical">PROJECT WORKSPACE · MARKETS &amp; EQUITIES</span>
+                  <h3 class="font-serif text-2xl text-ink">NIFTY &amp; Energy Swing Desk</h3>
+                  <p class="text-sm text-ink-secondary">
+                    Collects NSE Option Chain snapshots three times a day (9:20 AM, 12:30 PM, 3:15 PM), tracks Put/Call positioning shifts, and archives quarterly earnings notes.
+                  </p>
+                </div>
+                <span class="text-xs font-mono text-ink-muted shrink-0">3 Daily Routines</span>
+              </div>
+
+              <div class="py-7 flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
+                <div class="space-y-1 max-w-lg">
+                  <span class="text-xs font-mono text-ink-secondary">PROJECT WORKSPACE · PRODUCT &amp; DESIGN</span>
+                  <h3 class="font-serif text-2xl text-ink">Core Platform v2 Architecture</h3>
+                  <p class="text-sm text-ink-secondary">
+                    Keeps your PostgreSQL schema reviews, System Architect decision records, and interactive Dev Studio interface prototypes in one shared place.
+                  </p>
+                </div>
+                <span class="text-xs font-mono text-ink-muted shrink-0">Weekly Audit</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 2: THE 10 SPECIALISTS (Editorial Directory)
+    ==================================================================== -->
+    <section id="page-agents" class="page-view">
+      
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-24 md:pt-20 md:pb-32">
+        <!-- Editorial Intro -->
+        <div class="max-w-3xl pb-14 border-b border-hairline">
+          <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold mb-4">
+            The Ten Specialist Minds
+          </p>
+          <h1 class="editorial-display text-ink">
+            Generalist chat guesses. <em class="italic text-botanical">Specialists verify.</em>
+          </h1>
+          <p class="text-lg text-ink-secondary mt-6 leading-relaxed">
+            Each specialist inside Grizon is trained to think like a seasoned practitioner in their field—knowing when to look up a live court order, when to write a Python proof to double-check an integral, and when to tell you gently that a simpler software architecture is better.
+          </p>
+        </div>
+
+        <!-- Magazine-Style Index & Single-Focus Portrait -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 items-start">
+          
+          <!-- Left Column: Breathable Grouped Index -->
+          <div class="lg:col-span-4 space-y-8" id="editorial-agent-index">
+            <!-- Populated cleanly by JS in 4 human categories -->
+          </div>
+
+          <!-- Right Column: Spacious Single-Focus Specialist Portrait -->
+          <div class="lg:col-span-8 lg:sticky lg:top-28">
+            <div id="specialist-portrait" class="bg-surface rounded-2xl border border-hairline p-8 sm:p-12 shadow-xs">
+              <!-- Populated dynamically by JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 3: ROUTINES & MEMORY (Human-Centric Scheduler & Memory Control)
+    ==================================================================== -->
+    <section id="page-tasks" class="page-view">
+      
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-24 md:pt-20 md:pb-32">
+        
+        <!-- Intro -->
+        <div class="max-w-3xl pb-14 border-b border-hairline">
+          <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold mb-4">
+            Routines, Memory &amp; Projects
+          </p>
+          <h1 class="editorial-display text-ink">
+            Set your rhythm once. <em class="italic text-botanical">Let Grizon keep watch.</em>
+          </h1>
+          <p class="text-lg text-ink-secondary mt-6 leading-relaxed">
+            Whether you need an option-chain briefing three times a trading day, a morning check on your High Court docket, or a monthly synthesis of industry policy—you can compose a routine in plain English and choose how often it runs.
+          </p>
+        </div>
+
+        <!-- PART A: TACTILE NATURAL-LANGUAGE ROUTINE COMPOSER -->
+        <div class="py-16 border-b border-hairline">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <span class="text-xs uppercase tracking-widest text-ink-muted">Interactive Routine Composer</span>
+            <span class="text-xs text-ink-secondary">Click any highlighted phrase below to shape your schedule</span>
+          </div>
+
+          <div class="bg-surface rounded-2xl border border-hairline p-8 sm:p-12 shadow-xs">
+            <!-- Natural Sentence Builder -->
+            <div class="font-serif text-2xl sm:text-3xl md:text-4xl text-ink leading-relaxed">
+              “Every
+              <label for="routine-cadence" class="sr-only">Cadence</label>
+              <select id="routine-cadence" class="sentence-select">
+                <option value="trading day">trading day</option>
+                <option value="single day">single day</option>
+                <option value="hour">hour</option>
+                <option value="Monday morning">Monday morning</option>
+                <option value="first of the month">first of the month</option>
+              </select>,
+              ask the
+              <label for="routine-specialist" class="sr-only">Specialist</label>
+              <select id="routine-specialist" class="sentence-select">
+                <option value="market">Market &amp; Trading Specialist</option>
+                <option value="legal">Legal Intelligence Specialist</option>
+                <option value="research">Deep Research Specialist</option>
+                <option value="architect">System Architect</option>
+              </select>
+              to run
+              <label for="routine-runs" class="sr-only">Runs per day</label>
+              <select id="routine-runs" class="sentence-select">
+                <option value="3">three times a day</option>
+                <option value="1">once a day</option>
+                <option value="2">twice a day</option>
+                <option value="5">five times a day</option>
+              </select>
+              and file the briefing inside my
+              <label for="routine-project" class="sr-only">Project</label>
+              <select id="routine-project" class="sentence-select">
+                <option value="Morning Derivatives Desk">Morning Derivatives Desk</option>
+                <option value="Delhi High Court Docket">Delhi High Court Docket</option>
+                <option value="Q4 Strategy & Policy">Q4 Strategy &amp; Policy</option>
+                <option value="Core Product Architecture">Core Product Architecture</option>
+              </select>
+              project.”
+            </div>
+
+            <!-- Serene Daylight Schedule Ribbon -->
+            <div class="mt-12 pt-10 border-t border-hairline">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                <span class="text-xs uppercase tracking-wider text-ink-muted" id="ribbon-subtitle">
+                  Your Daily Delivery Rhythm (3 Scheduled Briefings)
+                </span>
+                <span class="font-mono text-xs text-botanical" id="ribbon-credits">
+                  Estimated: ~4.0 credits per run
+                </span>
+              </div>
+
+              <div id="daylight-ribbon-slots" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Populated dynamically by JS -->
+              </div>
+
+              <div class="mt-8 pt-6 border-t border-hairline flex flex-wrap items-center justify-between gap-4">
+                <p id="routine-saved-feedback" class="text-sm text-ink-secondary">
+                  Each run uses your latest project memory and flags what changed since the previous run.
+                </p>
+                <button id="save-routine-btn" class="px-6 py-3 rounded-full text-sm font-medium bg-botanical text-white hover:bg-botanical-hover transition-colors">
+                  Save This Routine to Workspace
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PART B: HOW MEMORY WORKS (SIGN-UP + CONVERSATION) -->
+        <div class="pt-16">
+          <div class="max-w-2xl mb-12">
+            <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold mb-3">Transparent Memory</p>
+            <h2 class="editorial-h2 text-ink">
+              Two gentle layers of memory—always under your control.
+            </h2>
+            <p class="text-base text-ink-secondary mt-3">
+              Grizon never hides what it remembers about you. You can inspect, refine, or pause any memory note with a single click.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            
+            <!-- Column 1: Sign-Up Profile Memory -->
+            <div class="bg-surface rounded-2xl border border-hairline p-8 space-y-6">
+              <div class="border-b border-hairline pb-4">
+                <span class="font-mono text-xs text-terracotta uppercase">Layer 01 · Shared at Sign-Up</span>
+                <h3 class="font-serif text-2xl text-ink mt-1">Your Standing Foundation</h3>
+                <p class="text-sm text-ink-secondary mt-1">
+                  Set once when you create your account so every specialist immediately understands your world.
+                </p>
+              </div>
+
+              <div class="space-y-3" id="memory-list-signup">
+                <div class="p-4 rounded-xl bg-paper border border-hairline flex items-start justify-between gap-4">
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-ink-muted block">Role &amp; Focus</span>
+                    <p class="text-sm text-ink font-medium mt-0.5">Positional &amp; Options Trader focused on NSE India indices and energy equities.</p>
+                  </div>
+                  <button data-toggle-mem class="text-xs font-mono text-botanical px-2.5 py-1 rounded bg-botanical-soft shrink-0">Active</button>
+                </div>
+
+                <div class="p-4 rounded-xl bg-paper border border-hairline flex items-start justify-between gap-4">
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-ink-muted block">Legal Jurisdiction</span>
+                    <p class="text-sm text-ink font-medium mt-0.5">Indian Law — High Court of Delhi &amp; Supreme Court of India (BNS/BNSS/BSA aware).</p>
+                  </div>
+                  <button data-toggle-mem class="text-xs font-mono text-botanical px-2.5 py-1 rounded bg-botanical-soft shrink-0">Active</button>
+                </div>
+
+                <div class="p-4 rounded-xl bg-paper border border-hairline flex items-start justify-between gap-4">
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-ink-muted block">Writing &amp; Output Style</span>
+                    <p class="text-sm text-ink font-medium mt-0.5">Deliver clear answers in chat first; only generate downloadable Word or PDF files when asked.</p>
+                  </div>
+                  <button data-toggle-mem class="text-xs font-mono text-botanical px-2.5 py-1 rounded bg-botanical-soft shrink-0">Active</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: Evolving Chat Memory -->
+            <div class="bg-surface rounded-2xl border border-hairline p-8 space-y-6">
+              <div class="border-b border-hairline pb-4">
+                <span class="font-mono text-xs text-botanical uppercase">Layer 02 · Learned from Conversation</span>
+                <h3 class="font-serif text-2xl text-ink mt-1">Notes Gathered Along the Way</h3>
+                <p class="text-sm text-ink-secondary mt-1">
+                  Picked up naturally from your ongoing chats and saved to your profile or project.
+                </p>
+              </div>
+
+              <div class="space-y-3" id="memory-list-chat">
+                <div class="p-4 rounded-xl bg-paper border border-hairline flex items-start justify-between gap-4">
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-ink-muted block">Noted from Tuesday’s Chat</span>
+                    <p class="text-sm text-ink font-medium mt-0.5">Representing the Respondent in CNR DLHC010048212026; next pleading deadline is in November.</p>
+                  </div>
+                  <button data-toggle-mem class="text-xs font-mono text-botanical px-2.5 py-1 rounded bg-botanical-soft shrink-0">Active</button>
+                </div>
+
+                <div class="p-4 rounded-xl bg-paper border border-hairline flex items-start justify-between gap-4">
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-ink-muted block">Noted from Architecture Review</span>
+                    <p class="text-sm text-ink font-medium mt-0.5">Core backend is a Modular Monolith on PostgreSQL with a team of 5 engineers.</p>
+                  </div>
+                  <button data-toggle-mem class="text-xs font-mono text-botanical px-2.5 py-1 rounded bg-botanical-soft shrink-0">Active</button>
+                </div>
+
+                <div class="p-4 rounded-xl bg-paper border border-hairline flex items-start justify-between gap-4">
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-ink-muted block">Noted from Market Briefing</span>
+                    <p class="text-sm text-ink font-medium mt-0.5">Always include an explicit "What would change this view" invalidation level on swing setups.</p>
+                  </div>
+                  <button data-toggle-mem class="text-xs font-mono text-botanical px-2.5 py-1 rounded bg-botanical-soft shrink-0">Active</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 4: PRICING (Honest, Predictable Credits)
+    ==================================================================== -->
+    <section id="page-pricing" class="page-view">
+      
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-24 md:pt-20 md:pb-32">
+        
+        <!-- Intro -->
+        <div class="max-w-3xl pb-14 border-b border-hairline">
+          <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold mb-4">
+            Honest, Predictable Pricing
+          </p>
+          <h1 class="editorial-display text-ink">
+            Simple credits that match the <em class="italic text-botanical">depth of the work.</em>
+          </h1>
+          <p class="text-lg text-ink-secondary mt-6 leading-relaxed">
+            You shouldn’t have to calculate raw input/output tokens to know what a question costs. A quick everyday question uses <strong class="text-ink font-medium">1 credit</strong>. Deeper specialist work that pulls live option chains, court records, or builds complete software interfaces scales transparently from <strong class="text-ink font-medium">1.5 to 10 credits</strong>.
+          </p>
+        </div>
+
+        <!-- 3-Step Visual Credit Scale -->
+        <div class="py-16 border-b border-hairline grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div class="space-y-3">
+            <span class="font-mono text-xs text-botanical bg-botanical-soft px-3 py-1 rounded-full">1.0 Credit</span>
+            <h2 class="font-serif text-2xl text-ink pt-1">Everyday Conversations</h2>
+            <p class="text-sm text-ink-secondary leading-relaxed">
+              Quick questions, daily writing, fast lookups, weather checks, and lightweight reasoning models (such as Gemini Flash or DeepSeek).
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <span class="font-mono text-xs text-terracotta bg-terracotta-soft px-3 py-1 rounded-full">1.5 – 4.0 Credits</span>
+            <h2 class="font-serif text-2xl text-ink pt-1">Focused Specialist Work</h2>
+            <p class="text-sm text-ink-secondary leading-relaxed">
+              Checking live eCourts CNR statuses, cited Fast Research, reviewing uploaded PDF contracts, System Architecture reviews, and dual-verified SymPy math proofs.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <span class="font-mono text-xs text-ink bg-paper-soft border border-hairline-dark px-3 py-1 rounded-full">5.0 – 10.0 Credits</span>
+            <h2 class="font-serif text-2xl text-ink pt-1">Deep Multi-Source Synthesis</h2>
+            <p class="text-sm text-ink-secondary leading-relaxed">
+              Full Dev Studio application builds, comprehensive NSE Option Chain + multi-timeframe briefings, 8-source Deep Research, and formal Legal Petition drafting with verified Indian Kanoon registries.
+            </p>
+          </div>
+        </div>
+
+        <!-- Calm 2-Slider Routine Estimator -->
+        <div class="py-16 border-b border-hairline">
+          <div class="bg-surface rounded-2xl border border-hairline p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-7 space-y-6">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-ink-muted">Simple Monthly Estimator</span>
+                <h3 class="font-serif text-2xl text-ink mt-1">Find the right pace for your work</h3>
+              </div>
+
+              <div class="space-y-5 pt-2">
+                <div>
+                  <div class="flex justify-between text-sm mb-2">
+                    <label for="simple-calc-questions" class="text-ink font-medium">How many questions or briefings do you ask a day?</label>
+                    <span id="simple-q-label" class="font-mono text-botanical font-medium">12 / day</span>
+                  </div>
+                  <input id="simple-calc-questions" type="range" min="2" max="50" value="12" />
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-sm mb-2">
+                    <label for="simple-calc-routines" class="text-ink font-medium">How many automated scheduled routines run for you per day?</label>
+                    <span id="simple-r-label" class="font-mono text-terracotta font-medium">3 runs / day</span>
+                  </div>
+                  <input id="simple-calc-routines" type="range" min="0" max="15" value="3" />
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-paper rounded-xl border border-hairline p-7 space-y-4">
+              <span class="text-xs uppercase tracking-wider text-ink-muted block">Estimated Monthly Usage</span>
+              <div class="flex items-baseline gap-2">
+                <span id="simple-total-credits" class="font-serif text-4xl text-ink">1,170</span>
+                <span class="text-sm text-ink-secondary">credits / month</span>
+              </div>
+              <p id="simple-plan-rec" class="text-sm text-ink-secondary leading-relaxed">
+                Comfortably covered by our <strong class="text-ink">Professional Plan (2,500 monthly credits)</strong> with plenty of headroom for deep research and document exports.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Three Calm Plans -->
+        <div class="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Plan 1 -->
+          <div class="bg-surface rounded-2xl border border-hairline p-8 flex flex-col justify-between">
+            <div>
+              <span class="text-xs uppercase tracking-widest text-ink-muted">Starter</span>
+              <h3 class="font-serif text-3xl text-ink mt-2">Explorer</h3>
+              <p class="text-sm text-ink-secondary mt-2">A generous way to set up your memory and test all ten specialists.</p>
+              <div class="my-6 pt-6 border-t border-hairline">
+                <span class="font-serif text-4xl text-ink">$0</span>
+                <span class="text-xs text-ink-muted"> / month · 150 free credits</span>
+              </div>
+              <ul class="space-y-3 text-sm text-ink-secondary">
+                <li>— All 10 Specialist Minds</li>
+                <li>— Sign-up &amp; conversational memory</li>
+                <li>— Up to 2 scheduled daily routines</li>
+                <li>— 2 dedicated Project rooms</li>
+              </ul>
+            </div>
+            <button class="open-drawer-trigger mt-8 w-full py-3 rounded-full text-sm font-medium border border-hairline-dark text-ink hover:bg-paper-soft transition-colors">
+              Begin for Free
+            </button>
+          </div>
+
+          <!-- Plan 2 -->
+          <div class="bg-surface rounded-2xl border-2 border-botanical p-8 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs uppercase tracking-widest text-botanical font-semibold">Most Popular</span>
+                <span class="text-xs font-mono text-terracotta">2,500 Credits / mo</span>
+              </div>
+              <h3 class="font-serif text-3xl text-ink mt-2">Professional</h3>
+              <p class="text-sm text-ink-secondary mt-2">For traders, advocates, engineers, and researchers who rely on Grizon daily.</p>
+              <div class="my-6 pt-6 border-t border-hairline">
+                <span class="font-serif text-4xl text-ink">$29</span>
+                <span class="text-xs text-ink-muted"> / month</span>
+              </div>
+              <ul class="space-y-3 text-sm text-ink-secondary">
+                <li>— All 6 AI providers (Anthropic, Gemini, OpenAI, Grok, DeepSeek, OpenRouter)</li>
+                <li>— Live NSE Option Chain, Yahoo Finance, Indian Kanoon &amp; eCourts lookups</li>
+                <li>— Up to 25 scheduled routines (multiple runs per day)</li>
+                <li>— Unlimited Project rooms &amp; DOCX/PDF/XLSX exports</li>
+              </ul>
+            </div>
+            <button class="open-drawer-trigger mt-8 w-full py-3 rounded-full text-sm font-medium bg-botanical text-white hover:bg-botanical-hover transition-colors">
+              Start Professional Workspace
+            </button>
+          </div>
+
+          <!-- Plan 3 -->
+          <div class="bg-surface rounded-2xl border border-hairline p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs uppercase tracking-widest text-ink-muted">Studio &amp; Team</span>
+                <span class="text-xs font-mono text-ink-secondary">10,000 Credits / mo</span>
+              </div>
+              <h3 class="font-serif text-3xl text-ink mt-2">Practice &amp; Desk</h3>
+              <p class="text-sm text-ink-secondary mt-2">For chambers, trading desks, and product studios running continuous workflows.</p>
+              <div class="my-6 pt-6 border-t border-hairline">
+                <span class="font-serif text-4xl text-ink">$99</span>
+                <span class="text-xs text-ink-muted"> / month</span>
+              </div>
+              <ul class="space-y-3 text-sm text-ink-secondary">
+                <li>— 10,000 monthly credits with priority execution</li>
+                <li>— Unlimited hourly, daily, and multi-run routines</li>
+                <li>— Historical NSE option-chain snapshot comparison</li>
+                <li>— Shared Project workspaces &amp; citation registries</li>
+              </ul>
+            </div>
+            <button class="open-drawer-trigger mt-8 w-full py-3 rounded-full text-sm font-medium border border-hairline-dark text-ink hover:bg-paper-soft transition-colors">
+              Start Practice Workspace
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         PAGE 5: OUR PHILOSOPHY (Editorial Manifesto & Under the Hood)
+    ==================================================================== -->
+    <section id="page-about" class="page-view">
+      
+      <div class="max-w-4xl mx-auto px-6 sm:px-8 pt-16 pb-24 md:pt-20 md:pb-32">
+        
+        <p class="text-xs uppercase tracking-[0.18em] text-terracotta font-semibold mb-4">
+          Our Philosophy &amp; Craft
+        </p>
+        <h1 class="editorial-display text-ink">
+          Why we built an AI that is comfortable saying, <em class="italic text-botanical">“Let me verify that first.”</em>
+        </h1>
+
+        <!-- Editorial Essay Body -->
+        <div class="mt-12 space-y-8 text-base sm:text-lg text-ink-secondary leading-relaxed border-t border-hairline pt-12">
+          <p>
+            Most artificial intelligence today is designed to sound confident—even when it is guessing. It will cheerfully invent a Supreme Court citation from memory, calculate an option Put/Call ratio in its head, or recommend a sprawling microservices architecture to a three-person startup simply because those words appear frequently on the internet.
+          </p>
+          <p>
+            When you are making real decisions—drafting a legal reply before the High Court, evaluating risk before the NSE opening bell, or reviewing a commercial contract—plausible-sounding fiction is worse than no answer at all.
+          </p>
+          <p class="font-serif text-2xl sm:text-3xl text-ink italic py-4 border-l-2 border-terracotta pl-6">
+            “We believe intelligence is not how fast a machine can generate paragraphs. It is the discipline to separate what is verified from what is inferred.”
+          </p>
+          <p>
+            That single conviction shaped every part of Grizon:
+          </p>
+        </div>
+
+        <!-- Three Architectural Principles -->
+        <div class="mt-14 divide-y divide-hairline border-t border-b border-hairline">
+          <div class="py-8 grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-4">
+              <span class="font-mono text-xs text-terracotta">PRINCIPLE 01</span>
+              <h2 class="font-serif text-2xl text-ink mt-1">Deterministic tools before words</h2>
+            </div>
+            <div class="md:col-span-8 text-sm sm:text-base text-ink-secondary leading-relaxed">
+              Our Market Specialist never asks a language model to do mental arithmetic on raw option chains; deterministic code calculates Put/Call ratios, Max Pain, and moving averages first. Our Mathematics Specialist never trusts a single pass—it solves symbolically and then runs an independent numerical check with a different failure mode.
+            </div>
+          </div>
+
+          <div class="py-8 grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-4">
+              <span class="font-mono text-xs text-terracotta">PRINCIPLE 02</span>
+              <h2 class="font-serif text-2xl text-ink mt-1">Primary sources over memory</h2>
+            </div>
+            <div class="md:col-span-8 text-sm sm:text-base text-ink-secondary leading-relaxed">
+              Our Legal Specialist connects directly to <strong>Indian Kanoon</strong> for judicial precedent and <strong>eCourts India</strong> for live CNR case status, and explicitly checks whether conduct falls before or after the <strong>1 July 2024 BNS/BNSS/BSA transition</strong>. If a record cannot be verified from an authoritative source, Grizon tells you plainly rather than guessing.
+            </div>
+          </div>
+
+          <div class="py-8 grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-4">
+              <span class="font-mono text-xs text-terracotta">PRINCIPLE 03</span>
+              <h2 class="font-serif text-2xl text-ink mt-1">Quiet orchestration underneath</h2>
+            </div>
+            <div class="md:col-span-8 text-sm sm:text-base text-ink-secondary leading-relaxed">
+              Under the hood, Grizon coordinates <strong>six frontier model providers</strong> (Anthropic, Google Gemini, OpenAI, Grok, DeepSeek, and OpenRouter) alongside <strong>seven live data ecosystems</strong> (Indian Kanoon, eCourts India, Yahoo Finance, NSE data, Serper, Tavily, Brave Search, and OpenWeather). Yet on the surface, you simply experience one calm, continuous workspace that remembers who you are.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       CALM SLIDE-OVER DRAWER: SET UP PROFILE MEMORY / TRY A PROMPT
+  ====================================================================== -->
+  <div id="workspace-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" class="fixed inset-0 z-50 hidden justify-end bg-ink/40 backdrop-blur-xs">
+    <div class="bg-paper w-full max-w-lg h-full p-8 sm:p-10 overflow-y-auto border-l border-hairline flex flex-col justify-between shadow-2xl">
+      <div class="space-y-8">
+        <div class="flex items-center justify-between border-b border-hairline pb-5">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-terracotta font-semibold">Step 1 of 1 · Onboarding Memory</span>
+            <h2 id="drawer-title" class="font-serif text-2xl text-ink mt-1">Introduce yourself once.</h2>
+          </div>
+          <button id="close-drawer-btn" aria-label="Close panel" class="p-2 rounded-full text-ink-secondary hover:text-ink hover:bg-paper-soft">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <form id="drawer-memory-form" class="space-y-6">
+          <p class="text-sm text-ink-secondary leading-relaxed">
+            Tell Grizon a little about your daily work. Every specialist and scheduled routine will use this context from your very first conversation.
+          </p>
+
+          <div>
+            <label for="user-name-input" class="block text-xs uppercase tracking-wider text-ink-muted mb-2">Your Name</label>
+            <input id="user-name-input" type="text" required value="Aarav Mehta" class="w-full px-4 py-3 rounded-xl bg-surface border border-hairline text-sm text-ink focus:outline-none focus:border-botanical" />
+          </div>
+
+          <div>
+            <label for="user-domain-select" class="block text-xs uppercase tracking-wider text-ink-muted mb-2">Your Primary Craft</label>
+            <select id="user-domain-select" class="w-full px-4 py-3 rounded-xl bg-surface border border-hairline text-sm text-ink focus:outline-none focus:border-botanical">
+              <option value="Markets, Equities & NSE Options">Markets, Equities &amp; NSE Options</option>
+              <option value="Indian Law, eCourts & Litigation">Indian Law, eCourts &amp; Legal Practice</option>
+              <option value="Software Architecture & Product Design">Software Architecture &amp; Product Design</option>
+              <option value="Research, Strategy & Executive Writing">Research, Strategy &amp; Executive Writing</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="user-context-notes" class="block text-xs uppercase tracking-wider text-ink-muted mb-2">What should Grizon always keep in mind?</label>
+            <textarea id="user-context-notes" rows="3" class="w-full px-4 py-3 rounded-xl bg-surface border border-hairline text-sm text-ink focus:outline-none focus:border-botanical">I prefer calm, concise briefings with clear evidence on both sides. Keep my morning market routine focused on NIFTY and RELIANCE at 9:15 AM IST.</textarea>
+          </div>
+
+          <div id="drawer-confirmation" class="hidden p-4 rounded-xl bg-botanical-soft text-botanical text-sm">
+            Your profile memory has been saved. Taking you to the 10 Specialists...
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-full text-sm font-medium bg-botanical text-white hover:bg-botanical-hover transition-colors">
+            Save Memory &amp; Enter Workspace
+          </button>
+        </form>
+      </div>
+
+      <div class="pt-6 border-t border-hairline flex items-center justify-between text-xs text-ink-muted">
+        <span>Includes 150 free starter credits</span>
+        <span>Editable anytime</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       EDITORIAL FOOTER
+  ====================================================================== -->
+  <footer class="border-t border-hairline bg-paper-soft py-16 mt-auto">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-hairline-dark">
+        <div class="md:col-span-5 space-y-3">
+          <div class="flex items-baseline gap-1">
+            <span class="font-serif text-2xl text-ink">Grizon</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-terracotta inline-block"></span>
+          </div>
+          <p class="text-sm text-ink-secondary max-w-sm leading-relaxed">
+            A calm, human-centered workspace uniting persistent memory, ten domain specialists, live Indian &amp; global data sources, and scheduled daily routines.
+          </p>
+        </div>
+
+        <div class="md:col-span-3 space-y-2.5">
+          <span class="text-xs uppercase tracking-widest text-ink-muted block">Pages</span>
+          <ul class="space-y-2 text-sm text-ink-secondary">
+            <li><button data-nav="home" class="hover:text-ink">Home</button></li>
+            <li><button data-nav="agents" class="hover:text-ink">The 10 Specialists</button></li>
+            <li><button data-nav="tasks" class="hover:text-ink">Routines &amp; Memory</button></li>
+            <li><button data-nav="pricing" class="hover:text-ink">Pricing &amp; Credits</button></li>
+            <li><button data-nav="about" class="hover:text-ink">Our Philosophy</button></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-4 space-y-2.5">
+          <span class="text-xs uppercase tracking-widest text-ink-muted block">Selected Specialists</span>
+          <ul class="space-y-2 text-sm text-ink-secondary">
+            <li><button data-select-specialist="market" class="hover:text-ink">Market &amp; Trading Intelligence</button></li>
+            <li><button data-select-specialist="legal" class="hover:text-ink">Legal Intelligence (India Law &amp; eCourts)</button></li>
+            <li><button data-select-specialist="dev" class="hover:text-ink">Dev Studio (Product &amp; Interface Design)</button></li>
+            <li><button data-select-specialist="architect" class="hover:text-ink">System Architect</button></li>
+            <li><button data-select-specialist="doc" class="hover:text-ink">Document Intelligence &amp; Writer</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-muted">
+        <span>© 2026 Grizon AI. Crafted with clarity and restraint.</span>
+        <span>Anthropic · Gemini · OpenAI · Grok · DeepSeek · NSE · Indian Kanoon · eCourts</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       INTERACTIVE EXPERIENCE LOGIC
+  ====================================================================== -->
+  <script>
+    // ---------------------------------------------------------------------
+    // 1. HOME PAGE CONVERSATION SCENARIOS (Warm, Readable Editorial Format)
+    // ---------------------------------------------------------------------
+    const HOME_SCENARIOS = {
+      market: {
+        prompt: '“Brief me on RELIANCE and the 3000 Call option before the market opens.”',
+        memory: 'From your sign-up profile and Tuesday’s chat, Grizon knows you trade NSE swing setups, prefer seeing both the Bull and Bear cases, and want a clear invalidation level rather than hype.',
+        trace: 'Consulted Market Specialist · Checked live NSE Option Chain & Yahoo Finance · Scheduled daily at 9:15 AM',
+        answerHtml: `
+          <div class="flex flex-wrap items-baseline justify-between gap-2 pb-4 border-b border-hairline">
+            <div>
+              <span class="text-xs uppercase tracking-wider text-botanical font-semibold">Morning Market Briefing</span>
+              <h3 class="font-serif text-2xl text-ink mt-0.5">RELIANCE — ₹2,984.50 (+1.42%)</h3>
+            </div>
+            <span class="text-xs font-mono text-ink-muted">Moderately Bullish · Medium Confidence</span>
+          </div>
+          <div class="space-y-4 text-sm text-ink-secondary leading-relaxed">
+            <p>
+              <strong class="text-ink">Where things stand:</strong> Price is holding comfortably above its 20-day moving average (₹2,940) and outperforming the broader NIFTY 50 by +0.65%. In the derivatives market, the 2950 Put strike added 14.2 lakh shares in open interest yesterday, forming a supportive floor.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
+              <div class="p-4 rounded-xl bg-paper border border-hairline">
+                <span class="text-xs font-semibold text-botanical uppercase tracking-wider">The Case for Strength</span>
+                <p class="text-xs text-ink-secondary mt-1.5">Rising Put/Call Ratio (1.14) alongside above-average delivery volume supports continuation toward ₹3,015.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-paper border border-hairline">
+                <span class="text-xs font-semibold text-terracotta uppercase tracking-wider">The Counterweight</span>
+                <p class="text-xs text-ink-secondary mt-1.5">The 3000 Call strike holds the highest open interest concentration (42.8L), acting as a near-term ceiling unless cleared with volume.</p>
+              </div>
+            </div>
+            <p class="text-xs text-ink-muted pt-2 border-t border-hairline">
+              <strong class="text-ink">What would change this view:</strong> A sustained hourly close below ₹2,945 accompanied by unwinding at the 2950 Put strike. <em>(Educational research · Yahoo Finance &amp; NSE timestamp 09:14 IST)</em>
+            </p>
+          </div>
+        `
+      },
+      legal: {
+        prompt: '“Check our Delhi High Court case status and verify whether the new BNS code applies.”',
+        memory: 'Grizon remembers from your project workspace that you represent the Respondent in CNR DLHC010048212026 and prefer primary statutory authority before drafting.',
+        trace: 'Consulted Legal Specialist · Queried eCourts India API & Indian Kanoon · Verified 2 Citations',
+        answerHtml: `
+          <div class="flex flex-wrap items-baseline justify-between gap-2 pb-4 border-b border-hairline">
+            <div>
+              <span class="text-xs uppercase tracking-wider text-terracotta font-semibold">Case &amp; Statutory Intelligence</span>
+              <h3 class="font-serif text-2xl text-ink mt-0.5">CNR DLHC010048212026 · High Court of Delhi</h3>
+            </div>
+            <span class="text-xs font-mono text-ink-muted">eCourts Record Checked Today</span>
+          </div>
+          <div class="space-y-4 text-sm text-ink-secondary leading-relaxed">
+            <p>
+              <strong class="text-ink">Latest Court Record:</strong> The eCourts docket confirms the matter is listed for admission on <strong>18 November 2026</strong>. The latest interim order directs both parties to complete written submissions within three weeks while continuing interim protection.
+            </p>
+            <p>
+              <strong class="text-ink">IPC vs. Bharatiya Nyaya Sanhita (BNS) Applicability:</strong> Because the underlying commercial transaction took place on <strong>14 May 2024</strong>—prior to the 1 July 2024 commencement of the BNS—substantive allegations remain governed by Section 420 of the Indian Penal Code, 1860 under transitional savings provisions.
+            </p>
+            <p class="text-xs text-ink-muted pt-2 border-t border-hairline">
+              <strong class="text-ink">Verified Sources:</strong> eCourts India Official Record · Indian Kanoon Precedent Registry [AUTH-001]. <em>(Preliminary legal research; not a substitute for formal advocate representation.)</em>
+            </p>
+          </div>
+        `
+      },
+      architect: {
+        prompt: '“We have 8,000 daily users and four engineers. Should we move to microservices?”',
+        memory: 'Grizon recalls your current stack is a TypeScript & PostgreSQL monolith and applies its core "Simplicity Before Complexity" architecture gate.',
+        trace: 'Consulted System Architect · Evaluated 1× to 10× Scale Bottlenecks · Saved to Core Platform Project',
+        answerHtml: `
+          <div class="flex flex-wrap items-baseline justify-between gap-2 pb-4 border-b border-hairline">
+            <div>
+              <span class="text-xs uppercase tracking-wider text-botanical font-semibold">Architectural Assessment</span>
+              <h3 class="font-serif text-2xl text-ink mt-0.5">Recommendation: Stay with a Modular Monolith</h3>
+            </div>
+            <span class="text-xs font-mono text-ink-muted">Simplicity Gate Applied</span>
+          </div>
+          <div class="space-y-4 text-sm text-ink-secondary leading-relaxed">
+            <p>
+              <strong class="text-ink">You do not need microservices yet.</strong> At 8,000 daily active users (~25 requests per second at peak), splitting your codebase into distributed services will multiply deployment coordination, network latency, and debugging overhead for a four-person team without solving a real bottleneck.
+            </p>
+            <p>
+              <strong class="text-ink">The Pragmatic Path Today:</strong> Keep your single deployment unit, enforce clean module boundaries in code, add PgBouncer connection pooling to PostgreSQL, and offload slow email/PDF jobs to a simple background worker queue.
+            </p>
+            <p class="text-xs text-ink-muted pt-2 border-t border-hairline">
+              <strong class="text-ink">When to revisit this decision:</strong> Only when your engineering team grows past 25+ developers needing independent release cycles, or a single module exceeds 1,500 sustained writes per second.
+            </p>
+          </div>
+        `
+      }
+    };
+
+    // ---------------------------------------------------------------------
+    // 2. THE 10 SPECIALISTS (Grouped Naturally for Magazine Directory)
+    // ---------------------------------------------------------------------
+    const SPECIALIST_GROUPS = [
+      {
+        groupTitle: 'Markets & Law',
+        items: [
+          {
+            id: 'market',
+            name: 'Market & Trading Intelligence',
+            subtitle: 'NSE Option Chains, Equities & Confluence Scenarios',
+            credits: '3.5 – 6.5 credits',
+            whoFor: 'Long-term investors, swing traders, day traders, and NSE options strategists who want evidence-weighed analysis rather than predictions.',
+            howTheyThink: 'Follows a strict ten-step lens: Price → Technicals → Market Context → Sector Relative Strength → Fundamentals → News → NSE Options Positioning → Volatility → Confluence → Bull/Base/Bear Scenarios.',
+            sources: ['Yahoo Finance Live & Historical', 'NSE Option Chain (PCR, Max Pain, OI, IV)', 'Serper Financial News'],
+            sampleWork: `RELIANCE — ₹2,984.50 (+1.42%) | Swing & Options Lens
+• Bull Evidence: Holding above 20DMA & 50DMA; +0.65% relative outperformance vs NIFTY; strong put-writing support at 2950 PE.
+• Bear Evidence: Heavy Call OI ceiling at 3000 CE (42.8L contracts); elevated pre-event implied volatility.
+• What Changes the View: Hourly close below ₹2,945 with volume expansion.`
+          },
+          {
+            id: 'legal',
+            name: 'Legal Intelligence (India)',
+            subtitle: 'Indian Kanoon Precedent, eCourts CNR & Drafting',
+            credits: '3.0 – 8.0 credits',
+            whoFor: 'Litigators, in-house counsel, researchers, and citizens navigating Indian statutes, court dockets, and formal legal drafting.',
+            howTheyThink: 'Grounds every legal proposition in verified authority (Fact → Rule → Verified Authority → Application → Counterargument). Automatically accounts for the 1 July 2024 transition from IPC/CrPC/IEA to BNS/BNSS/BSA.',
+            sources: ['Indian Kanoon API (SC & High Courts)', 'eCourts India API (Live CNR & Orders)', 'Official Gazette & Serper'],
+            sampleWork: `Court Record Check (CNR DLHC010048212026)
+• Status: Pending before High Court of Delhi · Next Hearing: 18 Nov 2026
+• Precedent Registry [AUTH-001]: Verified Supreme Court ratio on maintainability of writ jurisdiction where alternative statutory remedy is onerous.
+• Draft Status: Prepared in chat for review prior to DOCX export.`
+          }
+        ]
+      },
+      {
+        groupTitle: 'Engineering, Design & Math',
+        items: [
+          {
+            id: 'dev',
+            name: 'Dev Studio',
+            subtitle: 'Agency-Grade Product Design & Full-Stack Interfaces',
+            credits: '5.0 – 10.0 credits',
+            whoFor: 'Founders, product managers, and engineers who want complete, responsive, visually memorable web applications—not generic AI templates.',
+            howTheyThink: 'Plans information hierarchy, typography, and user journey before touching decoration. Every generated interface passes Responsive QA (320px–1920px) and Interactive Integrity QA so every button, filter, and modal genuinely works.',
+            sources: ['Live HTML/CSS/JS Generator', 'Targeted Artifact Patching', 'Visual & Screenshot Analysis'],
+            sampleWork: `Delivered Artifact: Treasury Risk & Liquidity Workbench
+• Aesthetic Direction: Warm Editorial Daylight (#FAF9F5) with high-contrast data legibility.
+• Verified Interactions: Working multi-currency filter tabs, live stress-test sliders, keyboard-accessible slide-over drawers.`
+          },
+          {
+            id: 'architect',
+            name: 'System Architect',
+            subtitle: 'Pragmatic Software, Database & AI Architecture',
+            credits: '2.5 – 5.5 credits',
+            whoFor: 'CTOs, tech leads, and backend engineers designing scalable systems or auditing cloud and LLM token costs.',
+            howTheyThink: 'Guided by "Simplicity Before Complexity." Challenges unnecessary microservices, Kubernetes, or vector databases until your scale genuinely requires them, and maps clear 1×, 10×, and 100× evolution plans.',
+            sources: ['Live Cloud & API Pricing Lookup', 'Mermaid Architecture Diagrams', 'ADR Documentation'],
+            sampleWork: `Architecture Gate Review:
+• Verdict: Replace proposed 12-service Kubernetes mesh with a Modular Monolith + PostgreSQL Read Replica + Redis job queue.
+• Estimated Monthly Savings: ~68% reduction in DevOps & idle compute overhead at current 25 RPS workload.`
+          },
+          {
+            id: 'math',
+            name: 'Mathematics & Quantitative',
+            subtitle: 'Dual-Verified Symbolic & Numerical Proofs',
+            credits: '1.5 – 4.5 credits',
+            whoFor: 'Quants, researchers, engineers, and students solving calculus, linear algebra, probability, statistics, or optimization problems.',
+            howTheyThink: 'Defends against both calculation and interpretation errors: formally restates the problem, computes exact symbolic forms via Python SymPy, and then performs an independent cross-check using a second numerical method.',
+            sources: ['Sandboxed Python (SymPy, NumPy, SciPy, mpmath)', 'Mathematical Plot Visualizer'],
+            sampleWork: `Integral of ln(1 + x²) / (1 + x²) on [0, 1]
+• Exact Closed Form: G - (π/4)·ln(2)  (where G is Catalan's constant)
+• Decimal Value: 0.371569362438
+• Independent Cross-Check: Verified via 50-digit adaptive Gaussian quadrature (residual = 0.0e-50).`
+          }
+        ]
+      },
+      {
+        groupTitle: 'Research & Strategy',
+        items: [
+          {
+            id: 'deep-research',
+            name: 'Deep Research',
+            subtitle: 'Multi-Source Synthesis, Cross-Verification & Risk Analysis',
+            credits: '4.0 – 8.0 credits',
+            whoFor: 'Analysts, policy researchers, and executives who need thorough, source-grounded reports that surface conflicting evidence.',
+            howTheyThink: 'Retrieves 5–8 authoritative primary sources, reads them in depth, cross-verifies claims, and organizes findings into Summary, Cited Key Findings, Risk Analysis, and Sources.',
+            sources: ['Serper Primary Search', 'Tavily Research API', 'Brave Search & Full-Page Fetch'],
+            sampleWork: `Synthesis: National Green Hydrogen Electrolyzer Subsidies
+• Key Finding: ₹17,490 Cr committed under SIGHT programme [1][2], with 3,000 MW/yr manufacturing capacity allocated in Tranche-II.
+• Risk Flagged: Industrial binding offtake remains below 28% due to interstate open-access tariff uncertainty post-2030 [4][5].`
+          },
+          {
+            id: 'fast-research',
+            name: 'Fast Research',
+            subtitle: 'Rapid 1–3 Source Lookup with Clear Citations',
+            credits: '1.5 – 2.5 credits',
+            whoFor: 'Anyone needing a quick, verified fact, regulatory figure, or documentation check in seconds.',
+            howTheyThink: 'Prioritizes speed and primary sources—fetching 1 to 3 authoritative results and returning a concise answer with inline [1], [2] citations.',
+            sources: ['High-Speed Web Search', 'Selective Page Fetch', 'Chart/Image Inspection'],
+            sampleWork: `Current RBI Policy Rates:
+• Repo Rate: 6.25% [1] | Standing Deposit Facility (SDF): 6.00% [1] | Marginal Standing Facility (MSF): 6.50% [2].
+• Sources: [1] Reserve Bank of India Official MPC Statement.`
+          },
+          {
+            id: 'general',
+            name: 'General Assistant',
+            subtitle: 'Everyday Reasoning, Live Web & Visual Inspection',
+            credits: '1.0 – 2.0 credits',
+            whoFor: 'Daily brainstorming, step-by-step logic puzzles, live weather or event checks, and photo inspection.',
+            howTheyThink: 'Warm, concise, and practical—automatically checking live web or weather data for time-sensitive topics and examining shared images before answering.',
+            sources: ['Live Web Search', 'OpenWeather API', 'Image Analysis & Search'],
+            sampleWork: `Bengaluru Team Offsite Weather & Plan:
+• Live Forecast (OpenWeather): 26°C, clear morning skies with scattered rain likely after 2:30 PM.
+• Recommendation: Schedule outdoor walk & coffee briefing before 1:00 PM; shift architecture workshop indoors for the afternoon.`
+          }
+        ]
+      },
+      {
+        groupTitle: 'Documents & Media',
+        items: [
+          {
+            id: 'doc',
+            name: 'Doc Intelligence & Writer',
+            subtitle: 'Contract Review, Scanned PDF Analysis & Executive Writing',
+            credits: '2.0 – 6.0 credits',
+            whoFor: 'Professionals reviewing complex PDFs, comparing contract versions, extracting tables from scans, or drafting polished proposals and reports.',
+            howTheyThink: 'Treats your uploaded document as the primary source of truth. Cites exact page, section, and clause numbers, separates stated facts from inferences, and builds structured Contract Risk Matrices.',
+            sources: ['PDF / Word / Markdown Parser', 'Scanned Table & Chart Vision', 'DOCX / PDF / XLSX Exporter'],
+            sampleWork: `Contract Risk Review (Master Services Agreement v4.pdf):
+• Clause 14.2 (Page 9) — Issue: Uncapped mutual indemnification includes indirect damages.
+• Risk: High — Suggested Action: Cap liability at 12 months of fees paid under Clause 8.1.`
+          },
+          {
+            id: 'video',
+            name: 'Video Analyser',
+            subtitle: 'Gemini Frame-by-Frame Video Understanding',
+            credits: '2.5 – 5.0 credits',
+            whoFor: 'Product teams, researchers, and educators extracting timestamped events, on-screen text, and summaries from video recordings.',
+            howTheyThink: 'Inspects the full video stream via Google Gemini multimodal analysis first—capturing chronological actions, visible slides or UI states, and combining them with web context or charts.',
+            sources: ['Google Gemini Video Analysis Engine', 'Supporting Web Search', 'Data Chart Generator'],
+            sampleWork: `Recorded Product Demo Inspection:
+• [00:42] Network panel displays HTTP 504 timeout on /api/v2/sync.
+• [01:18] Mobile drawer CTA clips below 375px viewport boundary.
+• [02:05] Telemetry banner confirms WebSocket reconnection in 312ms.`
+          }
+        ]
+      }
+    ];
+
+    // Flatten helper
+    const ALL_SPECIALISTS = SPECIALIST_GROUPS.flatMap(g => g.items);
+    let currentSpecialistId = 'market';
+
+    // ---------------------------------------------------------------------
+    // 3. MULTIPAGE NAVIGATION CONTROLLER
+    // ---------------------------------------------------------------------
+    const PAGES = ['home', 'agents', 'tasks', 'pricing', 'about'];
+
+    function switchPage(pageId, skipScroll = false) {
+      const target = PAGES.includes(pageId) ? pageId : 'home';
+
+      PAGES.forEach(id => {
+        const el = document.getElementById(`page-${id}`);
+        if (el) {
+          if (id === target) el.classList.add('active');
+          else el.classList.remove('active');
+        }
+      });
+
+      // Update Desktop Nav Links
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        if (btn.getAttribute('data-nav') === target) {
+          btn.className = 'nav-link text-sm font-medium text-ink border-b-2 border-botanical pb-1 transition-colors';
+        } else {
+          btn.className = 'nav-link text-sm font-medium text-ink-secondary hover:text-ink pb-1 border-b-2 border-transparent transition-colors';
+        }
+      });
+
+      // Close mobile menu if open
+      const mobilePanel = document.getElementById('mobile-menu-panel');
+      if (mobilePanel) mobilePanel.classList.add('hidden');
+
+      if (window.location.hash !== `#${target}`) {
+        history.replaceState(null, '', `#${target}`);
+      }
+
+      if (!skipScroll) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 4. RENDER FUNCTIONS
+    // ---------------------------------------------------------------------
+    function renderHomeScenario(key) {
+      const data = HOME_SCENARIOS[key] || HOME_SCENARIOS.market;
+      document.getElementById('scenario-prompt').textContent = data.prompt;
+      document.getElementById('scenario-memory').textContent = data.memory;
+      document.getElementById('scenario-trace').textContent = data.trace;
+      document.getElementById('scenario-answer').innerHTML = data.answerHtml;
+
+      document.querySelectorAll('.scenario-tab').forEach(btn => {
+        if (btn.getAttribute('data-scenario') === key) {
+          btn.className = 'scenario-tab px-4 py-2 rounded-full text-xs font-medium bg-botanical text-white transition-all';
+        } else {
+          btn.className = 'scenario-tab px-4 py-2 rounded-full text-xs font-medium bg-paper-soft text-ink-secondary hover:text-ink transition-all';
+        }
+      });
+    }
+
+    function renderSpecialistsDirectory() {
+      const indexEl = document.getElementById('editorial-agent-index');
+      const portraitEl = document.getElementById('specialist-portrait');
+      if (!indexEl || !portraitEl) return;
+
+      indexEl.innerHTML = SPECIALIST_GROUPS.map(group => `
+        <div>
+          <span class="text-xs uppercase tracking-widest text-ink-muted block mb-3">${group.groupTitle}</span>
+          <div class="divide-y divide-hairline border-t border-b border-hairline">
+            ${group.items.map(item => {
+              const active = item.id === currentSpecialistId;
+              return `
+                <button data-select-specialist="${item.id}" class="w-full text-left py-3.5 px-3 transition-colors flex items-baseline justify-between gap-2 ${
+                  active ? 'bg-botanical-soft/70 text-botanical font-semibold' : 'hover:bg-paper-soft text-ink'
+                }">
+                  <span class="font-serif text-lg">${item.name}</span>
+                  <span class="text-xs font-mono text-ink-muted shrink-0">${active ? 'Viewing →' : ''}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      const spec = ALL_SPECIALISTS.find(s => s.id === currentSpecialistId) || ALL_SPECIALISTS[0];
+
+      portraitEl.innerHTML = `
+        <div class="space-y-8">
+          <div class="border-b border-hairline pb-6 flex flex-wrap items-baseline justify-between gap-4">
+            <div>
+              <span class="font-mono text-xs text-terracotta uppercase">Specialist Portrait · ${spec.credits}</span>
+              <h2 class="editorial-h2 text-ink mt-1">${spec.name}</h2>
+              <p class="text-base text-ink-secondary mt-1">${spec.subtitle}</p>
+            </div>
+            <button data-nav="tasks" class="px-5 py-2.5 rounded-full text-xs font-medium bg-botanical text-white hover:bg-botanical-hover transition-colors">
+              Schedule This Specialist
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xs uppercase tracking-wider text-ink-muted mb-2">Who this specialist serves</h3>
+              <p class="text-sm text-ink-secondary leading-relaxed">${spec.whoFor}</p>
+            </div>
+            <div>
+              <h3 class="text-xs uppercase tracking-wider text-ink-muted mb-2">How they approach a problem</h3>
+              <p class="text-sm text-ink-secondary leading-relaxed">${spec.howTheyThink}</p>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-hairline">
+            <h3 class="text-xs uppercase tracking-wider text-ink-muted mb-3">Authoritative Sources &amp; Tools Consulted</h3>
+            <div class="flex flex-wrap gap-2">
+              ${spec.sources.map(src => `
+                <span class="px-3.5 py-1.5 rounded-full text-xs bg-paper border border-hairline text-ink-secondary">${src}</span>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-hairline">
+            <span class="text-xs uppercase tracking-wider text-botanical font-semibold block mb-3">Excerpt from a Verified Briefing</span>
+            <div class="p-6 rounded-xl bg-paper border border-hairline font-mono text-xs text-ink-secondary whitespace-pre-wrap leading-relaxed">${spec.sampleWork}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ---------------------------------------------------------------------
+    // 5. NATURAL LANGUAGE ROUTINE BUILDER CONTROLLER
+    // ---------------------------------------------------------------------
+    const ROUTINE_SLOTS_BY_COUNT = {
+      1: [{ time: '09:15 AM', label: 'Morning Opening Briefing' }],
+      2: [
+        { time: '09:15 AM', label: 'Morning Opening Briefing' },
+        { time: '03:30 PM', label: 'End-of-Day Settlement Wrap' }
+      ],
+      3: [
+        { time: '09:15 AM', label: 'Morning Opening Briefing' },
+        { time: '01:00 PM', label: 'Mid-Day Positioning Pulse' },
+        { time: '03:30 PM', label: 'Closing Summary & Diff' }
+      ],
+      5: [
+        { time: '08:30 AM', label: 'Pre-Open Docket & News' },
+        { time: '10:30 AM', label: 'Morning Session Check' },
+        { time: '01:00 PM', label: 'Mid-Day Pulse' },
+        { time: '03:15 PM', label: 'Closing Window Alert' },
+        { time: '06:00 PM', label: 'Evening Synthesis' }
+      ]
+    };
+
+    function updateRoutineBuilder() {
+      const cadence = document.getElementById('routine-cadence').value;
+      const specKey = document.getElementById('routine-specialist').value;
+      const runs = parseInt(document.getElementById('routine-runs').value, 10) || 3;
+      const project = document.getElementById('routine-project').value;
+
+      const specNames = {
+        market: 'Market & Trading Specialist',
+        legal: 'Legal Intelligence Specialist',
+        research: 'Deep Research Specialist',
+        architect: 'System Architect'
+      };
+
+      document.getElementById('ribbon-subtitle').textContent =
+        `Every ${cadence} · ${runs} scheduled run${runs > 1 ? 's' : ''} filed to “${project}”`;
+
+      const slots = ROUTINE_SLOTS_BY_COUNT[runs] || ROUTINE_SLOTS_BY_COUNT[3];
+      const container = document.getElementById('daylight-ribbon-slots');
+      container.className = `grid grid-cols-1 md:grid-cols-${Math.min(runs, 3)} gap-5`;
+
+      container.innerHTML = slots.map((slot, idx) => `
+        <div class="p-5 rounded-xl bg-paper border border-hairline flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-terracotta mb-2">
+              <span>RUN 0${idx + 1}</span>
+              <span>${slot.time} IST</span>
+            </div>
+            <h4 class="font-serif text-xl text-ink">${slot.label}</h4>
+            <p class="text-xs text-ink-secondary mt-1.5">
+              Prepared by the <strong>${specNames[specKey]}</strong> using your standing memory and filed into <em>${project}</em>.
+            </p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ---------------------------------------------------------------------
+    // 6. SIMPLE PRICING ESTIMATOR CONTROLLER
+    // ---------------------------------------------------------------------
+    function updateSimplePricingEstimator() {
+      const q = parseInt(document.getElementById('simple-calc-questions').value, 10) || 12;
+      const r = parseInt(document.getElementById('simple-calc-routines').value, 10) || 3;
+
+      document.getElementById('simple-q-label').textContent = `${q} / day`;
+      document.getElementById('simple-r-label').textContent = `${r} run${r === 1 ? '' : 's'} / day`;
+
+      // Average 2.25 credits per conversational question + 4.0 credits per scheduled routine
+      const monthly = Math.round(((q * 2.25) + (r * 4.0)) * 30);
+      document.getElementById('simple-total-credits').textContent = monthly.toLocaleString();
+
+      const recEl = document.getElementById('simple-plan-rec');
+      if (monthly <= 150) {
+        recEl.innerHTML = `Fits within our <strong class="text-ink">Explorer Plan ($0/month · 150 free credits)</strong> so you can get started right away.`;
+      } else if (monthly <= 2500) {
+        recEl.innerHTML = `Comfortably covered by our <strong class="text-ink">Professional Plan ($29/month · 2,500 credits)</strong> with generous room for deep research and document exports.`;
+      } else {
+        recEl.innerHTML = `Best suited for our <strong class="text-ink">Practice &amp; Desk Plan ($99/month · 10,000 credits)</strong> designed for high-frequency daily routines and teams.`;
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 7. INITIALIZE & BIND INTERACTIONS
+    // ---------------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHomeScenario('market');
+      renderSpecialistsDirectory();
+      updateRoutineBuilder();
+      updateSimplePricingEstimator();
+
+      const initialHash = window.location.hash.replace('#', '');
+      if (PAGES.includes(initialHash)) {
+        switchPage(initialHash, true);
+      }
+
+      // Delegated Clicks
+      document.body.addEventListener('click', (e) => {
+        const navBtn = e.target.closest('[data-nav]');
+        if (navBtn) {
+          e.preventDefault();
+          switchPage(navBtn.getAttribute('data-nav'));
+          return;
+        }
+
+        const scenarioBtn = e.target.closest('[data-scenario]');
+        if (scenarioBtn) {
+          renderHomeScenario(scenarioBtn.getAttribute('data-scenario'));
+          return;
+        }
+
+        const specBtn = e.target.closest('[data-select-specialist]');
+        if (specBtn) {
+          currentSpecialistId = specBtn.getAttribute('data-select-specialist');
+          renderSpecialistsDirectory();
+          if (!document.getElementById('page-agents').classList.contains('active')) {
+            switchPage('agents');
+          }
+          return;
+        }
+
+        const memBtn = e.target.closest('[data-toggle-mem]');
+        if (memBtn) {
+          const isPaused = memBtn.textContent.trim() === 'Paused';
+          if (isPaused) {
+            memBtn.textContent = 'Active';
+            memBtn.className = 'text-xs font-mono text-botanical px-2.5 py-1 rounded bg-botanical-soft shrink-0';
+          } else {
+            memBtn.textContent = 'Paused';
+            memBtn.className = 'text-xs font-mono text-ink-muted px-2.5 py-1 rounded bg-paper-soft shrink-0';
+          }
+          return;
+        }
+
+        if (e.target.closest('.open-drawer-trigger')) {
+          openDrawer();
+          return;
+        }
+      });
+
+      // Sentence Builder Selects
+      ['routine-cadence', 'routine-specialist', 'routine-runs', 'routine-project'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', updateRoutineBuilder);
+      });
+
+      // Save Routine Button Feedback
+      document.getElementById('save-routine-btn').addEventListener('click', () => {
+        const feedback = document.getElementById('routine-saved-feedback');
+        const project = document.getElementById('routine-project').value;
+        feedback.innerHTML = `<span class="text-botanical font-medium">✓ Routine saved to your “${project}” project workspace.</span>`;
+      });
+
+      // Simple Pricing Sliders
+      ['simple-calc-questions', 'simple-calc-routines'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateSimplePricingEstimator);
+      });
+
+      // Mobile Navigation Toggle
+      document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        document.getElementById('mobile-menu-panel').classList.toggle('hidden');
+      });
+
+      // Onboarding Drawer Controls
+      const drawer = document.getElementById('workspace-drawer');
+      function openDrawer() {
+        drawer.classList.remove('hidden');
+        drawer.classList.add('flex');
+        document.getElementById('user-name-input').focus();
+      }
+      function closeDrawer() {
+        drawer.classList.add('hidden');
+        drawer.classList.remove('flex');
+        document.getElementById('drawer-confirmation').classList.add('hidden');
+      }
+
+      document.getElementById('open-drawer-btn').addEventListener('click', openDrawer);
+      document.getElementById('hero-start-btn').addEventListener('click', openDrawer);
+      document.getElementById('close-drawer-btn').addEventListener('click', closeDrawer);
+
+      drawer.addEventListener('click', (e) => {
+        if (e.target === drawer) closeDrawer();
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !drawer.classList.contains('hidden')) closeDrawer();
+      });
+
+      document.getElementById('drawer-memory-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('drawer-confirmation').classList.remove('hidden');
+        setTimeout(() => {
+          closeDrawer();
+          switchPage('agents');
+        }, 900);
+      });
+    });
+  </script>
+</body>
+</html>
