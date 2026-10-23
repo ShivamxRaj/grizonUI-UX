@@ -446,7 +446,7 @@ export default function Home() {
           {/* 3-Column Open Grid with subtle vertical dividers */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0">
             {/* Pillar 01: Continuity */}
-            <div className="flex flex-col md:pr-10 lg:pr-12">
+            <div className="flex flex-col md:pr-8 lg:pr-10">
               <div className="flex items-baseline justify-between mb-4">
                 <span className="font-display text-[44px] text-botanical font-light leading-none">01</span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-mutedInk font-medium">
@@ -457,15 +457,15 @@ export default function Home() {
               <p className="font-sans text-[14.5px] text-mutedInk leading-relaxed mb-6">
                 Set your investment mandates, legal entities, or software stack once. Grizon never forgets your operating context, eliminating repetitive prompting across workflows.
               </p>
-              <div className="mt-auto pt-2">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-surfaceMuted font-mono text-[11px] text-mutedInk border border-hairline">
+              <div className="mt-auto pt-4">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-surfaceMuted font-mono text-[10.5px] sm:text-[11px] text-mutedInk border border-hairline whitespace-nowrap">
                   Zero cold starts · Cross-session synthesis
                 </span>
               </div>
             </div>
 
             {/* Pillar 02: Specialization */}
-            <div className="flex flex-col md:px-10 lg:px-12 md:border-l border-hairline">
+            <div className="flex flex-col md:px-8 lg:px-10 md:border-l border-hairline">
               <div className="flex items-baseline justify-between mb-4">
                 <span className="font-display text-[44px] text-botanical font-light leading-none">02</span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-mutedInk font-medium">
@@ -476,15 +476,15 @@ export default function Home() {
               <p className="font-sans text-[14.5px] text-mutedInk leading-relaxed mb-6">
                 Purpose-built domain intelligences equipped with deterministic APIs—Indian Kanoon, eCourts CNR registries, MCA21, and live market books—collaborating seamlessly under Auto Mode.
               </p>
-              <div className="mt-auto pt-2">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-surfaceMuted font-mono text-[11px] text-mutedInk border border-hairline">
-                  Statutory rigor · Verifiable citation trails
+              <div className="mt-auto pt-4">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-surfaceMuted font-mono text-[10.5px] sm:text-[11px] text-mutedInk border border-hairline whitespace-nowrap">
+                  Statutory rigor · Verifiable citations
                 </span>
               </div>
             </div>
 
             {/* Pillar 03: Rhythm */}
-            <div className="flex flex-col md:pl-10 lg:pl-12 md:border-l border-hairline">
+            <div className="flex flex-col md:pl-8 lg:pl-10 md:border-l border-hairline">
               <div className="flex items-baseline justify-between mb-4">
                 <span className="font-display text-[44px] text-botanical font-light leading-none">03</span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-mutedInk font-medium">
@@ -495,8 +495,8 @@ export default function Home() {
               <p className="font-sans text-[14.5px] text-mutedInk leading-relaxed mb-6">
                 Turn complex research queries into persistent scheduled dispatches. Morning regulatory filings, competitor tracking, and code audits delivered to your workspace before your workday begins.
               </p>
-              <div className="mt-auto pt-2">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-surfaceMuted font-mono text-[11px] text-mutedInk border border-hairline">
+              <div className="mt-auto pt-4">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-surfaceMuted font-mono text-[10.5px] sm:text-[11px] text-mutedInk border border-hairline whitespace-nowrap">
                   Cron schedules · Autonomous ambient briefing
                 </span>
               </div>
