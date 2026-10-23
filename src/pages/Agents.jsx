@@ -1403,7 +1403,7 @@ export default function Agents() {
                 </div>
 
                 {/* Bottom CTA Strip */}
-                <div className="pt-4 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="pt-4 border-t border-hairline flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
                     <span className="text-[13px] text-mutedInk">
@@ -1412,9 +1412,10 @@ export default function Agents() {
                   </div>
                   <Link
                     to={agent.route || '/app'}
-                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-botanical text-white text-[13px] font-medium hover:bg-botanical-dark transition-colors shadow-xs"
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg bg-botanical text-white text-[13px] font-medium hover:bg-botanical-dark transition-colors shadow-xs whitespace-nowrap flex-shrink-0"
                   >
-                    Start Workspace with {agent.name}
+                    <span>Start Workspace with {agent.name}</span>
+                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                   </Link>
                 </div>
               </div>
