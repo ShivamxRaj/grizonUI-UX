@@ -30,12 +30,12 @@ export default function Home() {
       {/* =====================================================================
           SECTION 1: ASYMMETRIC EDITORIAL HERO
       ====================================================================== */}
-      <section className="w-full max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-10 pb-14 lg:pb-20">
+      <section className="w-full max-w-7xl mx-auto px-6 md:px-10 pt-10 md:pt-14 pb-14 lg:pb-18">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column (approx 45%) */}
           <div className="lg:col-span-5 flex flex-col pt-1">
             {/* Monospace Eyebrow with Terracotta Indicator */}
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-5">
               <span className="w-2 h-2 rounded-full bg-terracotta"></span>
               <span className="font-mono text-[11px] tracking-[0.12em] uppercase text-mutedInk font-medium">
                 Personal Intelligence &amp; Autonomous Routines
@@ -43,44 +43,44 @@ export default function Home() {
             </div>
 
             {/* Newsreader Serif Headline */}
-            <h1 className="font-display text-[40px] sm:text-[46px] lg:text-[50px] text-charcoal tracking-[-0.025em] leading-[1.08] font-normal mb-4">
+            <h1 className="font-display text-[42px] sm:text-[48px] lg:text-[52px] text-charcoal tracking-[-0.025em] leading-[1.08] font-normal mb-5">
               Work with ten specialist minds that already know your context.
             </h1>
 
             {/* Supporting Copy */}
-            <p className="font-sans text-[15px] md:text-[16px] text-mutedInk leading-[1.6] mb-6 font-normal">
+            <p className="font-sans text-[16px] text-mutedInk leading-[1.65] mb-8 font-normal">
               Set your context once. Grizon consults specialized autonomous agents grounded in live statutory filings, High Court gazettes, and NSE option chains with deterministic citations.
             </p>
 
             {/* Dual CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 mb-6">
+            <div className="flex flex-wrap items-center gap-4 mb-8">
               <Link
                 to="/welcome"
-                className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-botanical text-white font-sans text-[13.5px] font-medium tracking-tight hover:bg-botanical/90 active:scale-[0.98] transition-all shadow-[0_2px_4px_rgba(30,58,58,0.12)]"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-botanical text-white font-sans text-[14px] font-medium tracking-tight hover:bg-botanical/90 active:scale-[0.98] transition-all shadow-[0_2px_4px_rgba(30,58,58,0.12)]"
               >
                 Set Up Your Profile Memory
               </Link>
               <Link
                 to="/agents"
-                className="inline-flex items-center gap-1.5 font-sans text-[13.5px] text-charcoal font-medium hover:text-terracotta transition-colors group"
+                className="inline-flex items-center gap-1.5 font-sans text-[14px] text-charcoal font-medium hover:text-terracotta transition-colors group"
               >
                 <span>Meet the 10 Specialists</span>
-                <span className="material-symbols-outlined text-[16px] transition-transform duration-150 group-hover:translate-x-0.5">
+                <span className="material-symbols-outlined text-[17px] transition-transform duration-150 group-hover:translate-x-0.5">
                   arrow_forward
                 </span>
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Tactile Interactive Briefing Console Centerpiece (Compact & Perfectly Aligned) */}
+          {/* Right Column: Tactile Interactive Briefing Console Centerpiece */}
           <div className="lg:col-span-7 flex flex-col">
             <div className="w-full bg-surfacePure rounded-xl border border-hairline shadow-[0_4px_24px_rgba(24,24,27,0.03)] overflow-hidden flex flex-col">
               {/* 3 Clean Scenario Tabs */}
-              <div className="bg-surfaceMuted/60 px-3 pt-2 flex items-center gap-1 border-b border-hairline overflow-x-auto no-scrollbar">
+              <div className="bg-surfaceMuted/60 px-4 pt-2.5 flex items-center gap-1 border-b border-hairline overflow-x-auto no-scrollbar">
                 <button
                   type="button"
                   onClick={() => setActiveScenario(1)}
-                  className={`scenario-tab px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.06em] rounded-t-md transition-all duration-150 -mb-[1px] cursor-pointer whitespace-nowrap ${
+                  className={`scenario-tab px-4 py-2 font-mono text-[11px] uppercase tracking-[0.06em] rounded-t-md transition-all duration-150 -mb-[1px] cursor-pointer whitespace-nowrap ${
                     activeScenario === 1
                       ? 'bg-surfacePure text-charcoal font-semibold border-t border-x border-hairline'
                       : 'text-mutedInk hover:text-charcoal'
@@ -91,7 +91,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setActiveScenario(2)}
-                  className={`scenario-tab px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.06em] rounded-t-md transition-all duration-150 -mb-[1px] cursor-pointer whitespace-nowrap ${
+                  className={`scenario-tab px-4 py-2 font-mono text-[11px] uppercase tracking-[0.06em] rounded-t-md transition-all duration-150 -mb-[1px] cursor-pointer whitespace-nowrap ${
                     activeScenario === 2
                       ? 'bg-surfacePure text-charcoal font-semibold border-t border-x border-hairline'
                       : 'text-mutedInk hover:text-charcoal'
@@ -102,7 +102,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setActiveScenario(3)}
-                  className={`scenario-tab px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.06em] rounded-t-md transition-all duration-150 -mb-[1px] cursor-pointer whitespace-nowrap ${
+                  className={`scenario-tab px-4 py-2 font-mono text-[11px] uppercase tracking-[0.06em] rounded-t-md transition-all duration-150 -mb-[1px] cursor-pointer whitespace-nowrap ${
                     activeScenario === 3
                       ? 'bg-surfacePure text-charcoal font-semibold border-t border-x border-hairline'
                       : 'text-mutedInk hover:text-charcoal'
@@ -112,37 +112,37 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* Content Inside Active Tabs (Proportional Compact Layout) */}
-              <div className="p-3.5 sm:p-4 flex flex-col gap-2.5">
+              {/* Content Inside Active Tabs (Rich, Readable & Comfortable) */}
+              <div className="p-5 md:p-6 flex flex-col gap-4">
                 {/* SCENARIO 1: MARKET BRIEFING */}
                 {activeScenario === 1 && (
-                  <div className="scenario-pane flex flex-col gap-2">
+                  <div className="scenario-pane flex flex-col gap-3.5">
                     {/* WHAT YOU ASKED */}
-                    <div className="bg-surfaceMuted/50 p-2.5 rounded-lg border border-hairline/70">
-                      <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-mutedInk font-semibold block mb-0.5">
+                    <div className="bg-surfaceMuted/50 p-3.5 rounded-lg border border-hairline/70">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-mutedInk font-semibold block mb-1">
                         What you asked
                       </span>
-                      <p className="font-display italic text-[13px] text-charcoal leading-snug">
+                      <p className="font-display italic text-[15px] text-charcoal leading-snug">
                         “Summarize today’s NIFTY Auto index gamma exposure and run my standard hedge check against our FY25 capex auto-component exposure.”
                       </p>
                     </div>
 
                     {/* WHAT GRIZON ALREADY REMEMBERS ABOUT YOU */}
-                    <div className="bg-terracotta-soft/70 border border-terracotta/20 p-2 rounded-lg flex items-start gap-2">
-                      <span className="material-symbols-outlined text-[16px] text-terracotta mt-0.5">neurology</span>
+                    <div className="bg-terracotta-soft/70 border border-terracotta/20 p-3 rounded-lg flex items-start gap-3">
+                      <span className="material-symbols-outlined text-[18px] text-terracotta mt-0.5">neurology</span>
                       <div className="flex-1">
-                        <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-terracotta font-semibold block mb-0.5">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-terracotta font-semibold block mb-0.5">
                           What Grizon already remembers about you
                         </span>
-                        <p className="font-sans text-[11.5px] text-charcoal leading-tight">
+                        <p className="font-sans text-[13px] text-charcoal leading-snug">
                           Portfolio holds ₹4.2Cr Tier-1 auto components; prefers Delta-neutral collar; morning schedule 08:45 IST; risk threshold 1.8% daily VAR.
                         </p>
                       </div>
                     </div>
 
                     {/* Specialist Consulted Telemetry Strip */}
-                    <div className="flex flex-wrap items-center justify-between text-mutedInk font-mono text-[9.5px] py-1 px-2.5 bg-surfaceMuted/50 rounded border border-hairline/60">
-                      <div className="flex items-center gap-1.5">
+                    <div className="flex flex-wrap items-center justify-between text-mutedInk font-mono text-[10.5px] py-1.5 px-3 bg-surfaceMuted/50 rounded border border-hairline/60">
+                      <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
                         <span>
                           Specialist: <strong className="text-charcoal font-medium">Market Analyst &amp; Options Desk</strong>
@@ -155,48 +155,48 @@ export default function Home() {
                     </div>
 
                     {/* SYNTHESIZED TACTICAL INTELLIGENCE */}
-                    <div className="bg-surfacePure border border-hairline rounded-lg p-2.5 sm:p-3 flex flex-col gap-2 shadow-xs">
-                      <div className="flex items-center justify-between border-b border-hairline/60 pb-1.5">
-                        <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.12em] text-charcoal">
+                    <div className="bg-surfacePure border border-hairline rounded-lg p-4 flex flex-col gap-2.5 shadow-xs">
+                      <div className="flex items-center justify-between border-b border-hairline/60 pb-2">
+                        <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.12em] text-charcoal">
                           Synthesized Tactical Intelligence
                         </span>
-                        <span className="font-mono text-[9px] text-terracotta bg-terracotta-soft px-1.5 py-0.5 rounded font-medium border border-terracotta/20">
+                        <span className="font-mono text-[10px] text-terracotta bg-terracotta-soft px-2 py-0.5 rounded font-medium border border-terracotta/20">
                           Deterministic Grounded
                         </span>
                       </div>
-                      <p className="font-sans text-[12px] text-charcoal leading-relaxed">
+                      <p className="font-sans text-[13.5px] text-charcoal leading-relaxed">
                         NIFTY Auto index open interest shows pronounced 19,200 Call resistance with negative gamma clustering at 18,800 Put strike. With ₹4.2Cr component book, current portfolio beta stands at 1.14 against Auto benchmark.
                       </p>
-                      <div className="p-1.5 sm:p-2 bg-surfaceMuted/60 rounded border border-hairline/70 font-sans text-[11.5px] text-charcoal flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                      <div className="p-2.5 px-3 bg-surfaceMuted/60 rounded border border-hairline/70 font-sans text-[12.5px] text-charcoal flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                         <span>Recommended Action: <strong className="font-medium text-charcoal">Buy 18,850 Put / Sell 19,300 Call (1:1.2 Ratio)</strong></span>
-                        <span className="font-mono text-[10px] text-botanical font-semibold bg-white/80 px-1.5 py-0.5 rounded border border-hairline self-start sm:self-auto">
+                        <span className="font-mono text-[10.5px] text-botanical font-semibold bg-white/80 px-2 py-0.5 rounded border border-hairline self-start sm:self-auto">
                           Neutralizes 88% Delta
                         </span>
                       </div>
                       {/* Verified Citations Badges */}
-                      <div className="pt-0.5 flex flex-wrap items-center gap-1 font-mono text-[9.5px] text-mutedInk">
+                      <div className="pt-1 flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-mutedInk">
                         <span className="font-medium mr-1">Verified Citations:</span>
-                        <span className="px-1.5 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
+                        <span className="px-2 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
                           [NSE_NIFTYAUTO_09:15]
                         </span>
-                        <span className="px-1.5 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
+                        <span className="px-2 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
                           [RBI_FX_DIR_12B]
                         </span>
-                        <span className="px-1.5 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
+                        <span className="px-2 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
                           [TCS_CAPEX_NOTE]
                         </span>
                       </div>
                     </div>
 
                     {/* Interactive Switch Routine Toggle */}
-                    <div className="p-2 sm:p-2.5 bg-surfaceMuted/50 border border-hairline rounded-lg flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-terracotta text-[17px]">schedule</span>
+                    <div className="p-3 bg-surfaceMuted/50 border border-hairline rounded-lg flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="material-symbols-outlined text-terracotta text-[18px]">schedule</span>
                         <div>
-                          <p className="font-sans text-[12px] text-charcoal font-medium">
+                          <p className="font-sans text-[13px] text-charcoal font-medium">
                             Run this routine automatically every trading day at 08:45 IST
                           </p>
-                          <p className="font-sans text-[10.5px] text-mutedInk">
+                          <p className="font-sans text-[11px] text-mutedInk">
                             Dispatches synthesized executive summary directly to your workspace inbox
                           </p>
                         </div>
@@ -204,14 +204,14 @@ export default function Home() {
                       <button
                         type="button"
                         onClick={() => toggleRoutine(1)}
-                        className={`relative inline-flex h-4 w-8 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
+                        className={`relative inline-flex h-4.5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
                           routinesEnabled[1] ? 'bg-botanical' : 'bg-hairline'
                         }`}
                         aria-label="Toggle Morning Market Routine"
                       >
                         <span
-                          className={`pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white shadow-xs ring-0 transition duration-200 ease-in-out ${
-                            routinesEnabled[1] ? 'translate-x-4' : 'translate-x-0'
+                          className={`pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-xs ring-0 transition duration-200 ease-in-out ${
+                            routinesEnabled[1] ? 'translate-x-4.5' : 'translate-x-0'
                           }`}
                         />
                       </button>
@@ -221,30 +221,30 @@ export default function Home() {
 
                 {/* SCENARIO 2: DELHI HIGH COURT */}
                 {activeScenario === 2 && (
-                  <div className="scenario-pane flex flex-col gap-2">
-                    <div className="bg-surfaceMuted/50 p-2.5 rounded-lg border border-hairline/70">
-                      <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-mutedInk font-semibold block mb-0.5">
+                  <div className="scenario-pane flex flex-col gap-3.5">
+                    <div className="bg-surfaceMuted/50 p-3.5 rounded-lg border border-hairline/70">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-mutedInk font-semibold block mb-1">
                         What you asked
                       </span>
-                      <p className="font-display italic text-[13px] text-charcoal leading-snug">
+                      <p className="font-display italic text-[15px] text-charcoal leading-snug">
                         “Check if WP(C) 10428/2023 was listed in Court 14 supplementary cause list for tomorrow morning.”
                       </p>
                     </div>
 
-                    <div className="bg-terracotta-soft/70 border border-terracotta/20 p-2 rounded-lg flex items-start gap-2">
-                      <span className="material-symbols-outlined text-[16px] text-terracotta mt-0.5">neurology</span>
+                    <div className="bg-terracotta-soft/70 border border-terracotta/20 p-3 rounded-lg flex items-start gap-3">
+                      <span className="material-symbols-outlined text-[18px] text-terracotta mt-0.5">neurology</span>
                       <div className="flex-1">
-                        <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-terracotta font-semibold block mb-0.5">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-terracotta font-semibold block mb-0.5">
                           What Grizon already remembers about you
                         </span>
-                        <p className="font-sans text-[11.5px] text-charcoal leading-tight">
+                        <p className="font-sans text-[13px] text-charcoal leading-snug">
                           Lead Counsel for Respondent No. 3; chamber docket #DH-229; alert preference WhatsApp &amp; In-app push immediately upon cause list publication.
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between text-mutedInk font-mono text-[9.5px] py-1 px-2.5 bg-surfaceMuted/50 rounded border border-hairline/60">
-                      <div className="flex items-center gap-1.5">
+                    <div className="flex flex-wrap items-center justify-between text-mutedInk font-mono text-[10.5px] py-1.5 px-3 bg-surfaceMuted/50 rounded border border-hairline/60">
+                      <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
                         <span>
                           Specialist: <strong className="text-charcoal font-medium">Judicial Research &amp; Regulatory Counsel</strong>
@@ -256,48 +256,48 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="bg-surfacePure border border-hairline rounded-lg p-2.5 sm:p-3 flex flex-col gap-2 shadow-xs">
-                      <div className="flex items-center justify-between border-b border-hairline/60 pb-1.5">
-                        <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.12em] text-charcoal">
+                    <div className="bg-surfacePure border border-hairline rounded-lg p-4 flex flex-col gap-2.5 shadow-xs">
+                      <div className="flex items-center justify-between border-b border-hairline/60 pb-2">
+                        <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.12em] text-charcoal">
                           Synthesized Tactical Intelligence
                         </span>
-                        <span className="font-mono text-[9px] text-terracotta bg-terracotta-soft px-1.5 py-0.5 rounded font-medium border border-terracotta/20">
+                        <span className="font-mono text-[10px] text-terracotta bg-terracotta-soft px-2 py-0.5 rounded font-medium border border-terracotta/20">
                           Deterministic Grounded
                         </span>
                       </div>
-                      <p className="font-sans text-[12px] text-charcoal leading-relaxed">
+                      <p className="font-sans text-[13.5px] text-charcoal leading-relaxed">
                         Item #34 listed before Hon'ble Justice Manoj Jain in Courtroom 14 at 10:30 AM. Interim stay application on paragraph 14 remains pending. Rejoinder filed by Petitioner yesterday at 16:45 IST has been flagged for your inspection.
                       </p>
-                      <div className="pt-0.5 flex flex-wrap items-center gap-1 font-mono text-[9.5px] text-mutedInk">
+                      <div className="pt-1 flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-mutedInk">
                         <span className="font-medium mr-1">Verified Citations:</span>
-                        <span className="px-1.5 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
+                        <span className="px-2 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
                           [DHC_CAUSLIST_ITEM_34]
                         </span>
-                        <span className="px-1.5 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
+                        <span className="px-2 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
                           [CNR_DLHC010088212023]
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-2 sm:p-2.5 bg-surfaceMuted/50 border border-hairline rounded-lg flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-terracotta text-[17px]">schedule</span>
+                    <div className="p-3 bg-surfaceMuted/50 border border-hairline rounded-lg flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="material-symbols-outlined text-terracotta text-[18px]">schedule</span>
                         <div>
-                          <p className="font-sans text-[12px] text-charcoal font-medium">Track Court 14 Supplementary List daily at 19:00 IST</p>
-                          <p className="font-sans text-[10.5px] text-mutedInk">Sends counsel notifications whenever docket updates occur</p>
+                          <p className="font-sans text-[13px] text-charcoal font-medium">Track Court 14 Supplementary List daily at 19:00 IST</p>
+                          <p className="font-sans text-[11px] text-mutedInk">Sends counsel notifications whenever docket updates occur</p>
                         </div>
                       </div>
                       <button
                         type="button"
                         onClick={() => toggleRoutine(2)}
-                        className={`relative inline-flex h-4 w-8 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
+                        className={`relative inline-flex h-4.5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
                           routinesEnabled[2] ? 'bg-botanical' : 'bg-hairline'
                         }`}
                         aria-label="Toggle Court Tracking Routine"
                       >
                         <span
-                          className={`pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white shadow-xs ring-0 transition duration-200 ease-in-out ${
-                            routinesEnabled[2] ? 'translate-x-4' : 'translate-x-0'
+                          className={`pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-xs ring-0 transition duration-200 ease-in-out ${
+                            routinesEnabled[2] ? 'translate-x-4.5' : 'translate-x-0'
                           }`}
                         />
                       </button>
@@ -307,30 +307,30 @@ export default function Home() {
 
                 {/* SCENARIO 3: ARCHITECTURE ADR AUDIT */}
                 {activeScenario === 3 && (
-                  <div className="scenario-pane flex flex-col gap-2">
-                    <div className="bg-surfaceMuted/50 p-2.5 rounded-lg border border-hairline/70">
-                      <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-mutedInk font-semibold block mb-0.5">
+                  <div className="scenario-pane flex flex-col gap-3.5">
+                    <div className="bg-surfaceMuted/50 p-3.5 rounded-lg border border-hairline/70">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-mutedInk font-semibold block mb-1">
                         What you asked
                       </span>
-                      <p className="font-display italic text-[13px] text-charcoal leading-snug">
+                      <p className="font-display italic text-[15px] text-charcoal leading-snug">
                         “Audit our AWS Mumbai egress routing against DPDP cross-border data handling provisions before tomorrow's audit committee.”
                       </p>
                     </div>
 
-                    <div className="bg-terracotta-soft/70 border border-terracotta/20 p-2 rounded-lg flex items-start gap-2">
-                      <span className="material-symbols-outlined text-[16px] text-terracotta mt-0.5">neurology</span>
+                    <div className="bg-terracotta-soft/70 border border-terracotta/20 p-3 rounded-lg flex items-start gap-3">
+                      <span className="material-symbols-outlined text-[18px] text-terracotta mt-0.5">neurology</span>
                       <div className="flex-1">
-                        <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-terracotta font-semibold block mb-0.5">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-terracotta font-semibold block mb-0.5">
                           What Grizon already remembers about you
                         </span>
-                        <p className="font-sans text-[11.5px] text-charcoal leading-tight">
+                        <p className="font-sans text-[13px] text-charcoal leading-snug">
                           Multi-tenant Postgres cluster on ap-south-1; encryption keys managed via Sovereign HSM; strict requirement for zero cross-border transit of Aadhaar vault tokens.
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between text-mutedInk font-mono text-[9.5px] py-1 px-2.5 bg-surfaceMuted/50 rounded border border-hairline/60">
-                      <div className="flex items-center gap-1.5">
+                    <div className="flex flex-wrap items-center justify-between text-mutedInk font-mono text-[10.5px] py-1.5 px-3 bg-surfaceMuted/50 rounded border border-hairline/60">
+                      <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
                         <span>
                           Specialist: <strong className="text-charcoal font-medium">Platform Architect &amp; Statutory Infosec</strong>
@@ -342,48 +342,48 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="bg-surfacePure border border-hairline rounded-lg p-2.5 sm:p-3 flex flex-col gap-2 shadow-xs">
-                      <div className="flex items-center justify-between border-b border-hairline/60 pb-1.5">
-                        <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.12em] text-charcoal">
+                    <div className="bg-surfacePure border border-hairline rounded-lg p-4 flex flex-col gap-2.5 shadow-xs">
+                      <div className="flex items-center justify-between border-b border-hairline/60 pb-2">
+                        <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.12em] text-charcoal">
                           Synthesized Tactical Intelligence
                         </span>
-                        <span className="font-mono text-[9px] text-terracotta bg-terracotta-soft px-1.5 py-0.5 rounded font-medium border border-terracotta/20">
+                        <span className="font-mono text-[10px] text-terracotta bg-terracotta-soft px-2 py-0.5 rounded font-medium border border-terracotta/20">
                           Deterministic Grounded
                         </span>
                       </div>
-                      <p className="font-sans text-[12px] text-charcoal leading-relaxed">
+                      <p className="font-sans text-[13.5px] text-charcoal leading-relaxed">
                         Audit confirmed zero off-shore transit. S3 lifecycle policies enforce local bucket replicate within Mumbai AZ-1 &amp; AZ-3. All audit logs meet Rule 7(4) 7-year non-repudiation standard.
                       </p>
-                      <div className="pt-0.5 flex flex-wrap items-center gap-1 font-mono text-[9.5px] text-mutedInk">
+                      <div className="pt-1 flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-mutedInk">
                         <span className="font-medium mr-1">Verified Citations:</span>
-                        <span className="px-1.5 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
+                        <span className="px-2 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
                           [DPDP_ACT_SEC_16]
                         </span>
-                        <span className="px-1.5 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
+                        <span className="px-2 py-0.5 bg-surfaceMuted text-charcoal rounded border border-hairline hover:border-terracotta cursor-default transition-colors">
                           [AWS_AP_SOUTH_AUDIT_LOG]
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-2 sm:p-2.5 bg-surfaceMuted/50 border border-hairline rounded-lg flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-terracotta text-[17px]">schedule</span>
+                    <div className="p-3 bg-surfaceMuted/50 border border-hairline rounded-lg flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="material-symbols-outlined text-terracotta text-[18px]">schedule</span>
                         <div>
-                          <p className="font-sans text-[12px] text-charcoal font-medium">Weekly DPDP Statutory Compliance Drift Scan</p>
-                          <p className="font-sans text-[10.5px] text-mutedInk">Runs every Sunday 23:00 IST across infrastructure changes</p>
+                          <p className="font-sans text-[13px] text-charcoal font-medium">Weekly DPDP Statutory Compliance Drift Scan</p>
+                          <p className="font-sans text-[11px] text-mutedInk">Runs every Sunday 23:00 IST across infrastructure changes</p>
                         </div>
                       </div>
                       <button
                         type="button"
                         onClick={() => toggleRoutine(3)}
-                        className={`relative inline-flex h-4 w-8 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
+                        className={`relative inline-flex h-4.5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
                           routinesEnabled[3] ? 'bg-botanical' : 'bg-hairline'
                         }`}
                         aria-label="Toggle Compliance Routine"
                       >
                         <span
-                          className={`pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white shadow-xs ring-0 transition duration-200 ease-in-out ${
-                            routinesEnabled[3] ? 'translate-x-4' : 'translate-x-0'
+                          className={`pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-xs ring-0 transition duration-200 ease-in-out ${
+                            routinesEnabled[3] ? 'translate-x-4.5' : 'translate-x-0'
                           }`}
                         />
                       </button>
