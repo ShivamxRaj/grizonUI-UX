@@ -15,24 +15,32 @@ import AppDashboard from './pages/AppDashboard';
 import Welcome from './pages/Welcome';
 import Workflow from './pages/Workflow';
 import Pricing from './pages/Pricing';
+import AigenixTemplate from './pages/AigenixTemplate';
 
 function AppLayout() {
   const location = useLocation();
-  // Part B app screens have their own dedicated utility headers and full-screen layouts
-  const isPartBWorkspace =
-    location.pathname.startsWith('/app') || location.pathname.startsWith('/welcome');
+  // Part B app screens and dedicated standalone templates have their own dedicated navigation/layouts
+  const isDedicatedLayout =
+    location.pathname.startsWith('/app') ||
+    location.pathname.startsWith('/welcome') ||
+    location.pathname.startsWith('/aigenix') ||
+    location.pathname.startsWith('/template-aigenix');
 
   return (
     <>
       <ScrollToTop />
-      {!isPartBWorkspace && <Navbar />}
-      <main style={{ minHeight: isPartBWorkspace ? '100vh' : '80vh' }}>
+      {!isDedicatedLayout && <Navbar />}
+      <main style={{ minHeight: isDedicatedLayout ? '100vh' : '80vh' }}>
         <Routes>
           {/* =========================================================
               PART A: MULTIPAGE PUBLIC MARKETING WEBSITE
           ========================================================== */}
           {/* 1. PRIMARY ENTRY / MAIN LANDING PAGE */}
           <Route path="/" element={<Home />} />
+
+          {/* THEMEFOREST #3 BEST MATCH TEMPLATE: AIGENIX AI AGENT SAAS */}
+          <Route path="/aigenix" element={<AigenixTemplate />} />
+          <Route path="/template-aigenix" element={<AigenixTemplate />} />
 
           {/* 2. AUTONOMOUS AGENTS FLEET & SPECIALIZED SUITES */}
           <Route path="/agents" element={<Agents />} />
@@ -72,7 +80,7 @@ function AppLayout() {
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
-      {!isPartBWorkspace && <Footer />}
+      {!isDedicatedLayout && <Footer />}
     </>
   );
 }
