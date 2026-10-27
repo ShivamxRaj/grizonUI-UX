@@ -27,10 +27,7 @@ export default function Footer() {
               Autonomous Intelligence
             </span>
           </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surfacePure border border-hairline font-mono text-[11px] text-mutedInk">
-            <span className="w-2 h-2 rounded-full bg-terracotta"></span>
-            <span>6 LLM Providers · 7 Live Indian APIs · DPDP Aligned</span>
-          </div>
+
         </div>
 
         {/* 4 Columns Grid */}
