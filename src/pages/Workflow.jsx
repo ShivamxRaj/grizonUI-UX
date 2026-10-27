@@ -112,9 +112,9 @@ export default function Workflow() {
           <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-terracotta font-semibold">
             Routines, Memory &amp; Projects
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] text-charcoal font-normal tracking-tight leading-[1.12]">
+          <h1 className="font-sans text-4xl sm:text-5xl lg:text-[56px] text-charcoal font-semibold tracking-tight leading-[1.12]">
             Set your rhythm once.<br />
-            <span className="italic text-botanical font-serif">Let Grizon keep watch.</span>
+            <span className="text-botanical font-medium">Let Grizon keep watch.</span>
           </h1>
           <p className="font-sans text-[16px] md:text-[18px] text-mutedInk leading-relaxed max-w-2xl font-normal">
             Plain English automation for option-chain briefings, court docket checks, or policy synthesis running on your schedule.
@@ -148,12 +148,12 @@ export default function Workflow() {
           </div>
 
           {/* Natural-Language Sentence Builder */}
-          <div className="font-serif text-2xl md:text-[28px] text-zinc-900 leading-[1.75] font-normal">
+          <div className="font-sans text-xl md:text-2xl text-zinc-900 leading-[1.8] font-normal">
             Every{' '}
             <select
               value={cadence}
               onChange={(e) => setCadence(e.target.value)}
-              className="underline decoration-amber-600/70 underline-offset-8 font-medium cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-serif inline-block my-1"
+              className="underline decoration-amber-600/70 underline-offset-8 font-semibold cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-sans inline-block my-1"
             >
               <option value="trading day">trading day</option>
               <option value="weekday morning">weekday morning</option>
@@ -164,7 +164,7 @@ export default function Workflow() {
             <select
               value={specialist}
               onChange={(e) => setSpecialist(e.target.value)}
-              className="underline decoration-amber-600/70 underline-offset-8 font-medium cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-serif inline-block my-1"
+              className="underline decoration-amber-600/70 underline-offset-8 font-semibold cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-sans inline-block my-1"
             >
               <option value="Market & Trading Specialist">Market &amp; Trading Specialist</option>
               <option value="Legal Intelligence India">Legal Intelligence India</option>
@@ -177,7 +177,7 @@ export default function Workflow() {
             <select
               value={task}
               onChange={(e) => setTask(e.target.value)}
-              className="underline decoration-amber-600/70 underline-offset-8 font-medium cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-serif inline-block my-1"
+              className="underline decoration-amber-600/70 underline-offset-8 font-semibold cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-sans inline-block my-1"
             >
               <option value="analyze NIFTY option chain and unusual OI shifts">
                 analyze NIFTY option chain and unusual OI shifts
@@ -196,7 +196,7 @@ export default function Workflow() {
               </option>
             </select>{' '}
             at{' '}
-            <span className="underline decoration-amber-600/70 underline-offset-8 font-medium text-amber-700 font-mono text-xl md:text-2xl bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200/50 inline-block my-1">
+            <span className="underline decoration-amber-600/70 underline-offset-8 font-semibold text-amber-700 font-mono text-xl md:text-2xl bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200/50 inline-block my-1">
               {dailyFrequency === 1 && '09:20 IST'}
               {dailyFrequency === 2 && '09:20, 15:25 IST'}
               {dailyFrequency === 3 && '09:20, 12:30, 15:25 IST'}
@@ -206,7 +206,7 @@ export default function Workflow() {
             <select
               value={project}
               onChange={(e) => setProject(e.target.value)}
-              className="underline decoration-amber-600/70 underline-offset-8 font-medium cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-serif inline-block my-1"
+              className="underline decoration-amber-600/70 underline-offset-8 font-semibold cursor-pointer text-zinc-900 hover:text-amber-700 bg-amber-50/70 px-2 py-0.5 rounded border-none focus:ring-1 focus:ring-amber-500 font-sans inline-block my-1"
             >
               <option value="NIFTY Swing Desk">NIFTY Swing Desk</option>
               <option value="Delhi High Court Commercial Writ">Delhi High Court Commercial Writ</option>

@@ -51,11 +51,26 @@
   --agent-dev-studio:      #107E7D;
   --agent-legal:           #843B62;
 
+  /* OptimAI / GriZon Token-Driven Foundations (design.md) */
+  --color-text-primary:    #07091B;
+  --color-text-secondary:  #52525B;
+  --color-text-tertiary:   #71717A;
+  --color-text-inverse:    #FFFFFF;
+  --color-surface-base:    #FAF9F5;
+  --color-surface-card:    #FFFFFF;
+  --color-surface-muted:   #F4F2EC;
+  --color-brand-primary:   #1E3A3A;
+  --color-brand-accent:    #D97736;
+  --color-status-success:  #059669;
+  --color-status-error:    #DC2626;
+  --color-border-hairline: #E6E4DD;
+  --color-border-focus:    #1E3A3A;
+
   /* Borders */
-  --border-hairline:       #E6E7EE;
+  --border-hairline:       #E6E4DD;
 
   /* Typography */
-  --font-display:          'Newsreader', Georgia, serif;
+  --font-display:          'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-body:             'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-code:             'Space Grotesk', monospace;
   --font-mono:             'JetBrains Mono', monospace;
@@ -109,6 +124,12 @@ body {
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ── WCAG 2.2 AA FOCUS-VISIBLE ACCESSIBILITY RULE (design.md) ── */
+:focus-visible {
+  outline: 2px solid var(--color-border-focus, #1E3A3A) !important;
+  outline-offset: 2px !important;
+}
 
 /* Material Symbols */
 .material-symbols-outlined {

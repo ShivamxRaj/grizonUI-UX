@@ -115,7 +115,7 @@ export default function Footer() {
         {/* Bottom Note */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[12px] text-mutedInk">
           <p>© 2026 Grizon AI. All rights reserved.</p>
-          <p className="font-display italic text-[14px] text-mutedInk">Made with devotion in India.</p>
+          <p className="font-sans italic text-[13px] text-mutedInk">Made with devotion in India.</p>
         </div>
       </div>
     </footer>

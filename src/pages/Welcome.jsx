@@ -161,7 +161,7 @@ export default function Welcome() {
                   Layer 1 · Static Profile Memory
                 </span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl text-charcoal font-normal tracking-tight">
+              <h1 className="font-sans text-3xl sm:text-4xl text-charcoal font-semibold tracking-tight">
                 What describes your primary focus?
               </h1>
               <p className="font-sans text-sm sm:text-base text-mutedInk max-w-2xl leading-relaxed">
@@ -241,7 +241,7 @@ export default function Welcome() {
                   Layer 1 · Context Calibration
                 </span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl text-charcoal font-normal tracking-tight">
+              <h1 className="font-sans text-3xl sm:text-4xl text-charcoal font-semibold tracking-tight">
                 Calibrate your standing context.
               </h1>
               <p className="font-sans text-sm sm:text-base text-mutedInk max-w-2xl leading-relaxed">
@@ -422,7 +422,7 @@ export default function Welcome() {
                   Step 03 · Sovereign Workspace Deployment
                 </span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-4xl text-charcoal font-normal tracking-tight">
+              <h1 className="font-sans text-3xl sm:text-4xl text-charcoal font-semibold tracking-tight">
                 Initialize your sovereign workspace.
               </h1>
               <p className="font-sans text-sm sm:text-base text-mutedInk max-w-2xl leading-relaxed">

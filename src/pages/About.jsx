@@ -45,9 +45,9 @@ export default function About() {
           </div>
 
           <div className="max-w-4xl space-y-4">
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] text-charcoal leading-[1.08] tracking-tight font-normal">
+            <h1 className="font-sans text-4xl sm:text-5xl lg:text-[56px] text-charcoal leading-[1.08] tracking-tight font-semibold">
               Why confidence without{' '}
-              <em className="italic font-normal text-terracotta font-serif">verification</em> is broken.
+              <span className="font-medium text-terracotta">verification</span> is broken.
             </h1>
             <p className="font-sans text-lg sm:text-xl text-mutedInk max-w-3xl leading-relaxed font-normal">
               The central hazard of contemporary generative AI is not inability, but synthetic conviction. In jurisprudence, treasury governance, and regulatory compliance, ungrounded fluency is catastrophic.

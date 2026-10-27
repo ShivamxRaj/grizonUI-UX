@@ -480,7 +480,7 @@ export default function AppDashboard() {
                             Autonomous Domain Assessment
                           </span>
                         </div>
-                        <p className="font-serif text-lg sm:text-xl text-charcoal leading-snug">
+                        <p className="font-sans font-medium text-lg sm:text-xl text-charcoal leading-snug">
                           {msg.content.summary}
                         </p>
                       </div>
@@ -733,7 +733,7 @@ export default function AppDashboard() {
                       <span className="text-secondary uppercase font-semibold">NSE Option Snapshot</span>
                       <span className="text-mutedInk">Recorded: 09:20:00 IST</span>
                     </div>
-                    <div className="font-serif text-lg text-charcoal font-semibold">
+                    <div className="font-sans text-lg text-charcoal font-bold">
                       RELIANCE — 24 APR 2025 EXPIRY
                     </div>
                   </div>
@@ -831,7 +831,7 @@ export default function AppDashboard() {
               {artifactTab === 'export' && (
                 <div className="space-y-4 font-sans text-xs">
                   <div className="space-y-1">
-                    <div className="font-serif text-base text-charcoal font-semibold">
+                    <div className="font-sans text-base text-charcoal font-bold">
                       Institutional Export Options
                     </div>
                     <p className="text-mutedInk">
