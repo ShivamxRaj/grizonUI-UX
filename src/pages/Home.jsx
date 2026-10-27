@@ -2,186 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const [activeHeroAgent, setActiveHeroAgent] = useState('auto'); // 'auto' | 'fast' | 'deep' | 'dev' | 'market' | 'legal'
-  const [activeScenario, setActiveScenario] = useState('market'); // 'market' | 'dpdp' | 'dev'
-  const [activeCanvasTab, setActiveCanvasTab] = useState('preview'); // 'preview' | 'citations'
-  const [bullSentiment, setBullSentiment] = useState(true);
-  const [copiedHash, setCopiedHash] = useState(false);
-  const [activeWorkflow, setActiveWorkflow] = useState(1);
   const [expandedFaq, setExpandedFaq] = useState(null);
-
-  // Hero interactive intent presets
-  const heroAgentData = {
-    auto: {
-      label: 'Auto Mode active: Evaluating query complexity & token budget...',
-      prompt: 'Synthesize the quarterly capex trends for renewable infrastructure in Gujarat with sensitivity analysis.',
-      routingBadge: 'Routed to Deep Research & Market Oracles',
-      latency: '84ms',
-      sources: '14 statutory filings verified',
-      artifact: 'Gujarat_Renewable_CapEx_Model_2025.xlsx + Synthesis Report',
-    },
-    fast: {
-      label: 'Fast Research active: Sub-300ms live indexing across 350+ data feeds...',
-      prompt: 'Latest RBI circular on digital lending default loss guarantee guidelines and NBFC risk-weight adjustments.',
-      routingBadge: 'Routed to Fast Research Engine',
-      latency: '210ms',
-      sources: '6 RBI & Gazette notifications verified',
-      artifact: 'RBI_DLG_Guidelines_Summary.pdf',
-    },
-    deep: {
-      label: 'Deep Research active: Recursive DAG multi-step hypothesis tree running...',
-      prompt: 'Analyze competitive moat of top 5 Indian green hydrogen producers against European CBAM carbon tax.',
-      routingBadge: 'Routed to Deep Research Engine',
-      latency: '420ms',
-      sources: '28 industry disclosures & trade logs',
-      artifact: 'GreenHydrogen_CBAM_Impact_Matrix.pdf',
-    },
-    dev: {
-      label: 'Dev Studio active: Isolated Linux VM container sandbox initialized...',
-      prompt: 'Build a sovereign React sparkline widget for NSE Bank Nifty live tick stream with Tailwind CSS.',
-      routingBadge: 'Routed to Dev Studio Agent',
-      latency: '98ms',
-      sources: 'React 19 & Tailwind CSS v4 stable',
-      artifact: 'SovereignSparklineWidget.jsx',
-    },
-    market: {
-      label: 'Market Quant active: Direct NSE order-book tick streaming...',
-      prompt: 'Deconstruct Nifty 50 options call/put volatility skew and compute Taurus vs Ursa consensus.',
-      routingBadge: 'Routed to Market Quant Specialist',
-      latency: '112ms',
-      sources: 'NSE Option Chain • 24 strikes indexed',
-      artifact: 'NiftyBank_Alpha_Skew_Model.html',
-    },
-    legal: {
-      label: 'Legal Intelligence active: eCourts India & 44 High Courts machine concordance...',
-      prompt: 'Check precedent concordance under Bharatiya Nyaya Sanhita (BNS) §112 vs IPC §302.',
-      routingBadge: 'Routed to Legal Intelligence India',
-      latency: '146ms',
-      sources: 'Supreme Court & Delhi High Court gazettes',
-      artifact: 'BNS_Statutory_Concordance_Memo.pdf',
-    },
-  };
-
-  const heroCurrent = heroAgentData[activeHeroAgent] || heroAgentData.auto;
-
-  // Scenario Presets for the Breakout Split-Screen Workbench
-  const scenarios = {
-    market: {
-      id: 'market',
-      title: 'NSE Options Alpha & Skew',
-      badge: 'Market Quant & NSE Oracles',
-      icon: 'monitoring',
-      prompt: 'Simulate Bull vs Bear liquidity thesis for Nifty 50 Banking Index based on upcoming RBI MPC rate decision.',
-      agentName: 'Market Quant Specialist',
-      modelUsed: 'DeepSeek R1 + NSE Live Ticks',
-      latency: '112ms',
-      confidence: '99.4% Deterministic',
-      traces: [
-        { label: 'Query Classification', detail: 'Token Complexity: 142 • Financial Quantitative' },
-        { label: 'Live Oracle Stream', detail: 'NSE Option Chain Ticks • 24 strikes indexed' },
-        { label: 'Thesis Grounding', detail: 'Historical RBI MPC Rate Drift [2021-2024]' },
-      ],
-      citations: [
-        { id: 'NSE_NIFTY_BANK_OI', name: 'NSE Bank Nifty Open Interest Ticks (Live)' },
-        { id: 'RBI_MPC_MINUTES_FEB', name: 'RBI Monetary Policy Committee Resolution (Rule 4)' },
-        { id: 'SEBI_IV_SPREAD', name: 'SEBI Implied Volatility Benchmark' },
-      ],
-      artifactName: 'NiftyBank_Alpha_Skew_Model.html',
-      statPrimary: '+14.2% Alpha',
-      statSecondary: 'IV Rank: 21.4 (Low Volatility)',
-    },
-    dpdp: {
-      id: 'dpdp',
-      title: 'DPDP Act Compliance Audit',
-      badge: 'Statutory Infosec Specialist',
-      icon: 'gavel',
-      prompt: 'Audit AWS Mumbai (ap-south-1) egress routing and Aadhaar vault tokens against DPDP 2023 non-repudiation mandates.',
-      agentName: 'Statutory Infosec & Legal Specialist',
-      modelUsed: 'Claude 3.5 Sonnet + Kanoon API',
-      latency: '164ms',
-      confidence: '100% Deterministic',
-      traces: [
-        { label: 'Sovereign Scope Check', detail: 'Enclave: AWS ap-south-1 (Mumbai AZ-1 & AZ-3)' },
-        { label: 'Statutory Cross-Check', detail: 'DPDP 2023 Rule 7(4) Non-Repudiation Matrix' },
-        { label: 'HSM Cryptographic Seal', detail: 'SHA-256 Digest generated for Audit Committee' },
-      ],
-      citations: [
-        { id: 'DPDP_ACT_SEC_16', name: 'Digital Personal Data Protection Act 2023 §16' },
-        { id: 'MEITY_CLOUD_RULE_7', name: 'MeitY Sovereign Cloud Guideline Rule 7(4)' },
-        { id: 'UIDAI_AADHAAR_CIRCULAR', name: 'UIDAI Air-Gapped Vault Security Mandate' },
-      ],
-      artifactName: 'DPDP_Statutory_Compliance_Matrix.pdf',
-      statPrimary: 'Zero Off-Shore Transit',
-      statSecondary: 'Non-Repudiation: 7-Year Verified',
-    },
-    dev: {
-      id: 'dev',
-      title: 'React Telemetry Component',
-      badge: 'Dev Studio & Linux Container VM',
-      icon: 'terminal',
-      prompt: 'Generate an interactive React telemetry sparkline card for sovereign node latency monitoring using Tailwind CSS.',
-      agentName: 'Dev Studio Agent',
-      modelUsed: 'DeepSeek V3 + Container VM',
-      latency: '98ms',
-      confidence: 'Clean Compile Passed',
-      traces: [
-        { label: 'Sandbox Initialization', detail: 'Isolated Linux Container VM • 0.04s' },
-        { label: 'Tailwind Syntax Lint', detail: 'Zero Unused Classes • WCAG AA Accessible' },
-        { label: 'DOM Mount Simulation', detail: 'Render Performance: 60 FPS (0.42ms)' },
-      ],
-      citations: [
-        { id: 'REACT_19_STABLE', name: 'React 19 Core Component Specification' },
-        { id: 'TAILWIND_V4_CORE', name: 'Tailwind CSS Utility Design Tokens' },
-      ],
-      artifactName: 'SovereignTelemetryWidget.jsx',
-      statPrimary: '0.42ms Render',
-      statSecondary: 'Bundle Size: 2.1 kB Gzipped',
-    },
-  };
-
-  const current = scenarios[activeScenario];
-
-  // Visual Workflow scenarios (Aixom 2-Column Split Pattern)
-  const workflowScenarios = [
-    {
-      id: 1,
-      title: 'Weekly DPDP Statutory Compliance Scan',
-      frequency: 'Every Sunday at 23:00 IST',
-      agent: 'Statutory Infosec Specialist',
-      trigger: 'Scheduled Cron Event',
-      action: 'Audits ap-south-1 S3 replication policies & Aadhaar token routes against DPDP Rule 7.',
-      output: 'Delivers verified audit digest to CISO & exports non-repudiation log.',
-      status: 'Active • Zero Drift',
-      metric: '100% Sovereign',
-      nodes: ['Scheduled Cron (23:00 IST)', 'DPDP Rule 7 Audit Engine', 'CISO Audit Digest'],
-    },
-    {
-      id: 2,
-      title: 'Daily NSE Option Skew & Volatility Tracker',
-      frequency: 'Market Days at 09:15 IST & 15:30 IST',
-      agent: 'Market Quant & Oracle Specialist',
-      trigger: 'NSE Tick Stream Opening',
-      action: 'Parses Nifty 50 call/put skew delta and runs automated Bull vs Bear debate synthesis.',
-      output: 'Delivers morning risk matrix to portfolio manager channel.',
-      status: 'Active • Real-Time Stream',
-      metric: '24 Strikes Live',
-      nodes: ['NSE Order Oracles', 'Black-Scholes Delta Matrix', 'Telegram / Slack Channel'],
-    },
-    {
-      id: 3,
-      title: 'Continuous High Court Gazette Arbitration Watch',
-      frequency: 'Daily at 06:00 IST',
-      agent: 'Corporate Legal & Arbitration Specialist',
-      trigger: 'eCourts & Kanoon Index Sync',
-      action: 'Matches company vendor registry against freshly uploaded Commercial Division cause lists.',
-      output: 'Generates preventive litigation alert if petition is gazetted.',
-      status: 'Active • 44 High Courts Indexed',
-      metric: '16-Digit CNR',
-      nodes: ['eCourts India API Sync', 'Precedent Concordance Node', 'Preventive Counsel Notice'],
-    },
-  ];
-
-  const currentWorkflow = workflowScenarios.find((w) => w.id === activeWorkflow) || workflowScenarios[0];
 
   const faqs = [
     {
@@ -203,7 +24,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="w-full flex flex-col bg-white text-[#090B19] selection:bg-purple-100 selection:text-purple-900 font-sans overflow-x-hidden">
+    <div className="w-full flex flex-col bg-white text-[#090B19] selection:bg-purple-100 selection:text-purple-900 font-sans">
       {/* =====================================================================
           1. HERO SECTION: OptimAI Layout (3D Fluted Ribbed Backdrop + Flanking Floating Small Boxes)
           - Center Headline & Friendly Copy
@@ -212,38 +33,48 @@ export default function Home() {
           - 3D Fluted Vertical Cylinder Wall Background with Soft Violet/Indigo Lighting
           - Dual Pill Buttons with Ambient Underlight Glow
       ====================================================================== */}
-      <section className="relative w-full overflow-hidden pt-8 sm:pt-14 pb-16 lg:pb-24 border-b border-[#E6E4DD] bg-white">
-        {/* 3D Fluted Cylinder Glass Wall Background (Faithful to OptimAI reference) */}
+      <section className="relative w-full overflow-hidden pt-8 sm:pt-14 pb-16 lg:pb-24 bg-gradient-to-b from-[#FAF9F5] via-white to-[#FAF9F5]">
+        {/* 3D Fluted Cylinder Glass Wall Background with Refined Ethereal Color Grading */}
         <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[62%] pointer-events-none overflow-hidden select-none z-0">
-          {/* Ambient Purple Atmospheric Glow */}
-          <div className="absolute right-12 top-10 w-[420px] h-[420px] rounded-full bg-purple-400/20 blur-[110px] pointer-events-none" />
-          <div className="absolute right-1/3 bottom-10 w-[300px] h-[300px] rounded-full bg-indigo-300/15 blur-[90px] pointer-events-none" />
+          {/* Ambient Ethereal Diffuse Glows - Color graded to blend with Warm Alabaster */}
+          <div className="absolute right-12 top-10 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-purple-300/18 via-indigo-200/12 to-amber-100/15 blur-[120px] pointer-events-none" />
+          <div className="absolute right-1/3 bottom-16 w-[320px] h-[320px] rounded-full bg-indigo-200/12 blur-[100px] pointer-events-none" />
 
-          {/* 3D Vertical Fluted Cylinder Columns */}
+          {/* Vertical fade container ensuring fluted pillars smoothly dissolve before reaching bottom */}
           <div
-            className="absolute right-0 top-0 h-full w-full flex justify-end opacity-90 pointer-events-none"
+            className="absolute inset-0 flex justify-end pointer-events-none"
             style={{
-              maskImage:
-                'linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 98%), linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%)',
-              WebkitMaskImage:
-                'linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 98%), linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%)',
+              maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 86%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 86%)',
             }}
           >
-            <div className="flex h-full gap-2 sm:gap-3.5 pr-2 sm:pr-8">
-              {Array.from({ length: 18 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-full w-5 sm:w-8 lg:w-11 rounded-full opacity-85 transition-all"
-                  style={{
-                    background:
-                      'linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(226, 204, 254, 0.45) 30%, rgba(192, 132, 252, 0.6) 70%, rgba(147, 51, 234, 0.35) 100%)',
-                    boxShadow:
-                      'inset -2px 0 6px rgba(126, 34, 206, 0.22), inset 2px 0 4px rgba(255, 255, 255, 0.85)',
-                  }}
-                />
-              ))}
+            {/* Horizontal fade */}
+            <div
+              className="h-full w-full flex justify-end opacity-90"
+              style={{
+                maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 95%)',
+                WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 95%)',
+              }}
+            >
+              <div className="flex h-full gap-2 sm:gap-3.5 pr-2 sm:pr-8">
+                {Array.from({ length: 18 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-full w-5 sm:w-8 lg:w-11 rounded-full opacity-85 transition-all"
+                    style={{
+                      background:
+                        'linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(240, 232, 253, 0.55) 26%, rgba(216, 180, 254, 0.40) 65%, rgba(168, 85, 247, 0.20) 100%)',
+                      boxShadow:
+                        'inset -1.5px 0 5px rgba(147, 51, 234, 0.12), inset 1.5px 0 3px rgba(255, 255, 255, 0.95)',
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* Seamless bottom vignette melting directly into #FAF9F5 */}
+          <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent via-[#FAF9F5]/70 to-[#FAF9F5] pointer-events-none z-1" />
         </div>
 
         {/* Hero Content & Flanking Breakout Grid */}
@@ -251,75 +82,43 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-center">
             {/* LEFT FLANKING FLOATING SMALL BOXES (GriZon AI Core Capabilities) */}
             <div className="hidden lg:flex lg:col-span-3 flex-col gap-6 -ml-8 xl:-ml-12 pointer-events-auto select-none">
-              {/* Card 1: Autonomous AI Research */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-[0_12px_32px_rgba(0,0,0,0.05)] w-60 transform -rotate-1 hover:rotate-0 hover:shadow-lg transition-all duration-300 animate-float-slow">
-                <p className="font-sans text-xs font-semibold text-slate-500 mb-4 tracking-tight">
-                  Autonomous AI Research
+              {/* Card 1: Deterministic Accuracy (Top Left) */}
+              <div className="p-6 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.05)] text-left w-56 transform -rotate-1 hover:rotate-0 hover:shadow-lg transition-all duration-300 animate-float-slow">
+                <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
+                  Deterministic Accuracy
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-200/70 flex items-center justify-center text-emerald-600 shadow-2xs shrink-0">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="6" cy="6" r="2.5" />
-                      <circle cx="18" cy="6" r="2.5" />
-                      <circle cx="12" cy="18" r="2.5" />
-                      <line x1="8.2" y1="7.5" x2="15.8" y2="7.5" />
-                      <line x1="7.5" y1="8.2" x2="10.8" y2="15.8" />
-                      <line x1="16.5" y1="8.2" x2="13.2" y2="15.8" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="font-sans text-sm font-extrabold text-[#090B19] block leading-tight">
-                      Deep Research
-                    </span>
-                    <span className="font-sans text-[11px] text-emerald-600 font-semibold block mt-0.5">
-                      Verified Citations
-                    </span>
-                  </div>
+                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                  99.4%
                 </div>
+                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                  Zero-Hallucination Grounding
+                </p>
               </div>
 
-              {/* Card 2: Isolated Code Execution (Middle Left - Bleeding into Margin) */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-[0_14px_36px_rgba(0,0,0,0.06)] w-64 -ml-8 hover:ml-0 hover:shadow-lg transition-all duration-300 animate-float-mid">
-                <p className="font-sans text-xs font-semibold text-slate-500 mb-4 tracking-tight">
-                  Isolated Code Execution
+              {/* Card 2: Execution Latency (Middle Left - Bleeding into Margin) */}
+              <div className="p-6 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.06)] text-left w-60 -ml-8 hover:ml-0 hover:shadow-lg transition-all duration-300 animate-float-mid">
+                <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
+                  Execution Latency
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-xs shrink-0">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="font-sans text-sm font-extrabold text-[#090B19] block leading-tight">
-                      Dev Studio VM
-                    </span>
-                    <span className="font-sans text-[11px] text-indigo-600 font-semibold block mt-0.5">
-                      Secure Linux Sandbox
-                    </span>
-                  </div>
+                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                  &lt;50ms
                 </div>
+                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                  Isolated Container VM Sandbox
+                </p>
               </div>
 
-              {/* Card 3: Real-Time Data Grounding */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-[0_12px_32px_rgba(0,0,0,0.05)] w-60 transform rotate-1 hover:rotate-0 hover:shadow-lg transition-all duration-300 animate-float-fast">
-                <p className="font-sans text-xs font-semibold text-slate-500 mb-4 tracking-tight">
-                  Real-Time Data Grounding
+              {/* Card 3: Sovereign Enclave (Bottom Left) */}
+              <div className="p-6 rounded-2xl bg-white/95 backdrop-blur-sm border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.05)] text-left w-56 transform rotate-1 hover:rotate-0 hover:shadow-lg transition-all duration-300 animate-float-fast">
+                <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
+                  Sovereign Enclave
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-sky-50 border border-sky-200/70 flex items-center justify-center text-sky-600 shadow-2xs shrink-0">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 12h3l3-7 4 14 3-7h5" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="font-sans text-sm font-extrabold text-[#090B19] block leading-tight">
-                      Live Oracles
-                    </span>
-                    <span className="font-sans text-[11px] text-sky-600 font-semibold block mt-0.5">
-                      NSE &amp; 44 High Courts
-                    </span>
-                  </div>
+                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                  256-Bit
                 </div>
+                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                  Zero Data Retention Security
+                </p>
               </div>
             </div>
 
@@ -357,13 +156,13 @@ export default function Home() {
                 </Link>
 
                 {/* Right Button: Dark Charcoal Pill */}
-                <a
-                  href="#workbench"
+                <Link
+                  to="/agents"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#090B19] text-white hover:bg-black font-semibold text-sm transition-all active:scale-[0.98] shadow-sm"
                 >
-                  <span>Test Live Workbench</span>
+                  <span>Explore 10+ Specialists</span>
                   <span className="material-symbols-outlined text-[16px]">chevron_right</span>
-                </a>
+                </Link>
               </div>
 
               {/* Glowing Ambient Diffuse Light beneath buttons */}
@@ -414,15 +213,19 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Soft Blended Hairline Divider bridging Hero into Section 2 */}
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 relative z-10">
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#E6E4DD] to-transparent" />
+        </div>
       </section>
 
       {/* =====================================================================
           2. SECTION 2: SPECIALIST AGENTS SHOWCASE (OptimAI Demo Showcase Pattern)
       ====================================================================== */}
-      {/* =====================================================================
-          2. SECTION 2: SPECIALIST AGENTS SHOWCASE (OptimAI Demo Showcase Pattern)
-      ====================================================================== */}
-      <section className="w-full bg-[#FAF9F5] py-20 border-b border-[#E6E4DD]">
+      <section className="relative w-full bg-[#FAF9F5] py-20 border-b border-[#E6E4DD]">
+        {/* Ambient Top Diffuse Sheen blending with Hero above */}
+        <div className="absolute top-0 right-1/4 w-[500px] h-48 bg-gradient-to-b from-purple-200/10 via-indigo-100/5 to-transparent rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <div className="flex items-center justify-center gap-3 mb-3">
@@ -977,89 +780,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =====================================================================
-          3. SECTION 3: INTERACTIVE INSTANT INTENT BAR & LIVE ARTIFACT GENERATOR
-          From Approved Design: User chooses an agent, types prompt, views generated artifact
-      ====================================================================== */}
-      <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="rounded-3xl bg-white border border-[#E6E4DD] p-5 sm:p-7">
-          {/* Agent Selector Bar */}
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5 overflow-x-auto gap-2 no-scrollbar">
-            <div className="flex items-center gap-1.5">
-              {[
-                { id: 'auto', label: 'Auto Mode', icon: 'tune' },
-                { id: 'fast', label: 'Fast Research', icon: 'bolt' },
-                { id: 'deep', label: 'Deep Research', icon: 'psychology' },
-                { id: 'dev', label: 'Dev Studio', icon: 'terminal' },
-                { id: 'market', label: 'Market Analyst', icon: 'monitoring' },
-                { id: 'legal', label: 'Legal Intelligence', icon: 'gavel' },
-              ].map((agent) => (
-                <button
-                  key={agent.id}
-                  onClick={() => setActiveHeroAgent(agent.id)}
-                  className={`px-3.5 py-1.5 rounded-full font-sans text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap transition-all ${
-                    activeHeroAgent === agent.id
-                      ? 'bg-[#1E3A3A] text-white'
-                      : 'bg-[#FAF9F5] text-slate-600 hover:bg-slate-200'
-                  }`}
-                >
-                  <span className="material-symbols-outlined text-[15px]">{agent.icon}</span>
-                  <span>{agent.label}</span>
-                </button>
-              ))}
-            </div>
-            <span className="hidden md:inline-block font-mono text-[10px] text-slate-400 uppercase tracking-wider shrink-0">
-              Latency: {heroCurrent.latency}
-            </span>
-          </div>
 
-          {/* Interactive Prompt & Artifact Output Box */}
-          <div className="space-y-4">
-            <div className="p-4 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD]">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-500">
-                  {heroCurrent.label}
-                </span>
-                <span className="font-mono text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-semibold border border-amber-200">
-                  {heroCurrent.routingBadge}
-                </span>
-              </div>
-              <p className="font-sans text-sm font-semibold text-slate-900 leading-relaxed">
-                "{heroCurrent.prompt}"
-              </p>
-            </div>
-
-            {/* Generated Artifact Box */}
-            <div className="p-4 rounded-2xl bg-white border border-[#E6E4DD] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-[20px]">dataset</span>
-                </div>
-                <div>
-                  <span className="font-mono text-[10px] uppercase font-bold text-emerald-700 block">
-                    Live Artifact Materialized
-                  </span>
-                  <span className="font-sans text-xs sm:text-sm font-bold text-slate-800">
-                    {heroCurrent.artifact}
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-                <span className="font-mono text-[10px] text-slate-500 bg-slate-100 px-2 py-1 rounded">
-                  {heroCurrent.sources}
-                </span>
-                <Link
-                  to="/welcome"
-                  className="px-4 py-1.5 rounded-lg bg-[#1E3A3A] text-white font-sans text-xs font-semibold hover:bg-[#142929] transition-all flex items-center gap-1.5 shrink-0"
-                >
-                  <span className="material-symbols-outlined text-[15px]">download</span>
-                  <span>Inspect Artifact</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* =====================================================================
           3. SECTION 3: 4-METRIC TELEMETRY STRIP (Optimai Reference)
@@ -1209,527 +930,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =====================================================================
-          5. SECTION 5: BREAKOUT WORKBENCH (DUAL-AGENT ADVERSARIAL FORUM)
-          Left: Execution Trace. Right: Live Consensus + Wave Chart
-      ====================================================================== */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28" id="workbench">
-        <div className="w-full rounded-[28px] sm:rounded-[36px] border border-[#E6E4DD] bg-white overflow-hidden text-left">
-          {/* Top Bar */}
-          <div className="bg-[#FAF9F5] px-4 sm:px-6 py-3.5 border-b border-[#E6E4DD] flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block" />
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block" />
-              </div>
-              <span className="font-mono text-xs font-bold text-slate-800 tracking-wider uppercase">
-                GRIZON DISPATCH DESK • SOVEREIGN ENCLAVE
-              </span>
-              <span className="hidden sm:inline-block font-mono text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">
-                ● 10 Specialists Active
-              </span>
-            </div>
 
-            {/* Scenario Switcher */}
-            <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto no-scrollbar">
-              {[
-                { id: 'market', label: '📊 Market Quant & Skew' },
-                { id: 'dpdp', label: '⚖️ DPDP Statutory Audit' },
-                { id: 'dev', label: '💻 React Telemetry' },
-              ].map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => {
-                    setActiveScenario(s.id);
-                    setActiveCanvasTab('preview');
-                  }}
-                  className={`px-3.5 py-1.5 rounded-full font-sans text-xs font-semibold whitespace-nowrap transition-all ${
-                    activeScenario === s.id
-                      ? 'bg-[#1E3A3A] text-white'
-                      : 'bg-white border border-[#E6E4DD] text-slate-600 hover:border-slate-400 hover:text-slate-900'
-                  }`}
-                >
-                  {s.label}
-                </button>
-              ))}
-            </div>
-          </div>
 
-          {/* Split Screen Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#E6E4DD]">
-            {/* LEFT PANE (5 Columns) */}
-            <div className="lg:col-span-5 p-5 sm:p-7 bg-[#FAF9F5]/70 flex flex-col justify-between gap-6">
-              <div className="space-y-5">
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[10.5px] uppercase font-bold text-slate-500 tracking-wider">
-                      Executive Objective
-                    </span>
-                    <span className="font-mono text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-semibold">
-                      Latency: {current.latency}
-                    </span>
-                  </div>
-                  <div className="p-4 rounded-xl bg-white border border-[#E6E4DD]">
-                    <p className="font-sans text-xs sm:text-[13px] text-slate-800 font-medium leading-relaxed">
-                      "{current.prompt}"
-                    </p>
-                  </div>
-                </div>
 
-                <div>
-                  <span className="font-mono text-[10.5px] uppercase font-bold text-slate-500 tracking-wider block mb-2.5">
-                    Deterministic Execution Trace
-                  </span>
-                  <div className="space-y-2 font-mono text-[11px]">
-                    {current.traces.map((trace, idx) => (
-                      <div
-                        key={idx}
-                        className="p-3 rounded-lg bg-white border border-[#E6E4DD] flex items-start gap-2.5"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                        <div className="min-w-0">
-                          <span className="text-slate-800 font-bold block">{trace.label}</span>
-                          <span className="text-slate-500 text-[10px] truncate block">{trace.detail}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-mono text-slate-500">
-                <span>Engine: <strong className="text-slate-800">{current.modelUsed}</strong></span>
-                <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  {current.confidence}
-                </span>
-              </div>
-            </div>
-
-            {/* RIGHT PANE (7 Columns) */}
-            <div className="lg:col-span-7 p-5 sm:p-7 bg-white flex flex-col justify-between gap-6">
-              <div>
-                <div className="flex items-center justify-between border-b border-slate-100 pb-3.5 mb-5">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
-                    <span className="font-sans text-xs font-bold text-[#18181B] truncate">
-                      {current.artifactName}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 font-sans text-xs">
-                    <button
-                      onClick={() => setActiveCanvasTab('preview')}
-                      className={`px-3 py-1 rounded-md font-semibold transition-all ${
-                        activeCanvasTab === 'preview'
-                          ? 'bg-white text-slate-900 border border-slate-200'
-                          : 'text-slate-500 hover:text-slate-900'
-                      }`}
-                    >
-                      Visual Canvas
-                    </button>
-                    <button
-                      onClick={() => setActiveCanvasTab('citations')}
-                      className={`px-3 py-1 rounded-md font-semibold transition-all ${
-                        activeCanvasTab === 'citations'
-                          ? 'bg-white text-slate-900 border border-slate-200'
-                          : 'text-slate-500 hover:text-slate-900'
-                      }`}
-                    >
-                      Citations ({current.citations.length})
-                    </button>
-                  </div>
-                </div>
-
-                {/* PREVIEW CONTENT */}
-                {activeCanvasTab === 'preview' && (
-                  <>
-                    {/* Scenario 1: Market Analyst */}
-                    {activeScenario === 'market' && (
-                      <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] p-5 flex flex-col gap-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="font-mono text-[10px] text-slate-400 uppercase font-bold tracking-wider">
-                              NSE Bank Nifty Gamma Profile
-                            </p>
-                            <p className="font-sans text-sm font-extrabold text-[#18181B]">
-                              Volatility Skew &amp; Sentiment Delta
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-1 bg-white p-1 rounded-lg border border-[#E6E4DD]">
-                            <button
-                              onClick={() => setBullSentiment(true)}
-                              className={`px-3 py-1 rounded text-[11px] font-sans font-bold transition-all ${
-                                bullSentiment
-                                  ? 'bg-emerald-600 text-white'
-                                  : 'text-slate-500 hover:text-slate-800'
-                              }`}
-                            >
-                              Bull Thesis
-                            </button>
-                            <button
-                              onClick={() => setBullSentiment(false)}
-                              className={`px-3 py-1 rounded text-[11px] font-sans font-bold transition-all ${
-                                !bullSentiment
-                                  ? 'bg-rose-600 text-white'
-                                  : 'text-slate-500 hover:text-slate-800'
-                              }`}
-                            >
-                              Bear Hedge
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Spline Wave Chart */}
-                        <div className="w-full h-40 relative">
-                          <svg className="w-full h-full overflow-visible" viewBox="0 0 450 120" preserveAspectRatio="none">
-                            <defs>
-                              <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor={bullSentiment ? '#10B981' : '#F43F5E'} stopOpacity="0.25" />
-                                <stop offset="100%" stopColor={bullSentiment ? '#10B981' : '#F43F5E'} stopOpacity="0.0" />
-                              </linearGradient>
-                            </defs>
-                            <path
-                              d={
-                                bullSentiment
-                                  ? 'M 0,90 Q 90,85 160,55 T 320,30 T 450,15 L 450,120 L 0,120 Z'
-                                  : 'M 0,25 Q 90,35 180,65 T 320,95 T 450,110 L 450,120 L 0,120 Z'
-                              }
-                              fill="url(#chartGlow)"
-                            />
-                            <path
-                              d={
-                                bullSentiment
-                                  ? 'M 0,90 Q 90,85 160,55 T 320,30 T 450,15'
-                                  : 'M 0,25 Q 90,35 180,65 T 320,95 T 450,110'
-                              }
-                              fill="none"
-                              stroke={bullSentiment ? '#059669' : '#E11D48'}
-                              strokeWidth="3"
-                              strokeLinecap="round"
-                            />
-                            <circle cx="160" cy={bullSentiment ? '55' : '65'} r="5" fill="#FFFFFF" stroke={bullSentiment ? '#059669' : '#E11D48'} strokeWidth="2.5" />
-                            <circle cx="320" cy={bullSentiment ? '30' : '95'} r="5" fill="#FFFFFF" stroke={bullSentiment ? '#059669' : '#E11D48'} strokeWidth="2.5" />
-                          </svg>
-                        </div>
-
-                        {/* Dual-Agent Adversarial Consensus Bar */}
-                        <div className="p-3.5 rounded-xl bg-white border border-[#E6E4DD]">
-                          <div className="flex items-center justify-between text-xs mb-2">
-                            <span className="font-mono text-[10.5px] uppercase font-bold text-slate-500">
-                              Adversarial Consensus • TCS.NS vs NIFTY 50
-                            </span>
-                            <span className="font-mono text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                              {bullSentiment ? '74% Moderate Bullish' : '74% Defensive Hedge'}
-                            </span>
-                          </div>
-                          <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden flex mb-2">
-                            <div className="h-full bg-emerald-600 transition-all duration-500" style={{ width: bullSentiment ? '74%' : '26%' }} />
-                            <div className="h-full bg-rose-500 transition-all duration-500" style={{ width: bullSentiment ? '26%' : '74%' }} />
-                          </div>
-                          <div className="flex items-center justify-between font-mono text-[10px] text-slate-500">
-                            <span className="text-emerald-700 font-semibold">Agent Taurus: Free Cash Flow (+1.48 Alpha)</span>
-                            <span className="text-rose-700 font-semibold">Agent Ursa: Eurozone Capex (-0.84 Beta)</span>
-                          </div>
-                        </div>
-
-                        {/* Metrics Row */}
-                        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-200 font-mono text-xs">
-                          <div>
-                            <span className="text-[10px] text-slate-400 block uppercase">Projected Alpha</span>
-                            <span className="font-bold text-emerald-700">{bullSentiment ? '+14.2% Spread' : '-8.4% Hedge'}</span>
-                          </div>
-                          <div>
-                            <span className="text-[10px] text-slate-400 block uppercase">Gamma Risk</span>
-                            <span className="font-bold text-slate-800">0.82 Low Delta</span>
-                          </div>
-                          <div>
-                            <span className="text-[10px] text-slate-400 block uppercase">Live Status</span>
-                            <span className="font-bold text-amber-700">24 Strikes Matched</span>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Scenario 2: DPDP Statutory Audit */}
-                    {activeScenario === 'dpdp' && (
-                      <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] p-5 flex flex-col gap-3.5">
-                        <div className="flex items-center justify-between pb-2.5 border-b border-slate-200">
-                          <div>
-                            <p className="font-mono text-[10px] text-slate-400 uppercase font-bold tracking-wider">
-                              Sovereign Compliance Enclave
-                            </p>
-                            <p className="font-sans text-sm font-extrabold text-[#18181B]">
-                              DPDP Act 2023 Statutory Verification
-                            </p>
-                          </div>
-                          <span className="font-mono text-[10px] px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
-                            PASS • RULE 7(4)
-                          </span>
-                        </div>
-
-                        <div className="space-y-2.5 font-sans text-xs">
-                          <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
-                            <span className="material-symbols-outlined text-emerald-600 text-[18px]">verified</span>
-                            <div>
-                              <span className="font-bold text-slate-800 block">Zero Off-Shore Data Egress Confirmed</span>
-                              <span className="text-slate-500 text-[11px]">S3 lifecycle replication locked to Mumbai AZ-1 &amp; AZ-3. Zero cross-border transit.</span>
-                            </div>
-                          </div>
-                          <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
-                            <span className="material-symbols-outlined text-emerald-600 text-[18px]">verified</span>
-                            <div>
-                              <span className="font-bold text-slate-800 block">Aadhaar Vault Token Air-Gap Verified</span>
-                              <span className="text-slate-500 text-[11px]">Encryption keys isolated via Sovereign HSM with zero external LLM retention.</span>
-                            </div>
-                          </div>
-                          <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
-                            <span className="material-symbols-outlined text-emerald-600 text-[18px]">verified</span>
-                            <div>
-                              <span className="font-bold text-slate-800 block">7-Year Non-Repudiation Audit Digest Ready</span>
-                              <span className="text-slate-500 text-[11px]">Cryptographic SHA-256 seal formatted for tomorrow's Audit Committee.</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Scenario 3: Dev Studio Component */}
-                    {activeScenario === 'dev' && (
-                      <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] p-5 flex flex-col gap-3.5">
-                        <div className="flex items-center justify-between pb-2.5 border-b border-slate-200">
-                          <div>
-                            <p className="font-mono text-[10px] text-slate-400 uppercase font-bold tracking-wider">
-                              Live Component Preview
-                            </p>
-                            <p className="font-sans text-sm font-extrabold text-[#18181B]">
-                              SovereignTelemetryWidget.jsx
-                            </p>
-                          </div>
-                          <span className="font-mono text-[10px] px-2.5 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200 font-bold">
-                            React 19 Stable
-                          </span>
-                        </div>
-
-                        <div className="p-4 rounded-xl bg-white border border-slate-200 flex items-center justify-between gap-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-[#1E3A3A] text-white flex items-center justify-center font-bold">
-                              <span className="material-symbols-outlined text-[20px]">speed</span>
-                            </div>
-                            <div>
-                              <p className="font-sans text-xs font-bold text-slate-800">ap-south-1 Node Telemetry</p>
-                              <p className="font-mono text-[11px] text-emerald-700">Latency: 0.42ms (60 FPS)</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="font-mono text-xs font-bold text-slate-700">Online</span>
-                          </div>
-                        </div>
-
-                        <div className="p-3 rounded-lg bg-slate-100 font-mono text-[11px] text-slate-700 overflow-x-auto">
-                          <code>{`<SovereignTelemetryWidget enclave="ap-south-1" verified={true} />`}</code>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-
-                {/* Citations Tab */}
-                {activeCanvasTab === 'citations' && (
-                  <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] p-5 space-y-3">
-                    <p className="font-mono text-[10.5px] uppercase font-bold text-slate-500 tracking-wider mb-2">
-                      Verifiable Citations Grounding This Response
-                    </p>
-                    {current.citations.map((cite, i) => (
-                      <div
-                        key={i}
-                        className="p-3.5 rounded-xl bg-white border border-slate-200 flex items-start gap-3"
-                      >
-                        <span className="font-mono text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 shrink-0">
-                          [{cite.id}]
-                        </span>
-                        <span className="font-sans text-xs text-slate-700 font-medium">
-                          {cite.name}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Right Pane Footer Actions */}
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                <button
-                  onClick={() => {
-                    setCopiedHash(true);
-                    setTimeout(() => setCopiedHash(false), 2000);
-                  }}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-sans text-xs font-semibold flex items-center gap-1.5 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[15px]">verified</span>
-                  <span>{copiedHash ? 'Verified SHA-256!' : 'Verify SHA-256 Hash'}</span>
-                </button>
-
-                <Link
-                  to="/welcome"
-                  className="px-4 py-2 rounded-lg bg-[#1E3A3A] hover:bg-[#142929] text-white font-sans text-xs font-semibold flex items-center gap-1.5 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[15px]">download</span>
-                  <span>Export {current.artifactName.split('.').pop().toUpperCase()}</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================================
-          6. SECTION 6: 2-COLUMN AUTONOMOUS TASK HUB (Aixom Reference)
-      ====================================================================== */}
-      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
-        <div className="text-center max-w-xl mx-auto mb-14">
-          <span className="font-mono text-xs uppercase tracking-widest text-amber-700 font-bold">
-            Autonomous Task Hub
-          </span>
-          <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mt-1.5 text-balance">
-            Set it once. Let agents run it.
-          </h2>
-          <p className="font-sans text-sm text-slate-600 mt-2 text-balance">
-            Automate statutory scans, morning market risk debriefs, and codebase audits without writing a single line of script.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column (7 Cols) */}
-          <div className="lg:col-span-7 rounded-3xl bg-white border border-[#E6E4DD] p-6 sm:p-8 flex flex-col gap-6">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <span className="font-mono text-xs uppercase tracking-wider text-slate-500 font-bold">
-                Task Automation Pipeline
-              </span>
-              <span className="font-mono text-[10px] px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">
-                ● {currentWorkflow.status}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {workflowScenarios.map((wf) => (
-                <button
-                  key={wf.id}
-                  onClick={() => setActiveWorkflow(wf.id)}
-                  className={`px-3.5 py-1.5 rounded-full font-sans text-xs font-semibold transition-all ${
-                    activeWorkflow === wf.id
-                      ? 'bg-[#1E3A3A] text-white'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
-                  }`}
-                >
-                  {wf.title}
-                </button>
-              ))}
-            </div>
-
-            <div className="space-y-3.5">
-              <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
-                    <span className="material-symbols-outlined text-[18px]">schedule</span>
-                  </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase font-bold text-amber-700 block">01 Trigger</span>
-                    <span className="font-sans text-xs font-bold text-slate-800">{currentWorkflow.trigger}</span>
-                  </div>
-                </div>
-                <span className="font-mono text-[11px] text-slate-500">{currentWorkflow.frequency}</span>
-              </div>
-
-              <div className="p-4 rounded-xl bg-[#FAF9F5] border border-amber-300 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold">
-                    <span className="material-symbols-outlined text-[18px]">smart_toy</span>
-                  </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase font-bold text-indigo-700 block">02 Specialist Run</span>
-                    <span className="font-sans text-xs font-bold text-slate-800">{currentWorkflow.agent}</span>
-                  </div>
-                </div>
-                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold">
-                  {currentWorkflow.metric}
-                </span>
-              </div>
-
-              <div className="p-4 rounded-xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-                    <span className="material-symbols-outlined text-[18px]">task_alt</span>
-                  </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase font-bold text-emerald-700 block">03 Delivered Artifact</span>
-                    <span className="font-sans text-xs font-bold text-slate-800">Verified Audit Output</span>
-                  </div>
-                </div>
-                <span className="font-mono text-[11px] text-emerald-700 font-semibold">SHA-256 Sealed</span>
-              </div>
-            </div>
-
-            <p className="font-sans text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-              {currentWorkflow.action}
-            </p>
-          </div>
-
-          {/* Right Column (5 Cols) */}
-          <div className="lg:col-span-5 rounded-3xl bg-white border border-[#E6E4DD] p-6 sm:p-8 flex flex-col justify-between gap-6">
-            <div>
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
-                <span className="font-mono text-xs uppercase tracking-wider text-slate-500 font-bold">
-                  Telemetry &amp; Enclave State
-                </span>
-                <span className="font-mono text-[10px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded font-bold">
-                  IST SYNC ACTIVE
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD]">
-                  <span className="font-mono text-[10px] text-slate-400 uppercase font-bold block mb-1">
-                    Continuous Monitoring Feed
-                  </span>
-                  <p className="font-sans text-sm font-bold text-slate-900 mb-2">
-                    {currentWorkflow.output}
-                  </p>
-                  <div className="flex items-center gap-2 font-mono text-[11px] text-slate-600">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span>Zero Human Interventions Required</span>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] space-y-2">
-                  <span className="font-mono text-[10px] text-slate-400 uppercase font-bold block">
-                    Institutional Data Streams
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {currentWorkflow.nodes.map((node, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-0.5 rounded bg-white border border-[#E6E4DD] font-mono text-[10px] text-slate-700 font-medium"
-                      >
-                        {node}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <Link
-              to="/workflow"
-              className="w-full py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#18181B] font-sans text-xs font-bold text-center transition-colors flex items-center justify-center gap-1.5"
-            >
-              <span>Configure in Workflow Sandbox</span>
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* =====================================================================
           7. SECTION 7: SPLIT IMAGES & MOBILE DISPATCHER (Rule 6, 9, 10)
@@ -1821,78 +1024,437 @@ export default function Home() {
       </section>
 
       {/* =====================================================================
-          8. SECTION 8: THE 10 PURPOSE-BUILT SPECIALISTS GRID (FlowGen Style)
+          8. SECTION 8: SPECIALIST SUITE — ALL-IN-ONE MULTI-AGENT AI (Ruboz Sticky Stacking Showcase)
       ====================================================================== */}
-      <section className="w-full bg-[#FAF9F5] py-20 lg:py-28" id="agents">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold">
-              Specialist Suite
-            </span>
-            <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mt-1 text-balance">
-              Engineered minds for every domain.
-            </h2>
-            <p className="font-sans text-sm text-slate-600 mt-2 text-balance">
-              Each mind operates with isolated statutory memory, live API oracles, and zero cross-tenant training.
-            </p>
-          </div>
+      <section className="w-full bg-[#FAF9F5] py-20 lg:py-32 relative border-b border-[#E6E4DD]" id="agents">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+            {/* LEFT COLUMN: Pinned Sticky Header & Fleet Overview */}
+            <div className="lg:col-span-5 lg:sticky lg:top-28 self-start space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#E6E4DD] shadow-xs text-xs font-semibold text-[#1E3A3A]">
+                <span className="material-symbols-outlined text-[16px] text-[#D97736]">rocket_launch</span>
+                <span>Specialist Suite • 10 Domain Minds</span>
+              </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-            {[
-              { num: '01', title: 'Legal Intelligence India', tag: 'Statutory Core', desc: 'Deterministic statutory analysis, precedent verification, and BNS concordance.', icon: 'gavel' },
-              { num: '02', title: 'Market & Trading Quant', tag: 'NSE Oracles', desc: 'NSE & BSE tick oracles, option skew profiles, and Bull vs Bear debate synthesis.', icon: 'monitoring' },
-              { num: '03', title: 'Dev Studio Agent', tag: 'Linux VM', desc: 'Full-stack code generation, container debugging, and live HTML visual previews.', icon: 'code' },
-              { num: '04', title: 'System Architect', tag: 'Cloud VPC', desc: 'High-availability infrastructure topology, distributed consensus, and cloud blueprints.', icon: 'schema' },
-              { num: '05', title: 'Mathematics & Logic', tag: 'Symbolic Engine', desc: 'SymPy derivations, discrete algebra, and formal mathematical proofs.', icon: 'functions' },
-              { num: '06', title: 'Deep Research Engine', tag: 'Recursive DAG', desc: 'Autonomous recursive DAG synthesis with quantitative risk modeling and citations.', icon: 'psychology' },
-              { num: '07', title: 'Fast Research Engine', tag: '<300ms Live', desc: 'Sub-second real-time web lookup indexing 350+ live feeds with verified citations.', icon: 'bolt' },
-              { num: '08', title: 'General Reasoning', tag: 'Multilingual', desc: 'Multilingual conversational drafting, strategic coordination, and unconstrained ideation.', icon: 'chat' },
-              { num: '09', title: 'Doc Intelligence & OCR', tag: 'Neural OCR', desc: 'Neural OCR for 200+ page scans, financial table extraction, and statutory drafting.', icon: 'description' },
-              { num: '10', title: 'Video Analyser & Vision', tag: 'Timeline OCR', desc: 'Multi-hour video indexing, speech-to-text alignment, and slide OCR timeline queries.', icon: 'smart_display' },
-            ].map((agent, i) => (
-              <Link
-                key={i}
-                to="/agents"
-                className="p-5 rounded-2xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-amber-700 font-bold tracking-wider">
-                      {agent.num}
-                    </span>
-                    <span className="font-mono text-[9px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold uppercase">
-                      {agent.tag}
-                    </span>
-                  </div>
-                  <h4 className="font-sans text-sm font-bold text-[#18181B] mb-1 group-hover:text-amber-800 transition-colors">
-                    {agent.title}
-                  </h4>
-                  <p className="font-sans text-xs text-[#52525B] leading-relaxed">
-                    {agent.desc}
-                  </p>
-                </div>
-                <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-400 group-hover:text-slate-700 transition-colors">
-                  <span>Inspect Pipeline</span>
-                  <span className="material-symbols-outlined text-[15px] transition-transform group-hover:translate-x-0.5">arrow_forward</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+              <h2 className="font-sans text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#07091B] tracking-tight leading-[1.15] text-balance">
+                All-in-one multi-agent AI for enterprise.
+              </h2>
 
-          <div className="rounded-2xl bg-white p-5 border border-[#E6E4DD] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
-              <span className="font-sans text-slate-700 font-medium">
-                All 10 Specialists active in sovereign Indian compute enclaves • DPDP Act 2023 compliant • Zero tenant training
-              </span>
+              <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed text-balance">
+                Ten purpose-built domain minds configured with deterministic statutory oracles, live institutional data feeds, and zero cross-tenant training.
+              </p>
+
+
             </div>
-            <Link
-              to="/agents"
-              className="inline-flex items-center gap-1.5 font-sans font-semibold text-emerald-800 hover:text-emerald-900 shrink-0"
-            >
-              <span>Explore All 10 Architectures</span>
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </Link>
+
+            {/* RIGHT COLUMN: Sticky Stacking Cards Container */}
+            <div className="lg:col-span-7 flex flex-col gap-6 sm:gap-8 relative">
+              {[
+                {
+                  num: '01',
+                  tag: 'Statutory Core',
+                  title: 'Legal Intelligence India',
+                  desc: 'Deterministic statutory analysis across Bharatiya Nyaya Sanhita (BNS) vs IPC §302, live eCourts CNR concordance across 44 High Courts, and verifiable citation digests.',
+                  link: '/agents/legal-intelligence',
+                  pills: [
+                    { icon: 'gavel', label: 'BNS & IPC Concordance' },
+                    { icon: 'balance', label: '44 High Courts Live Sync' },
+                    { icon: 'verified_user', label: 'Zero-Retention Enclave' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#0C121D] p-4 text-white border border-emerald-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2.5 text-[10px] font-mono">
+                        <span className="text-emerald-400 font-bold flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          CNR: DLHC010048212026
+                        </span>
+                        <span className="text-slate-400">eCourts Concordance</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-black/60 border border-white/5 space-y-1.5 font-mono text-[11px]">
+                        <div className="flex items-center justify-between text-emerald-300">
+                          <span>§ 112 BNS vs IPC § 302</span>
+                          <span className="text-[10px] bg-emerald-950 px-1.5 py-0.2 rounded border border-emerald-500/40">MATCH</span>
+                        </div>
+                        <p className="text-slate-400 text-[10px] leading-relaxed">
+                          Concordance verified: 1 July 2024 transition threshold applied. Zero hallucinated case laws.
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span>SHA-256: 7f8a...b4e2</span>
+                        <span className="text-emerald-400 font-semibold">100% Deterministic</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '02',
+                  tag: 'NSE Oracles',
+                  title: 'Market & Trading Quant',
+                  desc: 'High-frequency NSE & BSE order-book tick streaming, option volatility skew profiling, and structured Taurus vs. Ursa debate consensus with explicit invalidation rules.',
+                  link: '/agents/market-intelligence',
+                  pills: [
+                    { icon: 'trending_up', label: 'NSE Order-Book Oracles' },
+                    { icon: 'analytics', label: 'Options Skew Profiling' },
+                    { icon: 'swap_horiz', label: 'Taurus vs Ursa Debate' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#090E17] p-4 text-white border border-teal-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-teal-400 font-bold flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
+                          NSE: BANKNIFTY 51,248
+                        </span>
+                        <span className="text-emerald-400 bg-emerald-500/20 px-1.5 py-0.5 rounded">▲ +1.42%</span>
+                      </div>
+                      <div className="space-y-1.5 font-mono text-[10px]">
+                        <div className="flex justify-between text-slate-400">
+                          <span>PCR Ratio: 1.14</span>
+                          <span className="text-emerald-400">Max Pain: ₹51,000</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden flex">
+                          <div className="h-full bg-emerald-500" style={{ width: '74%' }} />
+                          <div className="h-full bg-rose-500" style={{ width: '26%' }} />
+                        </div>
+                        <div className="flex justify-between text-[9px] text-slate-400">
+                          <span className="text-emerald-400 font-semibold">Taurus Bull: 74%</span>
+                          <span className="text-rose-400">Ursa Bear: 26%</span>
+                        </div>
+                      </div>
+                      <div className="p-2 rounded bg-white/5 border border-white/5 text-[9px] font-mono text-slate-300">
+                        Invalidation Trigger: 15-min candle close below 50,850 support.
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '03',
+                  tag: 'Linux VM',
+                  title: 'Dev Studio Agent',
+                  desc: 'Autonomous full-stack engineering in isolated Linux container VMs. Generates accessible React/Node applications, executes shell tests, and produces live interactive previews.',
+                  link: '/agents/dev-studio',
+                  pills: [
+                    { icon: 'terminal', label: 'Isolated Container VM' },
+                    { icon: 'code_blocks', label: 'Full-Stack Code Gen' },
+                    { icon: 'speed', label: '0.04s Boot & Test' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#0B131E] p-4 text-white border border-cyan-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-cyan-400 font-bold flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-rose-500 inline-block" />
+                          <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" />
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                          <span className="ml-1 text-slate-300">SovereignVM.tsx</span>
+                        </span>
+                        <span className="text-cyan-300 bg-cyan-950 px-1.5 py-0.5 rounded border border-cyan-500/40">Boot 0.04s</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-black/70 font-mono text-[10px] leading-relaxed text-slate-300 space-y-1">
+                        <div><span className="text-purple-400">const</span> client = <span className="text-amber-300">initEnclave</span>();</div>
+                        <div><span className="text-purple-400">await</span> client.<span className="text-cyan-300">verifyAST</span>();</div>
+                        <div className="text-emerald-400 font-bold">✓ 0 Errors • WCAG AA Accessible</div>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span className="text-emerald-400 font-semibold">● 60 FPS Rendered</span>
+                        <span>React 19 Stable</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '04',
+                  tag: 'Cloud VPC',
+                  title: 'System Architect Agent',
+                  desc: 'Pragmatic distributed infrastructure blueprints. Applies "Simplicity Before Complexity" principles to design high-availability VPCs, API routing, and 10x scale bottleneck models.',
+                  link: '/agents',
+                  pills: [
+                    { icon: 'schema', label: 'Simplicity Gateway' },
+                    { icon: 'cloud_done', label: 'ap-south-1 Topology' },
+                    { icon: 'hub', label: '10x Bottleneck Analysis' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#0D1522] p-4 text-white border border-indigo-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-indigo-400 font-bold">Cloud VPC Blueprint</span>
+                        <span className="text-emerald-400">HA Active</span>
+                      </div>
+                      <div className="space-y-1.5 font-mono text-[10px]">
+                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
+                          <span className="text-slate-300">Edge Gateway</span>
+                          <span className="text-indigo-300">mTLS • 0.28ms</span>
+                        </div>
+                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
+                          <span className="text-slate-300">Enclave Consensus Mesh</span>
+                          <span className="text-emerald-400">Zero-Egress Locked</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span>Zero Single Point of Failure</span>
+                        <span className="text-indigo-400">99.99% SLA</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '05',
+                  tag: 'Symbolic Engine',
+                  title: 'Mathematics & Logic',
+                  desc: 'Dual-pass computational rigor: exact closed-form symbolic derivations via SymPy cross-checked independently with SciPy/mpmath numerical solvers to eliminate arithmetic drift.',
+                  link: '/agents',
+                  pills: [
+                    { icon: 'functions', label: 'SymPy Symbolic Proofs' },
+                    { icon: 'calculate', label: 'Numerical Cross-Gate' },
+                    { icon: 'verified', label: 'Zero Mental Math Drift' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#0F1420] p-4 text-white border border-purple-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-purple-400 font-bold">Symbolic Calculus Gate</span>
+                        <span className="text-emerald-400">Q.E.D. Verified</span>
+                      </div>
+                      <div className="p-3 rounded-lg bg-black/60 border border-white/5 font-mono text-[11px] text-center text-amber-200">
+                        ∫₀^∞ (x³ / (eˣ - 1)) dx = π⁴ / 15
+                      </div>
+                      <div className="p-2 rounded bg-white/5 border border-white/5 text-[10px] font-mono text-slate-300 flex justify-between">
+                        <span>Numerical Residual:</span>
+                        <span className="text-emerald-400 font-bold">ε &lt; 10⁻¹⁵</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '06',
+                  tag: 'Recursive DAG',
+                  title: 'Deep Research Engine',
+                  desc: 'Autonomous multi-step hypothesis expansion across recursive directed acyclic graphs (DAG). Indexes 350+ global industry filings and produces comprehensive risk-weighted memos.',
+                  link: '/agents/research',
+                  pills: [
+                    { icon: 'account_tree', label: 'Recursive DAG Tree' },
+                    { icon: 'menu_book', label: '350+ Global Filings' },
+                    { icon: 'fact_check', label: 'Citation Evidence Chain' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#09141E] p-4 text-white border border-teal-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-teal-400 font-bold">DAG Hypothesis Tree</span>
+                        <span className="text-teal-300">4 Branches Explored</span>
+                      </div>
+                      <div className="space-y-1.5 font-mono text-[10px]">
+                        <div className="p-2 rounded bg-white/5 border border-white/5 text-slate-300">
+                          ● Hypothesis 1: European CBAM Tariff Sensitivity
+                        </div>
+                        <div className="p-2 rounded bg-white/5 border border-white/5 text-slate-300">
+                          ● Hypothesis 2: Capex Moat vs Indian Electrolyzer Scale
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span className="text-emerald-400 font-semibold">28 Filings Grounded</span>
+                        <span>99.4% Confidence</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '07',
+                  tag: '<300ms Live',
+                  title: 'Fast Research Engine',
+                  desc: 'Sub-second real-time indexing pipeline connected to live regulatory oracles (RBI circulars, SEBI notifications, MCA gazettes). Provides verified answers with exact timestamps.',
+                  link: '/agents/research',
+                  pills: [
+                    { icon: 'bolt', label: 'Sub-300ms Query Latency' },
+                    { icon: 'rss_feed', label: 'Live Gazette Streaming' },
+                    { icon: 'schedule', label: 'Timestamped Citations' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#0B151F] p-4 text-white border border-amber-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-amber-400 font-bold">Live Regulatory Feed</span>
+                        <span className="text-emerald-400 animate-pulse">● LIVE 184ms</span>
+                      </div>
+                      <div className="space-y-1.5 font-mono text-[10px]">
+                        <div className="p-1.5 rounded bg-white/5 text-slate-300 flex justify-between">
+                          <span>RBI DLG Circular 2026</span>
+                          <span className="text-amber-400">210ms</span>
+                        </div>
+                        <div className="p-1.5 rounded bg-white/5 text-slate-300 flex justify-between">
+                          <span>SEBI F&amp;O Lot Size Gazette</span>
+                          <span className="text-amber-400">164ms</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span>350+ Feeds Monitored</span>
+                        <span className="text-emerald-400 font-semibold">Zero Hallucination</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '08',
+                  tag: 'Multilingual',
+                  title: 'General Reasoning & Coordination',
+                  desc: 'High-throughput strategic ideation and cross-agent coordination across 12 Indic languages and English. Manages high-level executive drafting with zero context drift.',
+                  link: '/agents',
+                  pills: [
+                    { icon: 'translate', label: '12 Indic Languages' },
+                    { icon: 'forum', label: 'Executive Synthesis' },
+                    { icon: 'alt_route', label: 'Autonomous Routing' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#11131F] p-4 text-white border border-purple-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-purple-400 font-bold">Multilingual Context Mesh</span>
+                        <span className="text-slate-400">Indic Core</span>
+                      </div>
+                      <div className="p-2.5 rounded bg-white/5 border border-white/5 space-y-1 font-mono text-[10px]">
+                        <p className="text-amber-300 font-medium">हिंदी • தமிழ் • ગુજરાતી • বাংলা</p>
+                        <p className="text-slate-400 leading-relaxed text-[9px]">
+                          Native syntactic alignment without double-translation hallucinations.
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span className="text-emerald-400 font-semibold">100% Context Retention</span>
+                        <span>Consensus Node</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '09',
+                  tag: 'Neural OCR',
+                  title: 'Doc Intelligence & OCR',
+                  desc: 'High-fidelity parser for 200+ page scanned PDFs, handwritten records, and financial balance sheets. Extracts tabular structures and performs clause-by-clause risk audits.',
+                  link: '/agents/document-intelligence',
+                  pills: [
+                    { icon: 'document_scanner', label: '200+ Page Batch Ingestion' },
+                    { icon: 'table_chart', label: 'Financial Table Extraction' },
+                    { icon: 'policy', label: 'Contract Redline Audits' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#0E161C] p-4 text-white border border-teal-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-teal-400 font-bold">Neural OCR Extractor</span>
+                        <span className="text-emerald-400">99.8% Precision</span>
+                      </div>
+                      <div className="space-y-1.5 font-mono text-[10px]">
+                        <div className="p-2 rounded bg-white/5 border border-white/5 flex justify-between text-slate-300">
+                          <span>MSA_Master_Agreement.pdf</span>
+                          <span className="text-teal-300">248 Pages</span>
+                        </div>
+                        <div className="p-2 rounded bg-rose-950/50 border border-rose-500/30 text-rose-300 text-[9px]">
+                          Flagged §14.2: Uncapped 10x liability limit exceeds playbook.
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span>XLSX &amp; DOCX Export Ready</span>
+                        <span className="text-emerald-400 font-semibold">Verified</span>
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  num: '10',
+                  tag: 'Timeline OCR',
+                  title: 'Video Analyser & Vision',
+                  desc: 'Multi-hour video indexing with synchronized speech-to-text diarization and slide OCR. Quickly query earnings calls, architectural walkthroughs, and legal depositions.',
+                  link: '/agents',
+                  pills: [
+                    { icon: 'smart_display', label: 'Frame-by-Frame OCR' },
+                    { icon: 'mic', label: 'Speaker Diarization' },
+                    { icon: 'av_timer', label: 'Keyframe Jump Search' },
+                  ],
+                  preview: (
+                    <div className="rounded-2xl bg-[#14121F] p-4 text-white border border-purple-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
+                        <span className="text-purple-400 font-bold">Multimodal Timeline</span>
+                        <span className="text-slate-400">01:14:22 Indexed</span>
+                      </div>
+                      <div className="space-y-1.5 font-mono text-[10px]">
+                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
+                          <span className="text-slate-300">00:14:10 • Q3 CapEx Waterfall</span>
+                          <span className="text-purple-300">Slide OCR</span>
+                        </div>
+                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
+                          <span className="text-slate-300">00:32:45 • RBI Compliance Risk</span>
+                          <span className="text-emerald-400">Speaker 2</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                        <span>Jump-to-Timestamp Active</span>
+                        <span className="text-purple-400 font-semibold">Gemini Vision</span>
+                      </div>
+                    </div>
+                  ),
+                },
+              ].map((agent, i) => (
+                <div
+                  key={agent.num}
+                  className="sticky rounded-[28px] sm:rounded-[36px] bg-white border border-[#E6E4DD] p-6 sm:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.06)] hover:shadow-xl transition-all duration-300 text-left"
+                  style={{
+                    top: `calc(90px + ${i * 7}px)`,
+                    zIndex: i + 1,
+                  }}
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch">
+                    {/* Left Column of Card */}
+                    <div className="md:col-span-7 flex flex-col justify-between">
+                      <div>
+
+
+                        {/* Title */}
+                        <h3 className="font-sans text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#07091B] tracking-tight mb-3">
+                          {agent.title}.
+                        </h3>
+
+                        {/* Description */}
+                        <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
+                          {agent.desc}
+                        </p>
+
+                        {/* Ruboz-style 3 Feature Pills */}
+                        <div className="flex flex-wrap gap-2.5 my-5">
+                          {agent.pills.map((pill, pIdx) => (
+                            <div
+                              key={pIdx}
+                              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-semibold text-slate-800 shadow-2xs"
+                            >
+                              <span className="material-symbols-outlined text-[16px] text-[#1E3A3A]">
+                                {pill.icon}
+                              </span>
+                              <span>{pill.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Ruboz-style Terracotta Action Button with Dot-to-Arrow Expand on Hover */}
+                      <div className="pt-3">
+                        <Link
+                          to={agent.link}
+                          className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2 rounded-full bg-[#D97736] hover:bg-[#c46526] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md active:scale-[0.98] self-start"
+                        >
+                          <span>Launch Specialist</span>
+                          <span className="relative flex items-center justify-center w-7 h-7 rounded-full transition-all duration-300">
+                            {/* Default State: Solid White Dot */}
+                            <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
+                            
+                            {/* Hover State: Expanded White Circle with Arrow Icon */}
+                            <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#07091B] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                              <span className="material-symbols-outlined text-[15px] font-bold">arrow_forward</span>
+                            </span>
+                          </span>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Right Column of Card: Visual Interactive Preview */}
+                    <div className="md:col-span-5 flex flex-col justify-center">
+                      <div className="h-full min-h-[220px]">
+                        {agent.preview}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -2025,10 +1587,17 @@ export default function Home() {
           10. SECTION 10: FREQUENTLY ASKED QUESTIONS & BOTTOM CTA
       ====================================================================== */}
       <section className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
-        <div className="text-center mb-10">
-          <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#07091B] tracking-tight">
-            Frequently Asked Questions
+        <div className="text-center mb-12 sm:mb-16 flex flex-col items-center">
+          <div className="inline-flex items-center px-4 py-1 rounded-full border border-purple-300 bg-purple-50/50 text-purple-600 text-xs font-mono font-bold tracking-wider uppercase mb-5 sm:mb-6 shadow-2xs">
+            FAQ
+          </div>
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-[44px] font-normal text-[#07091B] tracking-tight leading-tight text-balance mb-4 sm:mb-5">
+            Answer That Keep{' '}
+            <span className="text-[#7C3AED] italic font-serif font-medium">You Flowing</span>
           </h2>
+          <p className="font-sans text-sm sm:text-base text-slate-500 max-w-lg mx-auto leading-relaxed text-balance">
+            From capturing conversations to syncing with your tools, find quick answers to how Grizon AI works.
+          </p>
         </div>
 
         <div className="space-y-3">

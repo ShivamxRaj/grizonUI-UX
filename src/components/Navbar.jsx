@@ -93,19 +93,19 @@ export default function Navbar() {
 
         {/* Right CTAs */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            to="/welcome"
+          <a
+            href="https://app.grizonai.com/"
             className="inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0A0D18] text-white font-sans text-xs sm:text-[13px] font-bold tracking-tight hover:bg-black active:scale-[0.98] transition-all shadow-sm"
           >
             <span>Launch App</span>
-          </Link>
-          <Link
-            to="/app"
+          </a>
+          <a
+            href="https://app.grizonai.com/"
             className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 transition-colors"
-            title="Sign In"
+            title="Launch App"
           >
             <span className="material-symbols-outlined text-[17px]">person</span>
-          </Link>
+          </a>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -157,6 +157,13 @@ export default function Navbar() {
           >
             Our Philosophy
           </Link>
+          <a
+            href="https://app.grizonai.com/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="mt-2 py-2.5 rounded-full bg-[#0A0D18] text-white font-sans text-xs font-bold text-center"
+          >
+            Launch App
+          </a>
         </div>
       )}
     </header>
