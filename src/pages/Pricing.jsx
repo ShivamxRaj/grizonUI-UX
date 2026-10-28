@@ -30,8 +30,8 @@ export default function Pricing() {
           sovereign intelligence.
         </h1>
 
-        {/* Subtitle matching Home Page */}
-        <p className="font-sans text-base sm:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed mb-10 text-center text-balance font-normal">
+        {/* Subtitle matching Home Page (14px sm:16px Plus Jakarta Sans, #475569) */}
+        <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed text-balance max-w-xl mx-auto mt-6 mb-10 text-center">
           Predictable compute credits calibrated strictly to task depth with transparent tool execution and 90-day rollover security.
         </p>
 
@@ -90,7 +90,7 @@ export default function Pricing() {
                 <span className="font-mono text-xs text-slate-500 font-medium">/ month</span>
               </div>
 
-              <p className="font-sans text-xs text-slate-600 leading-relaxed mb-6">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
                 For solo practitioners evaluating sovereign agent synthesis with zero financial commitment.
               </p>
 
@@ -156,7 +156,7 @@ export default function Pricing() {
                 </span>
               </div>
 
-              <p className="font-sans text-xs text-slate-600 leading-relaxed mb-6">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
                 For counsel, quants, auditors, and founders requiring unrestricted deep specialist execution.
               </p>
 
@@ -227,7 +227,7 @@ export default function Pricing() {
                 </span>
               </div>
 
-              <p className="font-sans text-xs text-slate-600 leading-relaxed mb-6">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
                 For law chambers, boutique funds, and institutional research teams needing shared compute.
               </p>
 
@@ -282,7 +282,7 @@ export default function Pricing() {
               How credits are consumed.
             </h2>
           </div>
-          <p className="font-sans text-sm text-slate-600 max-w-md leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed text-balance max-w-md">
             No hidden tokens or opaque markups. 1 to 10 compute credits per execution based purely on model depth and verified external tool calls.
           </p>
         </div>
@@ -295,7 +295,7 @@ export default function Pricing() {
                 <span className="material-symbols-outlined text-[22px]">bolt</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Fast Direct Queries</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Instant answers, definition lookups, and fast math checks via distilled reasoning engines with sub-800ms response time.
               </p>
             </div>
@@ -308,7 +308,7 @@ export default function Pricing() {
                 <span className="material-symbols-outlined text-[22px]">hub</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Specialist &amp; Live API</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Live court registry checks (eCourts CNR), real-time NSE/BSE ticks, and isolated Python sandbox proofs with verified footnote citations.
               </p>
             </div>
@@ -321,7 +321,7 @@ export default function Pricing() {
                 <span className="material-symbols-outlined text-[22px]">psychology</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Deep Multi-Step Synthesis</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Multi-hop recursive hypothesis trees, 20-page legal petitions, full Dev Studio web apps, and multi-LLM adversarial consensus.
               </p>
             </div>
@@ -382,7 +382,7 @@ export default function Pricing() {
                 </span>
                 <span className="font-mono text-xs text-slate-500 font-medium">Credits / mo</span>
               </div>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Fits easily within the <strong className="text-[#07091B]">{recommendedPlan}</strong> tier with rollover protection.
               </p>
             </div>
