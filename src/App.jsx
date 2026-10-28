@@ -62,6 +62,7 @@ function AppLayout() {
 
           {/* 5. COMPANY MISSION & PHILOSOPHY */}
           <Route path="/about" element={<About />} />
+          <Route path="/philosophy" element={<About />} />
           <Route path="/indus" element={<About />} />
 
           {/* =========================================================
