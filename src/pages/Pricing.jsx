@@ -336,10 +336,7 @@ export default function Pricing() {
         <div className="rounded-3xl bg-white border border-[#E6E4DD] p-8 sm:p-12 shadow-xs">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#E6E4DD] mb-8">
             <div>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold">
-                Capacity Planner
-              </span>
-              <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#07091B] tracking-tight mt-1.5">
+              <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#07091B] tracking-tight">
                 Estimate your monthly usage.
               </h2>
             </div>
