@@ -1,624 +1,450 @@
-import React, { useState, useId } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Pricing() {
-  const quickSliderId = useId();
-  const deepSliderId = useId();
-  const routinesSliderId = useId();
+  const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'annually'
+  const [dailyTasks, setDailyTasks] = useState(25);
 
-  const [quickQueries, setQuickQueries] = useState(15);
-  const [deepSessions, setDeepSessions] = useState(5);
-  const [scheduledRoutines, setScheduledRoutines] = useState(3);
+  const isAnnual = billingCycle === 'annually';
 
-  // Live calculations
-  const dailyBurn = quickQueries * 1.0 + deepSessions * 3.5 + scheduledRoutines * 4.0;
-  const monthlyBurn = Math.round(dailyBurn * 30);
+  // Projected credit consumption based on daily tasks
+  const estimatedMonthlyCredits = Math.round(dailyTasks * 2.5 * 30);
 
-  const pctQuick = dailyBurn > 0 ? ((quickQueries * 1.0) / dailyBurn) * 100 : 33.3;
-  const pctDeep = dailyBurn > 0 ? ((deepSessions * 3.5) / dailyBurn) * 100 : 33.3;
-  const pctRoutines = dailyBurn > 0 ? ((scheduledRoutines * 4.0) / dailyBurn) * 100 : 33.4;
-
-  let recommendedPlanBadge = 'Recommended: Professional Plan ($29/mo)';
-  let recommendedPlanDesc = `Includes 2,500 monthly credits. Leaves a ~${(
-    2500 - monthlyBurn
-  ).toLocaleString()} credit buffer for unpredictable caseload peaks, multi-dossier weeks, and 90-day rollover security.`;
-
-  if (monthlyBurn <= 150) {
-    recommendedPlanBadge = 'Recommended: Explorer Plan ($0/mo)';
-    recommendedPlanDesc =
-      'Your daily workload fits inside the complimentary 150 monthly credits allowance. Perfect for early exploration.';
-  } else if (monthlyBurn > 2500) {
-    const buffer = Math.max(0, 10000 - monthlyBurn).toLocaleString();
-    recommendedPlanBadge = 'Recommended: Practice & Desk ($99/mo)';
-    recommendedPlanDesc = `High-velocity research detected. Delivers 10,000 credits/mo with ~${buffer} headroom buffer, dedicated AWS Nitro Enclaves, and multi-user collaboration.`;
+  // Recommended plan based on tempo slider
+  let recommendedPlan = 'Professional';
+  if (estimatedMonthlyCredits <= 150) {
+    recommendedPlan = 'Explorer';
+  } else if (estimatedMonthlyCredits > 3000) {
+    recommendedPlan = 'Enterprise Desk';
   }
 
   return (
-    <div className="w-full flex flex-col bg-alabaster">
-      <main className="pt-10 md:pt-14 pb-24 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* =====================================================================
-            1. EDITORIAL HEADER
-        ====================================================================== */}
-        <header className="max-w-3xl pt-4 pb-16">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-terracotta-soft border border-terracotta/20 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
-            <span className="font-mono text-[11px] font-medium uppercase tracking-widest text-terracotta">
-              Transparent Credit Economy
+    <div className="w-full flex flex-col bg-[#FAF9F5] text-[#07091B] font-sans antialiased min-h-screen">
+      {/* =====================================================================
+          1. HERO SECTION: CLEAN TITLE & BILLING TOGGLE
+      ====================================================================== */}
+      <section className="pt-24 sm:pt-28 pb-14 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
+        {/* Pill Badge */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E6E4DD] shadow-xs text-xs font-semibold text-[#07091B] mb-6">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#D97736] animate-pulse" />
+          <span className="font-mono uppercase tracking-widest text-[11px] text-[#D97736] font-bold">
+            Transparent Credit Economy
+          </span>
+        </div>
+
+        {/* Main Heading */}
+        <h1 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#07091B] tracking-tight text-balance mb-5">
+          Simple pricing for <br className="hidden sm:inline" />
+          sovereign intelligence.
+        </h1>
+
+        {/* Subtitle */}
+        <p className="font-sans text-base sm:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed text-balance mb-10">
+          Predictable compute credits. Calibrated strictly to task depth with transparent tool execution and 90-day rollover security.
+        </p>
+
+        {/* Billing Cycle Toggle */}
+        <div className="inline-flex items-center p-1 rounded-full bg-white border border-[#E6E4DD] shadow-xs">
+          <button
+            type="button"
+            onClick={() => setBillingCycle('monthly')}
+            className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+              !isAnnual
+                ? 'bg-[#07091B] text-white shadow-xs'
+                : 'text-slate-600 hover:text-[#07091B]'
+            }`}
+          >
+            Monthly Billing
+          </button>
+          <button
+            type="button"
+            onClick={() => setBillingCycle('annually')}
+            className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+              isAnnual
+                ? 'bg-[#07091B] text-white shadow-xs'
+                : 'text-slate-600 hover:text-[#07091B]'
+            }`}
+          >
+            <span>Annual Billing</span>
+            <span className="px-2 py-0.5 rounded-full bg-[#D97736]/15 text-[#D97736] font-mono text-[10px] font-bold">
+              Save 20%
             </span>
-          </div>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-[54px] font-normal leading-[1.14] text-charcoal tracking-tight mb-6">
-            Fair, transparent credits calibrated to the depth of the work.
-          </h1>
-          <p className="font-sans text-lg sm:text-xl text-mutedInk font-normal leading-relaxed">
-            No hidden tokens or opaque markups. 1 to 10 credits per interaction based purely on model depth and live institutional tool executions.
-          </p>
-          <div className="flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-hairline font-mono text-xs text-mutedInk">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
-              <span>Deterministic Audit Ledger</span>
+          </button>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          2. CORE PRICING CARDS (3 TIERS)
+      ====================================================================== */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          
+          {/* TIER 1: Explorer */}
+          <div className="rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 p-8 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-md">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono text-xs uppercase tracking-widest text-slate-500 font-bold">
+                  Explorer
+                </span>
+                <span className="font-mono text-[11px] text-slate-600 px-2.5 py-0.5 rounded-full bg-[#FAF9F5] border border-[#E6E4DD]">
+                  Free Tier
+                </span>
+              </div>
+
+              <div className="flex items-baseline gap-1.5 mb-3">
+                <span className="font-sans text-4xl sm:text-5xl font-extrabold text-[#07091B] tracking-tight">
+                  $0
+                </span>
+                <span className="font-mono text-xs text-slate-500">/ month</span>
+              </div>
+
+              <p className="font-sans text-xs text-slate-600 leading-relaxed mb-6">
+                For solo practitioners evaluating sovereign agent synthesis with zero commitment.
+              </p>
+
+              {/* Monthly Credit Allocation Pill */}
+              <div className="p-3.5 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] mb-6">
+                <div className="font-mono text-xs font-bold text-[#07091B]">150 Credits / month</div>
+                <div className="font-sans text-[11px] text-slate-500 mt-0.5">Refreshes monthly • Ideal for casual queries</div>
+              </div>
+
+              <div className="font-mono text-[11px] uppercase tracking-wider text-slate-700 font-bold mb-3">
+                What's Included
+              </div>
+              <ul className="space-y-3 font-sans text-xs text-slate-700 mb-8">
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>All 10 specialists in quick query mode</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>2 scheduled background automations</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>Isolated sovereign container workspace</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>Zero telemetry retention guarantee</span>
+                </li>
+              </ul>
             </div>
-            <span className="text-hairline">•</span>
-            <div>Live Sovereign API Feeds</div>
-            <span className="text-hairline">•</span>
-            <div>India DPDP Enclave Isolation</div>
-          </div>
-        </header>
 
-        {/* =====================================================================
-            2. SECTION 1: THE 1 TO 10 CREDIT TIER SPECTRUM
-        ====================================================================== */}
-        <section className="mb-28">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-6 border-b border-hairline mb-8">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-terracotta font-medium tracking-widest">01</span>
-              <h2 className="font-mono text-xs uppercase tracking-widest text-mutedInk">
-                The Credit Spectrum / 1 to 10 Units
-              </h2>
+            <Link
+              to="/welcome"
+              className="w-full inline-flex items-center justify-center py-3 rounded-full bg-white hover:bg-slate-50 text-[#07091B] border border-[#E6E4DD] hover:border-slate-400 font-sans text-xs sm:text-sm font-bold transition-all active:scale-[0.98]"
+            >
+              Get Started Free
+            </Link>
+          </div>
+
+          {/* TIER 2: Professional (HIGHLIGHTED) */}
+          <div className="relative rounded-3xl bg-white border-2 border-[#D97736] p-8 flex flex-col justify-between transition-all duration-300 shadow-lg hover:shadow-xl">
+            {/* Top Badge */}
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-[#D97736] text-white font-mono text-[10px] uppercase tracking-widest font-bold shadow-xs whitespace-nowrap z-10">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              <span>Recommended for Practitioners</span>
             </div>
-            <span className="font-sans text-xs text-mutedInk">Measured via deterministic tool telemetry</span>
+
+            <div>
+              <div className="flex items-center justify-between mb-4 mt-2">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold">
+                  Professional
+                </span>
+                <span className="font-mono text-[11px] text-[#D97736] px-2.5 py-0.5 rounded-full bg-[#D97736]/10 font-bold">
+                  Active Standard
+                </span>
+              </div>
+
+              <div className="flex items-baseline gap-1.5 mb-3">
+                <span className="font-sans text-4xl sm:text-5xl font-extrabold text-[#07091B] tracking-tight">
+                  {isAnnual ? '$24' : '$29'}
+                </span>
+                <span className="font-mono text-xs text-slate-500">
+                  / month {isAnnual && <span className="text-[#D97736]">(billed annually)</span>}
+                </span>
+              </div>
+
+              <p className="font-sans text-xs text-slate-600 leading-relaxed mb-6">
+                For counsel, quants, auditors, and founders requiring unrestricted deep specialist execution.
+              </p>
+
+              {/* Monthly Credit Allocation Pill */}
+              <div className="p-3.5 rounded-2xl bg-[#D97736]/10 border border-[#D97736]/20 mb-6">
+                <div className="font-mono text-xs font-bold text-[#D97736]">2,500 Credits / month</div>
+                <div className="font-sans text-[11px] text-slate-600 mt-0.5">+ 90-Day Rollover on all unused credits</div>
+              </div>
+
+              <div className="font-mono text-[11px] uppercase tracking-wider text-slate-700 font-bold mb-3">
+                What's Included
+              </div>
+              <ul className="space-y-3 font-sans text-xs text-slate-700 mb-8">
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span>Full tool execution across all 10 specialists</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span>Tier-1 model ensemble (Claude 3.5, GPT-4o, DeepSeek R1)</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span>Live Indian institutional APIs (eCourts, NSE ticks, MCA-21)</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span>Dev Studio Linux VM with live HTML/React preview</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span>25 scheduled routines with automated webhooks</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Ruboz-style Terracotta Action Button with Dot-to-Arrow */}
+            <Link
+              to="/welcome"
+              className="group w-full inline-flex items-center justify-center gap-3.5 pl-6 pr-2.5 py-3 rounded-full bg-[#D97736] hover:bg-[#c46526] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98]"
+            >
+              <span>Upgrade to Professional</span>
+              <span className="relative flex items-center justify-center w-7 h-7 rounded-full transition-all duration-300">
+                <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
+                <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#07091B] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                  <span className="material-symbols-outlined text-[15px] font-bold">arrow_forward</span>
+                </span>
+              </span>
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Tier 1 */}
-            <article className="bg-surfacePure p-8 rounded-lg border border-hairline flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-mutedInk/40 transition-all duration-200">
-              <div>
-                <div className="flex items-center justify-between pb-4 mb-6 border-b border-hairline">
-                  <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-alabaster text-charcoal border border-hairline">
-                    1.0 Credit
-                  </span>
-                  <span className="font-mono text-xs text-mutedInk uppercase">Tier I</span>
-                </div>
-                <h3 className="font-display text-2xl text-charcoal mb-2 font-normal">Lightweight &amp; Fast</h3>
-                <p className="font-sans text-sm text-mutedInk leading-relaxed mb-6 font-normal">
-                  General Q&amp;A, concept definitions, summary briefs, and instantaneous mathematical sanity checks via Flash and distilled reasoning models.
-                </p>
-                <div className="bg-alabaster p-4 rounded border border-hairline/80 space-y-2 mb-6">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-mutedInk font-medium block">
-                    Key Execution Traits
-                  </span>
-                  <ul className="space-y-1.5 font-sans text-xs text-charcoal">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Sub-800ms latency responses</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Zero live external tool overhead</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Cached prompt acceleration</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="pt-4 border-t border-hairline/60">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-mutedInk block mb-1">
-                  Typical Interactions
+          {/* TIER 3: Practice & Desk */}
+          <div className="rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 p-8 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-md">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono text-xs uppercase tracking-widest text-slate-500 font-bold">
+                  Practice &amp; Desk
                 </span>
-                <div className="font-display italic text-xs text-mutedInk space-y-1">
-                  <div>“Define Section 43B(h) MSME compliance date”</div>
-                  <div>“Quick regex for IFSC / PAN identification”</div>
-                </div>
+                <span className="font-mono text-[11px] text-slate-600 px-2.5 py-0.5 rounded-full bg-[#FAF9F5] border border-[#E6E4DD]">
+                  Chambers
+                </span>
               </div>
-            </article>
 
-            {/* Tier 2 */}
-            <article className="bg-surfacePure p-8 rounded-lg border border-hairline flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-mutedInk/40 transition-all duration-200">
-              <div>
-                <div className="flex items-center justify-between pb-4 mb-6 border-b border-hairline">
-                  <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-terracotta-soft text-terracotta border border-terracotta/20">
-                    1.5 – 4.0 Credits
-                  </span>
-                  <span className="font-mono text-xs text-mutedInk uppercase">Tier II</span>
-                </div>
-                <h3 className="font-display text-2xl text-charcoal mb-2 font-normal">Specialist &amp; Live API Lookup</h3>
-                <p className="font-sans text-sm text-mutedInk leading-relaxed mb-6 font-normal">
-                  Targeted research queries, live eCourts CNR case verification, live NSE/BSE option chains, and symbolic mathematical proofs via Claude and GPT-4o.
-                </p>
-                <div className="bg-alabaster p-4 rounded border border-hairline/80 space-y-2 mb-6">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-mutedInk font-medium block">
-                    Key Execution Traits
-                  </span>
-                  <ul className="space-y-1.5 font-sans text-xs text-charcoal">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Deterministic sandboxed Python runtime</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Real-time Indian institutional endpoints</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Direct provenance citation injection</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="pt-4 border-t border-hairline/60">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-mutedInk block mb-1">
-                  Typical Interactions
+              <div className="flex items-baseline gap-1.5 mb-3">
+                <span className="font-sans text-4xl sm:text-5xl font-extrabold text-[#07091B] tracking-tight">
+                  {isAnnual ? '$79' : '$99'}
                 </span>
-                <div className="font-display italic text-xs text-mutedInk space-y-1">
-                  <div>“Fetch Delhi HC commercial bench cause list”</div>
-                  <div>“Compute Black-Scholes greeks on NIFTY 24500 CE”</div>
-                </div>
+                <span className="font-mono text-xs text-slate-500">
+                  / month {isAnnual && <span className="text-slate-500">(billed annually)</span>}
+                </span>
               </div>
-            </article>
 
-            {/* Tier 3 */}
-            <article className="bg-surfacePure p-8 rounded-lg border border-hairline flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-mutedInk/40 transition-all duration-200">
-              <div>
-                <div className="flex items-center justify-between pb-4 mb-6 border-b border-hairline">
-                  <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-botanical text-white border border-botanical">
-                    5.0 – 10.0 Credits
-                  </span>
-                  <span className="font-mono text-xs text-mutedInk uppercase">Tier III</span>
-                </div>
-                <h3 className="font-display text-2xl text-charcoal mb-2 font-normal">Deep Artifact &amp; Synthesis</h3>
-                <p className="font-sans text-sm text-mutedInk leading-relaxed mb-6 font-normal">
-                  Autonomous DAG executions, complete interactive Dev Studio UI prototypes, multi-source deep research dossiers, and complete 20-page legal petitions.
-                </p>
-                <div className="bg-alabaster p-4 rounded border border-hairline/80 space-y-2 mb-6">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-mutedInk font-medium block">
-                    Key Execution Traits
-                  </span>
-                  <ul className="space-y-1.5 font-sans text-xs text-charcoal">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Adversarial verification loop across multi-LLMs</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Multi-source MCA21 &amp; Gazette crosswalks</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-terracotta"></span>
-                      <span>Export-grade verified artifact compiling</span>
-                    </li>
-                  </ul>
-                </div>
+              <p className="font-sans text-xs text-slate-600 leading-relaxed mb-6">
+                For law chambers, boutique funds, and institutional research teams needing shared compute.
+              </p>
+
+              {/* Monthly Credit Allocation Pill */}
+              <div className="p-3.5 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] mb-6">
+                <div className="font-mono text-xs font-bold text-[#07091B]">10,000 Credits / month</div>
+                <div className="font-sans text-[11px] text-slate-500 mt-0.5">+ 180-Day Rollover on all unused credits</div>
               </div>
-              <div className="pt-4 border-t border-hairline/60">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-mutedInk block mb-1">
-                  Typical Interactions
-                </span>
-                <div className="font-display italic text-xs text-mutedInk space-y-1">
-                  <div>“Draft complete 18-page Commercial Appeal Writ”</div>
-                  <div>“Build full portfolio stress-testing model in Studio”</div>
-                </div>
+
+              <div className="font-mono text-[11px] uppercase tracking-wider text-slate-700 font-bold mb-3">
+                What's Included
               </div>
-            </article>
+              <ul className="space-y-3 font-sans text-xs text-slate-700 mb-8">
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>Everything in Professional plus 5 member seats</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>Dedicated AWS Nitro Enclaves in Mumbai (ap-south-1)</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>Unlimited background routines &amp; custom webhooks</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[17px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span>Direct SLA &amp; bespoke institutional data connectors</span>
+                </li>
+              </ul>
+            </div>
+
+            <Link
+              to="/welcome"
+              className="w-full inline-flex items-center justify-center py-3 rounded-full bg-[#07091B] hover:bg-black text-white font-sans text-xs sm:text-sm font-bold transition-all active:scale-[0.98]"
+            >
+              Contact Chambers Desk
+            </Link>
           </div>
-        </section>
 
-        {/* =====================================================================
-            3. SECTION 2: INTERACTIVE MONTHLY CREDIT & TASK BURN ESTIMATOR
-        ====================================================================== */}
-        <section className="mb-28">
-          <div className="flex items-center gap-3 pb-6 border-b border-hairline mb-8">
-            <span className="font-mono text-xs text-terracotta font-medium tracking-widest">02</span>
-            <h2 className="font-mono text-xs uppercase tracking-widest text-mutedInk">
-              Burn Estimator &amp; Capacity Planner
+        </div>
+      </section>
+
+      {/* =====================================================================
+          3. HOW CREDITS WORK: MINIMALIST 3-CARD STRIP
+      ====================================================================== */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold">
+              Deterministic Calibration
+            </span>
+            <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#07091B] tracking-tight mt-1.5">
+              How credits are consumed.
             </h2>
           </div>
+          <p className="font-sans text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
+            Credits reflect deterministic compute costs without hidden markups.
+          </p>
+        </div>
 
-          <div className="bg-surfacePure rounded-xl border border-hairline p-8 lg:p-12 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              {/* Sliders Left (7 cols) */}
-              <div className="lg:col-span-7 space-y-9">
-                <div>
-                  <h3 className="font-display text-2xl sm:text-3xl text-charcoal mb-2 font-normal">
-                    Calibrate your expected tempo.
-                  </h3>
-                  <p className="font-sans text-sm text-mutedInk">
-                    Adjust the sliders based on your chambers' or desk's daily operations. Median deterministic values applied transparently.
-                  </p>
-                </div>
-
-                {/* Slider 1 */}
-                <div className="space-y-3">
-                  <div className="flex justify-between items-baseline">
-                    <label
-                      htmlFor={quickSliderId}
-                      className="font-sans text-xs uppercase tracking-wider font-semibold text-charcoal"
-                    >
-                      Quick everyday queries <span className="font-mono font-normal text-mutedInk">(1.0 C)</span>
-                    </label>
-                    <div className="font-mono text-sm text-charcoal">
-                      <span className="font-semibold text-botanical">{quickQueries}</span>
-                      <span className="text-mutedInk text-xs"> / day</span>
-                    </div>
-                  </div>
-                  <input
-                    id={quickSliderId}
-                    type="range"
-                    min="0"
-                    max="100"
-                    step="1"
-                    value={quickQueries}
-                    onChange={(e) => setQuickQueries(Number(e.target.value))}
-                    className="w-full accent-botanical cursor-pointer"
-                  />
-                  <div className="flex justify-between text-[11px] font-mono text-mutedInk">
-                    <span>0</span>
-                    <span>50</span>
-                    <span>100 queries</span>
-                  </div>
-                </div>
-
-                {/* Slider 2 */}
-                <div className="space-y-3">
-                  <div className="flex justify-between items-baseline">
-                    <label
-                      htmlFor={deepSliderId}
-                      className="font-sans text-xs uppercase tracking-wider font-semibold text-charcoal"
-                    >
-                      Deep specialist sessions <span className="font-mono font-normal text-mutedInk">(3.5 C avg)</span>
-                    </label>
-                    <div className="font-mono text-sm text-charcoal">
-                      <span className="font-semibold text-botanical">{deepSessions}</span>
-                      <span className="text-mutedInk text-xs"> / day</span>
-                    </div>
-                  </div>
-                  <input
-                    id={deepSliderId}
-                    type="range"
-                    min="0"
-                    max="30"
-                    step="1"
-                    value={deepSessions}
-                    onChange={(e) => setDeepSessions(Number(e.target.value))}
-                    className="w-full accent-botanical cursor-pointer"
-                  />
-                  <div className="flex justify-between text-[11px] font-mono text-mutedInk">
-                    <span>0</span>
-                    <span>15</span>
-                    <span>30 sessions</span>
-                  </div>
-                </div>
-
-                {/* Slider 3 */}
-                <div className="space-y-3">
-                  <div className="flex justify-between items-baseline">
-                    <label
-                      htmlFor={routinesSliderId}
-                      className="font-sans text-xs uppercase tracking-wider font-semibold text-charcoal"
-                    >
-                      Scheduled multi-run tasks <span className="font-mono font-normal text-mutedInk">(4.0 C avg)</span>
-                    </label>
-                    <div className="font-mono text-sm text-charcoal">
-                      <span className="font-semibold text-botanical">{scheduledRoutines}</span>
-                      <span className="text-mutedInk text-xs"> / day</span>
-                    </div>
-                  </div>
-                  <input
-                    id={routinesSliderId}
-                    type="range"
-                    min="0"
-                    max="20"
-                    step="1"
-                    value={scheduledRoutines}
-                    onChange={(e) => setScheduledRoutines(Number(e.target.value))}
-                    className="w-full accent-botanical cursor-pointer"
-                  />
-                  <div className="flex justify-between text-[11px] font-mono text-mutedInk">
-                    <span>0</span>
-                    <span>10</span>
-                    <span>20 runs</span>
-                  </div>
-                </div>
-
-                {/* Proportion Breakdown Bar */}
-                <div className="pt-2">
-                  <div className="flex justify-between text-[11px] font-mono uppercase text-mutedInk mb-2">
-                    <span>Load Composition</span>
-                    <span>100% Calculated</span>
-                  </div>
-                  <div className="w-full h-2.5 rounded-full bg-alabaster border border-hairline overflow-hidden flex">
-                    <div
-                      className="bg-botanical h-full transition-all duration-150"
-                      style={{ width: `${pctQuick}%` }}
-                    />
-                    <div
-                      className="bg-terracotta h-full transition-all duration-150"
-                      style={{ width: `${pctDeep}%` }}
-                    />
-                    <div
-                      className="bg-mutedInk h-full transition-all duration-150"
-                      style={{ width: `${pctRoutines}%` }}
-                    />
-                  </div>
-                  <div className="flex flex-wrap items-center gap-4 mt-3 text-[11px] font-mono text-mutedInk">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-botanical"></span>
-                      <span>Quick Tasks</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-terracotta"></span>
-                      <span>Specialist Research</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-mutedInk"></span>
-                      <span>Autonomous Tasks</span>
-                    </div>
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Unit 1 */}
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800">
+                  1.0 Credit
+                </span>
+                <span className="font-mono text-[11px] text-slate-500">Tier I</span>
               </div>
-
-              {/* Calculation Summary Right (5 cols) */}
-              <div className="lg:col-span-5 bg-alabaster p-8 rounded-lg border border-hairline flex flex-col justify-between h-full">
-                <div>
-                  <div className="font-mono text-[11px] uppercase tracking-widest text-mutedInk pb-4 border-b border-hairline">
-                    Projected Consumption
-                  </div>
-                  <div className="py-6 space-y-4">
-                    <div className="flex items-baseline justify-between">
-                      <span className="font-sans text-sm text-mutedInk">Estimated Daily Burn</span>
-                      <div className="font-mono text-base font-semibold text-charcoal">
-                        <span>{dailyBurn.toFixed(1)}</span>
-                        <span className="text-xs text-mutedInk font-normal"> Credits</span>
-                      </div>
-                    </div>
-                    <div className="flex items-baseline justify-between pt-4 border-t border-hairline">
-                      <span className="font-sans text-sm text-charcoal font-medium">Estimated Monthly Burn</span>
-                      <div className="font-mono text-2xl font-semibold text-botanical">
-                        <span>{monthlyBurn.toLocaleString()}</span>
-                        <span className="text-xs text-mutedInk font-normal"> Credits / mo</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Recommendation Card */}
-                  <div className="mt-2 bg-surfacePure p-5 rounded border border-hairline shadow-2xs">
-                    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-terracotta-soft text-terracotta font-mono text-[11px] font-medium uppercase tracking-wide mb-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-terracotta"></span>
-                      <span>{recommendedPlanBadge}</span>
-                    </div>
-                    <p className="font-sans text-xs text-mutedInk leading-relaxed">{recommendedPlanDesc}</p>
-                  </div>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-hairline">
-                  <Link
-                    to="/app"
-                    className="block w-full text-center py-3 px-4 bg-botanical text-white text-xs font-medium uppercase tracking-wider rounded hover:bg-botanical-dark transition-colors duration-150 shadow-xs"
-                  >
-                    Select Calibrated Tier
-                  </Link>
-                  <div className="text-center font-mono text-[10px] text-mutedInk mt-2">
-                    Credits never expire within active rollover window
-                  </div>
-                </div>
-              </div>
+              <h3 className="font-sans text-base font-bold text-[#07091B] mb-2">Fast Direct Queries</h3>
+              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+                Instant answers, definition lookups, and fast math checks via distilled reasoning engines with sub-800ms response time.
+              </p>
             </div>
           </div>
-        </section>
 
-        {/* =====================================================================
-            4. SECTION 3: THREE SUBSCRIPTION PLANS
-        ====================================================================== */}
-        <section className="mb-28">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-6 border-b border-hairline mb-8">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-terracotta font-medium tracking-widest">03</span>
-              <h2 className="font-mono text-xs uppercase tracking-widest text-mutedInk">
-                Retainer Memberships / Sovereign Plans
+          {/* Unit 2 */}
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-full bg-teal-100 text-teal-800">
+                  1.5 – 3.5 Credits
+                </span>
+                <span className="font-mono text-[11px] text-slate-500">Tier II</span>
+              </div>
+              <h3 className="font-sans text-base font-bold text-[#07091B] mb-2">Specialist &amp; Live API Lookup</h3>
+              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+                Live court registry checks (eCourts CNR), real-time NSE/BSE ticks, and isolated Python sandbox proofs with verified footnote citations.
+              </p>
+            </div>
+          </div>
+
+          {/* Unit 3 */}
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-800">
+                  5.0 – 10.0 Credits
+                </span>
+                <span className="font-mono text-[11px] text-slate-500">Tier III</span>
+              </div>
+              <h3 className="font-sans text-base font-bold text-[#07091B] mb-2">Deep Multi-Step Synthesis</h3>
+              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+                Multi-hop recursive hypothesis trees, 20-page legal petitions, full Dev Studio web apps, and multi-LLM adversarial consensus.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          4. INTERACTIVE CAPACITY ESTIMATOR: MINIMALIST & INTUITIVE
+      ====================================================================== */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-24">
+        <div className="rounded-3xl bg-white border border-[#E6E4DD] p-8 sm:p-10 shadow-xs">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#E6E4DD] mb-8">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold">
+                Capacity Planner
+              </span>
+              <h2 className="font-sans text-xl sm:text-2xl font-extrabold text-[#07091B] tracking-tight mt-1">
+                Estimate your monthly usage.
               </h2>
             </div>
-            <span className="font-sans text-xs text-mutedInk">DPDP Act 2023 Compliant Enclave Sandboxing</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-mono font-bold text-slate-700">
+              <span>Suggested: </span>
+              <span className="text-[#D97736]">{recommendedPlan}</span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            {/* Plan 1: Explorer */}
-            <div className="bg-surfacePure p-8 sm:p-9 rounded-xl border border-hairline flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-display text-2xl text-charcoal font-normal">Explorer</h3>
-                  <span className="font-mono text-[11px] text-mutedInk uppercase px-2 py-0.5 rounded bg-alabaster border border-hairline">
-                    Free Tier
-                  </span>
-                </div>
-                <p className="font-sans text-xs text-mutedInk mb-6 leading-relaxed">
-                  For solo practitioners, initial testing, and unhurried evaluation of sovereign synthesis.
-                </p>
-                <div className="flex items-baseline gap-1.5 pb-6 mb-6 border-b border-hairline">
-                  <span className="font-display text-4xl font-normal text-charcoal">$0</span>
-                  <span className="font-mono text-xs text-mutedInk">/ month</span>
-                </div>
-                <div className="mb-6 bg-alabaster p-3.5 rounded border border-hairline">
-                  <div className="font-mono text-xs font-semibold text-charcoal">150 Credits / month</div>
-                  <div className="font-sans text-[11px] text-mutedInk mt-0.5">Refreshes every 30 days. No rollover.</div>
-                </div>
-                <div className="font-mono text-[11px] uppercase tracking-wider text-mutedInk font-medium mb-3">
-                  Included Capabilities
-                </div>
-                <ul className="space-y-3 font-sans text-xs text-charcoal mb-8">
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>All 10 specialists in light query mode</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>2 scheduled automated background routines</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>2 isolated workspace environments</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>General Reasoning and Fast Research models</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>Zero data retention guarantee</span>
-                  </li>
-                </ul>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            {/* Slider Left */}
+            <div className="md:col-span-7 space-y-4">
+              <div className="flex justify-between items-baseline">
+                <span className="font-sans text-xs font-bold text-[#07091B]">Daily Task Volume</span>
+                <span className="font-mono text-sm font-bold text-[#1E3A3A]">{dailyTasks} tasks / day</span>
               </div>
-              <Link
-                to="/app"
-                className="block w-full py-2.5 px-4 text-center font-sans text-xs font-medium text-charcoal bg-alabaster border border-hairline rounded hover:bg-hairline/50 transition-colors duration-150"
-              >
-                Start Free Workspace
-              </Link>
+
+              <input
+                type="range"
+                min="5"
+                max="80"
+                step="5"
+                value={dailyTasks}
+                onChange={(e) => setDailyTasks(Number(e.target.value))}
+                className="w-full h-2 bg-[#FAF9F5] border border-[#E6E4DD] rounded-lg appearance-none cursor-pointer accent-[#D97736]"
+              />
+
+              <div className="flex justify-between text-[11px] font-mono text-slate-500">
+                <span>Light (5/day)</span>
+                <span>Standard (25/day)</span>
+                <span>Chambers (80/day)</span>
+              </div>
             </div>
 
-            {/* Plan 2: Professional (HIGHLIGHTED) */}
-            <div className="relative bg-surfacePure p-8 sm:p-9 rounded-xl border-2 border-terracotta flex flex-col justify-between shadow-[0_4px_20px_rgba(217,119,54,0.08)]">
-              {/* Subtle Accent Badge */}
-              <div className="absolute -top-3.5 left-8 inline-flex items-center gap-1.5 px-3 py-1 bg-terracotta text-white rounded text-[10px] font-mono uppercase tracking-widest font-semibold shadow-xs">
-                <span>Recommended for Practitioners</span>
+            {/* Readout Right */}
+            <div className="md:col-span-5 p-5 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex flex-col justify-between">
+              <div className="font-mono text-[11px] uppercase tracking-wider text-slate-500 mb-1">
+                Estimated Monthly Burn
               </div>
-              <div>
-                <div className="flex items-center justify-between mb-3 mt-1">
-                  <h3 className="font-display text-2xl text-charcoal font-normal">Professional</h3>
-                  <span className="font-mono text-[11px] text-terracotta uppercase font-semibold px-2 py-0.5 rounded bg-terracotta-soft">
-                    Active Standard
-                  </span>
-                </div>
-                <p className="font-sans text-xs text-mutedInk mb-6 leading-relaxed">
-                  For counsel, quantitative desks, statutory auditors, and autonomous research fellows.
-                </p>
-                <div className="flex items-baseline gap-1.5 pb-6 mb-6 border-b border-hairline">
-                  <span className="font-display text-4xl font-normal text-botanical">$29</span>
-                  <span className="font-mono text-xs text-mutedInk">/ month</span>
-                </div>
-                <div className="mb-6 bg-terracotta-soft p-3.5 rounded border border-terracotta/20">
-                  <div className="font-mono text-xs font-semibold text-terracotta">2,500 Credits / month</div>
-                  <div className="font-sans text-[11px] text-mutedInk mt-0.5">+ Rollover unused credits up to 90 days</div>
-                </div>
-                <div className="font-mono text-[11px] uppercase tracking-wider text-mutedInk font-medium mb-3">
-                  Included Capabilities
-                </div>
-                <ul className="space-y-3 font-sans text-xs text-charcoal mb-8">
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-terracotta shrink-0">check</span>
-                    <span>All 10 specialists with autonomous tool execution</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-terracotta shrink-0">check</span>
-                    <span>All 6 Tier-1 LLMs (Claude 3.5 Sonnet, GPT-4o, DeepSeek R1)</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-terracotta shrink-0">check</span>
-                    <span>Live NSE/BSE tick feeds, eCourts NJDG, &amp; Kanoon APIs</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-terracotta shrink-0">check</span>
-                    <span>25 scheduled background routines with webhook trigger</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-terracotta shrink-0">check</span>
-                    <span>Unlimited workspaces &amp; Vector memory retention</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-terracotta shrink-0">check</span>
-                    <span>Full Dev Studio UI canvas &amp; verified PDF exports</span>
-                  </li>
-                </ul>
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="font-mono text-3xl font-extrabold text-[#07091B]">
+                  ~{estimatedMonthlyCredits.toLocaleString()}
+                </span>
+                <span className="font-mono text-xs text-slate-500">Credits / mo</span>
               </div>
-              <Link
-                to="/app"
-                className="block w-full py-3 px-4 text-center font-sans text-xs font-semibold uppercase tracking-wider text-white bg-botanical rounded hover:bg-botanical-dark transition-colors duration-150 shadow-xs"
-              >
-                Upgrade to Professional
-              </Link>
+              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+                Fits easily within the <strong className="text-[#07091B]">{recommendedPlan}</strong> tier with rollover protection.
+              </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Plan 3: Practice & Desk */}
-            <div className="bg-surfacePure p-8 sm:p-9 rounded-xl border border-hairline flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-display text-2xl text-charcoal font-normal">Practice &amp; Desk</h3>
-                  <span className="font-mono text-[11px] text-mutedInk uppercase px-2 py-0.5 rounded bg-alabaster border border-hairline">
-                    Chambers
-                  </span>
-                </div>
-                <p className="font-sans text-xs text-mutedInk mb-6 leading-relaxed">
-                  For law chambers, boutique financial advisories, and institutional research desks.
-                </p>
-                <div className="flex items-baseline gap-1.5 pb-6 mb-6 border-b border-hairline">
-                  <span className="font-display text-4xl font-normal text-charcoal">$99</span>
-                  <span className="font-mono text-xs text-mutedInk">/ month</span>
-                </div>
-                <div className="mb-6 bg-alabaster p-3.5 rounded border border-hairline">
-                  <div className="font-mono text-xs font-semibold text-charcoal">10,000 Credits / month</div>
-                  <div className="font-sans text-[11px] text-mutedInk mt-0.5">+ Rollover unused credits up to 180 days</div>
-                </div>
-                <div className="font-mono text-[11px] uppercase tracking-wider text-mutedInk font-medium mb-3">
-                  Included Capabilities
-                </div>
-                <ul className="space-y-3 font-sans text-xs text-charcoal mb-8">
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>Everything included in Professional retainer</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>Unlimited multi-run routines &amp; autonomous crons</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>Historical NSE snapshot diffs &amp; litigation registries</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>Shared team workspaces &amp; role-based enclave access</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>Dedicated sovereign Nitro Enclave instances</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[17px] text-botanical shrink-0">check</span>
-                    <span>Direct SLA &amp; bespoke API webhook pipeline design</span>
-                  </li>
-                </ul>
-              </div>
+      {/* =====================================================================
+          5. BOTTOM CALL TO ACTION (MATCHING HOMEPAGE RUBZOZ BANNER)
+      ====================================================================== */}
+      <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
+        <div className="rounded-[32px] sm:rounded-[36px] bg-[#1E3A3A] p-8 sm:p-12 text-center text-white relative overflow-hidden border border-white/10">
+          <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
+            <h2 className="font-sans text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 text-balance">
+              Start with 150 free credits today.
+            </h2>
+            <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 text-balance">
+              Test all 10 specialized agent minds in your sovereign workspace. No credit card required.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full justify-center">
               <Link
-                to="/app"
-                className="block w-full py-2.5 px-4 text-center font-sans text-xs font-medium text-charcoal bg-alabaster border border-hairline rounded hover:bg-hairline/50 transition-colors duration-150"
+                to="/welcome"
+                className="group inline-flex items-center gap-3.5 pl-7 pr-2.5 py-3 rounded-full bg-[#D97736] hover:bg-[#c46526] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98]"
               >
-                Contact Practice Desk
+                <span>Initialize Workspace</span>
+                <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-all duration-300">
+                  <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
+                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#07091B] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                    <span className="material-symbols-outlined text-[15px] sm:text-[16px] font-bold">arrow_forward</span>
+                  </span>
+                </span>
               </Link>
             </div>
           </div>
-        </section>
-
-        {/* =====================================================================
-            5. EDITORIAL MONOGRAPH GROUNDING QUOTE
-        ====================================================================== */}
-        <section className="max-w-3xl mx-auto py-16 text-center border-t border-hairline">
-          <blockquote className="font-display text-2xl sm:text-3xl italic font-normal text-botanical leading-snug mb-4">
-            “Fair pricing is not a concession to users; it is the prerequisite of genuine institutional sovereignty.”
-          </blockquote>
-          <div className="font-mono text-xs uppercase tracking-widest text-mutedInk">
-            The GriZon Monograph Series · Vol. IV — The Economy of Thought
-          </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </div>
   );
 }
