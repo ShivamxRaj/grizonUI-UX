@@ -24,14 +24,6 @@ export default function Pricing() {
           1. HERO SECTION: OptimAI / Ruboz Proportions & Generous Clearance
       ====================================================================== */}
       <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20 text-center">
-        {/* Pill Badge matching Home Page */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E6E4DD] shadow-xs text-xs font-semibold text-[#1E3A3A] mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#D97736] animate-pulse" />
-          <span className="font-mono uppercase tracking-widest text-[11px] text-[#07091B] font-bold">
-            Transparent Credit Economy
-          </span>
-        </div>
-
         {/* Main Headline (Exact Home Typography & Margins) */}
         <h1 className="font-sans text-3xl sm:text-5xl lg:text-[52px] font-extrabold text-[#07091B] tracking-[-0.03em] leading-[1.12] mb-5 text-balance text-center max-w-2xl mx-auto">
           Simple pricing for <br className="hidden sm:inline" />
@@ -102,16 +94,14 @@ export default function Pricing() {
                 For solo practitioners evaluating sovereign agent synthesis with zero financial commitment.
               </p>
 
-              {/* Monthly Credit Allocation Pill */}
-              <div className="p-4 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] mb-6">
-                <div className="font-mono text-xs font-bold text-[#07091B]">150 Credits / month</div>
-                <div className="font-sans text-[11px] text-slate-500 mt-1">Refreshes monthly • Ideal for casual queries</div>
-              </div>
-
               <div className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold mb-4">
                 What's Included
               </div>
               <ul className="space-y-3.5 font-sans text-xs text-slate-600 mb-8">
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span><strong className="text-[#07091B]">150 compute credits / month</strong> (refreshes monthly)</span>
+                </li>
                 <li className="flex items-start gap-3">
                   <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
                   <span>All 10 specialists in quick query mode</span>
@@ -170,16 +160,14 @@ export default function Pricing() {
                 For counsel, quants, auditors, and founders requiring unrestricted deep specialist execution.
               </p>
 
-              {/* Monthly Credit Allocation Pill */}
-              <div className="p-4 rounded-2xl bg-[#D97736]/10 border border-[#D97736]/20 mb-6">
-                <div className="font-mono text-xs font-bold text-[#D97736]">2,500 Credits / month</div>
-                <div className="font-sans text-[11px] text-slate-600 mt-1">+ 90-Day Rollover on all unused credits</div>
-              </div>
-
               <div className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold mb-4">
                 What's Included
               </div>
               <ul className="space-y-3.5 font-sans text-xs text-slate-600 mb-8">
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span><strong className="text-[#07091B]">2,500 compute credits / month</strong> (+90-day rollover)</span>
+                </li>
                 <li className="flex items-start gap-3">
                   <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
                   <span>Full tool execution across all 10 specialists</span>
@@ -243,16 +231,14 @@ export default function Pricing() {
                 For law chambers, boutique funds, and institutional research teams needing shared compute.
               </p>
 
-              {/* Monthly Credit Allocation Pill */}
-              <div className="p-4 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] mb-6">
-                <div className="font-mono text-xs font-bold text-[#07091B]">10,000 Credits / month</div>
-                <div className="font-sans text-[11px] text-slate-500 mt-1">+ 180-Day Rollover on all unused credits</div>
-              </div>
-
               <div className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold mb-4">
                 What's Included
               </div>
               <ul className="space-y-3.5 font-sans text-xs text-slate-600 mb-8">
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span><strong className="text-[#07091B]">10,000 compute credits / month</strong> (+180-day rollover)</span>
+                </li>
                 <li className="flex items-start gap-3">
                   <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
                   <span>Everything in Professional plus 5 member seats</span>
@@ -308,12 +294,7 @@ export default function Pricing() {
               <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">bolt</span>
               </div>
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <h3 className="font-sans text-lg font-bold text-[#07091B]">Fast Direct Queries</h3>
-                <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 whitespace-nowrap shrink-0">
-                  1.0 Credit
-                </span>
-              </div>
+              <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Fast Direct Queries</h3>
               <p className="font-sans text-xs text-slate-600 leading-relaxed">
                 Instant answers, definition lookups, and fast math checks via distilled reasoning engines with sub-800ms response time.
               </p>
@@ -326,12 +307,7 @@ export default function Pricing() {
               <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">hub</span>
               </div>
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <h3 className="font-sans text-lg font-bold text-[#07091B]">Specialist &amp; Live API</h3>
-                <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-teal-50 text-teal-800 border border-teal-200 whitespace-nowrap shrink-0">
-                  1.5 – 3.5 Credits
-                </span>
-              </div>
+              <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Specialist &amp; Live API</h3>
               <p className="font-sans text-xs text-slate-600 leading-relaxed">
                 Live court registry checks (eCourts CNR), real-time NSE/BSE ticks, and isolated Python sandbox proofs with verified footnote citations.
               </p>
@@ -344,12 +320,7 @@ export default function Pricing() {
               <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">psychology</span>
               </div>
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <h3 className="font-sans text-lg font-bold text-[#07091B]">Deep Multi-Step Synthesis</h3>
-                <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200 whitespace-nowrap shrink-0">
-                  5.0 – 10.0 Credits
-                </span>
-              </div>
+              <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Deep Multi-Step Synthesis</h3>
               <p className="font-sans text-xs text-slate-600 leading-relaxed">
                 Multi-hop recursive hypothesis trees, 20-page legal petitions, full Dev Studio web apps, and multi-LLM adversarial consensus.
               </p>
