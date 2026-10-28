@@ -39,3 +39,16 @@
 .animate-float-fast {
   animation: float-fast 4.5s ease-in-out infinite;
 }
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(10px) rotate(-0.5deg);
+  }
+}
+
+.animate-float-reverse {
+  animation: float-reverse 6.5s ease-in-out infinite;
+}
