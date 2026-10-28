@@ -752,25 +752,28 @@ export default function Home() {
           </div>
 
           {/* Bottom Callout Banner: The 10 Specialists Redirection */}
-          <div className="mt-12 rounded-3xl bg-gradient-to-r from-[#090B19] via-[#14182e] to-[#090B19] border border-purple-500/30 p-6 sm:p-8 text-white relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="mt-12 rounded-3xl bg-gradient-to-b from-white via-[#FAF9F5] to-white border border-[#E6E4DD] p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_10px_30px_-15px_rgba(7,9,27,0.05)]">
+            {/* Soft Ambient Diffuse Sheen */}
+            <div className="absolute top-0 right-1/4 w-[420px] h-[180px] bg-gradient-to-b from-purple-200/20 via-indigo-100/10 to-transparent blur-3xl rounded-full pointer-events-none" />
+
             <div className="relative z-10 max-w-2xl">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
-                <span className="font-mono text-[10px] text-purple-300 bg-purple-900/60 border border-purple-400/30 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                <span className="font-mono text-[10px] text-purple-800 bg-purple-50 border border-purple-200/70 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
                   Complete Autonomous Fleet • 10 Specialists
                 </span>
-                <span className="text-xs text-slate-400 font-mono">Showing 6 featured enterprise minds</span>
+                <span className="text-xs text-slate-500 font-mono">Showing 6 featured enterprise minds</span>
               </div>
-              <h3 className="font-sans text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+              <h3 className="font-sans text-xl sm:text-2xl font-extrabold text-[#07091B] tracking-tight mt-1.5">
                 Looking for All 10 Purpose-Built Specialists?
               </h3>
-              <p className="font-sans text-xs sm:text-sm text-slate-300 mt-1.5 leading-relaxed">
+              <p className="font-sans text-xs sm:text-sm text-[#52525B] mt-1.5 leading-relaxed">
                 In addition to the 6 featured above, explore our complete autonomous fleet including the Autonomous Orchestrator, System Architect Agent, Workflow &amp; Routines Coordinator, and Enterprise Governance &amp; Compliance suite.
               </p>
             </div>
             <div className="relative z-10 flex items-center gap-3 shrink-0">
               <Link
                 to="/agents"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#090B19] hover:bg-slate-100 font-sans text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all group"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#07091B] text-white hover:bg-black font-sans text-xs sm:text-sm font-semibold shadow-xs hover:shadow-md transition-all group active:scale-[0.98]"
               >
                 <span>Explore The 10 Specialists</span>
                 <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
@@ -783,30 +786,57 @@ export default function Home() {
 
 
       {/* =====================================================================
-          3. SECTION 3: 4-METRIC TELEMETRY STRIP (Optimai Reference)
+          3. SECTION 3: 4-METRIC TELEMETRY STRIP (Clean & Premium)
       ====================================================================== */}
-      <section className="w-full bg-white py-14 border-t border-b border-[#E6E4DD]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200">
-            <div className="pt-2 md:pt-0">
-              <p className="font-sans text-4xl sm:text-5xl font-extrabold text-[#1E3A3A]">10</p>
-              <p className="font-sans text-sm font-bold text-slate-800 mt-1.5">Specialized Minds</p>
-              <p className="font-mono text-[11px] text-slate-500">Legal, Quant, Code, Research</p>
+      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+        <div className="rounded-3xl bg-gradient-to-b from-[#FAF9F5] via-white to-[#FAF9F5] border border-[#E6E4DD] p-7 sm:p-10 shadow-[0_8px_30px_-15px_rgba(7,9,27,0.04)]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center divide-y lg:divide-y-0 lg:divide-x divide-[#E6E4DD]">
+            <div className="pt-2 lg:pt-0 flex flex-col items-center">
+              <span className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight">
+                10
+              </span>
+              <p className="font-sans text-xs sm:text-sm font-bold text-[#18181B] mt-2">
+                Specialized Minds
+              </p>
+              <p className="font-mono text-[11px] text-[#71717A] mt-0.5">
+                Legal, Quant, Code, Research
+              </p>
             </div>
-            <div className="pt-4 md:pt-0 md:pl-4">
-              <p className="font-sans text-4xl sm:text-5xl font-extrabold text-amber-700">&lt;50ms</p>
-              <p className="font-sans text-sm font-bold text-slate-800 mt-1.5">Intent Router</p>
-              <p className="font-mono text-[11px] text-slate-500">Zero context switching</p>
+
+            <div className="pt-6 lg:pt-0 lg:pl-6 flex flex-col items-center">
+              <span className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight">
+                &lt;50ms
+              </span>
+              <p className="font-sans text-xs sm:text-sm font-bold text-[#18181B] mt-2">
+                Intent Router
+              </p>
+              <p className="font-mono text-[11px] text-[#71717A] mt-0.5">
+                Zero context switching
+              </p>
             </div>
-            <div className="pt-4 md:pt-0 md:pl-4">
-              <p className="font-sans text-4xl sm:text-5xl font-extrabold text-[#07091B]">100%</p>
-              <p className="font-sans text-sm font-bold text-slate-800 mt-1.5">Rollover Credits</p>
-              <p className="font-mono text-[11px] text-slate-500">Zero unused credit expiry</p>
+
+            <div className="pt-6 lg:pt-0 lg:pl-6 flex flex-col items-center">
+              <span className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight">
+                100%
+              </span>
+              <p className="font-sans text-xs sm:text-sm font-bold text-[#18181B] mt-2">
+                Rollover Credits
+              </p>
+              <p className="font-mono text-[11px] text-[#71717A] mt-0.5">
+                Zero unused credit expiry
+              </p>
             </div>
-            <div className="pt-4 md:pt-0 md:pl-4">
-              <p className="font-sans text-4xl sm:text-5xl font-extrabold text-emerald-800">256-Bit</p>
-              <p className="font-sans text-sm font-bold text-slate-800 mt-1.5">Zero Training</p>
-              <p className="font-mono text-[11px] text-slate-500">DPDP sovereign enclave</p>
+
+            <div className="pt-6 lg:pt-0 lg:pl-6 flex flex-col items-center">
+              <span className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight">
+                256-Bit
+              </span>
+              <p className="font-sans text-xs sm:text-sm font-bold text-[#18181B] mt-2">
+                Zero Training
+              </p>
+              <p className="font-mono text-[11px] text-[#71717A] mt-0.5">
+                DPDP sovereign enclave
+              </p>
             </div>
           </div>
         </div>
@@ -819,7 +849,7 @@ export default function Home() {
       <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold">
               Why GriZon AI
             </span>
             <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mt-1.5">
@@ -960,7 +990,7 @@ export default function Home() {
             {/* Right 6 Columns: 3 Foundation Pillars */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold">
                   Sovereign Enclave Infrastructure
                 </span>
                 <h3 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#07091B] tracking-tight mt-1 text-balance">
@@ -973,7 +1003,7 @@ export default function Home() {
 
               <div className="space-y-4 pt-2">
                 <div className="p-4 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-xl bg-[#1E3A3A] text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#07091B] text-white flex items-center justify-center shrink-0 mt-0.5">
                     <span className="material-symbols-outlined text-[18px]">gavel</span>
                   </div>
                   <div>
@@ -1012,7 +1042,7 @@ export default function Home() {
               <div className="pt-2">
                 <Link
                   to="/welcome"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1E3A3A] text-white font-sans text-xs sm:text-sm font-semibold hover:bg-[#142929] transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#07091B] text-white font-sans text-xs sm:text-sm font-semibold hover:bg-black transition-all shadow-2xs"
                 >
                   <span>Explore Enclave Specifications</span>
                   <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -1031,7 +1061,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
             {/* LEFT COLUMN: Pinned Sticky Header & Fleet Overview */}
             <div className="lg:col-span-5 lg:sticky lg:top-28 self-start space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#E6E4DD] shadow-xs text-xs font-semibold text-[#1E3A3A]">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#E6E4DD] shadow-xs text-xs font-semibold text-[#07091B]">
                 <span className="material-symbols-outlined text-[16px] text-[#D97736]">rocket_launch</span>
                 <span>Specialist Suite • 10 Domain Minds</span>
               </div>
@@ -1416,7 +1446,7 @@ export default function Home() {
                               key={pIdx}
                               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-semibold text-slate-800 shadow-2xs"
                             >
-                              <span className="material-symbols-outlined text-[16px] text-[#1E3A3A]">
+                              <span className="material-symbols-outlined text-[16px] text-[#D97736]">
                                 {pill.icon}
                               </span>
                               <span>{pill.label}</span>
@@ -1542,7 +1572,7 @@ export default function Home() {
             </div>
             <Link
               to="/welcome"
-              className="mt-8 w-full py-2.5 rounded-full bg-[#1E3A3A] hover:bg-[#142929] text-white font-sans text-xs font-bold text-center transition-colors"
+              className="mt-8 w-full py-2.5 rounded-full bg-[#07091B] hover:bg-black text-white font-sans text-xs font-bold text-center transition-colors shadow-2xs"
             >
               Start 14-Day Free Trial
             </Link>
@@ -1635,24 +1665,30 @@ export default function Home() {
 
       {/* BOTTOM CALL TO ACTION */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
-        <div className="rounded-[32px] sm:rounded-[36px] bg-[#1E3A3A] p-8 sm:p-12 text-center text-white relative overflow-hidden border border-white/10">
+        <div className="rounded-[32px] sm:rounded-[36px] bg-gradient-to-b from-[#FAF9F5] via-white to-[#FAF9F5] p-8 sm:p-14 text-center relative overflow-hidden border border-[#E6E4DD] shadow-[0_16px_40px_-20px_rgba(7,9,27,0.06)]">
+          {/* Subtle warm ethereal diffuse glow for softness */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[540px] h-[220px] bg-gradient-to-b from-[#D97736]/10 via-purple-500/5 to-transparent blur-3xl rounded-full pointer-events-none" />
+
           <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-amber-400 font-bold mb-2">
-              Start Free • Zero Training Enclave
-            </span>
-            <h2 className="font-sans text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 text-balance">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D97736]/10 border border-[#D97736]/20 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D97736] animate-pulse" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#D97736] font-bold">
+                Start Free • Zero Training Enclave
+              </span>
+            </div>
+            <h2 className="font-sans text-2xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mb-3 text-balance leading-tight">
               Step into your sovereign intelligence workspace.
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 text-balance">
+            <p className="font-sans text-xs sm:text-sm text-[#52525B] leading-relaxed mb-7 text-balance max-w-lg">
               Join enterprise legal counsels, quantitative funds, and software teams building with deterministic AI.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center">
               <Link
                 to="/welcome"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#1E3A3A] font-sans text-xs sm:text-sm font-bold hover:bg-slate-100 transition-all active:scale-[0.98]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#07091B] text-white font-sans text-xs sm:text-sm font-semibold hover:bg-black transition-all shadow-xs hover:shadow-md active:scale-[0.98]"
               >
                 <span>Initialize Workspace</span>
-                <span className="material-symbols-outlined text-[16px]">bolt</span>
+                <span className="material-symbols-outlined text-[16px] text-amber-400">bolt</span>
               </Link>
             </div>
           </div>

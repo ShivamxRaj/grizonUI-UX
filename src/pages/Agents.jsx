@@ -245,7 +245,7 @@ export default function Agents() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all ${
                   activeCategory === cat
-                    ? 'bg-[#1E3A3A] text-white shadow-xs'
+                    ? 'bg-[#07091B] text-white shadow-xs'
                     : 'bg-[#FAF9F5] text-slate-600 border border-[#E6E4DD] hover:bg-slate-100'
                 }`}
               >
@@ -270,7 +270,7 @@ export default function Agents() {
               <div>
                 {/* Top header row */}
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-11 h-11 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center text-[#1E3A3A] group-hover:bg-[#1E3A3A] group-hover:text-white transition-colors">
+                  <div className="w-11 h-11 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center text-[#07091B] group-hover:bg-[#07091B] group-hover:text-white transition-colors">
                     <span className="material-symbols-outlined text-[22px]">{agent.icon}</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -319,7 +319,7 @@ export default function Agents() {
 
                 <Link
                   to="/welcome"
-                  className="px-3.5 py-1.5 rounded-full bg-[#1E3A3A] hover:bg-[#142929] text-white font-sans text-xs font-semibold flex items-center gap-1 transition-colors shadow-2xs"
+                  className="px-3.5 py-1.5 rounded-full bg-[#07091B] hover:bg-black text-white font-sans text-xs font-semibold flex items-center gap-1 transition-colors shadow-2xs"
                 >
                   <span>Launch</span>
                   <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
@@ -341,7 +341,7 @@ export default function Agents() {
               {/* Drawer Top Header */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-[#1E3A3A] text-white flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-xl bg-[#07091B] text-white flex items-center justify-center">
                     <span className="material-symbols-outlined text-[20px]">{selectedAgent.icon}</span>
                   </div>
                   <div>
@@ -418,7 +418,7 @@ export default function Agents() {
               </button>
               <Link
                 to="/welcome"
-                className="px-5 py-2.5 rounded-full bg-[#1E3A3A] hover:bg-[#142929] text-white font-sans text-xs font-bold transition-colors shadow-xs"
+                className="px-5 py-2.5 rounded-full bg-[#07091B] hover:bg-black text-white font-sans text-xs font-bold transition-colors shadow-xs"
               >
                 Launch in Workspace
               </Link>
@@ -431,24 +431,30 @@ export default function Agents() {
           BOTTOM CONVERSION BANNER (Clean & Un-clustered)
       ====================================================================== */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24">
-        <div className="rounded-[32px] bg-gradient-to-br from-[#1E3A3A] via-[#142929] to-[#07091B] p-8 sm:p-12 text-center text-white relative overflow-hidden border border-white/10">
+        <div className="rounded-[32px] sm:rounded-[36px] bg-gradient-to-b from-[#FAF9F5] via-white to-[#FAF9F5] p-8 sm:p-14 text-center relative overflow-hidden border border-[#E6E4DD] shadow-[0_16px_40px_-20px_rgba(7,9,27,0.06)]">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[540px] h-[220px] bg-gradient-to-b from-[#D97736]/10 via-purple-500/5 to-transparent blur-3xl rounded-full pointer-events-none" />
           <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-amber-400 font-bold mb-2">
-              All 10 Specialists Available Across All Plans
-            </span>
-            <h2 className="font-sans text-2xl sm:text-4xl font-extrabold tracking-tight mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D97736]/10 border border-[#D97736]/20 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D97736] animate-pulse" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#D97736] font-bold">
+                All 10 Specialists Available Across All Plans
+              </span>
+            </div>
+            <h2 className="font-sans text-2xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mb-3">
               Ready to work with domain specialists?
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+            <p className="font-sans text-xs sm:text-sm text-[#52525B] leading-relaxed mb-7 max-w-lg">
               Initialize your sovereign workspace with free trial compute credits. Zero credit card required.
             </p>
-            <Link
-              to="/welcome"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-white text-[#1E3A3A] font-sans text-xs sm:text-sm font-bold hover:bg-slate-100 transition-all shadow-md active:scale-[0.98]"
-            >
-              <span>Initialize Workspace</span>
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center">
+              <Link
+                to="/welcome"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#07091B] text-white font-sans text-xs sm:text-sm font-semibold hover:bg-black transition-all shadow-xs active:scale-[0.98]"
+              >
+                <span>Initialize Workspace</span>
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
