@@ -25,7 +25,7 @@ export default function Pricing() {
           1. HERO SECTION: OptimAI / Ruboz Proportions & Generous Clearance
       ====================================================================== */}
       <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20 text-center">
-        <div className="flex items-center justify-center mb-6">
+        <div className="w-full flex items-center justify-start mb-6 sm:mb-8 text-left">
           <Breadcrumb />
         </div>
         {/* Main Headline (Exact Home Typography & Margins) */}

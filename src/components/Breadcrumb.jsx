@@ -57,7 +57,7 @@ export default function Breadcrumb({ items, currentPage, className = '' }) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={`inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] font-sans ${className}`}
+      className={`inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] font-sans tracking-tight ${className}`}
     >
       {breadcrumbItems.map((item, index) => {
         const isFirst = index === 0;
@@ -66,22 +66,22 @@ export default function Breadcrumb({ items, currentPage, className = '' }) {
         return (
           <React.Fragment key={index}>
             {index > 0 && (
-              <span className="text-slate-400 font-light select-none mx-0.5">/</span>
+              <span className="text-slate-300 font-light select-none px-0.5 sm:px-1">/</span>
             )}
             {item.path && !isLast ? (
               <Link
                 to={item.path}
-                className="inline-flex items-center gap-1.5 text-[#07091B] font-medium hover:text-[#D97736] transition-colors"
+                className="inline-flex items-center gap-1.5 text-[#07091B] font-semibold hover:text-[#D97736] transition-colors duration-150"
               >
                 {isFirst && (
-                  <span className="material-symbols-outlined text-[15px] sm:text-[16px] text-[#07091B] leading-none">
+                  <span className="material-symbols-outlined text-[15px] sm:text-[16px] text-[#07091B] leading-none shrink-0">
                     home
                   </span>
                 )}
                 <span>{item.label}</span>
               </Link>
             ) : (
-              <span className="text-slate-500 font-normal">
+              <span className="text-slate-500 font-normal truncate">
                 {item.label}
               </span>
             )}

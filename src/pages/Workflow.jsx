@@ -109,8 +109,10 @@ export default function Workflow() {
           2. EDITORIAL HEADER SECTION
       ====================================================================== */}
       <section className="w-full pt-28 sm:pt-32 lg:pt-36 pb-10 px-6 md:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto gap-4">
+        <div className="w-full flex items-center justify-start mb-6 sm:mb-8 text-left">
           <Breadcrumb />
+        </div>
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto gap-4">
           <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-terracotta font-semibold">
             Routines, Memory &amp; Projects
           </span>

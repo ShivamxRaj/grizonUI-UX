@@ -218,12 +218,13 @@ export default function Agents() {
           PAGE HEADER: Clean, Non-AI Sans-Serif Typography & Zero Clutter
       ====================================================================== */}
       <section className="relative w-full pt-28 sm:pt-32 lg:pt-36 pb-12 border-b border-[#E6E4DD] bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-          <div className="mb-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full flex items-center justify-start mb-6 sm:mb-8 text-left">
             <Breadcrumb />
           </div>
 
-          {/* Eyebrow badge */}
+          <div className="text-center flex flex-col items-center">
+            {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-mono font-semibold text-slate-700 mb-5 shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>10 Purpose-Built Specialists • Zero Generic Chat</span>
@@ -260,7 +261,8 @@ export default function Agents() {
             ))}
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* =====================================================================
           SPECIALISTS GRID: Spacious Luxury Cards (Zero Bheed / No 15-line essays)
