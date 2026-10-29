@@ -334,16 +334,10 @@ export default function Pricing() {
       ====================================================================== */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
         <div className="rounded-3xl bg-white border border-[#E6E4DD] p-8 sm:p-12 shadow-xs">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#E6E4DD] mb-8">
-            <div>
-              <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#07091B] tracking-tight">
-                Estimate your monthly usage.
-              </h2>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-mono font-bold text-slate-700">
-              <span>Suggested: </span>
-              <span className="text-[#D97736]">{recommendedPlan}</span>
-            </div>
+          <div className="pb-6 border-b border-[#E6E4DD] mb-8">
+            <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#07091B] tracking-tight">
+              Estimate your monthly usage.
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
