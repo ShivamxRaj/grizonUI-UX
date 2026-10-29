@@ -25,19 +25,14 @@ export default function Navbar() {
                 />
               </div>
             </div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-syne text-[20px] sm:text-[22px] font-bold text-charcoal tracking-[-0.03em] leading-none group-hover:text-botanical transition-colors">
-                GriZon
-              </span>
-              <span className="font-mono text-[9px] sm:text-[10px] font-bold tracking-[0.16em] uppercase text-white bg-[#0A0D18] px-1.5 py-[2px] rounded leading-none">
-                AI
-              </span>
-            </div>
+            <span className="font-sans text-[20px] sm:text-[22px] font-extrabold text-[#07091B] tracking-tight leading-none group-hover:text-[#1E3A3A] transition-colors">
+              Grizon AI
+            </span>
           </Link>
         </div>
 
         {/* Navigation Links (Desktop) */}
-        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium">
+        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-sans font-medium">
           <Link
             to="/"
             className={`transition-colors duration-150 ${

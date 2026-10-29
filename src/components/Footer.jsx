@@ -14,14 +14,9 @@ export default function Footer() {
                 alt="GriZon AI Logo"
                 className="w-6 h-6 object-contain rounded-md"
               />
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-syne text-[20px] font-bold text-charcoal tracking-[-0.03em] leading-none group-hover:text-botanical transition-colors">
-                  GriZon
-                </span>
-                <span className="font-mono text-[9px] font-bold tracking-[0.16em] uppercase text-white bg-charcoal px-1.5 py-[2px] rounded leading-none shadow-xs group-hover:bg-botanical transition-colors">
-                  AI
-                </span>
-              </div>
+              <span className="font-sans text-[20px] font-extrabold text-[#07091B] tracking-tight leading-none group-hover:text-[#1E3A3A] transition-colors">
+                Grizon AI
+              </span>
             </Link>
             <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-mutedInk font-medium ml-2 pl-3 border-l border-hairline">
               Autonomous Intelligence
@@ -112,7 +107,7 @@ export default function Footer() {
         {/* Bottom Note */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[12px] text-mutedInk">
           <p>© 2026 Grizon AI. All rights reserved.</p>
-          <p className="font-sans italic text-[13px] text-mutedInk">Made with devotion in India.</p>
+          <p className="font-sans text-[13px] text-mutedInk">Made with devotion in India.</p>
         </div>
       </div>
     </footer>

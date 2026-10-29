@@ -289,14 +289,9 @@ export default function AppDashboard() {
               alt="GriZon AI Logo"
               className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded-md"
             />
-            <div className="flex items-baseline gap-1">
-              <span className="font-syne text-[17px] font-bold text-charcoal tracking-[-0.03em] leading-none group-hover:text-botanical transition-colors">
-                GriZon
-              </span>
-              <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase text-white bg-charcoal px-1 py-[1.5px] rounded leading-none shadow-xs group-hover:bg-botanical transition-colors">
-                AI
-              </span>
-            </div>
+            <span className="font-sans text-[17px] font-extrabold text-[#07091B] tracking-tight leading-none group-hover:text-[#1E3A3A] transition-colors">
+              Grizon AI
+            </span>
           </Link>
 
           {/* Project Enclave Selector Dropdown */}

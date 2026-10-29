@@ -108,14 +108,9 @@ export default function Welcome() {
               alt="GriZon AI Logo"
               className="w-7 h-7 object-contain rounded-md"
             />
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-syne text-[22px] font-bold text-charcoal tracking-[-0.03em] leading-none group-hover:text-botanical transition-colors">
-                GriZon
-              </span>
-              <span className="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-white bg-charcoal px-1.5 py-[2px] rounded leading-none shadow-xs group-hover:bg-botanical transition-colors">
-                AI
-              </span>
-            </div>
+            <span className="font-sans text-[22px] font-extrabold text-[#07091B] tracking-tight leading-none group-hover:text-[#1E3A3A] transition-colors">
+              Grizon AI
+            </span>
             <span className="hidden sm:inline-block font-mono text-[10px] uppercase tracking-widest text-mutedInk border border-hairline px-2 py-0.5 rounded bg-surfaceSubtle">
               Onboarding Protocol
             </span>
