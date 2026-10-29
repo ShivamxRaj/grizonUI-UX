@@ -99,13 +99,6 @@ export default function Navbar() {
           >
             <span>Launch App</span>
           </a>
-          <a
-            href="https://app.grizonai.com/"
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 transition-colors"
-            title="Launch App"
-          >
-            <span className="material-symbols-outlined text-[17px]">person</span>
-          </a>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
