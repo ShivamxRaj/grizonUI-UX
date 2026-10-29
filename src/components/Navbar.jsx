@@ -15,16 +15,12 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/95 backdrop-blur-md border border-[#E6E4DD] shadow-[0_8px_30px_rgba(0,0,0,0.04)] pointer-events-auto flex items-center justify-between">
         {/* Brand Lockup */}
         <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-2.5 group" aria-label="GriZon AI">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#1E3A3A] to-[#2DD4BF] p-[2px] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-              <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                <img
-                  src="/grizon-icon.png"
-                  alt="GriZon AI Logo"
-                  className="w-5 h-5 object-contain"
-                />
-              </div>
-            </div>
+          <Link to="/" className="flex items-center gap-2.5 group" aria-label="Grizon AI">
+            <img
+              src="/grizon-icon.png"
+              alt="Grizon AI Logo"
+              className="w-7 h-7 sm:w-8 sm:h-8 object-contain group-hover:scale-105 transition-transform"
+            />
             <span className="font-sans text-[20px] sm:text-[22px] font-extrabold text-[#07091B] tracking-tight leading-none group-hover:text-[#1E3A3A] transition-colors">
               Grizon AI
             </span>
