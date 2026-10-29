@@ -722,40 +722,6 @@ export default function Home() {
                     </div>
                   ),
                 },
-                {
-                  num: '10',
-                  tag: 'Timeline OCR',
-                  title: 'Video Analyser & Vision',
-                  desc: 'Multi-hour video indexing with synchronized speech-to-text diarization and slide OCR. Quickly query earnings calls, architectural walkthroughs, and legal depositions.',
-                  link: '/agents',
-                  pills: [
-                    { icon: 'smart_display', label: 'Frame-by-Frame OCR' },
-                    { icon: 'mic', label: 'Speaker Diarization' },
-                    { icon: 'av_timer', label: 'Keyframe Jump Search' },
-                  ],
-                  preview: (
-                    <div className="rounded-2xl bg-[#14121F] p-4 text-white border border-purple-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-purple-400 font-bold">Multimodal Timeline</span>
-                        <span className="text-slate-400">01:14:22 Indexed</span>
-                      </div>
-                      <div className="space-y-1.5 font-mono text-[10px]">
-                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
-                          <span className="text-slate-300">00:14:10 • Q3 CapEx Waterfall</span>
-                          <span className="text-purple-300">Slide OCR</span>
-                        </div>
-                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
-                          <span className="text-slate-300">00:32:45 • RBI Compliance Risk</span>
-                          <span className="text-emerald-400">Speaker 2</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
-                        <span>Jump-to-Timestamp Active</span>
-                        <span className="text-purple-400 font-semibold">Gemini Vision</span>
-                      </div>
-                    </div>
-                  ),
-                },
               ].map((agent, i) => (
                 <div
                   key={agent.num}

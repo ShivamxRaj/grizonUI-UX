@@ -173,24 +173,6 @@ const SPECIALISTS_LIST = [
     ],
     samplePrompt: 'Extract Schedule III balance sheet line items from 180-page quarterly report and flag related-party discrepancies.',
   },
-  {
-    id: 'video',
-    num: '10',
-    name: 'Video Analyser & Vision',
-    category: 'Vision & Documents',
-    tagline: 'Multi-hour video indexing, speech-to-text alignment, and slide OCR timeline queries.',
-    badge: 'Timeline OCR',
-    speed: '<500ms',
-    accentColor: 'violet',
-    icon: 'smart_display',
-    infrastructure: ['Video Keyframe Vectorizer', 'Whisper Speech-to-Text', 'On-Screen Slide OCR', 'Timeline Bookmarking'],
-    blueprint: [
-      'Extract keyframe embeddings from investor webcasts and board presentations.',
-      'Align speech transcriptions with on-screen slide text down to exact milliseconds.',
-      'Query executive guidance timestamps and export verified video clip links.',
-    ],
-    samplePrompt: 'Parse AGM investor webcast: detect every mention of EBITDA margin guidance and export timestamps.',
-  },
 ];
 
 const CATEGORIES = [
@@ -227,7 +209,7 @@ export default function Agents() {
             {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-mono font-semibold text-slate-700 mb-5 shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>10 Purpose-Built Specialists • Zero Generic Chat</span>
+            <span>{SPECIALISTS_LIST.length} Purpose-Built Specialists • Zero Generic Chat</span>
           </div>
 
           {/* Headline in pure modern sans */}
