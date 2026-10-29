@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../../components/Breadcrumb';
 import '../../styles/sovereign.css';
 
 export default function DocIntelligence({ defaultModal = 'doc' }) {
@@ -30,16 +31,9 @@ export default function DocIntelligence({ defaultModal = 'doc' }) {
         }} />
 
         {/* Breadcrumbs */}
-        <nav style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--on-surface-variant)', paddingTop: '1rem', marginBottom: '1.5rem' }}>
-          <Link to="/agents" style={{ color: 'inherit', textDecoration: 'none' }}>Agents</Link>
-          <span style={{ color: 'var(--outline-variant)' }}>/</span>
-          <span>Multi-Modal Perception</span>
-          <span style={{ color: 'var(--outline-variant)' }}>/</span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', padding: '0.2rem 0.6rem', borderRadius: '9999px', background: 'var(--surface-container)', color: 'var(--primary)', fontWeight: 600 }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '9999px', background: 'var(--saffron-glow)' }} />
-            Doc Intelligence & Video Analyser
-          </span>
-        </nav>
+        <div style={{ paddingTop: '1rem', marginBottom: '1.5rem' }}>
+          <Breadcrumb />
+        </div>
 
         {/* Hero Section */}
         <section style={{ maxWidth: '880px', marginBottom: '3.5rem' }}>

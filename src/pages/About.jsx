@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../components/Breadcrumb';
 
 export default function About() {
   const [diffMode, setDiffMode] = useState('grizon');
@@ -10,6 +11,9 @@ export default function About() {
           1. HERO SECTION: EDITORIAL MANIFESTO & THE GROUND TRUTH PROBLEM
       ====================================================================== */}
       <section className="relative pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
+        <div className="flex items-center justify-center mb-6">
+          <Breadcrumb />
+        </div>
         <h1 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#07091B] text-balance">
           Why confidence without{' '}
           <span className="text-[#D97736]">verification</span> is broken.

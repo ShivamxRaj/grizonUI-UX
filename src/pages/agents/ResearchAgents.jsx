@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../../components/Breadcrumb';
 import '../../styles/sovereign.css';
 
 export default function ResearchAgents() {
@@ -40,23 +41,9 @@ export default function ResearchAgents() {
         }} />
 
         {/* ── BREADCRUMB NAVIGATION ── */}
-        <nav style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          fontFamily: 'var(--font-code)',
-          fontSize: '11px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.06em',
-          color: 'var(--on-surface-variant)',
-          marginBottom: '20px'
-        }}>
-          <Link to="/agents" style={{ color: 'inherit', textDecoration: 'none' }}>Agents</Link>
-          <span style={{ color: 'var(--outline-variant)' }}>/</span>
-          <span>Sovereign Knowledge Synthesis</span>
-          <span style={{ color: 'var(--outline-variant)' }}>/</span>
-          <span style={{ color: 'var(--primary)', fontWeight: 600 }}>Fast &amp; Deep Research</span>
-        </nav>
+        <div style={{ marginBottom: '20px' }}>
+          <Breadcrumb />
+        </div>
 
         {/* ── HERO SECTION ── */}
         <section style={{ maxWidth: '840px', margin: '0 auto 3.5rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }} id="research">

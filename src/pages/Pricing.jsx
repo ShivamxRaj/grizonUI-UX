@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../components/Breadcrumb';
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'annually'
@@ -24,6 +25,9 @@ export default function Pricing() {
           1. HERO SECTION: OptimAI / Ruboz Proportions & Generous Clearance
       ====================================================================== */}
       <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20 text-center">
+        <div className="flex items-center justify-center mb-6">
+          <Breadcrumb />
+        </div>
         {/* Main Headline (Exact Home Typography & Margins) */}
         <h1 className="font-sans text-3xl sm:text-5xl lg:text-[52px] font-extrabold text-[#07091B] tracking-[-0.03em] leading-[1.12] mb-5 text-balance text-center max-w-2xl mx-auto">
           Simple pricing for <br className="hidden sm:inline" />

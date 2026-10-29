@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../../components/Breadcrumb';
 import '../../styles/sovereign.css';
 
 export default function LegalAgent() {
@@ -106,13 +107,9 @@ export default function LegalAgent() {
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
           {/* BREADCRUMB NAVIGATION */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--on-surface-variant)', marginBottom: '16px' }}>
-            <Link to="/agents" style={{ color: 'inherit', textDecoration: 'none' }}>Agents</Link>
-            <span style={{ color: 'var(--outline-variant)' }}>/</span>
-            <span>Compliance &amp; Risk</span>
-            <span style={{ color: 'var(--outline-variant)' }}>/</span>
-            <span style={{ color: 'var(--primary)', fontWeight: 600 }}>Legal Contract Agent</span>
-          </nav>
+          <div className="mb-5">
+            <Breadcrumb />
+          </div>
 
           {/* CATEGORY OVERLINE BADGE */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>

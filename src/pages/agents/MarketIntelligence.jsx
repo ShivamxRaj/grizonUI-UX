@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../../components/Breadcrumb';
 import '../../styles/sovereign.css';
 
 export default function MarketIntelligence() {
@@ -83,14 +84,7 @@ export default function MarketIntelligence() {
             boxShadow: '0 1px 4px rgba(0,0,0,0.02)'
           }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                <Link to="/agents" style={{ color: 'inherit', textDecoration: 'none' }}>Agents</Link>
-              </span>
-              <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--outline)' }}>chevron_right</span>
-              <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', color: 'var(--primary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                Market Intelligence
-              </span>
-              <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '9999px', background: 'var(--outline-variant)' }} />
+              <Breadcrumb />
               <span style={{ fontFamily: 'var(--font-code)', fontSize: '11px', padding: '0.15rem 0.5rem', borderRadius: '9999px', background: 'var(--surface-container)', color: 'var(--on-tertiary-fixed)', fontWeight: 600 }}>
                 Oracles & Financial Reasoning
               </span>

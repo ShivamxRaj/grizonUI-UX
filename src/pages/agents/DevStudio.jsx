@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../../components/Breadcrumb';
 import '../../styles/sovereign.css';
 
 export default function DevStudio({ defaultWorkbench = 'canvas' }) {
@@ -47,16 +48,7 @@ export default function DevStudio({ defaultWorkbench = 'canvas' }) {
         {/* Page Breadcrumb & Category Bar */}
         <section style={{ paddingTop: '1.5rem', paddingBottom: '1rem' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
-            <nav style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-code)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--on-surface-variant)' }}>
-              <Link to="/agents" style={{ color: 'inherit', textDecoration: 'none' }}>Agents</Link>
-              <span style={{ color: 'var(--outline-variant)' }}>/</span>
-              <span>Engineering</span>
-              <span style={{ color: 'var(--outline-variant)' }}>/</span>
-              <span style={{ color: 'var(--primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                Dev Studio & System Architect
-                <span style={{ padding: '0.15rem 0.5rem', borderRadius: '9999px', background: 'rgba(247,168,89,0.2)', color: 'var(--on-secondary-fixed)', fontSize: '10px', fontWeight: 700 }}>PRO+</span>
-              </span>
-            </nav>
+            <Breadcrumb />
 
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.25rem 0.75rem', borderRadius: '9999px', background: 'var(--surface-container)', color: 'var(--on-surface-variant)', fontFamily: 'var(--font-code)', fontSize: '11px' }}>
