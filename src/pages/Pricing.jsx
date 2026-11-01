@@ -24,8 +24,8 @@ export default function Pricing() {
       {/* =====================================================================
           1. HERO SECTION: OptimAI / Ruboz Proportions & Generous Clearance
       ====================================================================== */}
-      <section className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20 text-center">
-        <div className="w-full flex items-center justify-start mb-6 sm:mb-8 text-left">
+      <section className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-20 text-center">
+        <div className="w-full flex items-center justify-start mb-8 text-left">
           <Breadcrumb />
         </div>
         {/* Main Headline (Exact Home Typography & Margins) */}
@@ -62,7 +62,7 @@ export default function Pricing() {
             }`}
           >
             <span>Annual Billing</span>
-            <span className="px-2 py-0.5 rounded-full bg-[#D97736]/15 text-[#D97736] font-mono text-[10px] font-bold">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] font-sans text-xs font-bold">
               Save 20%
             </span>
           </button>
@@ -76,13 +76,13 @@ export default function Pricing() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           
           {/* TIER 1: Explorer */}
-          <div className="rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-lg">
-            <div>
+          <div className="h-full rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-lg">
+            <div className="flex-1 flex flex-col">
               <div className="flex items-center justify-between mb-5">
-                <span className="font-mono text-xs uppercase tracking-widest text-slate-500 font-bold">
+                <span className="font-sans text-xs uppercase tracking-wider text-slate-500 font-bold">
                   Explorer
                 </span>
-                <span className="font-mono text-[11px] text-slate-600 px-3 py-1 rounded-full bg-[#FAF9F5] border border-[#E6E4DD]">
+                <span className="font-sans text-xs text-slate-600 px-3 py-1 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] font-medium">
                   Free Tier
                 </span>
               </div>
@@ -91,62 +91,64 @@ export default function Pricing() {
                 <span className="font-sans text-4xl sm:text-5xl font-extrabold text-[#07091B] tracking-tight">
                   $0
                 </span>
-                <span className="font-mono text-xs text-slate-500 font-medium">/ month</span>
+                <span className="font-sans text-sm text-slate-500 font-medium">/ month</span>
               </div>
 
               <p className="font-sans text-sm text-slate-600 leading-relaxed mb-6">
                 For solo practitioners evaluating sovereign agent synthesis with zero financial commitment.
               </p>
 
-              <div className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold mb-4">
+              <div className="font-sans text-xs uppercase tracking-wider text-[#6630E4] font-bold mb-4">
                 What's Included
               </div>
-              <ul className="space-y-3.5 font-sans text-xs text-slate-600 mb-8">
+              <ul className="space-y-3.5 font-sans text-sm text-slate-700 mb-8 flex-1">
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span><strong className="text-[#07091B]">150 compute credits / month</strong> (refreshes monthly)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>All 10 specialists in quick query mode</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>2 scheduled background automations</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Isolated sovereign container workspace</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Zero telemetry retention guarantee</span>
                 </li>
               </ul>
             </div>
 
-            <Link
-              to="/welcome"
-              className="w-full inline-flex items-center justify-center py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#07091B] border border-[#E6E4DD] hover:border-slate-400 font-sans text-xs sm:text-sm font-bold transition-all active:scale-[0.98]"
-            >
-              Get Started Free
-            </Link>
+            <div className="mt-auto pt-6 w-full">
+              <Link
+                to="/welcome"
+                className="w-full h-[52px] inline-flex items-center justify-center rounded-full bg-white hover:bg-slate-50 text-[#07091B] border border-[#E6E4DD] hover:border-[#6630E4] hover:text-[#6630E4] font-sans text-sm font-bold transition-all shadow-2xs active:scale-[0.98]"
+              >
+                Get Started Free
+              </Link>
+            </div>
           </div>
 
           {/* TIER 2: Professional (HIGHLIGHTED) */}
-          <div className="relative rounded-3xl bg-white border-2 border-[#D97736] p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 shadow-lg hover:shadow-xl">
+          <div className="relative h-full rounded-3xl bg-white border-2 border-[#6630E4] p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 shadow-[0_12px_36px_rgba(102,48,228,0.12)] hover:shadow-xl">
             {/* Top Badge matching Home Page */}
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#D97736] text-white font-mono text-[10px] uppercase tracking-widest font-bold shadow-xs whitespace-nowrap z-10">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#6630E4] text-white font-sans text-xs uppercase tracking-wide font-bold shadow-xs whitespace-nowrap z-10">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               <span>Recommended for Practitioners</span>
             </div>
 
-            <div>
+            <div className="flex-1 flex flex-col">
               <div className="flex items-center justify-between mb-5 mt-1">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold">
+                <span className="font-sans text-xs uppercase tracking-wider text-[#6630E4] font-bold">
                   Professional
                 </span>
-                <span className="font-mono text-[11px] text-[#D97736] px-3 py-1 rounded-full bg-[#D97736]/10 font-bold">
+                <span className="font-sans text-xs text-[#6630E4] px-3 py-1 rounded-full bg-[#F5F1FD] border border-[#E8E0FB] font-semibold">
                   Active Standard
                 </span>
               </div>
@@ -155,8 +157,8 @@ export default function Pricing() {
                 <span className="font-sans text-4xl sm:text-5xl font-extrabold text-[#07091B] tracking-tight">
                   {isAnnual ? '$24' : '$29'}
                 </span>
-                <span className="font-mono text-xs text-slate-500 font-medium">
-                  / month {isAnnual && <span className="text-[#D97736]">(billed annually)</span>}
+                <span className="font-sans text-sm text-slate-500 font-medium">
+                  / month {isAnnual && <span className="text-[#6630E4]">(billed annually)</span>}
                 </span>
               </div>
 
@@ -164,60 +166,62 @@ export default function Pricing() {
                 For counsel, quants, auditors, and founders requiring unrestricted deep specialist execution.
               </p>
 
-              <div className="font-mono text-xs uppercase tracking-widest text-[#D97736] font-bold mb-4">
+              <div className="font-sans text-xs uppercase tracking-wider text-[#6630E4] font-bold mb-4">
                 What's Included
               </div>
-              <ul className="space-y-3.5 font-sans text-xs text-slate-600 mb-8">
+              <ul className="space-y-3.5 font-sans text-sm text-slate-700 mb-8 flex-1">
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span><strong className="text-[#07091B]">2,500 compute credits / month</strong> (+90-day rollover)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Full tool execution across all 10 specialists</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Tier-1 model ensemble (Claude 3.5, GPT-4o, DeepSeek R1)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Live Indian institutional APIs (eCourts, NSE ticks, MCA-21)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Dev Studio Linux VM with live HTML/React preview</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#D97736] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>25 scheduled routines with automated webhooks</span>
                 </li>
               </ul>
             </div>
 
-            {/* Ruboz-style Terracotta Action Button with Dot-to-Arrow */}
-            <Link
-              to="/welcome"
-              className="group w-full inline-flex items-center justify-center gap-3.5 pl-7 pr-2.5 py-3.5 rounded-full bg-[#D97736] hover:bg-[#c46526] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98]"
-            >
-              <span>Upgrade to Professional</span>
-              <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-all duration-300">
-                <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
-                <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#07091B] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
-                  <span className="material-symbols-outlined text-[15px] sm:text-[16px] font-bold">arrow_forward</span>
+            {/* Grizon Logo Royal Violet Action Button with Dot-to-Arrow */}
+            <div className="mt-auto pt-6 w-full">
+              <Link
+                to="/welcome"
+                className="group w-full h-[52px] inline-flex items-center justify-center gap-3.5 pl-7 pr-2.5 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-sans text-sm font-bold transition-all duration-300 shadow-[0_4px_16px_rgba(102,48,228,0.25)] hover:shadow-[0_6px_20px_rgba(102,48,228,0.35)] active:scale-[0.98]"
+              >
+                <span>Upgrade to Professional</span>
+                <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-all duration-300">
+                  <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
+                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#6630E4] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                    <span className="material-symbols-outlined text-[15px] sm:text-[16px] font-bold">arrow_forward</span>
+                  </span>
                 </span>
-              </span>
-            </Link>
+              </Link>
+            </div>
           </div>
 
           {/* TIER 3: Practice & Desk */}
-          <div className="rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-lg">
-            <div>
+          <div className="h-full rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-lg">
+            <div className="flex-1 flex flex-col">
               <div className="flex items-center justify-between mb-5">
-                <span className="font-mono text-xs uppercase tracking-widest text-slate-500 font-bold">
+                <span className="font-sans text-xs uppercase tracking-wider text-slate-500 font-bold">
                   Practice &amp; Desk
                 </span>
-                <span className="font-mono text-[11px] text-slate-600 px-3 py-1 rounded-full bg-[#FAF9F5] border border-[#E6E4DD]">
+                <span className="font-sans text-xs text-slate-600 px-3 py-1 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] font-medium">
                   Chambers
                 </span>
               </div>
@@ -226,7 +230,7 @@ export default function Pricing() {
                 <span className="font-sans text-4xl sm:text-5xl font-extrabold text-[#07091B] tracking-tight">
                   {isAnnual ? '$79' : '$99'}
                 </span>
-                <span className="font-mono text-xs text-slate-500 font-medium">
+                <span className="font-sans text-sm text-slate-500 font-medium">
                   / month {isAnnual && <span className="text-slate-500">(billed annually)</span>}
                 </span>
               </div>
@@ -235,39 +239,41 @@ export default function Pricing() {
                 For law chambers, boutique funds, and institutional research teams needing shared compute.
               </p>
 
-              <div className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold mb-4">
+              <div className="font-sans text-xs uppercase tracking-wider text-[#6630E4] font-bold mb-4">
                 What's Included
               </div>
-              <ul className="space-y-3.5 font-sans text-xs text-slate-600 mb-8">
+              <ul className="space-y-3.5 font-sans text-sm text-slate-700 mb-8 flex-1">
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span><strong className="text-[#07091B]">10,000 compute credits / month</strong> (+180-day rollover)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Everything in Professional plus 5 member seats</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Dedicated AWS Nitro Enclaves in Mumbai (ap-south-1)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Unlimited background routines &amp; custom webhooks</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[18px] text-[#1E3A3A] shrink-0 mt-0.5">check_circle</span>
+                  <span className="material-symbols-outlined text-[18px] text-[#6630E4] shrink-0 mt-0.5">check_circle</span>
                   <span>Direct SLA &amp; bespoke institutional data connectors</span>
                 </li>
               </ul>
             </div>
 
-            <Link
-              to="/welcome"
-              className="w-full inline-flex items-center justify-center py-3.5 rounded-full bg-[#07091B] hover:bg-black text-white font-sans text-xs sm:text-sm font-bold transition-all active:scale-[0.98] shadow-xs"
-            >
-              Contact Chambers Desk
-            </Link>
+            <div className="mt-auto pt-6 w-full">
+              <Link
+                to="/welcome"
+                className="w-full h-[52px] inline-flex items-center justify-center rounded-full bg-white hover:bg-slate-50 text-[#07091B] border border-[#E6E4DD] hover:border-[#6630E4] hover:text-[#6630E4] font-sans text-sm font-bold transition-all shadow-2xs active:scale-[0.98]"
+              >
+                Contact Chambers Desk
+              </Link>
+            </div>
           </div>
 
         </div>
@@ -279,23 +285,23 @@ export default function Pricing() {
       <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 border-t border-[#E6E4DD]">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold">
+            <span className="font-sans text-xs uppercase tracking-wider text-[#6630E4] font-bold">
               Deterministic Calibration
             </span>
             <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mt-1.5">
               How credits are consumed.
             </h2>
           </div>
-          <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed text-balance max-w-md">
+          <p className="font-sans text-base text-slate-600 leading-relaxed text-balance max-w-md">
             No hidden tokens or opaque markups. 1 to 10 compute credits per execution based purely on model depth and verified external tool calls.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Unit 1 */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">bolt</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Fast Direct Queries</h3>
@@ -306,9 +312,9 @@ export default function Pricing() {
           </div>
 
           {/* Unit 2 */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">hub</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Specialist &amp; Live API</h3>
@@ -319,9 +325,9 @@ export default function Pricing() {
           </div>
 
           {/* Unit 3 */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">psychology</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Deep Multi-Step Synthesis</h3>
@@ -349,7 +355,7 @@ export default function Pricing() {
             <div className="md:col-span-7 space-y-4">
               <div className="flex justify-between items-baseline">
                 <span className="font-sans text-xs font-bold text-[#07091B]">Daily Task Volume</span>
-                <span className="font-mono text-sm font-bold text-[#1E3A3A]">{dailyTasks} tasks / day</span>
+                <span className="font-sans text-sm font-bold text-[#6630E4]">{dailyTasks} tasks / day</span>
               </div>
 
               <input
@@ -359,10 +365,10 @@ export default function Pricing() {
                 step="5"
                 value={dailyTasks}
                 onChange={(e) => setDailyTasks(Number(e.target.value))}
-                className="w-full h-2 bg-[#FAF9F5] border border-[#E6E4DD] rounded-lg appearance-none cursor-pointer accent-[#D97736]"
+                className="w-full h-2 bg-[#FAF9F5] border border-[#E6E4DD] rounded-lg appearance-none cursor-pointer accent-[#6630E4]"
               />
 
-              <div className="flex justify-between text-[11px] font-mono text-slate-500">
+              <div className="flex justify-between text-xs font-sans font-medium text-slate-500">
                 <span>Light (5/day)</span>
                 <span>Standard (25/day)</span>
                 <span>Chambers (80/day)</span>
@@ -371,14 +377,14 @@ export default function Pricing() {
 
             {/* Readout Right */}
             <div className="md:col-span-5 p-6 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex flex-col justify-between">
-              <div className="font-mono text-[11px] uppercase tracking-wider text-slate-500 mb-1">
+              <div className="font-sans text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">
                 Estimated Monthly Burn
               </div>
               <div className="flex items-baseline gap-2 mb-2">
-                <span className="font-mono text-3xl font-extrabold text-[#07091B]">
+                <span className="font-sans text-4xl font-extrabold text-[#07091B] tracking-tight">
                   ~{estimatedMonthlyCredits.toLocaleString()}
                 </span>
-                <span className="font-mono text-xs text-slate-500 font-medium">Credits / mo</span>
+                <span className="font-sans text-sm text-slate-500 font-medium">Credits / mo</span>
               </div>
               <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Fits easily within the <strong className="text-[#07091B]">{recommendedPlan}</strong> tier with rollover protection.
@@ -389,26 +395,28 @@ export default function Pricing() {
       </section>
 
       {/* =====================================================================
-          5. BOTTOM CALL TO ACTION (MATCHING HOMEPAGE RUBZOZ BANNER)
+          5. BOTTOM CALL TO ACTION
       ====================================================================== */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
-        <div className="rounded-[32px] sm:rounded-[36px] bg-[#1E3A3A] p-8 sm:p-12 text-center text-white relative overflow-hidden border border-white/10">
+        <div className="rounded-[32px] sm:rounded-[36px] bg-gradient-to-br from-[#090B19] via-[#120F2B] to-[#090B19] p-8 sm:p-12 text-center text-white relative overflow-hidden border border-[#6630E4]/30 shadow-[0_20px_50px_rgba(9,11,25,0.25)]">
+          {/* Subtle Ambient Brand Glow */}
+          <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-[#6630E4]/15 blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
             <h2 className="font-sans text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 text-balance">
               Start with 150 free credits today.
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 text-balance">
+            <p className="font-sans text-sm text-slate-300 leading-relaxed mb-8 text-balance">
               Test all 10 specialized agent minds in your sovereign workspace. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full justify-center">
               <Link
                 to="/welcome"
-                className="group inline-flex items-center gap-3.5 pl-7 pr-2.5 py-3 rounded-full bg-[#D97736] hover:bg-[#c46526] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98]"
+                className="group inline-flex items-center gap-3.5 pl-7 pr-2.5 py-3 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-sans text-sm font-bold transition-all duration-300 shadow-[0_4px_18px_rgba(102,48,228,0.35)] hover:shadow-[0_6px_24px_rgba(102,48,228,0.45)] active:scale-[0.98]"
               >
                 <span>Initialize Workspace</span>
                 <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-all duration-300">
                   <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
-                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#07091B] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#6630E4] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
                     <span className="material-symbols-outlined text-[15px] sm:text-[16px] font-bold">arrow_forward</span>
                   </span>
                 </span>

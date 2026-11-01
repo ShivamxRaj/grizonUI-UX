@@ -71,7 +71,7 @@ export default function Breadcrumb({ items, currentPage, className = '' }) {
             {item.path && !isLast ? (
               <Link
                 to={item.path}
-                className="inline-flex items-center gap-1.5 text-[#07091B] font-semibold hover:text-[#D97736] transition-colors duration-150"
+                className="inline-flex items-center gap-1.5 text-[#07091B] font-semibold hover:text-[#6630E4] transition-colors duration-150"
               >
                 {isFirst && (
                   <span className="material-symbols-outlined text-[15px] sm:text-[16px] text-[#07091B] leading-none shrink-0">

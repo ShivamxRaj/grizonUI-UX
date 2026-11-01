@@ -41,14 +41,13 @@ export default function Navbar() {
           </Link>
           <Link
             to="/agents"
-            className={`flex items-center gap-1 transition-colors duration-150 ${
+            className={`transition-colors duration-150 ${
               isActive('/agents')
                 ? 'text-[#07091B] font-semibold'
                 : 'text-slate-500 hover:text-[#07091B]'
             }`}
           >
-            <span>The 10 Specialists</span>
-            <span className="material-symbols-outlined text-[14px]">expand_more</span>
+            The 10 Specialists
           </Link>
           <Link
             to="/workflow"

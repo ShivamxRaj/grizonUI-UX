@@ -24,7 +24,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="w-full flex flex-col bg-white text-[#090B19] selection:bg-purple-100 selection:text-purple-900 font-sans">
+    <div className="w-full flex flex-col bg-white text-[#07091B] selection:bg-[#6630E4]/15 selection:text-[#6630E4] font-sans">
       {/* =====================================================================
           1. HERO SECTION: OptimAI Layout (3D Fluted Ribbed Backdrop + Flanking Floating Small Boxes)
           - Center Headline & Friendly Copy
@@ -87,10 +87,10 @@ export default function Home() {
                 <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
                   Deterministic Accuracy
                 </p>
-                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                <div className="font-sans text-4xl font-extrabold text-[#07091B] tracking-tight">
                   99.4%
                 </div>
-                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                <p className="font-sans text-xs text-slate-500 mt-1">
                   Zero-Hallucination Grounding
                 </p>
               </div>
@@ -100,10 +100,10 @@ export default function Home() {
                 <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
                   Execution Latency
                 </p>
-                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                <div className="font-sans text-4xl font-extrabold text-[#07091B] tracking-tight">
                   &lt;50ms
                 </div>
-                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                <p className="font-sans text-xs text-slate-500 mt-1">
                   Isolated Container VM Sandbox
                 </p>
               </div>
@@ -113,10 +113,10 @@ export default function Home() {
                 <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
                   Sovereign Enclave
                 </p>
-                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                <div className="font-sans text-4xl font-extrabold text-[#07091B] tracking-tight">
                   256-Bit
                 </div>
-                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                <p className="font-sans text-xs text-slate-500 mt-1">
                   Zero Data Retention Security
                 </p>
               </div>
@@ -126,15 +126,15 @@ export default function Home() {
             <div className="lg:col-span-6 text-center flex flex-col items-center">
               {/* Eyebrow with hairline accents */}
               <div className="flex items-center justify-center gap-3 mb-5">
-                <span className="w-10 sm:w-16 h-[1.5px] bg-purple-300/80 rounded-full" />
-                <span className="font-sans text-xs sm:text-[13px] font-semibold text-purple-700 tracking-wide">
+                <span className="w-10 sm:w-16 h-[1.5px] bg-[#976DF8]/50 rounded-full" />
+                <span className="font-sans text-xs sm:text-sm font-bold text-[#6630E4] tracking-wide">
                   Purpose-Built Multi-Agent Platform
                 </span>
-                <span className="w-10 sm:w-16 h-[1.5px] bg-purple-300/80 rounded-full" />
+                <span className="w-10 sm:w-16 h-[1.5px] bg-[#976DF8]/50 rounded-full" />
               </div>
 
               {/* Main Headline (Minimal, High-Impact & Professional) */}
-              <h1 className="font-sans text-3xl sm:text-5xl lg:text-[48px] xl:text-[52px] font-extrabold text-[#090B19] tracking-[-0.03em] leading-[1.12] mb-5 text-balance text-center max-w-2xl">
+              <h1 className="font-sans text-3xl sm:text-5xl lg:text-[48px] xl:text-[52px] font-extrabold text-[#07091B] tracking-[-0.03em] leading-[1.12] mb-5 text-balance text-center max-w-2xl">
                 Autonomous Intelligence <br />
                 for Modern Enterprise.
               </h1>
@@ -144,29 +144,29 @@ export default function Home() {
                 Specialized AI agents for research, code, financial markets, and legal compliance. Always deterministic, zero hallucinations.
               </p>
 
-              {/* Dual Action Buttons (OptimAI Style) */}
+              {/* Dual Action Buttons (OptimAI Style - Grizon Logo Colors) */}
               <div className="relative flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-4 w-full sm:w-auto">
-                {/* Left Button: White Pill */}
+                {/* Left Button: Grizon Logo Royal Violet Pill */}
                 <Link
                   to="/welcome"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-slate-900 border border-slate-200/90 hover:border-slate-400 font-semibold text-sm shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-md transition-all active:scale-[0.98]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(102,48,228,0.28)] hover:shadow-[0_6px_20px_rgba(102,48,228,0.36)] transition-all active:scale-[0.98]"
                 >
                   <span>Initialize Free Workspace</span>
                   <span className="material-symbols-outlined text-[16px]">chevron_right</span>
                 </Link>
 
-                {/* Right Button: Dark Charcoal Pill */}
+                {/* Right Button: Crisp Secondary White Pill with Brand Hover */}
                 <Link
                   to="/agents"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#090B19] text-white hover:bg-black font-semibold text-sm transition-all active:scale-[0.98] shadow-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#07091B] border border-[#E6E4DD] hover:border-[#6630E4] hover:text-[#6630E4] font-semibold text-sm transition-all active:scale-[0.98] shadow-2xs"
                 >
                   <span>Explore 10+ Specialists</span>
                   <span className="material-symbols-outlined text-[16px]">chevron_right</span>
                 </Link>
               </div>
 
-              {/* Glowing Ambient Diffuse Light beneath buttons */}
-              <div className="w-72 sm:w-96 h-10 -mt-5 mx-auto rounded-full bg-gradient-to-r from-cyan-400/35 via-indigo-400/35 to-purple-500/40 blur-2xl pointer-events-none" />
+              {/* Glowing Ambient Diffuse Light beneath buttons matching Grizon Logo */}
+              <div className="w-72 sm:w-96 h-10 -mt-5 mx-auto rounded-full bg-gradient-to-r from-[#976DF8]/30 via-[#6630E4]/30 to-[#976DF8]/20 blur-2xl pointer-events-none" />
 
             </div>
 
@@ -177,10 +177,10 @@ export default function Home() {
                 <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
                   Prebuilt Agents
                 </p>
-                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                <div className="font-sans text-4xl font-extrabold text-[#07091B] tracking-tight">
                   10+
                 </div>
-                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                <p className="font-sans text-xs text-slate-500 mt-1">
                   Legal, Quants, Dev &amp; Research
                 </p>
               </div>
@@ -190,10 +190,10 @@ export default function Home() {
                 <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
                   Total Sections &amp; Oracles
                 </p>
-                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                <div className="font-sans text-4xl font-extrabold text-[#07091B] tracking-tight">
                   300+
                 </div>
-                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                <p className="font-sans text-xs text-slate-500 mt-1">
                   Live Oracles &amp; Gazette Feeds
                 </p>
               </div>
@@ -203,10 +203,10 @@ export default function Home() {
                 <p className="font-sans text-xs font-semibold text-slate-500 mb-2">
                   High Courts Indexed
                 </p>
-                <div className="font-sans text-4xl font-extrabold text-[#090B19] tracking-tight">
+                <div className="font-sans text-4xl font-extrabold text-[#07091B] tracking-tight">
                   44+
                 </div>
-                <p className="font-sans text-[11px] text-slate-400 mt-1">
+                <p className="font-sans text-xs text-slate-500 mt-1">
                   16-Digit CNR Conformance
                 </p>
               </div>
@@ -221,16 +221,16 @@ export default function Home() {
       </section>
 
       {/* =====================================================================
-          2. SECTION 2: AUTONOMOUS MULTI-AGENT COPILOT & FOUNDER WORKBENCH (Ruboz Pattern)
+          2. SECTION 2: AUTONOMOUS MULTI-AGENT GRIZON AI & FOUNDER WORKBENCH (Ruboz Pattern)
       ====================================================================== */}
       <section className="relative w-full bg-[#FAF9F5] py-20 lg:py-28 border-b border-[#E6E4DD] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-[#E6E4DD] shadow-sm mb-5">
-              <span className="material-symbols-outlined text-[#D97736] text-[18px]">psychology</span>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#07091B] font-bold">
-                Decision Intelligence • Multi-Agent Copilot
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#F5F1FD] border border-[#E8E0FB] shadow-2xs mb-5">
+              <span className="material-symbols-outlined text-[#6630E4] text-[18px]">psychology</span>
+              <span className="font-mono text-xs uppercase tracking-wider text-[#6630E4] font-bold">
+                Decision Intelligence • Multi-Agent GriZon AI
               </span>
             </div>
 
@@ -238,7 +238,7 @@ export default function Home() {
               Build Smarter AI With Multi-Agent Intelligence.
             </h2>
 
-            <p className="font-sans text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mt-4 leading-relaxed">
+            <p className="font-sans text-base text-slate-600 max-w-2xl mx-auto mt-4 leading-relaxed">
               Coordinate deterministic statutory legal oracles, live NSE/BSE quant delta profiles, and sandboxed Linux VMs directly from one sovereign founder surface. Zero generic guesswork. Zero retention.
             </p>
           </div>
@@ -253,13 +253,11 @@ export default function Home() {
               </svg>
             </div>
 
-
-
             {/* Center: Hand holding GriZon Real Phone */}
             <div className="relative z-10 w-full max-w-2xl sm:max-w-4xl lg:max-w-5xl mx-auto flex justify-center">
               <img
                 src="/grizon-ruboz-phone.png?v=align2"
-                alt="GriZon AI Mobile Copilot"
+                alt="GriZon AI Mobile Interface"
                 className="w-full h-auto object-contain select-none pointer-events-none drop-shadow-sm"
               />
             </div>
@@ -285,103 +283,98 @@ export default function Home() {
         </div>
       </section>
 
-
-
-
-
       {/* =====================================================================
-          4. SECTION 4: WHY GRIZON AI — 6 BENTO CARDS WITH AUTHORITY STATEMENTS
-          Full content, purpose-built agents, zero generic chat
+          3. SECTION 3: WHY GRIZON AI — 6 BENTO CARDS WITH AUTHORITY STATEMENTS
       ====================================================================== */}
       <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#1E3A3A] font-bold">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#6630E4] font-bold">
               Why GriZon AI
             </span>
             <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mt-1.5">
               Agents built for the job, not generic chat.
             </h2>
           </div>
-          <p className="font-sans text-sm text-slate-600 max-w-md leading-relaxed">
+          <p className="font-sans text-base text-slate-600 max-w-md leading-relaxed">
             Stop juggling generic chatbots. Pick a specialized agent engineered with dedicated toolchains — or let Auto Mode route your query dynamically.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card 1: Auto Mode Routing */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">alt_route</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Auto Mode Routing</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Describe the task once. Auto Mode evaluates intent, token count, and data sensitivity to dispatch the best eligible specialized agent.
               </p>
             </div>
           </div>
 
           {/* Card 2: Dev Studio */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">terminal</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Dev Studio &amp; Linux Sandbox</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Write, debug, and execute code in isolated container VMs with live HTML/CSS canvas preview for frontend components and telemetry apps.
               </p>
             </div>
           </div>
 
           {/* Card 3: Deep Research */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">psychology</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Research with Footnote Citations</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Fast Research for instant indexed queries, Deep Research for multi-step structured synthesis with risk analysis and verified footnote references.
               </p>
             </div>
           </div>
 
           {/* Card 4: Market Analyst & Oracles */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">monitoring</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Market Analyst &amp; Oracles</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Deep dive into equities and crypto fundamentals with algorithmic Bull vs Bear debates, balance-sheet extraction, and downloadable valuation summaries.
               </p>
             </div>
           </div>
 
-          {/* Card 5: Doc Intelligence & Video Analyser */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          {/* Card 5: Doc Intelligence & Vision */}
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">description</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Doc Intelligence &amp; Vision</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Extract granular multi-page tables from PDFs or upload entire video footage to index events, transcribe audio, and query scene timelines.
               </p>
             </div>
           </div>
 
           {/* Card 6: Sovereign Credits */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-400 transition-all flex flex-col justify-between">
+          <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center font-bold mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] flex items-center justify-center font-bold mb-5">
                 <span className="material-symbols-outlined text-[22px]">account_balance_wallet</span>
               </div>
               <h3 className="font-sans text-lg font-bold text-[#07091B] mb-2">Credits You Can See</h3>
-              <p className="font-sans text-xs text-slate-600 leading-relaxed">
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
                 Every plan includes transparent compute credits. Track balance and invocation costs in real time directly within your sovereign workspace wallet.
               </p>
             </div>
@@ -403,8 +396,8 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
             {/* LEFT COLUMN: Pinned Sticky Header & Fleet Overview */}
             <div className="lg:col-span-5 lg:sticky lg:top-28 self-start space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#E6E4DD] shadow-xs text-xs font-semibold text-[#1E3A3A]">
-                <span className="material-symbols-outlined text-[16px] text-[#D97736]">rocket_launch</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5F1FD] border border-[#E8E0FB] shadow-2xs text-xs font-semibold text-[#6630E4]">
+                <span className="material-symbols-outlined text-[16px] text-[#6630E4]">rocket_launch</span>
                 <span>Specialist Suite • 10 Domain Minds</span>
               </div>
 
@@ -735,7 +728,12 @@ export default function Home() {
                     {/* Left Column of Card */}
                     <div className="md:col-span-7 flex flex-col justify-between">
                       <div>
-
+                        {/* Number & Tag Pill */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="px-2.5 py-0.5 rounded-full bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] font-mono text-[11px] font-bold">
+                            {agent.num} • {agent.tag}
+                          </span>
+                        </div>
 
                         {/* Title */}
                         <h3 className="font-sans text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#07091B] tracking-tight mb-3">
@@ -743,7 +741,7 @@ export default function Home() {
                         </h3>
 
                         {/* Description */}
-                        <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
+                        <p className="font-sans text-sm text-slate-600 leading-relaxed mb-5">
                           {agent.desc}
                         </p>
 
@@ -754,7 +752,7 @@ export default function Home() {
                               key={pIdx}
                               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-semibold text-slate-800 shadow-2xs"
                             >
-                              <span className="material-symbols-outlined text-[16px] text-[#1E3A3A]">
+                              <span className="material-symbols-outlined text-[16px] text-[#6630E4]">
                                 {pill.icon}
                               </span>
                               <span>{pill.label}</span>
@@ -763,11 +761,11 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Ruboz-style Terracotta Action Button with Dot-to-Arrow Expand on Hover */}
+                      {/* Grizon Brand Violet Action Button with Dot-to-Arrow Expand on Hover */}
                       <div className="pt-3">
                         <Link
                           to={agent.link}
-                          className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2 rounded-full bg-[#D97736] hover:bg-[#c46526] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md active:scale-[0.98] self-start"
+                          className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-[0_4px_14px_rgba(102,48,228,0.22)] hover:shadow-[0_6px_18px_rgba(102,48,228,0.32)] active:scale-[0.98] self-start"
                         >
                           <span>Launch Specialist</span>
                           <span className="relative flex items-center justify-center w-7 h-7 rounded-full transition-all duration-300">
@@ -775,7 +773,7 @@ export default function Home() {
                             <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
                             
                             {/* Hover State: Expanded White Circle with Arrow Icon */}
-                            <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#07091B] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                            <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#6630E4] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
                               <span className="material-symbols-outlined text-[15px] font-bold">arrow_forward</span>
                             </span>
                           </span>
@@ -798,11 +796,11 @@ export default function Home() {
       </section>
 
       {/* =====================================================================
-          9. SECTION 9: TRANSPARENT INR PRICING
+          5. SECTION 5: TRANSPARENT INR PRICING
       ====================================================================== */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28" id="pricing">
         <div className="text-center max-w-xl mx-auto mb-14">
-          <span className="font-mono text-xs uppercase tracking-widest text-emerald-700 font-bold">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#6630E4] font-bold">
             Transparent Pricing
           </span>
           <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mt-1 text-balance">
@@ -812,108 +810,108 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {/* Starter */}
-          <div className="p-7 rounded-3xl bg-white border border-[#E6E4DD] flex flex-col justify-between">
+          <div className="p-7 rounded-3xl bg-white border border-[#E6E4DD] flex flex-col justify-between hover:border-slate-300 transition-all">
             <div>
               <span className="font-mono text-xs uppercase font-bold text-slate-500">Starter</span>
               <div className="flex items-baseline gap-1 mt-2 mb-3">
-                <span className="text-4xl font-extrabold text-[#18181B]">₹999</span>
+                <span className="text-4xl font-extrabold text-[#07091B]">₹999</span>
                 <span className="text-slate-500 text-sm font-sans">/ mo</span>
               </div>
-              <p className="font-sans text-xs text-slate-600 mb-6">
+              <p className="font-sans text-sm text-slate-600 mb-6 leading-relaxed">
                 For individual quants and developers exploring sovereign AI.
               </p>
-              <ul className="space-y-2.5 font-sans text-xs text-slate-700 border-t border-slate-100 pt-5">
+              <ul className="space-y-2.5 font-sans text-sm text-slate-700 border-t border-slate-100 pt-5">
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  <strong>1,500 Compute Credits</strong> / month
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span><strong>1,500 Compute Credits</strong> / month</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  Fast Research &amp; Dev Studio
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>Fast Research &amp; Dev Studio</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  Monthly Rollover Guarantee
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>Monthly Rollover Guarantee</span>
                 </li>
               </ul>
             </div>
             <Link
               to="/welcome"
-              className="mt-8 w-full py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#18181B] font-sans text-xs font-bold text-center transition-colors"
+              className="mt-8 w-full py-3 rounded-full bg-white hover:bg-slate-50 border border-[#E6E4DD] hover:border-[#6630E4] text-[#07091B] hover:text-[#6630E4] font-sans text-sm font-bold text-center transition-colors shadow-2xs"
             >
               Get Started
             </Link>
           </div>
 
           {/* Pro */}
-          <div className="p-7 rounded-3xl bg-white border-2 border-amber-600/90 flex flex-col justify-between relative scale-[1.02]">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-amber-600 text-white font-mono text-[9px] font-bold uppercase tracking-wider">
+          <div className="p-7 rounded-3xl bg-white border-2 border-[#6630E4] flex flex-col justify-between relative scale-[1.02] shadow-[0_12px_36px_rgba(102,48,228,0.12)]">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-[#6630E4] text-white font-mono text-[10px] font-bold uppercase tracking-wider shadow-sm">
               Most Popular
             </div>
             <div>
-              <span className="font-mono text-xs uppercase font-bold text-amber-700">Professional</span>
+              <span className="font-mono text-xs uppercase font-bold text-[#6630E4]">Professional</span>
               <div className="flex items-baseline gap-1 mt-2 mb-3">
-                <span className="text-4xl font-extrabold text-[#18181B]">₹2,499</span>
+                <span className="text-4xl font-extrabold text-[#07091B]">₹2,499</span>
                 <span className="text-slate-500 text-sm font-sans">/ mo</span>
               </div>
-              <p className="font-sans text-xs text-slate-600 mb-6">
+              <p className="font-sans text-sm text-slate-600 mb-6 leading-relaxed">
                 For legal counsels and hedge fund quants requiring full autonomy.
               </p>
-              <ul className="space-y-2.5 font-sans text-xs text-slate-700 border-t border-slate-100 pt-5">
+              <ul className="space-y-2.5 font-sans text-sm text-slate-700 border-t border-slate-100 pt-5">
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  <strong>5,000 Compute Credits</strong> / month
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span><strong>5,000 Compute Credits</strong> / month</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  All 10 Specialized Minds
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>All 10 Specialized Minds</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  Deep Research Trees &amp; Citations
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>Deep Research Trees &amp; Citations</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  Full Autonomous Task Hub Scheduler
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>Full Autonomous Task Hub Scheduler</span>
                 </li>
               </ul>
             </div>
             <Link
               to="/welcome"
-              className="mt-8 w-full py-2.5 rounded-full bg-[#1E3A3A] hover:bg-[#142929] text-white font-sans text-xs font-bold text-center transition-colors"
+              className="mt-8 w-full py-3 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-sans text-sm font-bold text-center transition-all shadow-[0_4px_16px_rgba(102,48,228,0.25)] hover:shadow-[0_6px_20px_rgba(102,48,228,0.35)] active:scale-[0.98]"
             >
               Start 14-Day Free Trial
             </Link>
           </div>
 
           {/* Enterprise */}
-          <div className="p-7 rounded-3xl bg-white border border-[#E6E4DD] flex flex-col justify-between">
+          <div className="p-7 rounded-3xl bg-white border border-[#E6E4DD] flex flex-col justify-between hover:border-slate-300 transition-all">
             <div>
               <span className="font-mono text-xs uppercase font-bold text-slate-500">Enterprise</span>
               <div className="flex items-baseline gap-1 mt-2 mb-3">
-                <span className="text-4xl font-extrabold text-[#18181B]">Custom</span>
+                <span className="text-4xl font-extrabold text-[#07091B]">Custom</span>
               </div>
-              <p className="font-sans text-xs text-slate-600 mb-6">
+              <p className="font-sans text-sm text-slate-600 mb-6 leading-relaxed">
                 For banks, enterprises, and statutory bodies requiring VPC isolation.
               </p>
-              <ul className="space-y-2.5 font-sans text-xs text-slate-700 border-t border-slate-100 pt-5">
+              <ul className="space-y-2.5 font-sans text-sm text-slate-700 border-t border-slate-100 pt-5">
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  Unlimited Custom Compute Enclaves
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>Unlimited Custom Compute Enclaves</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  On-Premise / Sovereign Cloud VPC
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>On-Premise / Sovereign Cloud VPC</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[15px] text-emerald-600">check</span>
-                  DPDP Non-Repudiation Audit Logs
+                  <span className="material-symbols-outlined text-[16px] text-[#6630E4]">check</span>
+                  <span>DPDP Non-Repudiation Audit Logs</span>
                 </li>
               </ul>
             </div>
             <Link
               to="/welcome"
-              className="mt-8 w-full py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#18181B] font-sans text-xs font-bold text-center transition-colors"
+              className="mt-8 w-full py-3 rounded-full bg-white hover:bg-slate-50 border border-[#E6E4DD] hover:border-[#6630E4] text-[#07091B] hover:text-[#6630E4] font-sans text-sm font-bold text-center transition-colors shadow-2xs"
             >
               Contact Enterprise Desk
             </Link>
@@ -922,18 +920,18 @@ export default function Home() {
       </section>
 
       {/* =====================================================================
-          10. SECTION 10: FREQUENTLY ASKED QUESTIONS & BOTTOM CTA
+          6. SECTION 6: FREQUENTLY ASKED QUESTIONS
       ====================================================================== */}
       <section className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
         <div className="text-center mb-12 sm:mb-16 flex flex-col items-center">
-          <div className="inline-flex items-center px-4 py-1 rounded-full border border-purple-300 bg-purple-50/50 text-purple-600 text-xs font-mono font-bold tracking-wider uppercase mb-5 sm:mb-6 shadow-2xs">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-[#E8E0FB] bg-[#F5F1FD] text-[#6630E4] text-xs font-mono font-bold tracking-wider uppercase mb-5 sm:mb-6 shadow-2xs">
             FAQ
           </div>
-          <h2 className="font-sans text-3xl sm:text-4xl lg:text-[44px] font-normal text-[#07091B] tracking-tight leading-tight text-balance mb-4 sm:mb-5">
-            Answer That Keep{' '}
-            <span className="text-[#7C3AED] italic font-serif font-medium">You Flowing</span>
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#07091B] tracking-tight leading-tight text-balance mb-4 sm:mb-5">
+            Answers That Keep{' '}
+            <span className="text-[#6630E4]">You Flowing</span>
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-500 max-w-lg mx-auto leading-relaxed text-balance">
+          <p className="font-sans text-sm sm:text-base text-slate-600 max-w-lg mx-auto leading-relaxed text-balance">
             From capturing conversations to syncing with your tools, find quick answers to how Grizon AI works.
           </p>
         </div>
@@ -944,24 +942,24 @@ export default function Home() {
             return (
               <div
                 key={idx}
-                className="rounded-2xl bg-white border border-[#E6E4DD] overflow-hidden"
+                className="rounded-2xl bg-white border border-[#E6E4DD] overflow-hidden transition-colors"
               >
                 <button
                   type="button"
                   onClick={() => setExpandedFaq(isOpen ? null : idx)}
-                  className="w-full p-4 sm:p-5 text-left font-sans text-sm sm:text-base font-bold text-[#18181B] flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
+                  className="w-full p-4 sm:p-5 text-left font-sans text-sm sm:text-base font-bold text-[#07091B] flex items-center justify-between gap-4 hover:bg-slate-50/70 transition-colors"
                 >
                   <span>{faq.q}</span>
                   <span
-                    className={`material-symbols-outlined text-[20px] text-slate-400 transition-transform ${
-                      isOpen ? 'rotate-180 text-amber-600' : ''
+                    className={`material-symbols-outlined text-[20px] transition-transform ${
+                      isOpen ? 'rotate-180 text-[#6630E4]' : 'text-slate-400'
                     }`}
                   >
                     keyboard_arrow_down
                   </span>
                 </button>
                 {isOpen && (
-                  <div className="px-4 sm:px-5 pb-5 pt-1 font-sans text-xs sm:text-sm text-[#52525B] leading-relaxed border-t border-slate-100">
+                  <div className="px-4 sm:px-5 pb-5 pt-1 font-sans text-sm text-slate-600 leading-relaxed border-t border-slate-100">
                     {faq.a}
                   </div>
                 )}
@@ -971,20 +969,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BOTTOM CALL TO ACTION */}
+      {/* 7. BOTTOM CALL TO ACTION */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
-        <div className="rounded-[32px] sm:rounded-[36px] bg-[#1E3A3A] p-8 sm:p-12 text-center text-white relative overflow-hidden border border-white/10">
+        <div className="rounded-[32px] sm:rounded-[36px] bg-gradient-to-br from-[#090B19] via-[#120F2B] to-[#090B19] p-8 sm:p-12 text-center text-white relative overflow-hidden border border-[#6630E4]/30 shadow-[0_20px_50px_rgba(9,11,25,0.25)]">
+          {/* Subtle Ambient Brand Glow */}
+          <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-[#6630E4]/15 blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
             <h2 className="font-sans text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 text-balance">
               Step into your sovereign intelligence workspace.
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 text-balance">
+            <p className="font-sans text-sm text-slate-300 leading-relaxed mb-8 text-balance">
               Join enterprise legal counsels, quantitative funds, and software teams building with deterministic AI.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full justify-center">
               <Link
                 to="/welcome"
-                className="group inline-flex items-center gap-3.5 pl-7 pr-2.5 py-3 rounded-full bg-[#D97736] hover:bg-[#c46526] text-white font-sans text-xs sm:text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98]"
+                className="group inline-flex items-center gap-3.5 pl-7 pr-2.5 py-3 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-sans text-sm font-bold transition-all duration-300 shadow-[0_4px_18px_rgba(102,48,228,0.35)] hover:shadow-[0_6px_24px_rgba(102,48,228,0.45)] active:scale-[0.98]"
               >
                 <span>Initialize Workspace</span>
                 <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-all duration-300">
@@ -992,7 +992,7 @@ export default function Home() {
                   <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
 
                   {/* Hover State: Expanded White Circle with Arrow Icon */}
-                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#07091B] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#6630E4] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
                     <span className="material-symbols-outlined text-[15px] sm:text-[16px] font-bold">arrow_forward</span>
                   </span>
                 </span>

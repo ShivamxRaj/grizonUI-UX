@@ -11,8 +11,8 @@ const SPECIALISTS_LIST = [
     tagline: 'Deterministic statutory analysis, precedent verification, and BNS concordance.',
     badge: 'Statutory Core',
     speed: '<150ms',
-    accentColor: 'rose',
     icon: 'gavel',
+    path: '/agents/legal',
     infrastructure: ['eCourts NJDG (16-Digit CNR)', 'Indian Kanoon Live Node', 'BNS/IPC Concordance', 'Zero Hallucination'],
     blueprint: [
       'Fact extraction and territorial jurisdiction lock (Supreme Court, High Courts, NCLT).',
@@ -31,8 +31,8 @@ const SPECIALISTS_LIST = [
     tagline: 'NSE & BSE tick oracles, option skew profiles, and Bull vs Bear debate synthesis.',
     badge: 'NSE Oracles',
     speed: '<120ms',
-    accentColor: 'orange',
     icon: 'monitoring',
+    path: '/agents/market-intelligence',
     infrastructure: ['NSE Option Chain Ticks', 'RBI MPC Macro Index', 'DCF Valuation Models', 'Gamma Risk Skew'],
     blueprint: [
       'Ingest real-time option chain strikes across Bank Nifty and Nifty 50.',
@@ -50,8 +50,8 @@ const SPECIALISTS_LIST = [
     tagline: 'Full-stack code generation, container debugging, and live HTML visual previews.',
     badge: 'Linux VM',
     speed: '<180ms',
-    accentColor: 'teal',
     icon: 'code',
+    path: '/agents/dev-studio',
     infrastructure: ['Isolated Linux Container', 'Tailwind CSS v4 Engine', 'AST Parser & Linter', 'Live Component Sandbox'],
     blueprint: [
       'Parse AST syntax trees and enforce strict typescript/react safety boundaries.',
@@ -69,8 +69,8 @@ const SPECIALISTS_LIST = [
     tagline: 'High-availability infrastructure topology, distributed consensus, and cloud blueprints.',
     badge: 'Cloud VPC',
     speed: '<220ms',
-    accentColor: 'indigo',
     icon: 'schema',
+    path: '/agents/system-architect',
     infrastructure: ['AWS ap-south-1 Topology', 'PostgreSQL HSM Partitioning', 'Mermaid & PlantUML', 'Sovereign Enclave'],
     blueprint: [
       'Model zero-trust VPC ingress and sovereign HSM key management routing.',
@@ -83,13 +83,13 @@ const SPECIALISTS_LIST = [
   {
     id: 'math',
     num: '05',
-    name: 'Mathematics & Formal Logic',
+    name: 'Mathematics & Quantitative',
     category: 'Engineering & Code',
     tagline: 'SymPy symbolic derivations, discrete algebra, and formal mathematical proofs.',
     badge: 'Symbolic Engine',
     speed: '<200ms',
-    accentColor: 'cyan',
     icon: 'functions',
+    path: '/welcome',
     infrastructure: ['SymPy Algebraic Core', 'NumPy Matrix Runtimes', 'Formal Proof Verification', 'LaTeX Formatter'],
     blueprint: [
       'Tokenize symbolic mathematical expressions without floating-point rounding errors.',
@@ -107,8 +107,8 @@ const SPECIALISTS_LIST = [
     tagline: 'Autonomous recursive DAG synthesis with quantitative risk modeling and citations.',
     badge: 'Recursive DAG',
     speed: '<600ms',
-    accentColor: 'blue',
     icon: 'psychology',
+    path: '/agents/research',
     infrastructure: ['Multi-Step Recursive Tree', 'MCA Company Registries', 'Gazette of India Archive', 'Citation Grounding'],
     blueprint: [
       'Deconstruct complex multi-disciplinary query into a tree of sub-hypotheses.',
@@ -126,8 +126,8 @@ const SPECIALISTS_LIST = [
     tagline: 'Sub-second real-time web lookup indexing 350+ live feeds with verified citations.',
     badge: 'Live Indexing',
     speed: '<300ms',
-    accentColor: 'amber',
     icon: 'bolt',
+    path: '/welcome',
     infrastructure: ['Real-Time Web Indexer', 'Cryptographic Citations', 'Serper & Tavily Nodes', 'Zero Stale Data'],
     blueprint: [
       'Execute multi-stream parallel web crawling across official regulatory portals.',
@@ -144,8 +144,8 @@ const SPECIALISTS_LIST = [
     tagline: 'Multilingual conversational drafting, strategic coordination, and unconstrained ideation.',
     badge: 'Multilingual',
     speed: '<100ms',
-    accentColor: 'slate',
     icon: 'chat',
+    path: '/welcome',
     infrastructure: ['12 Indian Languages', 'Zero Context Bloat', 'Low-Latency Streaming', 'Task Orchestrator'],
     blueprint: [
       'Translate and draft complex operational memos across Hindi, English, and regional vernaculars.',
@@ -157,13 +157,13 @@ const SPECIALISTS_LIST = [
   {
     id: 'doc',
     num: '09',
-    name: 'Doc Intelligence & OCR',
+    name: 'Doc Intelligence & Writer',
     category: 'Vision & Documents',
     tagline: 'Neural OCR for 200+ page scans, financial table extraction, and statutory drafting.',
     badge: 'Neural OCR',
     speed: '<400ms',
-    accentColor: 'emerald',
     icon: 'description',
+    path: '/agents/doc-intelligence',
     infrastructure: ['Multi-Page PDF Parsing', 'Schedule III MCA Extraction', 'Table Normalization', 'Audit Discrepancy Checks'],
     blueprint: [
       'Ingest scanned contracts, high-resolution PDFs, and balance sheet scans.',
@@ -185,110 +185,105 @@ const CATEGORIES = [
 
 export default function Agents() {
   const [activeCategory, setActiveCategory] = useState('All Specialists');
-  const [selectedAgent, setSelectedAgent] = useState(null); // Controls slide-over drawer
+  const [selectedAgent, setSelectedAgent] = useState(null);
   const [copiedPrompt, setCopiedPrompt] = useState(false);
 
-  // Filtered list
   const filteredAgents =
     activeCategory === 'All Specialists'
       ? SPECIALISTS_LIST
       : SPECIALISTS_LIST.filter((a) => a.category === activeCategory);
 
   return (
-    <div className="w-full flex flex-col bg-[#FAF9F5] text-[#18181B] font-sans selection:bg-amber-100 selection:text-amber-900 min-h-screen">
+    <div className="w-full flex flex-col bg-[#FAF9F5] text-[#07091B] font-sans antialiased min-h-screen">
       {/* =====================================================================
-          PAGE HEADER: Clean, Non-AI Sans-Serif Typography & Zero Clutter
+          1. PAGE HEADER: Editorial Non-AI Sans-Serif Typography & Zero Clutter
       ====================================================================== */}
-      <section className="relative w-full pt-28 sm:pt-32 lg:pt-36 pb-12 border-b border-[#E6E4DD] bg-white">
+      <section className="relative w-full pt-32 sm:pt-36 lg:pt-40 pb-14 border-b border-[#E6E4DD] bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="w-full flex items-center justify-start mb-6 sm:mb-8 text-left">
+          <div className="w-full flex items-center justify-start mb-8 text-left">
             <Breadcrumb />
           </div>
 
           <div className="text-center flex flex-col items-center">
-            {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-mono font-semibold text-slate-700 mb-5 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>{SPECIALISTS_LIST.length} Purpose-Built Specialists • Zero Generic Chat</span>
-          </div>
 
-          {/* Headline in pure modern sans */}
-          <h1 className="font-sans text-3xl sm:text-5xl md:text-[54px] font-extrabold text-[#07091B] tracking-tight leading-[1.1] mb-4 max-w-3xl">
-            Engineered minds for every domain.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-indigo-600">
-              Not generic conversation.
-            </span>
-          </h1>
+            {/* Headline */}
+            <h1 className="font-sans text-3xl sm:text-5xl lg:text-[52px] font-extrabold text-[#07091B] tracking-tight leading-[1.12] mb-4 max-w-3xl text-balance">
+              Engineered minds for critical domains. Zero generic chat.
+            </h1>
 
-          {/* Low, crisp subtitle */}
-          <p className="font-sans text-sm sm:text-base md:text-lg text-[#52525B] max-w-2xl leading-relaxed mb-8">
-            Each specialist runs on an isolated cognitive pipeline directly grounded in live statutory gazettes, NSE tick feeds, or Linux sandbox runtimes.
-          </p>
+            {/* Subtitle */}
+            <p className="font-sans text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed text-balance mb-8">
+              Each specialist executes an isolated, deterministic pipeline grounded directly in official gazettes, NSE live tick feeds, or sandboxed Linux containers.
+            </p>
 
-          {/* Category Filter Pills (Aligned, Breathable) */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all ${
-                  activeCategory === cat
-                    ? 'bg-[#07091B] text-white shadow-xs'
-                    : 'bg-[#FAF9F5] text-slate-600 border border-[#E6E4DD] hover:bg-slate-100'
-                }`}
-              >
-                {cat}
-                {cat === 'All Specialists' && ` (${SPECIALISTS_LIST.length})`}
-              </button>
-            ))}
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {CATEGORIES.map((cat) => {
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-[#07091B] text-white shadow-xs'
+                        : 'bg-white text-slate-600 border border-[#E6E4DD] hover:border-[#6630E4]/40 hover:text-[#07091B]'
+                    }`}
+                  >
+                    {cat}
+                    {cat === 'All Specialists' && ` (${SPECIALISTS_LIST.length})`}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* =====================================================================
-          SPECIALISTS GRID: Spacious Luxury Cards (Zero Bheed / No 15-line essays)
+          2. SPECIALISTS GRID: Clean, High-Breathing Room Cards
       ====================================================================== */}
-      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {filteredAgents.map((agent) => (
             <div
               key={agent.id}
-              className="p-6 rounded-3xl bg-white border border-[#E6E4DD] hover:border-slate-300 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between group"
+              className="h-full rounded-3xl bg-white border border-[#E6E4DD] hover:border-[#6630E4]/40 p-7 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-lg group"
             >
-              <div>
-                {/* Top header row */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-11 h-11 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center text-[#07091B] group-hover:bg-[#07091B] group-hover:text-white transition-colors">
+              <div className="flex-1 flex flex-col">
+                {/* Top Row: Icon & Status Badges */}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-11 h-11 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center text-[#6630E4] group-hover:bg-[#6630E4] group-hover:text-white transition-colors duration-200">
                     <span className="material-symbols-outlined text-[22px]">{agent.icon}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[10px] text-slate-400 font-semibold">{agent.speed}</span>
-                    <span className="font-mono text-[10px] px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold uppercase">
+                    <span className="font-sans text-xs text-slate-400 font-medium">{agent.speed}</span>
+                    <span className="font-sans text-[11px] px-2.5 py-0.5 rounded-full bg-[#F5F1FD] border border-[#E8E0FB] text-[#6630E4] font-bold uppercase tracking-wide">
                       {agent.badge}
                     </span>
                   </div>
                 </div>
 
-                {/* Title & Domain */}
-                <span className="font-mono text-[10px] uppercase font-bold text-amber-700 tracking-wider block mb-1">
-                  Specialist {agent.num} • {agent.category}
+                {/* Sub-label & Title */}
+                <span className="font-sans text-xs uppercase font-bold text-slate-400 tracking-wider block mb-1">
+                  Specialist {agent.num} · {agent.category}
                 </span>
-                <h3 className="font-sans text-lg font-bold text-[#18181B] mb-2">
+                <h3 className="font-sans text-lg font-bold text-[#07091B] tracking-tight mb-2 group-hover:text-[#6630E4] transition-colors">
                   {agent.name}
                 </h3>
 
-                {/* Short 1-2 line description (LOW CONTENT) */}
-                <p className="font-sans text-xs sm:text-[13px] text-[#52525B] leading-relaxed mb-5">
+                {/* Concise 1-2 line description */}
+                <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
                   {agent.tagline}
                 </p>
 
-                {/* Infrastructure Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
+                {/* Sovereign Node Pills (Matching Home Page Sans-Serif Pills) */}
+                <div className="flex flex-wrap gap-1.5 mb-6 mt-auto">
                   {agent.infrastructure.slice(0, 3).map((tag, i) => (
                     <span
                       key={i}
-                      className="px-2.5 py-0.5 rounded-md bg-[#FAF9F5] border border-[#E6E4DD] text-[10.5px] font-mono text-slate-600"
+                      className="px-3 py-1 rounded-full bg-[#FAF9F5] border border-[#E6E4DD] text-xs font-sans font-medium text-slate-600"
                     >
                       {tag}
                     </span>
@@ -296,22 +291,16 @@ export default function Agents() {
                 </div>
               </div>
 
-              {/* Bottom Actions: Launch & Inspect Drawer */}
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-                <button
-                  onClick={() => setSelectedAgent(agent)}
-                  className="font-sans text-xs font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[15px]">info</span>
-                  <span>Inspect Pipeline</span>
-                </button>
-
+              {/* Bottom Action: Editorial 'Launch now ↗' with Dotted Underline */}
+              <div className="pt-4 mt-auto border-t border-[#E6E4DD]/70 flex items-center justify-between">
                 <Link
-                  to="/welcome"
-                  className="px-3.5 py-1.5 rounded-full bg-[#07091B] hover:bg-black text-white font-sans text-xs font-semibold flex items-center gap-1 transition-colors shadow-2xs"
+                  to={agent.path}
+                  className="group inline-flex items-center gap-1.5 pb-1 border-b-2 border-dotted border-[#07091B]/40 hover:border-[#6630E4] text-[#07091B] hover:text-[#6630E4] font-sans text-xs sm:text-[13px] font-bold transition-all"
                 >
-                  <span>Launch</span>
-                  <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+                  <span>Launch now</span>
+                  <span className="material-symbols-outlined text-[15px] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    arrow_outward
+                  </span>
                 </Link>
               </div>
             </div>
@@ -320,27 +309,29 @@ export default function Agents() {
       </section>
 
       {/* =====================================================================
-          PROGRESSIVE DISCLOSURE DRAWER: Detailed Pipeline on Demand
-          (Keeps main page 100% clean, but lets power users inspect deep specs!)
+          3. PROGRESSIVE DISCLOSURE DRAWER: Detailed Pipeline on Demand
       ====================================================================== */}
       {selectedAgent && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
           <div className="w-full max-w-lg bg-white h-full shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto border-l border-[#E6E4DD]">
             <div>
               {/* Drawer Top Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-[#07091B] text-white flex items-center justify-center">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E6E4DD] mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#07091B] text-white flex items-center justify-center">
                     <span className="material-symbols-outlined text-[20px]">{selectedAgent.icon}</span>
                   </div>
                   <div>
-                    <h3 className="font-sans text-base font-bold text-[#18181B]">{selectedAgent.name}</h3>
-                    <p className="font-mono text-[11px] text-slate-400">Specialist {selectedAgent.num} • {selectedAgent.badge}</p>
+                    <h3 className="font-sans text-base font-bold text-[#07091B]">{selectedAgent.name}</h3>
+                    <p className="font-sans text-xs text-[#6630E4] font-semibold">
+                      Specialist {selectedAgent.num} · {selectedAgent.badge}
+                    </p>
                   </div>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setSelectedAgent(null)}
-                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[18px]">close</span>
                 </button>
@@ -353,16 +344,16 @@ export default function Agents() {
 
               {/* Blueprint Pipeline Steps */}
               <div className="mb-6">
-                <span className="font-mono text-xs uppercase font-bold text-slate-500 tracking-wider block mb-3">
+                <span className="font-sans text-xs uppercase font-bold text-[#6630E4] tracking-wider block mb-3">
                   Deterministic Inference Cycle
                 </span>
                 <div className="space-y-2.5 font-sans text-xs">
                   {selectedAgent.blueprint.map((step, idx) => (
-                    <div key={idx} className="p-3 rounded-xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-start gap-2.5">
-                      <span className="font-mono text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/80 shrink-0">
+                    <div key={idx} className="p-3 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-start gap-3">
+                      <span className="font-sans text-xs font-bold text-[#6630E4] bg-[#F5F1FD] px-2.5 py-0.5 rounded-full border border-[#E8E0FB] shrink-0">
                         0{idx + 1}
                       </span>
-                      <span className="text-slate-700 leading-normal">{step}</span>
+                      <span className="text-slate-700 leading-relaxed pt-0.5">{step}</span>
                     </div>
                   ))}
                 </div>
@@ -370,12 +361,15 @@ export default function Agents() {
 
               {/* Live Connected Institutional Nodes */}
               <div className="mb-6">
-                <span className="font-mono text-xs uppercase font-bold text-slate-500 tracking-wider block mb-2.5">
+                <span className="font-sans text-xs uppercase font-bold text-slate-500 tracking-wider block mb-2.5">
                   Connected Sovereign Nodes
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedAgent.infrastructure.map((node, i) => (
-                    <span key={i} className="px-3 py-1 rounded-full bg-slate-100 font-mono text-xs text-slate-700 font-medium border border-slate-200">
+                    <span
+                      key={i}
+                      className="px-3 py-1 rounded-full bg-[#FAF9F5] font-sans text-xs text-slate-700 font-medium border border-[#E6E4DD]"
+                    >
                       {node}
                     </span>
                   ))}
@@ -384,8 +378,8 @@ export default function Agents() {
 
               {/* Sample Executive Prompt */}
               <div className="p-4 rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD]">
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider block mb-1">
-                  Sample Executive Query
+                <span className="font-sans text-xs uppercase font-bold text-slate-500 tracking-wider block mb-1">
+                  Sample Prompt Query
                 </span>
                 <p className="font-sans text-xs text-slate-800 font-medium leading-relaxed">
                   "{selectedAgent.samplePrompt}"
@@ -394,22 +388,23 @@ export default function Agents() {
             </div>
 
             {/* Drawer Bottom CTA */}
-            <div className="pt-6 border-t border-slate-100 flex items-center justify-between gap-3 mt-6">
+            <div className="pt-6 border-t border-[#E6E4DD] flex items-center justify-between gap-3 mt-6">
               <button
+                type="button"
                 onClick={() => {
                   navigator.clipboard?.writeText(selectedAgent.samplePrompt);
                   setCopiedPrompt(true);
                   setTimeout(() => setCopiedPrompt(false), 2000);
                 }}
-                className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 font-sans text-xs font-semibold text-slate-700 transition-colors"
+                className="px-4 py-2.5 rounded-full bg-[#FAF9F5] hover:bg-slate-100 border border-[#E6E4DD] font-sans text-xs font-semibold text-slate-700 transition-colors cursor-pointer"
               >
-                {copiedPrompt ? 'Copied Prompt!' : 'Copy Sample Prompt'}
+                {copiedPrompt ? 'Copied Prompt!' : 'Copy Prompt'}
               </button>
               <Link
-                to="/welcome"
-                className="px-5 py-2.5 rounded-full bg-[#07091B] hover:bg-black text-white font-sans text-xs font-bold transition-colors shadow-xs"
+                to={selectedAgent.path}
+                className="px-5 py-2.5 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-sans text-xs font-bold transition-colors shadow-xs"
               >
-                Launch in Workspace
+                Launch Specialist
               </Link>
             </div>
           </div>
@@ -417,31 +412,32 @@ export default function Agents() {
       )}
 
       {/* =====================================================================
-          BOTTOM CONVERSION BANNER (Clean & Un-clustered)
+          4. SIGNATURE BOTTOM CONVERSION CTA (Matching Dark Sovereign Brand)
       ====================================================================== */}
-      <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24">
-        <div className="rounded-[32px] sm:rounded-[36px] bg-gradient-to-b from-[#FAF9F5] via-white to-[#FAF9F5] p-8 sm:p-14 text-center relative overflow-hidden border border-[#E6E4DD] shadow-[0_16px_40px_-20px_rgba(7,9,27,0.06)]">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[540px] h-[220px] bg-gradient-to-b from-[#D97736]/10 via-purple-500/5 to-transparent blur-3xl rounded-full pointer-events-none" />
+      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
+        <div className="rounded-[32px] sm:rounded-[36px] bg-gradient-to-br from-[#090B19] via-[#120F2B] to-[#090B19] p-8 sm:p-14 text-center text-white relative overflow-hidden border border-[#6630E4]/30 shadow-[0_20px_50px_rgba(9,11,25,0.25)]">
           <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D97736]/10 border border-[#D97736]/20 mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D97736] animate-pulse" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#D97736] font-bold">
-                All 10 Specialists Available Across All Plans
-              </span>
-            </div>
-            <h2 className="font-sans text-2xl sm:text-4xl font-extrabold text-[#07091B] tracking-tight mb-3">
-              Ready to work with domain specialists?
+
+            <h2 className="font-sans text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 text-balance">
+              Deploy sovereign domain specialists today.
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-[#52525B] leading-relaxed mb-7 max-w-lg">
-              Initialize your sovereign workspace with free trial compute credits. Zero credit card required.
+
+            <p className="font-sans text-sm text-slate-300 leading-relaxed mb-8 text-balance">
+              Join enterprise legal counsels, quant funds, and engineering teams using deterministic intelligence.
             </p>
+
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center">
               <Link
                 to="/welcome"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#07091B] text-white font-sans text-xs sm:text-sm font-semibold hover:bg-black transition-all shadow-xs active:scale-[0.98]"
+                className="group inline-flex items-center gap-3.5 pl-7 pr-2.5 py-3 rounded-full bg-[#6630E4] hover:bg-[#5221C6] text-white font-sans text-sm font-bold transition-all duration-300 shadow-[0_4px_18px_rgba(102,48,228,0.35)] hover:shadow-[0_6px_24px_rgba(102,48,228,0.45)] active:scale-[0.98]"
               >
                 <span>Initialize Workspace</span>
-                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-all duration-300">
+                  <span className="w-2.5 h-2.5 rounded-full bg-white transition-all duration-200 group-hover:scale-0 group-hover:opacity-0" />
+                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#6630E4] opacity-0 scale-50 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 shadow-xs">
+                    <span className="material-symbols-outlined text-[15px] sm:text-[16px] font-bold">arrow_forward</span>
+                  </span>
+                </span>
               </Link>
             </div>
           </div>
