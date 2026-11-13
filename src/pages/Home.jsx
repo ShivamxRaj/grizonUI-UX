@@ -420,26 +420,43 @@ export default function Home() {
                     { icon: 'verified_user', label: 'Zero-Retention Enclave' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#0C121D] p-4 text-white border border-emerald-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2.5 text-[10px] font-mono">
-                        <span className="text-emerald-400 font-bold flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          CNR: DLHC010048212026
-                        </span>
-                        <span className="text-slate-400">eCourts Concordance</span>
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                        <span className="ml-2 font-mono text-[10px] text-slate-500">Sovereign Legal Audit Console</span>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-black/60 border border-white/5 space-y-1.5 font-mono text-[11px]">
-                        <div className="flex items-center justify-between text-emerald-300">
-                          <span>§ 112 BNS vs IPC § 302</span>
-                          <span className="text-[10px] bg-emerald-950 px-1.5 py-0.2 rounded border border-emerald-500/40">MATCH</span>
+                      {/* Benchmark Bar */}
+                      <div className="flex items-center justify-between px-4 py-2 border-b border-[#E6E4DD] bg-[#FAFAF8]">
+                        <span className="font-mono text-[10px] font-bold text-[#07091B] tracking-wide">BENCHMARK RUN • v4.2</span>
+                        <span className="font-mono text-[9px] text-[#6630E4] font-bold">SOVEREIGN CORE</span>
+                      </div>
+                      {/* Main Content */}
+                      <div className="px-4 py-3 flex-1 space-y-2.5">
+                        <div className="flex items-center justify-between font-mono text-[10px]">
+                          <span className="text-slate-500">DPDP 2023 Alignment</span>
+                          <span className="font-bold text-[#07091B]">100% Deterministic</span>
                         </div>
-                        <p className="text-slate-400 text-[10px] leading-relaxed">
-                          Concordance verified: 1 July 2024 transition threshold applied. Zero hallucinated case laws.
-                        </p>
+                        <div className="w-full h-1 bg-[#E6E4DD] rounded-full overflow-hidden">
+                          <div className="h-full bg-[#D97736] rounded-full" style={{ width: '100%' }} />
+                        </div>
+                        <div className="flex items-center justify-between font-mono text-[10px]">
+                          <span className="text-slate-500">Average Review Compression</span>
+                          <span className="font-bold text-[#07091B]">4.8 Hrs → 42 Sec</span>
+                        </div>
+                        <div className="w-full h-1 bg-[#E6E4DD] rounded-full overflow-hidden">
+                          <div className="h-full bg-[#1E3A3A] rounded-full" style={{ width: '88%' }} />
+                        </div>
+                        <div className="mt-1 p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] font-mono text-[9px] text-slate-500 leading-relaxed">
+                          Synthesises precedents from the Supreme Court of India, NCLT records, and international commercial law models.
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
-                        <span>SHA-256: 7f8a...b4e2</span>
-                        <span className="text-emerald-400 font-semibold">100% Deterministic</span>
+                      {/* Footer */}
+                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
+                        <span>Doc ID: IN-MSA-2026-09881</span>
+                        <span className="text-[#D97736] font-bold">Redline Confidence: 99.8%</span>
                       </div>
                     </div>
                   ),
@@ -456,30 +473,51 @@ export default function Home() {
                     { icon: 'swap_horiz', label: 'Taurus vs Ursa Debate' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#090E17] p-4 text-white border border-teal-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-teal-400 font-bold flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
-                          NSE: BANKNIFTY 51,248
-                        </span>
-                        <span className="text-emerald-400 bg-emerald-500/20 px-1.5 py-0.5 rounded">▲ +1.42%</span>
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                          <span className="ml-2 font-mono text-[10px] text-slate-500">Sovereign Market Oracle</span>
+                        </div>
+                        <span className="font-mono text-[9px] text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-bold">↗ 78% Strong Bullish</span>
                       </div>
-                      <div className="space-y-1.5 font-mono text-[10px]">
-                        <div className="flex justify-between text-slate-400">
-                          <span>PCR Ratio: 1.14</span>
-                          <span className="text-emerald-400">Max Pain: ₹51,000</span>
+                      {/* Ticker Header */}
+                      <div className="px-4 py-2.5 border-b border-[#E6E4DD]">
+                        <div className="font-mono text-[11px] font-bold text-[#07091B] tracking-tight">TATAMOTORS.NS <span className="text-slate-400 font-normal text-[10px] ml-1">Automotive / EV</span></div>
+                        <div className="font-mono text-[9px] text-slate-400 mt-0.5">Multi-Agent Adversarial Valuation • Consolidated FY25 Forecast</div>
+                      </div>
+                      {/* KPI Grid */}
+                      <div className="grid grid-cols-2 gap-px bg-[#E6E4DD] mx-4 mt-2.5 rounded-lg overflow-hidden">
+                        <div className="bg-white p-2">
+                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Forward EV/EBITDA</div>
+                          <div className="font-mono text-[13px] font-bold text-[#07091B]">7.8x <span className="text-[9px] text-emerald-600 font-normal">-1.4x peer</span></div>
                         </div>
-                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden flex">
-                          <div className="h-full bg-emerald-500" style={{ width: '74%' }} />
-                          <div className="h-full bg-rose-500" style={{ width: '26%' }} />
+                        <div className="bg-white p-2">
+                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">JLR EBIT Margin</div>
+                          <div className="font-mono text-[13px] font-bold text-[#07091B]">8.6% <span className="text-[9px] text-emerald-600 font-normal">+120 bps</span></div>
                         </div>
-                        <div className="flex justify-between text-[9px] text-slate-400">
-                          <span className="text-emerald-400 font-semibold">Taurus Bull: 74%</span>
-                          <span className="text-rose-400">Ursa Bear: 26%</span>
+                        <div className="bg-white p-2">
+                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">India EV Share</div>
+                          <div className="font-mono text-[13px] font-bold text-[#07091B]">68.2% <span className="text-[9px] text-slate-400 font-normal">Leader</span></div>
+                        </div>
+                        <div className="bg-white p-2">
+                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Net Auto Debt</div>
+                          <div className="font-mono text-[13px] font-bold text-emerald-700">Zero <span className="text-[9px] text-[#D97736] font-normal">FY25 On-Track</span></div>
                         </div>
                       </div>
-                      <div className="p-2 rounded bg-white/5 border border-white/5 text-[9px] font-mono text-slate-300">
-                        Invalidation Trigger: 15-min candle close below 50,850 support.
+                      {/* Taurus vs Ursa */}
+                      <div className="flex gap-2 px-4 py-2.5 mt-auto">
+                        <div className="flex-1 p-1.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                          <div className="font-mono text-[9px] font-bold text-emerald-700">↗ Bull Thesis (Taurus)</div>
+                          <div className="font-mono text-[8px] text-emerald-600 mt-0.5">+1.48 ALPHA</div>
+                        </div>
+                        <div className="flex-1 p-1.5 rounded-lg bg-rose-50 border border-rose-200">
+                          <div className="font-mono text-[9px] font-bold text-rose-700">↘ Bear Thesis (Ursa)</div>
+                          <div className="font-mono text-[8px] text-rose-600 mt-0.5">-0.84 BETA</div>
+                        </div>
                       </div>
                     </div>
                   ),
@@ -496,24 +534,54 @@ export default function Home() {
                     { icon: 'speed', label: '0.04s Boot & Test' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#0B131E] p-4 text-white border border-cyan-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-cyan-400 font-bold flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-rose-500 inline-block" />
-                          <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" />
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-                          <span className="ml-1 text-slate-300">SovereignVM.tsx</span>
-                        </span>
-                        <span className="text-cyan-300 bg-cyan-950 px-1.5 py-0.5 rounded border border-cyan-500/40">Boot 0.04s</span>
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                          <span className="ml-2 font-mono text-[10px] text-slate-500">{'<>'} SecurityLedger.tsx</span>
+                        </div>
+                        <span className="font-mono text-[9px] text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-bold">● Live Runtime</span>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-black/70 font-mono text-[10px] leading-relaxed text-slate-300 space-y-1">
-                        <div><span className="text-purple-400">const</span> client = <span className="text-amber-300">initEnclave</span>();</div>
-                        <div><span className="text-purple-400">await</span> client.<span className="text-cyan-300">verifyAST</span>();</div>
-                        <div className="text-emerald-400 font-bold">✓ 0 Errors • WCAG AA Accessible</div>
+                      {/* Split Pane: Code + Preview */}
+                      <div className="flex flex-1 min-h-0">
+                        {/* Code Panel */}
+                        <div className="flex-1 bg-[#1E1E2E] p-3 font-mono text-[9px] leading-[1.7] text-slate-300 overflow-hidden">
+                          <div><span className="text-purple-400">export const</span> <span className="text-cyan-300">SecurityLedger</span> = () =&gt; {'{'}</div>
+                          <div className="pl-3"><span className="text-purple-400">const</span> [verified] = <span className="text-amber-300">useState</span>(true);</div>
+                          <div className="pl-3"><span className="text-purple-400">const</span> enclave = <span className="text-amber-300">useSovereignZone</span>();</div>
+                          <div className="pl-3 text-slate-500 mt-1">// Deterministic proof generation</div>
+                          <div className="pl-3"><span className="text-rose-400">return</span> (</div>
+                          <div className="pl-5">&lt;<span className="text-cyan-300">VaultCard</span> /&gt;</div>
+                          <div className="pl-3">);</div>
+                          <div>{'}'};</div>
+                        </div>
+                        {/* Live Preview Panel */}
+                        <div className="w-[45%] bg-[#FAF9F5] p-3 border-l border-[#E6E4DD] flex flex-col gap-2">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-5 h-5 rounded-full bg-[#6630E4] flex items-center justify-center text-white text-[8px] font-bold">G</span>
+                            <span className="font-mono text-[9px] font-bold text-[#07091B]">Sovereign Vault Ledger</span>
+                            <span className="ml-auto font-mono text-[8px] text-emerald-600 bg-emerald-50 px-1 rounded border border-emerald-200">SYNCED</span>
+                          </div>
+                          <div className="text-[8px] text-slate-400 font-mono">Zone: in-blr-zone-01</div>
+                          <div className="grid grid-cols-2 gap-1.5 mt-auto">
+                            <div className="p-1.5 rounded bg-white border border-[#E6E4DD]">
+                              <div className="font-mono text-[7px] text-slate-400 uppercase">Cluster Latency</div>
+                              <div className="font-mono text-[12px] font-bold text-[#07091B]">14.2 ms</div>
+                            </div>
+                            <div className="p-1.5 rounded bg-white border border-[#E6E4DD]">
+                              <div className="font-mono text-[7px] text-slate-400 uppercase">Active Proofs</div>
+                              <div className="font-mono text-[12px] font-bold text-[#07091B]">48,219</div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
-                        <span className="text-emerald-400 font-semibold">● 60 FPS Rendered</span>
-                        <span>React 19 Stable</span>
+                      {/* Footer */}
+                      <div className="flex items-center justify-between px-4 py-1.5 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
+                        <span>Node 20.x Isolated Micro-VM</span>
+                        <span>● Canvas rendered in 142ms</span>
                       </div>
                     </div>
                   ),
@@ -530,24 +598,51 @@ export default function Home() {
                     { icon: 'hub', label: '10x Bottleneck Analysis' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#0D1522] p-4 text-white border border-indigo-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-indigo-400 font-bold">Cloud VPC Blueprint</span>
-                        <span className="text-emerald-400">HA Active</span>
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                        <span className="ml-2 font-mono text-[10px] text-slate-500">Cloud VPC Blueprint • ap-south-1</span>
                       </div>
-                      <div className="space-y-1.5 font-mono text-[10px]">
-                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
-                          <span className="text-slate-300">Edge Gateway</span>
-                          <span className="text-indigo-300">mTLS • 0.28ms</span>
+                      {/* Topology Flow */}
+                      <div className="px-4 py-3 flex-1 space-y-2">
+                        <div className="flex items-center justify-between font-mono text-[10px]">
+                          <span className="font-bold text-[#07091B] tracking-wide">MULTI-AZ TOPOLOGY</span>
+                          <span className="text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-[9px] font-bold">HA ACTIVE</span>
                         </div>
-                        <div className="p-2 rounded bg-white/5 border border-white/5 flex items-center justify-between">
-                          <span className="text-slate-300">Enclave Consensus Mesh</span>
-                          <span className="text-emerald-400">Zero-Egress Locked</span>
+                        {/* Flow Diagram */}
+                        <div className="space-y-1.5">
+                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-4 h-4 rounded bg-[#1E3A3A] flex items-center justify-center text-white text-[7px]">▸</span>
+                              <span className="font-semibold text-[#07091B]">Edge Ingress Gateway</span>
+                            </div>
+                            <span className="text-slate-400">mTLS • 0.28ms</span>
+                          </div>
+                          <div className="flex justify-center font-mono text-[10px] text-slate-300">↓</div>
+                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-4 h-4 rounded bg-[#6630E4] flex items-center justify-center text-white text-[7px]">◆</span>
+                              <span className="font-semibold text-[#07091B]">Nitro Enclave Cluster</span>
+                            </div>
+                            <span className="text-emerald-600 font-semibold">Zero-Egress</span>
+                          </div>
+                          <div className="flex justify-center font-mono text-[10px] text-slate-300">↓</div>
+                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-4 h-4 rounded bg-[#D97736] flex items-center justify-center text-white text-[7px]">⊡</span>
+                              <span className="font-semibold text-[#07091B]">PostgreSQL HSM Partition</span>
+                            </div>
+                            <span className="text-slate-400">AES-256</span>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
+                      {/* Footer */}
+                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
                         <span>Zero Single Point of Failure</span>
-                        <span className="text-indigo-400">99.99% SLA</span>
+                        <span className="text-[#1E3A3A] font-bold">99.999% SLA</span>
                       </div>
                     </div>
                   ),
@@ -564,17 +659,44 @@ export default function Home() {
                     { icon: 'verified', label: 'Zero Mental Math Drift' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#0F1420] p-4 text-white border border-purple-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-purple-400 font-bold">Symbolic Calculus Gate</span>
-                        <span className="text-emerald-400">Q.E.D. Verified</span>
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                        <span className="ml-2 font-mono text-[10px] text-slate-500">SymPy Derivation Notebook</span>
                       </div>
-                      <div className="p-3 rounded-lg bg-black/60 border border-white/5 font-mono text-[11px] text-center text-amber-200">
-                        ∫₀^∞ (x³ / (eˣ - 1)) dx = π⁴ / 15
-                      </div>
-                      <div className="p-2 rounded bg-white/5 border border-white/5 text-[10px] font-mono text-slate-300 flex justify-between">
-                        <span>Numerical Residual:</span>
-                        <span className="text-emerald-400 font-bold">ε &lt; 10⁻¹⁵</span>
+                      {/* Proof Content */}
+                      <div className="px-4 py-3 flex-1 space-y-2.5">
+                        <div className="flex items-center justify-between font-mono text-[10px]">
+                          <span className="font-bold text-[#07091B]">BLACK-SCHOLES PDE</span>
+                          <span className="text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-[9px] font-bold">Q.E.D. ✓</span>
+                        </div>
+                        {/* Formula */}
+                        <div className="p-3 rounded-lg bg-[#1E1E2E] font-mono text-[11px] text-center text-amber-200 tracking-wide">
+                          ∂V/∂t + ½σ²S² ∂²V/∂S² + rS ∂V/∂S − rV = 0
+                        </div>
+                        {/* Greeks Table */}
+                        <div className="grid grid-cols-3 gap-px bg-[#E6E4DD] rounded-lg overflow-hidden">
+                          <div className="bg-white p-2 text-center">
+                            <div className="font-mono text-[8px] text-slate-400 uppercase">Delta (Δ)</div>
+                            <div className="font-mono text-[13px] font-bold text-[#07091B]">0.6841</div>
+                          </div>
+                          <div className="bg-white p-2 text-center">
+                            <div className="font-mono text-[8px] text-slate-400 uppercase">Gamma (Γ)</div>
+                            <div className="font-mono text-[13px] font-bold text-[#07091B]">0.0312</div>
+                          </div>
+                          <div className="bg-white p-2 text-center">
+                            <div className="font-mono text-[8px] text-slate-400 uppercase">Vega (ν)</div>
+                            <div className="font-mono text-[13px] font-bold text-[#07091B]">18.42</div>
+                          </div>
+                        </div>
+                        {/* Residual */}
+                        <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
+                          <span className="text-slate-500">SciPy Numerical Residual:</span>
+                          <span className="text-emerald-700 font-bold">ε {'<'} 10⁻¹⁵</span>
+                        </div>
                       </div>
                     </div>
                   ),
@@ -591,22 +713,46 @@ export default function Home() {
                     { icon: 'fact_check', label: 'Citation Evidence Chain' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#09141E] p-4 text-white border border-teal-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-teal-400 font-bold">DAG Hypothesis Tree</span>
-                        <span className="text-teal-300">4 Branches Explored</span>
-                      </div>
-                      <div className="space-y-1.5 font-mono text-[10px]">
-                        <div className="p-2 rounded bg-white/5 border border-white/5 text-slate-300">
-                          ● Hypothesis 1: European CBAM Tariff Sensitivity
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                          <span className="ml-2 font-mono text-[10px] text-slate-500">Deep Research</span>
                         </div>
-                        <div className="p-2 rounded bg-white/5 border border-white/5 text-slate-300">
-                          ● Hypothesis 2: Capex Moat vs Indian Electrolyzer Scale
+                        <span className="font-mono text-[9px] text-[#6630E4] bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded font-bold">Multi-Branch</span>
+                      </div>
+                      {/* Synthesis Tree */}
+                      <div className="px-4 py-3 flex-1 space-y-2">
+                        <div className="flex items-center justify-between font-mono text-[10px]">
+                          <span className="font-bold text-[#07091B]">Synthesis Tree</span>
+                          <span className="text-slate-400">48 Nodes • 54 Sources</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
+                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Branch 01</div>
+                            <div className="font-mono text-[10px] font-bold text-[#07091B] mt-0.5">10-K Disclosures</div>
+                          </div>
+                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
+                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Branch 02</div>
+                            <div className="font-mono text-[10px] font-bold text-[#07091B] mt-0.5">Trade Customs Logs</div>
+                          </div>
+                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
+                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Reconciliation</div>
+                            <div className="font-mono text-[10px] font-bold text-[#D97736] mt-0.5">Discrepancy Solved</div>
+                          </div>
+                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
+                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Artifact</div>
+                            <div className="font-mono text-[10px] font-bold text-[#D97736] mt-0.5">18-Page Memorandum</div>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
-                        <span className="text-emerald-400 font-semibold">28 Filings Grounded</span>
-                        <span>99.4% Confidence</span>
+                      {/* Footer */}
+                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
+                        <span>Recursive Compute • Vault Roll</span>
+                        <span className="text-emerald-700 font-bold">99.4% Attribution</span>
                       </div>
                     </div>
                   ),
@@ -623,24 +769,41 @@ export default function Home() {
                     { icon: 'schedule', label: 'Timestamped Citations' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#0B151F] p-4 text-white border border-amber-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-amber-400 font-bold">Live Regulatory Feed</span>
-                        <span className="text-emerald-400 animate-pulse">● LIVE 184ms</span>
-                      </div>
-                      <div className="space-y-1.5 font-mono text-[10px]">
-                        <div className="p-1.5 rounded bg-white/5 text-slate-300 flex justify-between">
-                          <span>RBI DLG Circular 2026</span>
-                          <span className="text-amber-400">210ms</span>
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                          <span className="ml-2 font-mono text-[10px] text-slate-500">Fast Research</span>
                         </div>
-                        <div className="p-1.5 rounded bg-white/5 text-slate-300 flex justify-between">
-                          <span>SEBI F&amp;O Lot Size Gazette</span>
-                          <span className="text-amber-400">164ms</span>
+                        <span className="font-mono text-[9px] text-[#D97736] bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded font-bold">{'<'}400ms</span>
+                      </div>
+                      {/* Live Snapshot */}
+                      <div className="px-4 py-3 flex-1 space-y-2.5">
+                        <div className="flex items-center justify-between font-mono text-[10px]">
+                          <span className="font-bold text-[#07091B]">Live Snapshot</span>
+                          <span className="text-emerald-600 font-bold flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            100% Attributed
+                          </span>
+                        </div>
+                        <div className="p-2.5 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] font-mono text-[10px] text-[#07091B] leading-relaxed">
+                          "Mandatory Board IT Strategy review cadence is bi-annual under Section 4.2."
+                        </div>
+                        <div className="flex gap-2 font-mono text-[9px]">
+                          <span className="px-2 py-1 rounded bg-[#FAF9F5] border border-[#E6E4DD] text-slate-600">rbi.org.in</span>
+                          <span className="px-2 py-1 rounded bg-[#FAF9F5] border border-[#E6E4DD] text-slate-600">finmin.gov.in/dir24</span>
+                        </div>
+                        <div className="flex gap-2 font-mono text-[9px]">
+                          <span className="px-2 py-0.5 rounded bg-[#FAF9F5] border border-[#E6E4DD] text-slate-400">§4.2</span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
-                        <span>350+ Feeds Monitored</span>
-                        <span className="text-emerald-400 font-semibold">Zero Hallucination</span>
+                      {/* Footer */}
+                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
+                        <span>1 Credit • Instant</span>
+                        <span className="text-[#1E3A3A] font-bold">Explore Fast API →</span>
                       </div>
                     </div>
                   ),
@@ -657,20 +820,38 @@ export default function Home() {
                     { icon: 'alt_route', label: 'Autonomous Routing' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#11131F] p-4 text-white border border-purple-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-purple-400 font-bold">Multilingual Context Mesh</span>
-                        <span className="text-slate-400">Indic Core</span>
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                        <span className="ml-2 font-mono text-[10px] text-slate-500">Multi-Agent Orchestration Console</span>
                       </div>
-                      <div className="p-2.5 rounded bg-white/5 border border-white/5 space-y-1 font-mono text-[10px]">
-                        <p className="text-amber-300 font-medium">हिंदी • தமிழ் • ગુજરાતી • বাংলা</p>
-                        <p className="text-slate-400 leading-relaxed text-[9px]">
-                          Native syntactic alignment without double-translation hallucinations.
-                        </p>
+                      {/* Indic Languages */}
+                      <div className="px-4 py-3 flex-1 space-y-2.5">
+                        <div className="font-mono text-[10px] font-bold text-[#07091B]">ACTIVE LANGUAGE CONTEXTS</div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {['हिंदी', 'தமிழ்', 'ગુજરાતી', 'বাংলা', 'తెలుగు', 'ಕನ್ನಡ', 'मराठी', 'ਪੰਜਾਬੀ', 'മലയാളം', 'English'].map((lang) => (
+                            <span key={lang} className="px-2 py-1 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] font-mono text-[9px] text-[#07091B] font-medium">{lang}</span>
+                          ))}
+                        </div>
+                        {/* Memo Pipeline */}
+                        <div className="p-2.5 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] space-y-1.5">
+                          <div className="font-mono text-[9px] text-slate-400 uppercase tracking-wider">Executive Memo Pipeline</div>
+                          <div className="flex items-center gap-2 font-mono text-[10px]">
+                            <span className="px-1.5 py-0.5 rounded bg-[#1E3A3A] text-white text-[8px] font-bold">INPUT</span>
+                            <span className="text-slate-300">→</span>
+                            <span className="px-1.5 py-0.5 rounded bg-[#6630E4] text-white text-[8px] font-bold">SYNTHESIS</span>
+                            <span className="text-slate-300">→</span>
+                            <span className="px-1.5 py-0.5 rounded bg-[#D97736] text-white text-[8px] font-bold">DELIVER</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
-                        <span className="text-emerald-400 font-semibold">100% Context Retention</span>
-                        <span>Consensus Node</span>
+                      {/* Footer */}
+                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
+                        <span>100% Context Retention</span>
+                        <span className="text-emerald-700 font-bold">Zero Drift Consensus</span>
                       </div>
                     </div>
                   ),
@@ -687,23 +868,69 @@ export default function Home() {
                     { icon: 'policy', label: 'Contract Redline Audits' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-[#0E161C] p-4 text-white border border-teal-500/30 flex flex-col justify-between gap-3 h-full shadow-inner">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] font-mono">
-                        <span className="text-teal-400 font-bold">Neural OCR Extractor</span>
-                        <span className="text-emerald-400">99.8% Precision</span>
-                      </div>
-                      <div className="space-y-1.5 font-mono text-[10px]">
-                        <div className="p-2 rounded bg-white/5 border border-white/5 flex justify-between text-slate-300">
-                          <span>MSA_Master_Agreement.pdf</span>
-                          <span className="text-teal-300">248 Pages</span>
-                        </div>
-                        <div className="p-2 rounded bg-rose-950/50 border border-rose-500/30 text-rose-300 text-[9px]">
-                          Flagged §14.2: Uncapped 10x liability limit exceeds playbook.
+                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
+                      {/* Window Chrome */}
+                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
+                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
+                          <span className="ml-2 font-mono text-[10px] text-slate-500">DOC-AUDIT-FY25.PDF • OCR 99.8% Confidence</span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
-                        <span>XLSX &amp; DOCX Export Ready</span>
-                        <span className="text-emerald-400 font-semibold">Verified</span>
+                      {/* Split: Table + Executive Synthesis */}
+                      <div className="flex flex-1 min-h-0">
+                        {/* Financials Table */}
+                        <div className="flex-1 px-3 py-2.5 space-y-2 border-r border-[#E6E4DD]">
+                          <div className="flex items-center justify-between font-mono text-[9px]">
+                            <span className="text-[#D97736] font-bold border border-[#D97736]/30 bg-amber-50 px-1.5 py-0.5 rounded">PAGE 14 OF 48</span>
+                            <span className="text-emerald-600 font-bold">ZERO-LOSS PASS</span>
+                          </div>
+                          <div className="font-mono text-[10px] font-bold text-[#07091B]">Consolidated Financials</div>
+                          <table className="w-full font-mono text-[9px]">
+                            <thead>
+                              <tr className="text-slate-400">
+                                <th className="text-left font-normal pb-1">Metric</th>
+                                <th className="text-right font-normal pb-1">INR Cr</th>
+                                <th className="text-right font-normal pb-1">YoY</th>
+                              </tr>
+                            </thead>
+                            <tbody className="text-[#07091B]">
+                              <tr className="border-t border-[#E6E4DD]">
+                                <td className="py-1">Cloud ARR</td>
+                                <td className="text-right">₹1,428.5</td>
+                                <td className="text-right text-emerald-600">+42.8%</td>
+                              </tr>
+                              <tr className="border-t border-[#E6E4DD]">
+                                <td className="py-1">Infra COGS</td>
+                                <td className="text-right">₹512.2</td>
+                                <td className="text-right text-rose-600">-11.4%</td>
+                              </tr>
+                              <tr className="border-t border-[#E6E4DD]">
+                                <td className="py-1">Net Adj. EBITDA</td>
+                                <td className="text-right">₹419.0</td>
+                                <td className="text-right text-emerald-600">+64.1%</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        {/* Executive Synthesis */}
+                        <div className="w-[48%] px-3 py-2.5 space-y-2">
+                          <div className="flex items-center justify-between font-mono text-[9px]">
+                            <span className="font-bold text-[#07091B]">✦ Executive Synthesis</span>
+                            <span className="text-emerald-600 font-bold">SYNTHESISED</span>
+                          </div>
+                          <div className="font-mono text-[8px] text-slate-400">EXECUTIVE_MEMO.MD <span className="ml-2 text-slate-300">1,420 WORDS</span></div>
+                          <div className="font-mono text-[9px] text-slate-600 leading-relaxed space-y-1.5">
+                            <p><span className="font-bold text-[#07091B]">1. Solvency:</span> GriZon isolated ₹1,428.5 Cr ARR (+18.2% vs consensus).</p>
+                            <p><span className="font-bold text-[#07091B]">2. Compliance:</span> Verified free of infringement liabilities across 14 patents.</p>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Footer */}
+                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
+                        <span>Clause 18.4 verified: 100% computational residency</span>
+                        <span className="text-[#1E3A3A] font-bold">Export DOCX →</span>
                       </div>
                     </div>
                   ),
