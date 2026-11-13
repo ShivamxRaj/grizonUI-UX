@@ -420,44 +420,25 @@ export default function Home() {
                     { icon: 'verified_user', label: 'Zero-Retention Enclave' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                        <span className="ml-2 font-mono text-[10px] text-slate-500">Sovereign Legal Audit Console</span>
-                      </div>
-                      {/* Benchmark Bar */}
-                      <div className="flex items-center justify-between px-4 py-2 border-b border-[#E6E4DD] bg-[#FAFAF8]">
-                        <span className="font-mono text-[10px] font-bold text-[#07091B] tracking-wide">BENCHMARK RUN • v4.2</span>
-                        <span className="font-mono text-[9px] text-[#6630E4] font-bold">SOVEREIGN CORE</span>
-                      </div>
-                      {/* Main Content */}
-                      <div className="px-4 py-3 flex-1 space-y-2.5">
-                        <div className="flex items-center justify-between font-mono text-[10px]">
-                          <span className="text-slate-500">DPDP 2023 Alignment</span>
-                          <span className="font-bold text-[#07091B]">100% Deterministic</span>
-                        </div>
-                        <div className="w-full h-1 bg-[#E6E4DD] rounded-full overflow-hidden">
-                          <div className="h-full bg-[#D97736] rounded-full" style={{ width: '100%' }} />
-                        </div>
-                        <div className="flex items-center justify-between font-mono text-[10px]">
-                          <span className="text-slate-500">Average Review Compression</span>
-                          <span className="font-bold text-[#07091B]">4.8 Hrs → 42 Sec</span>
-                        </div>
-                        <div className="w-full h-1 bg-[#E6E4DD] rounded-full overflow-hidden">
-                          <div className="h-full bg-[#1E3A3A] rounded-full" style={{ width: '88%' }} />
-                        </div>
-                        <div className="mt-1 p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] font-mono text-[9px] text-slate-500 leading-relaxed">
-                          Synthesises precedents from the Supreme Court of India, NCLT records, and international commercial law models.
-                        </div>
-                      </div>
-                      {/* Footer */}
-                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
-                        <span>Doc ID: IN-MSA-2026-09881</span>
-                        <span className="text-[#D97736] font-bold">Redline Confidence: 99.8%</span>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Scale of Justice */}
+                        <rect x="95" y="20" width="10" height="100" rx="5" fill="#1E3A3A" opacity="0.15" />
+                        <circle cx="100" cy="20" r="8" fill="#1E3A3A" opacity="0.25" />
+                        <line x1="40" y1="55" x2="160" y2="55" stroke="#1E3A3A" strokeWidth="3" strokeLinecap="round" opacity="0.3" />
+                        {/* Left pan */}
+                        <path d="M30 55 L50 55 L45 80 L35 80 Z" fill="#D97736" opacity="0.25" />
+                        <line x1="40" y1="55" x2="40" y2="80" stroke="#D97736" strokeWidth="1" opacity="0.3" />
+                        {/* Right pan */}
+                        <path d="M150 55 L170 55 L165 80 L155 80 Z" fill="#6630E4" opacity="0.25" />
+                        <line x1="160" y1="55" x2="160" y2="80" stroke="#6630E4" strokeWidth="1" opacity="0.3" />
+                        {/* Checkmark badge */}
+                        <circle cx="100" cy="115" r="16" fill="#1E3A3A" opacity="0.1" />
+                        <path d="M92 115 L98 121 L110 109" stroke="#1E3A3A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+                        {/* Doc lines */}
+                        <rect x="60" y="135" width="80" height="2" rx="1" fill="#E6E4DD" />
+                        <rect x="75" y="142" width="50" height="2" rx="1" fill="#E6E4DD" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -473,52 +454,27 @@ export default function Home() {
                     { icon: 'swap_horiz', label: 'Taurus vs Ursa Debate' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                          <span className="ml-2 font-mono text-[10px] text-slate-500">Sovereign Market Oracle</span>
-                        </div>
-                        <span className="font-mono text-[9px] text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-bold">↗ 78% Strong Bullish</span>
-                      </div>
-                      {/* Ticker Header */}
-                      <div className="px-4 py-2.5 border-b border-[#E6E4DD]">
-                        <div className="font-mono text-[11px] font-bold text-[#07091B] tracking-tight">TATAMOTORS.NS <span className="text-slate-400 font-normal text-[10px] ml-1">Automotive / EV</span></div>
-                        <div className="font-mono text-[9px] text-slate-400 mt-0.5">Multi-Agent Adversarial Valuation • Consolidated FY25 Forecast</div>
-                      </div>
-                      {/* KPI Grid */}
-                      <div className="grid grid-cols-2 gap-px bg-[#E6E4DD] mx-4 mt-2.5 rounded-lg overflow-hidden">
-                        <div className="bg-white p-2">
-                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Forward EV/EBITDA</div>
-                          <div className="font-mono text-[13px] font-bold text-[#07091B]">7.8x <span className="text-[9px] text-emerald-600 font-normal">-1.4x peer</span></div>
-                        </div>
-                        <div className="bg-white p-2">
-                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">JLR EBIT Margin</div>
-                          <div className="font-mono text-[13px] font-bold text-[#07091B]">8.6% <span className="text-[9px] text-emerald-600 font-normal">+120 bps</span></div>
-                        </div>
-                        <div className="bg-white p-2">
-                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">India EV Share</div>
-                          <div className="font-mono text-[13px] font-bold text-[#07091B]">68.2% <span className="text-[9px] text-slate-400 font-normal">Leader</span></div>
-                        </div>
-                        <div className="bg-white p-2">
-                          <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Net Auto Debt</div>
-                          <div className="font-mono text-[13px] font-bold text-emerald-700">Zero <span className="text-[9px] text-[#D97736] font-normal">FY25 On-Track</span></div>
-                        </div>
-                      </div>
-                      {/* Taurus vs Ursa */}
-                      <div className="flex gap-2 px-4 py-2.5 mt-auto">
-                        <div className="flex-1 p-1.5 rounded-lg bg-emerald-50 border border-emerald-200">
-                          <div className="font-mono text-[9px] font-bold text-emerald-700">↗ Bull Thesis (Taurus)</div>
-                          <div className="font-mono text-[8px] text-emerald-600 mt-0.5">+1.48 ALPHA</div>
-                        </div>
-                        <div className="flex-1 p-1.5 rounded-lg bg-rose-50 border border-rose-200">
-                          <div className="font-mono text-[9px] font-bold text-rose-700">↘ Bear Thesis (Ursa)</div>
-                          <div className="font-mono text-[8px] text-rose-600 mt-0.5">-0.84 BETA</div>
-                        </div>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Upward trend line */}
+                        <polyline points="20,130 50,110 80,100 110,80 140,50 170,30" stroke="#1E3A3A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.5" />
+                        {/* Area fill under line */}
+                        <polygon points="20,130 50,110 80,100 110,80 140,50 170,30 170,140 20,140" fill="#1E3A3A" opacity="0.06" />
+                        {/* Data dots */}
+                        <circle cx="50" cy="110" r="4" fill="#1E3A3A" opacity="0.3" />
+                        <circle cx="110" cy="80" r="4" fill="#1E3A3A" opacity="0.3" />
+                        <circle cx="170" cy="30" r="5" fill="#D97736" opacity="0.6" />
+                        {/* Candlestick bars */}
+                        <rect x="30" y="95" width="6" height="25" rx="1" fill="#6630E4" opacity="0.15" />
+                        <rect x="50" y="85" width="6" height="30" rx="1" fill="#6630E4" opacity="0.2" />
+                        <rect x="70" y="78" width="6" height="35" rx="1" fill="#6630E4" opacity="0.25" />
+                        <rect x="90" y="70" width="6" height="40" rx="1" fill="#D97736" opacity="0.2" />
+                        <rect x="110" y="60" width="6" height="45" rx="1" fill="#D97736" opacity="0.25" />
+                        <rect x="130" y="48" width="6" height="50" rx="1" fill="#1E3A3A" opacity="0.2" />
+                        <rect x="150" y="35" width="6" height="55" rx="1" fill="#1E3A3A" opacity="0.25" />
+                        {/* X axis */}
+                        <line x1="15" y1="140" x2="185" y2="140" stroke="#E6E4DD" strokeWidth="1.5" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -534,55 +490,29 @@ export default function Home() {
                     { icon: 'speed', label: '0.04s Boot & Test' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                          <span className="ml-2 font-mono text-[10px] text-slate-500">{'<>'} SecurityLedger.tsx</span>
-                        </div>
-                        <span className="font-mono text-[9px] text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded font-bold">● Live Runtime</span>
-                      </div>
-                      {/* Split Pane: Code + Preview */}
-                      <div className="flex flex-1 min-h-0">
-                        {/* Code Panel */}
-                        <div className="flex-1 bg-[#1E1E2E] p-3 font-mono text-[9px] leading-[1.7] text-slate-300 overflow-hidden">
-                          <div><span className="text-purple-400">export const</span> <span className="text-cyan-300">SecurityLedger</span> = () =&gt; {'{'}</div>
-                          <div className="pl-3"><span className="text-purple-400">const</span> [verified] = <span className="text-amber-300">useState</span>(true);</div>
-                          <div className="pl-3"><span className="text-purple-400">const</span> enclave = <span className="text-amber-300">useSovereignZone</span>();</div>
-                          <div className="pl-3 text-slate-500 mt-1">// Deterministic proof generation</div>
-                          <div className="pl-3"><span className="text-rose-400">return</span> (</div>
-                          <div className="pl-5">&lt;<span className="text-cyan-300">VaultCard</span> /&gt;</div>
-                          <div className="pl-3">);</div>
-                          <div>{'}'};</div>
-                        </div>
-                        {/* Live Preview Panel */}
-                        <div className="w-[45%] bg-[#FAF9F5] p-3 border-l border-[#E6E4DD] flex flex-col gap-2">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-5 h-5 rounded-full bg-[#6630E4] flex items-center justify-center text-white text-[8px] font-bold">G</span>
-                            <span className="font-mono text-[9px] font-bold text-[#07091B]">Sovereign Vault Ledger</span>
-                            <span className="ml-auto font-mono text-[8px] text-emerald-600 bg-emerald-50 px-1 rounded border border-emerald-200">SYNCED</span>
-                          </div>
-                          <div className="text-[8px] text-slate-400 font-mono">Zone: in-blr-zone-01</div>
-                          <div className="grid grid-cols-2 gap-1.5 mt-auto">
-                            <div className="p-1.5 rounded bg-white border border-[#E6E4DD]">
-                              <div className="font-mono text-[7px] text-slate-400 uppercase">Cluster Latency</div>
-                              <div className="font-mono text-[12px] font-bold text-[#07091B]">14.2 ms</div>
-                            </div>
-                            <div className="p-1.5 rounded bg-white border border-[#E6E4DD]">
-                              <div className="font-mono text-[7px] text-slate-400 uppercase">Active Proofs</div>
-                              <div className="font-mono text-[12px] font-bold text-[#07091B]">48,219</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Footer */}
-                      <div className="flex items-center justify-between px-4 py-1.5 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
-                        <span>Node 20.x Isolated Micro-VM</span>
-                        <span>● Canvas rendered in 142ms</span>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Code editor window */}
+                        <rect x="15" y="15" width="170" height="110" rx="12" fill="white" stroke="#E6E4DD" strokeWidth="1.5" />
+                        {/* Window dots */}
+                        <circle cx="30" cy="28" r="3.5" fill="#F87171" opacity="0.6" />
+                        <circle cx="40" cy="28" r="3.5" fill="#FBBF24" opacity="0.6" />
+                        <circle cx="50" cy="28" r="3.5" fill="#34D399" opacity="0.6" />
+                        {/* Code lines */}
+                        <rect x="30" y="45" width="50" height="3" rx="1.5" fill="#6630E4" opacity="0.25" />
+                        <rect x="30" y="55" width="80" height="3" rx="1.5" fill="#1E3A3A" opacity="0.15" />
+                        <rect x="40" y="65" width="60" height="3" rx="1.5" fill="#D97736" opacity="0.2" />
+                        <rect x="40" y="75" width="45" height="3" rx="1.5" fill="#6630E4" opacity="0.15" />
+                        <rect x="30" y="85" width="70" height="3" rx="1.5" fill="#1E3A3A" opacity="0.12" />
+                        <rect x="40" y="95" width="35" height="3" rx="1.5" fill="#6630E4" opacity="0.15" />
+                        <rect x="30" y="105" width="20" height="3" rx="1.5" fill="#1E3A3A" opacity="0.1" />
+                        {/* Play / run button */}
+                        <circle cx="155" cy="28" r="6" fill="#6630E4" opacity="0.2" />
+                        <polygon points="153,25 159,28 153,31" fill="#6630E4" opacity="0.5" />
+                        {/* Checkmark below */}
+                        <circle cx="100" cy="142" r="10" fill="#1E3A3A" opacity="0.08" />
+                        <path d="M95 142 L99 146 L106 138" stroke="#1E3A3A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.35" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -598,52 +528,28 @@ export default function Home() {
                     { icon: 'hub', label: '10x Bottleneck Analysis' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                        <span className="ml-2 font-mono text-[10px] text-slate-500">Cloud VPC Blueprint • ap-south-1</span>
-                      </div>
-                      {/* Topology Flow */}
-                      <div className="px-4 py-3 flex-1 space-y-2">
-                        <div className="flex items-center justify-between font-mono text-[10px]">
-                          <span className="font-bold text-[#07091B] tracking-wide">MULTI-AZ TOPOLOGY</span>
-                          <span className="text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-[9px] font-bold">HA ACTIVE</span>
-                        </div>
-                        {/* Flow Diagram */}
-                        <div className="space-y-1.5">
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-4 h-4 rounded bg-[#1E3A3A] flex items-center justify-center text-white text-[7px]">▸</span>
-                              <span className="font-semibold text-[#07091B]">Edge Ingress Gateway</span>
-                            </div>
-                            <span className="text-slate-400">mTLS • 0.28ms</span>
-                          </div>
-                          <div className="flex justify-center font-mono text-[10px] text-slate-300">↓</div>
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-4 h-4 rounded bg-[#6630E4] flex items-center justify-center text-white text-[7px]">◆</span>
-                              <span className="font-semibold text-[#07091B]">Nitro Enclave Cluster</span>
-                            </div>
-                            <span className="text-emerald-600 font-semibold">Zero-Egress</span>
-                          </div>
-                          <div className="flex justify-center font-mono text-[10px] text-slate-300">↓</div>
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-4 h-4 rounded bg-[#D97736] flex items-center justify-center text-white text-[7px]">⊡</span>
-                              <span className="font-semibold text-[#07091B]">PostgreSQL HSM Partition</span>
-                            </div>
-                            <span className="text-slate-400">AES-256</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Footer */}
-                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
-                        <span>Zero Single Point of Failure</span>
-                        <span className="text-[#1E3A3A] font-bold">99.999% SLA</span>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Cloud shape */}
+                        <ellipse cx="100" cy="38" rx="45" ry="22" fill="#1E3A3A" opacity="0.08" />
+                        <ellipse cx="75" cy="42" rx="25" ry="18" fill="#1E3A3A" opacity="0.06" />
+                        <ellipse cx="130" cy="40" rx="28" ry="16" fill="#1E3A3A" opacity="0.06" />
+                        {/* Nodes connected */}
+                        <circle cx="100" cy="38" r="10" fill="#1E3A3A" opacity="0.15" stroke="#1E3A3A" strokeWidth="1" opacity="0.2" />
+                        <circle cx="55" cy="90" r="10" fill="#6630E4" opacity="0.15" stroke="#6630E4" strokeWidth="1" opacity="0.2" />
+                        <circle cx="145" cy="90" r="10" fill="#6630E4" opacity="0.15" stroke="#6630E4" strokeWidth="1" opacity="0.2" />
+                        <circle cx="100" cy="130" r="10" fill="#D97736" opacity="0.15" stroke="#D97736" strokeWidth="1" opacity="0.2" />
+                        {/* Connection lines */}
+                        <line x1="100" y1="48" x2="55" y2="80" stroke="#1E3A3A" strokeWidth="1.5" opacity="0.15" />
+                        <line x1="100" y1="48" x2="145" y2="80" stroke="#1E3A3A" strokeWidth="1.5" opacity="0.15" />
+                        <line x1="55" y1="100" x2="100" y2="120" stroke="#6630E4" strokeWidth="1.5" opacity="0.15" />
+                        <line x1="145" y1="100" x2="100" y2="120" stroke="#6630E4" strokeWidth="1.5" opacity="0.15" />
+                        {/* Small inner icons */}
+                        <rect x="94" y="32" width="12" height="12" rx="3" fill="#1E3A3A" opacity="0.3" />
+                        <rect x="49" y="84" width="12" height="12" rx="3" fill="#6630E4" opacity="0.3" />
+                        <rect x="139" y="84" width="12" height="12" rx="3" fill="#6630E4" opacity="0.3" />
+                        <rect x="94" y="124" width="12" height="12" rx="3" fill="#D97736" opacity="0.3" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -659,45 +565,32 @@ export default function Home() {
                     { icon: 'verified', label: 'Zero Mental Math Drift' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                        <span className="ml-2 font-mono text-[10px] text-slate-500">SymPy Derivation Notebook</span>
-                      </div>
-                      {/* Proof Content */}
-                      <div className="px-4 py-3 flex-1 space-y-2.5">
-                        <div className="flex items-center justify-between font-mono text-[10px]">
-                          <span className="font-bold text-[#07091B]">BLACK-SCHOLES PDE</span>
-                          <span className="text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded text-[9px] font-bold">Q.E.D. ✓</span>
-                        </div>
-                        {/* Formula */}
-                        <div className="p-3 rounded-lg bg-[#1E1E2E] font-mono text-[11px] text-center text-amber-200 tracking-wide">
-                          ∂V/∂t + ½σ²S² ∂²V/∂S² + rS ∂V/∂S − rV = 0
-                        </div>
-                        {/* Greeks Table */}
-                        <div className="grid grid-cols-3 gap-px bg-[#E6E4DD] rounded-lg overflow-hidden">
-                          <div className="bg-white p-2 text-center">
-                            <div className="font-mono text-[8px] text-slate-400 uppercase">Delta (Δ)</div>
-                            <div className="font-mono text-[13px] font-bold text-[#07091B]">0.6841</div>
-                          </div>
-                          <div className="bg-white p-2 text-center">
-                            <div className="font-mono text-[8px] text-slate-400 uppercase">Gamma (Γ)</div>
-                            <div className="font-mono text-[13px] font-bold text-[#07091B]">0.0312</div>
-                          </div>
-                          <div className="bg-white p-2 text-center">
-                            <div className="font-mono text-[8px] text-slate-400 uppercase">Vega (ν)</div>
-                            <div className="font-mono text-[13px] font-bold text-[#07091B]">18.42</div>
-                          </div>
-                        </div>
-                        {/* Residual */}
-                        <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-between font-mono text-[10px]">
-                          <span className="text-slate-500">SciPy Numerical Residual:</span>
-                          <span className="text-emerald-700 font-bold">ε {'<'} 10⁻¹⁵</span>
-                        </div>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Coordinate axes */}
+                        <line x1="30" y1="140" x2="185" y2="140" stroke="#E6E4DD" strokeWidth="1.5" />
+                        <line x1="30" y1="15" x2="30" y2="140" stroke="#E6E4DD" strokeWidth="1.5" />
+                        {/* Bell curve / Gaussian */}
+                        <path d="M30,138 Q50,135 70,120 Q85,100 100,50 Q115,100 130,120 Q150,135 170,138" stroke="#6630E4" strokeWidth="2.5" fill="none" opacity="0.4" strokeLinecap="round" />
+                        {/* Area under curve */}
+                        <path d="M30,138 Q50,135 70,120 Q85,100 100,50 Q115,100 130,120 Q150,135 170,138 L170,140 L30,140 Z" fill="#6630E4" opacity="0.06" />
+                        {/* Sigma symbol */}
+                        <text x="88" y="32" fontFamily="serif" fontSize="28" fill="#6630E4" opacity="0.2">Σ</text>
+                        {/* Grid dots */}
+                        {[50,70,90,110,130,150].map((x) => (
+                          <circle key={x} cx={x} cy="140" r="2" fill="#E6E4DD" />
+                        ))}
+                        {[120,100,80,60,40].map((y, i) => (
+                          <circle key={y} cx="30" cy={y} r="2" fill="#E6E4DD" />
+                        ))}
+                        {/* Tangent line at peak */}
+                        <line x1="70" y1="50" x2="130" y2="50" stroke="#D97736" strokeWidth="1" strokeDasharray="4 3" opacity="0.35" />
+                        {/* Peak dot */}
+                        <circle cx="100" cy="50" r="5" fill="#6630E4" opacity="0.35" />
+                        {/* Checkmark */}
+                        <circle cx="165" cy="25" r="10" fill="#1E3A3A" opacity="0.08" />
+                        <path d="M160 25 L164 29 L171 21" stroke="#1E3A3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.35" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -713,47 +606,35 @@ export default function Home() {
                     { icon: 'fact_check', label: 'Citation Evidence Chain' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                          <span className="ml-2 font-mono text-[10px] text-slate-500">Deep Research</span>
-                        </div>
-                        <span className="font-mono text-[9px] text-[#6630E4] bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded font-bold">Multi-Branch</span>
-                      </div>
-                      {/* Synthesis Tree */}
-                      <div className="px-4 py-3 flex-1 space-y-2">
-                        <div className="flex items-center justify-between font-mono text-[10px]">
-                          <span className="font-bold text-[#07091B]">Synthesis Tree</span>
-                          <span className="text-slate-400">48 Nodes • 54 Sources</span>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
-                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Branch 01</div>
-                            <div className="font-mono text-[10px] font-bold text-[#07091B] mt-0.5">10-K Disclosures</div>
-                          </div>
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
-                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Branch 02</div>
-                            <div className="font-mono text-[10px] font-bold text-[#07091B] mt-0.5">Trade Customs Logs</div>
-                          </div>
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
-                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Reconciliation</div>
-                            <div className="font-mono text-[10px] font-bold text-[#D97736] mt-0.5">Discrepancy Solved</div>
-                          </div>
-                          <div className="p-2 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD]">
-                            <div className="font-mono text-[8px] text-slate-400 uppercase tracking-wider">Artifact</div>
-                            <div className="font-mono text-[10px] font-bold text-[#D97736] mt-0.5">18-Page Memorandum</div>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Footer */}
-                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
-                        <span>Recursive Compute • Vault Roll</span>
-                        <span className="text-emerald-700 font-bold">99.4% Attribution</span>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Root node */}
+                        <circle cx="100" cy="25" r="12" fill="#6630E4" opacity="0.2" stroke="#6630E4" strokeWidth="1.5" opacity="0.3" />
+                        {/* Level 2 */}
+                        <circle cx="55" cy="70" r="9" fill="#1E3A3A" opacity="0.15" stroke="#1E3A3A" strokeWidth="1" opacity="0.2" />
+                        <circle cx="145" cy="70" r="9" fill="#1E3A3A" opacity="0.15" stroke="#1E3A3A" strokeWidth="1" opacity="0.2" />
+                        {/* Level 3 */}
+                        <circle cx="30" cy="115" r="7" fill="#D97736" opacity="0.15" stroke="#D97736" strokeWidth="1" opacity="0.2" />
+                        <circle cx="70" cy="115" r="7" fill="#D97736" opacity="0.15" stroke="#D97736" strokeWidth="1" opacity="0.2" />
+                        <circle cx="125" cy="115" r="7" fill="#D97736" opacity="0.15" stroke="#D97736" strokeWidth="1" opacity="0.2" />
+                        <circle cx="165" cy="115" r="7" fill="#D97736" opacity="0.15" stroke="#D97736" strokeWidth="1" opacity="0.2" />
+                        {/* Branches */}
+                        <line x1="100" y1="37" x2="55" y2="61" stroke="#6630E4" strokeWidth="1.5" opacity="0.15" />
+                        <line x1="100" y1="37" x2="145" y2="61" stroke="#6630E4" strokeWidth="1.5" opacity="0.15" />
+                        <line x1="55" y1="79" x2="30" y2="108" stroke="#1E3A3A" strokeWidth="1.5" opacity="0.12" />
+                        <line x1="55" y1="79" x2="70" y2="108" stroke="#1E3A3A" strokeWidth="1.5" opacity="0.12" />
+                        <line x1="145" y1="79" x2="125" y2="108" stroke="#1E3A3A" strokeWidth="1.5" opacity="0.12" />
+                        <line x1="145" y1="79" x2="165" y2="108" stroke="#1E3A3A" strokeWidth="1.5" opacity="0.12" />
+                        {/* Leaf dots */}
+                        <circle cx="22" cy="140" r="3" fill="#E6E4DD" />
+                        <circle cx="38" cy="140" r="3" fill="#E6E4DD" />
+                        <circle cx="62" cy="140" r="3" fill="#E6E4DD" />
+                        <circle cx="78" cy="140" r="3" fill="#E6E4DD" />
+                        <circle cx="118" cy="140" r="3" fill="#E6E4DD" />
+                        <circle cx="132" cy="140" r="3" fill="#E6E4DD" />
+                        <circle cx="158" cy="140" r="3" fill="#E6E4DD" />
+                        <circle cx="172" cy="140" r="3" fill="#E6E4DD" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -769,42 +650,24 @@ export default function Home() {
                     { icon: 'schedule', label: 'Timestamped Citations' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                          <span className="ml-2 font-mono text-[10px] text-slate-500">Fast Research</span>
-                        </div>
-                        <span className="font-mono text-[9px] text-[#D97736] bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded font-bold">{'<'}400ms</span>
-                      </div>
-                      {/* Live Snapshot */}
-                      <div className="px-4 py-3 flex-1 space-y-2.5">
-                        <div className="flex items-center justify-between font-mono text-[10px]">
-                          <span className="font-bold text-[#07091B]">Live Snapshot</span>
-                          <span className="text-emerald-600 font-bold flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            100% Attributed
-                          </span>
-                        </div>
-                        <div className="p-2.5 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] font-mono text-[10px] text-[#07091B] leading-relaxed">
-                          "Mandatory Board IT Strategy review cadence is bi-annual under Section 4.2."
-                        </div>
-                        <div className="flex gap-2 font-mono text-[9px]">
-                          <span className="px-2 py-1 rounded bg-[#FAF9F5] border border-[#E6E4DD] text-slate-600">rbi.org.in</span>
-                          <span className="px-2 py-1 rounded bg-[#FAF9F5] border border-[#E6E4DD] text-slate-600">finmin.gov.in/dir24</span>
-                        </div>
-                        <div className="flex gap-2 font-mono text-[9px]">
-                          <span className="px-2 py-0.5 rounded bg-[#FAF9F5] border border-[#E6E4DD] text-slate-400">§4.2</span>
-                        </div>
-                      </div>
-                      {/* Footer */}
-                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
-                        <span>1 Credit • Instant</span>
-                        <span className="text-[#1E3A3A] font-bold">Explore Fast API →</span>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Lightning bolt */}
+                        <polygon points="110,10 80,75 100,75 85,150 130,65 108,65 125,10" fill="#D97736" opacity="0.15" stroke="#D97736" strokeWidth="1.5" strokeLinejoin="round" opacity="0.25" />
+                        {/* Speed rings */}
+                        <circle cx="100" cy="80" r="55" stroke="#D97736" strokeWidth="1" opacity="0.08" fill="none" />
+                        <circle cx="100" cy="80" r="40" stroke="#D97736" strokeWidth="1" opacity="0.1" fill="none" />
+                        <circle cx="100" cy="80" r="25" stroke="#D97736" strokeWidth="1" opacity="0.12" fill="none" />
+                        {/* Live pulse dot */}
+                        <circle cx="100" cy="80" r="6" fill="#D97736" opacity="0.3" />
+                        <circle cx="100" cy="80" r="3" fill="#D97736" opacity="0.5" />
+                        {/* Horizontal feed lines */}
+                        <rect x="30" y="140" width="40" height="2" rx="1" fill="#E6E4DD" />
+                        <rect x="80" y="140" width="55" height="2" rx="1" fill="#E6E4DD" />
+                        <rect x="145" y="140" width="25" height="2" rx="1" fill="#E6E4DD" />
+                        <rect x="40" y="148" width="30" height="2" rx="1" fill="#E6E4DD" />
+                        <rect x="80" y="148" width="45" height="2" rx="1" fill="#E6E4DD" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -820,39 +683,27 @@ export default function Home() {
                     { icon: 'alt_route', label: 'Autonomous Routing' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center gap-1.5 px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                        <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                        <span className="ml-2 font-mono text-[10px] text-slate-500">Multi-Agent Orchestration Console</span>
-                      </div>
-                      {/* Indic Languages */}
-                      <div className="px-4 py-3 flex-1 space-y-2.5">
-                        <div className="font-mono text-[10px] font-bold text-[#07091B]">ACTIVE LANGUAGE CONTEXTS</div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {['हिंदी', 'தமிழ்', 'ગુજરાતી', 'বাংলা', 'తెలుగు', 'ಕನ್ನಡ', 'मराठी', 'ਪੰਜਾਬੀ', 'മലയാളം', 'English'].map((lang) => (
-                            <span key={lang} className="px-2 py-1 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] font-mono text-[9px] text-[#07091B] font-medium">{lang}</span>
-                          ))}
-                        </div>
-                        {/* Memo Pipeline */}
-                        <div className="p-2.5 rounded-lg bg-[#FAF9F5] border border-[#E6E4DD] space-y-1.5">
-                          <div className="font-mono text-[9px] text-slate-400 uppercase tracking-wider">Executive Memo Pipeline</div>
-                          <div className="flex items-center gap-2 font-mono text-[10px]">
-                            <span className="px-1.5 py-0.5 rounded bg-[#1E3A3A] text-white text-[8px] font-bold">INPUT</span>
-                            <span className="text-slate-300">→</span>
-                            <span className="px-1.5 py-0.5 rounded bg-[#6630E4] text-white text-[8px] font-bold">SYNTHESIS</span>
-                            <span className="text-slate-300">→</span>
-                            <span className="px-1.5 py-0.5 rounded bg-[#D97736] text-white text-[8px] font-bold">DELIVER</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Footer */}
-                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
-                        <span>100% Context Retention</span>
-                        <span className="text-emerald-700 font-bold">Zero Drift Consensus</span>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Central hub */}
+                        <circle cx="100" cy="80" r="18" fill="#6630E4" opacity="0.1" stroke="#6630E4" strokeWidth="1.5" opacity="0.2" />
+                        <circle cx="100" cy="80" r="8" fill="#6630E4" opacity="0.25" />
+                        {/* Orbiting nodes - language dots */}
+                        {[0, 40, 80, 120, 160, 200, 240, 280, 320].map((angle, i) => {
+                          const rad = (angle * Math.PI) / 180;
+                          const x = 100 + 55 * Math.cos(rad);
+                          const y = 80 + 55 * Math.sin(rad);
+                          const colors = ['#1E3A3A', '#D97736', '#6630E4', '#1E3A3A', '#D97736', '#6630E4', '#1E3A3A', '#D97736', '#6630E4'];
+                          return (
+                            <g key={angle}>
+                              <line x1="100" y1="80" x2={x} y2={y} stroke={colors[i]} strokeWidth="1" opacity="0.1" />
+                              <circle cx={x} cy={y} r="7" fill={colors[i]} opacity="0.15" stroke={colors[i]} strokeWidth="1" opacity="0.2" />
+                            </g>
+                          );
+                        })}
+                        {/* Orbit ring */}
+                        <circle cx="100" cy="80" r="55" stroke="#E6E4DD" strokeWidth="1" strokeDasharray="3 5" fill="none" />
+                      </svg>
                     </div>
                   ),
                 },
@@ -868,70 +719,33 @@ export default function Home() {
                     { icon: 'policy', label: 'Contract Redline Audits' },
                   ],
                   preview: (
-                    <div className="rounded-2xl bg-white border border-[#E6E4DD] flex flex-col h-full overflow-hidden shadow-sm">
-                      {/* Window Chrome */}
-                      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-[#E6E4DD] bg-[#FAF9F5]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-[9px] h-[9px] rounded-full bg-rose-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-amber-400/80" />
-                          <span className="w-[9px] h-[9px] rounded-full bg-emerald-400/80" />
-                          <span className="ml-2 font-mono text-[10px] text-slate-500">DOC-AUDIT-FY25.PDF • OCR 99.8% Confidence</span>
-                        </div>
-                      </div>
-                      {/* Split: Table + Executive Synthesis */}
-                      <div className="flex flex-1 min-h-0">
-                        {/* Financials Table */}
-                        <div className="flex-1 px-3 py-2.5 space-y-2 border-r border-[#E6E4DD]">
-                          <div className="flex items-center justify-between font-mono text-[9px]">
-                            <span className="text-[#D97736] font-bold border border-[#D97736]/30 bg-amber-50 px-1.5 py-0.5 rounded">PAGE 14 OF 48</span>
-                            <span className="text-emerald-600 font-bold">ZERO-LOSS PASS</span>
-                          </div>
-                          <div className="font-mono text-[10px] font-bold text-[#07091B]">Consolidated Financials</div>
-                          <table className="w-full font-mono text-[9px]">
-                            <thead>
-                              <tr className="text-slate-400">
-                                <th className="text-left font-normal pb-1">Metric</th>
-                                <th className="text-right font-normal pb-1">INR Cr</th>
-                                <th className="text-right font-normal pb-1">YoY</th>
-                              </tr>
-                            </thead>
-                            <tbody className="text-[#07091B]">
-                              <tr className="border-t border-[#E6E4DD]">
-                                <td className="py-1">Cloud ARR</td>
-                                <td className="text-right">₹1,428.5</td>
-                                <td className="text-right text-emerald-600">+42.8%</td>
-                              </tr>
-                              <tr className="border-t border-[#E6E4DD]">
-                                <td className="py-1">Infra COGS</td>
-                                <td className="text-right">₹512.2</td>
-                                <td className="text-right text-rose-600">-11.4%</td>
-                              </tr>
-                              <tr className="border-t border-[#E6E4DD]">
-                                <td className="py-1">Net Adj. EBITDA</td>
-                                <td className="text-right">₹419.0</td>
-                                <td className="text-right text-emerald-600">+64.1%</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        {/* Executive Synthesis */}
-                        <div className="w-[48%] px-3 py-2.5 space-y-2">
-                          <div className="flex items-center justify-between font-mono text-[9px]">
-                            <span className="font-bold text-[#07091B]">✦ Executive Synthesis</span>
-                            <span className="text-emerald-600 font-bold">SYNTHESISED</span>
-                          </div>
-                          <div className="font-mono text-[8px] text-slate-400">EXECUTIVE_MEMO.MD <span className="ml-2 text-slate-300">1,420 WORDS</span></div>
-                          <div className="font-mono text-[9px] text-slate-600 leading-relaxed space-y-1.5">
-                            <p><span className="font-bold text-[#07091B]">1. Solvency:</span> GriZon isolated ₹1,428.5 Cr ARR (+18.2% vs consensus).</p>
-                            <p><span className="font-bold text-[#07091B]">2. Compliance:</span> Verified free of infringement liabilities across 14 patents.</p>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Footer */}
-                      <div className="flex items-center justify-between px-4 py-2 border-t border-[#E6E4DD] bg-[#FAFAF8] font-mono text-[9px] text-slate-400">
-                        <span>Clause 18.4 verified: 100% computational residency</span>
-                        <span className="text-[#1E3A3A] font-bold">Export DOCX →</span>
-                      </div>
+                    <div className="rounded-2xl bg-[#FAF9F5] border border-[#E6E4DD] flex items-center justify-center h-full min-h-[220px] p-8">
+                      <svg viewBox="0 0 200 160" fill="none" className="w-full max-w-[240px]" xmlns="http://www.w3.org/2000/svg">
+                        {/* Document page */}
+                        <rect x="45" y="10" width="110" height="140" rx="8" fill="white" stroke="#E6E4DD" strokeWidth="1.5" />
+                        {/* Page fold */}
+                        <path d="M125 10 L155 10 L155 35 L130 35 Q125 35 125 30 Z" fill="#FAF9F5" stroke="#E6E4DD" strokeWidth="1" />
+                        {/* Text lines */}
+                        <rect x="60" y="30" width="55" height="3" rx="1.5" fill="#07091B" opacity="0.08" />
+                        <rect x="60" y="40" width="70" height="3" rx="1.5" fill="#07091B" opacity="0.06" />
+                        <rect x="60" y="50" width="40" height="3" rx="1.5" fill="#07091B" opacity="0.06" />
+                        {/* Table grid */}
+                        <rect x="60" y="65" width="80" height="55" rx="4" fill="none" stroke="#E6E4DD" strokeWidth="1" />
+                        <line x1="60" y1="78" x2="140" y2="78" stroke="#E6E4DD" strokeWidth="1" />
+                        <line x1="60" y1="91" x2="140" y2="91" stroke="#E6E4DD" strokeWidth="1" />
+                        <line x1="60" y1="104" x2="140" y2="104" stroke="#E6E4DD" strokeWidth="1" />
+                        <line x1="95" y1="65" x2="95" y2="120" stroke="#E6E4DD" strokeWidth="1" />
+                        <line x1="120" y1="65" x2="120" y2="120" stroke="#E6E4DD" strokeWidth="1" />
+                        {/* Table cell colors */}
+                        <rect x="121" y="79" width="18" height="11" fill="#1E3A3A" opacity="0.08" />
+                        <rect x="121" y="92" width="18" height="11" fill="#D97736" opacity="0.1" />
+                        <rect x="121" y="105" width="18" height="14" fill="#1E3A3A" opacity="0.08" />
+                        {/* Scan line */}
+                        <line x1="45" y1="85" x2="155" y2="85" stroke="#6630E4" strokeWidth="1.5" opacity="0.2" strokeDasharray="4 3" />
+                        {/* Magnifying glass */}
+                        <circle cx="155" cy="130" r="12" stroke="#1E3A3A" strokeWidth="2" opacity="0.15" fill="#1E3A3A" fillOpacity="0.04" />
+                        <line x1="163" y1="139" x2="172" y2="148" stroke="#1E3A3A" strokeWidth="2.5" strokeLinecap="round" opacity="0.15" />
+                      </svg>
                     </div>
                   ),
                 },
