@@ -33,7 +33,7 @@ export default function Home() {
           - 3D Fluted Vertical Cylinder Wall Background with Soft Violet/Indigo Lighting
           - Dual Pill Buttons with Ambient Underlight Glow
       ====================================================================== */}
-      <section className="relative w-full overflow-hidden pt-8 sm:pt-14 pb-16 lg:pb-24 bg-gradient-to-b from-[#FAF9F5] via-white to-[#FAF9F5]">
+      <section className="relative w-full overflow-hidden pt-8 sm:pt-14 pb-4 sm:pb-6 bg-gradient-to-b from-[#FAF9F5] via-white to-[#FAF9F5]">
         {/* 3D Fluted Cylinder Glass Wall Background with Refined Ethereal Color Grading */}
         <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[62%] pointer-events-none overflow-hidden select-none z-0">
           {/* Ambient Ethereal Diffuse Glows - Color graded to blend with Warm Alabaster */}
@@ -74,7 +74,7 @@ export default function Home() {
           </div>
 
           {/* Seamless bottom vignette melting directly into #FAF9F5 */}
-          <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent via-[#FAF9F5]/70 to-[#FAF9F5] pointer-events-none z-1" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent via-[#FAF9F5]/70 to-[#FAF9F5] pointer-events-none z-1" />
         </div>
 
         {/* Hero Content & Flanking Breakout Grid */}
@@ -215,7 +215,7 @@ export default function Home() {
         </div>
 
         {/* Soft Blended Hairline Divider bridging Hero into Section 2 */}
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 relative z-10">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-14 sm:mt-18 lg:mt-20 relative z-10">
           <div className="w-full h-px bg-gradient-to-r from-transparent via-[#E6E4DD] to-transparent" />
         </div>
       </section>
@@ -223,17 +223,10 @@ export default function Home() {
       {/* =====================================================================
           2. SECTION 2: AUTONOMOUS MULTI-AGENT GRIZON AI & FOUNDER WORKBENCH (Ruboz Pattern)
       ====================================================================== */}
-      <section className="relative w-full bg-[#FAF9F5] py-20 lg:py-28 border-b border-[#E6E4DD] overflow-hidden">
+      <section className="relative w-full bg-[#FAF9F5] pt-12 sm:pt-14 lg:pt-16 pb-20 lg:pb-28 border-b border-[#E6E4DD] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#F5F1FD] border border-[#E8E0FB] shadow-2xs mb-5">
-              <span className="material-symbols-outlined text-[#6630E4] text-[18px]">psychology</span>
-              <span className="font-mono text-xs uppercase tracking-wider text-[#6630E4] font-bold">
-                Decision Intelligence • Multi-Agent GriZon AI
-              </span>
-            </div>
-
             <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#07091B] tracking-tight leading-[1.15]">
               Build Smarter AI With Multi-Agent Intelligence.
             </h2>
