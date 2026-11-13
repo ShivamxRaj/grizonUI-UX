@@ -432,9 +432,9 @@ export default function Home() {
                         {/* Right pan */}
                         <path d="M150 55 L170 55 L165 80 L155 80 Z" fill="#6630E4" opacity="0.25" />
                         <line x1="160" y1="55" x2="160" y2="80" stroke="#6630E4" strokeWidth="1" opacity="0.3" />
-                        {/* Checkmark badge */}
-                        <circle cx="100" cy="115" r="16" fill="#1E3A3A" opacity="0.1" />
-                        <path d="M92 115 L98 121 L110 109" stroke="#1E3A3A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+                        {/* Base stand */}
+                        <ellipse cx="100" cy="120" rx="28" ry="7" fill="#1E3A3A" opacity="0.18" />
+                        <rect x="86" y="115" width="28" height="5" rx="2.5" fill="#1E3A3A" opacity="0.25" />
                         {/* Doc lines */}
                         <rect x="60" y="135" width="80" height="2" rx="1" fill="#E6E4DD" />
                         <rect x="75" y="142" width="50" height="2" rx="1" fill="#E6E4DD" />
@@ -509,9 +509,6 @@ export default function Home() {
                         {/* Play / run button */}
                         <circle cx="155" cy="28" r="6" fill="#6630E4" opacity="0.2" />
                         <polygon points="153,25 159,28 153,31" fill="#6630E4" opacity="0.5" />
-                        {/* Checkmark below */}
-                        <circle cx="100" cy="142" r="10" fill="#1E3A3A" opacity="0.08" />
-                        <path d="M95 142 L99 146 L106 138" stroke="#1E3A3A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.35" />
                       </svg>
                     </div>
                   ),
@@ -587,9 +584,6 @@ export default function Home() {
                         <line x1="70" y1="50" x2="130" y2="50" stroke="#D97736" strokeWidth="1" strokeDasharray="4 3" opacity="0.35" />
                         {/* Peak dot */}
                         <circle cx="100" cy="50" r="5" fill="#6630E4" opacity="0.35" />
-                        {/* Checkmark */}
-                        <circle cx="165" cy="25" r="10" fill="#1E3A3A" opacity="0.08" />
-                        <path d="M160 25 L164 29 L171 21" stroke="#1E3A3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.35" />
                       </svg>
                     </div>
                   ),
